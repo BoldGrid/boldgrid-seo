@@ -20,7 +20,7 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
-= 1.0.5 In Progress =
+= 1.0.5 =
 * Bug fix:      JIRA WPB-1692   Update nonce verification.
 
 = 1.0.4 =
