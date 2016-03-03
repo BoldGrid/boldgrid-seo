@@ -1,0 +1,61 @@
+# Copyright (C) 2016 boldgrid_theme_framework
+# This file is distributed under the same license as the boldgrid_theme_framework package.
+msgid ""
+msgstr ""
+"Project-Id-Version: boldgrid_theme_framework\n"
+"Report-Msgid-Bugs-To: https://boldgrid.com\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Language-Team: The BoldGrid Team <support@boldgrid.com>\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+
+#: admin/class-boldgrid-seo-admin.php:91
+msgid "Search Engine Optimization"
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:95
+msgid "SEO Title"
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:99
+msgid "This is <b>very important</b> for Google and Bing, see the Help Tab for more information.  Limit is %d characters."
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:104
+msgid "Meta Description"
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:107
+msgid "Typically what will show in a <b>S</b>earch <b>E</b>ngine <b>R</b>esults <b>P</b>age ( SERP ).  This is important, but secondary to your SEO Title.  Limit is %d characters."
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:112
+msgid "Meta Keywords"
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:116
+msgid "We recommend using only one or two keywords. Too many keywords can actually hurt your SEO."
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:120
+msgid "Open Graph Image"
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:123, admin/class-boldgrid-seo-admin.php:130
+msgid "Used by some social media sites when a user shares this content."
+msgstr ""
+
+#: admin/class-boldgrid-seo-admin.php:127
+msgid "Open Graph Type"
+msgstr ""
+
+#: admin/class-boldgrid-seo-meta-fields.php:568
+msgid "Select"
+msgstr ""
