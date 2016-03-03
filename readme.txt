@@ -21,6 +21,7 @@ BoldGrid SEO provides website search engine optimization.
 == Changelog ==
 
 = 1.0.6 In progress =
+* Misc:     Update JS to pass JSHint.
 * Misc:			JIRA WPB-1361	Added license file.
 
 = 1.0.5 =
