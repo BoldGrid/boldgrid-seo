@@ -36,11 +36,7 @@ gulp.task( 'css', function(  ) {
     config.src + '/admin/css/**/*.css' ])
     .pipe( gulp.dest( config.dist + '/admin/css' ) )
     .pipe( cssnano({
-<<<<<<< HEAD
     discardComments: { removeAll: true }
-=======
-		discardComments: { removeAll: true }
->>>>>>> dev
     }) )
     .pipe( rename({ suffix: '.min' }) )
     .pipe( gulp.dest( config.dist + '/admin/css' ) );
@@ -63,15 +59,9 @@ gulp.task( 'translate', function (  ) {
 
 //Convert readme.txt to Markdown for Github
 gulp.task('readme', function() {
-<<<<<<< HEAD
   gulp.src( config.src + '/readme.txt' )
     .pipe( readme() )
     .pipe( gulp.dest( config.dist ) );
-=======
-	gulp.src( config.src + '/readme.txt' )
-		.pipe( readme() )
-		.pipe( gulp.dest( config.dist ) );
->>>>>>> dev
 });
 
 // Build.
