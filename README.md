@@ -20,6 +20,9 @@ BoldGrid SEO provides website search engine optimization.
 
 ## Changelog ##
 
+### 1.0.7 in progress ###
+* Bug fix: Fixing undefined index error.
+
 ### 1.0.6 ###
 * Misc:     Update JS to pass JSHint.
 * Misc:			JIRA WPB-1361	Added license file.
@@ -45,4 +48,3 @@ BoldGrid SEO provides website search engine optimization.
 * Initial public release.
 
 ## Upgrade Notice ##
-
