@@ -287,25 +287,11 @@ class Boldgrid_Seo_Admin {
 	 * @since 	1.0.0
 	 * @return 	string 	Page Title - Blog Name
 	 */
-	public function boldgrid_titles(  ) {
-
-		if ( ! isset( $_GET['menu'] ) ) {
-
-			if ( isset( $_GET['action'] )
-
-				&& $_GET['action'] === 'edit' ) :
-
-					return apply_filters( 'the_title', get_the_title( $_GET['post'] ) ) .
-
-					' - ' .
-
-					get_bloginfo( 'name' );
-
-			endif;
-
-		}
-
-	}
+	 public function boldgrid_titles(  ) {
+		 if ( 'edit' !== isset( $_GET['action'] ) && isset( $_GET['post'] ) ) {
+			 return apply_filters( 'the_title', get_the_title( $_GET['post'] ) ) . ' - ' . get_bloginfo( 'name' );
+		 }
+	 }
 
 
 
