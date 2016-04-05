@@ -22,6 +22,7 @@ BoldGrid SEO provides website search engine optimization.
 
 ### 1.0.7 in progress ###
 * Bug fix: Fixing undefined index error.
+* Bug fix: Fixing extraneous markup printing to author pages.
 
 ### 1.0.6 ###
 * Misc:     Update JS to pass JSHint.
