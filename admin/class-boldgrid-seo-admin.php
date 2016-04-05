@@ -270,20 +270,20 @@ class Boldgrid_Seo_Admin {
 
 	/**
 	 * Inject JS to have repeater active for TinyMCE content.
-	 * 
+	 *
 	 * @since 	1.0.0
 	 */
 	public function boldgrid_tinymce_init( $init ) {
 
 	    $init['setup'] = "function( ed ) { ed.onKeyUp.add( function( ed, e ) { repeater( e ); } ); }";
-	
+
 	    return $init;
 
 	}
 
 	/**
 	 * Set the default title per each page & post.
-	 * 
+	 *
 	 * @since 	1.0.0
 	 * @return 	string 	Page Title - Blog Name
 	 */
@@ -293,7 +293,7 @@ class Boldgrid_Seo_Admin {
 
 			if ( isset( $_GET['action'] )
 
-				&& $_GET['action'] === 'edit' ) : 
+				&& $_GET['action'] === 'edit' ) :
 
 					return apply_filters( 'the_title', get_the_title( $_GET['post'] ) ) .
 
@@ -302,7 +302,7 @@ class Boldgrid_Seo_Admin {
 					get_bloginfo( 'name' );
 
 			endif;
-		
+
 		}
 
 	}
@@ -344,7 +344,7 @@ class Boldgrid_Seo_Admin {
 	 */
 	public function wp_head(  ) {
 
-		if ( apply_filters( "{$this->prefix}/seo/automate_head", 
+		if ( apply_filters( "{$this->prefix}/seo/automate_head",
 			 apply_filters( "{$this->plugin_name}/automate_head", true ) ) ) {
 
 			do_action( "{$this->prefix}/seo/description" 	 	);
@@ -411,7 +411,7 @@ class Boldgrid_Seo_Admin {
 			$sep = " $sep";
 
 		}
-		
+
 		$content = '';
 
 		global $post, $paged, $page;
@@ -421,7 +421,7 @@ class Boldgrid_Seo_Admin {
 			$content = apply_filters( "{$this->prefix}/seo/404_title", "Not Found, Error 404" );
 
 		}
-		
+
 		elseif ( is_archive(  ) ) {
 
 			$content = apply_filters( "{$this->prefix}/seo/archive_title",
@@ -435,7 +435,7 @@ class Boldgrid_Seo_Admin {
 			$front_page_id = get_option( 'page_on_front' );
 
 			// If pages are default with home being posts and a site meta exists
-			if ( ! $posts_page_id 
+			if ( ! $posts_page_id
 
 				&& ! $front_page_id
 
@@ -452,7 +452,7 @@ class Boldgrid_Seo_Admin {
 
 					$content = $meta;
 
-			} 
+			}
 
 			// Look for a posts page title
 			elseif ( $posts_page_id
@@ -490,7 +490,7 @@ class Boldgrid_Seo_Admin {
 		}
 
 		// Add pagination
-		if ( $content 
+		if ( $content
 
 			&& ( 1 < $GLOBALS['paged']
 
@@ -549,7 +549,7 @@ class Boldgrid_Seo_Admin {
 
 					$content = $meta;
 
-			} 
+			}
 
 			// Look for a custom meta on a posts page
 			elseif ( $posts_page_id
@@ -558,7 +558,7 @@ class Boldgrid_Seo_Admin {
 
 					$content = $meta;
 
-			} 
+			}
 
 			// Look for a posts page content
 			elseif ( $posts_page_id
@@ -576,9 +576,9 @@ class Boldgrid_Seo_Admin {
 				&& $meta = get_post_meta( $GLOBALS['post']->ID, 'meta_description', true ) ) {
 
 					$content = $meta;
-			} 
+			}
 
-			elseif ( ! empty( $GLOBALS['post']->ID ) 
+			elseif ( ! empty( $GLOBALS['post']->ID )
 
 				&& $meta = get_post_field( 'post_content', $GLOBALS['post']->ID ) ) {
 
@@ -608,7 +608,7 @@ class Boldgrid_Seo_Admin {
 
 				$posts_page_id = get_option( 'page_for_posts' );
 				$front_page_id = get_option( 'page_on_front' );
-	
+
 				// If pages are default with home being posts and a site meta exists
 				if (   ! $posts_page_id
 
@@ -640,7 +640,7 @@ class Boldgrid_Seo_Admin {
 				}
 
 			}
-	
+
 			if ( $content ) {
 
 				printf( $this->settings['meta_fields']['keywords'] . "\n", $content );
@@ -669,7 +669,7 @@ class Boldgrid_Seo_Admin {
 
 	/**
 	 * Twitter domain.
-	 * 
+	 *
 	 * @since 	1.0.0
 	 */
 	public function meta_twitter_domain(  ) {
@@ -735,13 +735,13 @@ class Boldgrid_Seo_Admin {
 
 		$content = '';
 
-		if ( is_home(  ) 
+		if ( is_home(  )
 
 			&& $meta = get_option( 'meta_image' ) ) {
 
 				$content = $meta;
 
-		} 
+		}
 
 		elseif ( ! empty( $GLOBALS['post']->ID )
 
@@ -816,14 +816,14 @@ class Boldgrid_Seo_Admin {
 		if ( is_home(  ) ) : $posts_page_id = get_option( 'page_for_posts' );
 
 			// Look for a permalink on a posts page
-			if ( $posts_page_id 
+			if ( $posts_page_id
 
 				&& $meta = get_post_meta( $posts_page_id, 'meta_title', true ) ) {
 
 				echo $meta;
 
 			}
-			
+
 			// Look for a posts page post permalink
 			elseif ( $posts_page_id
 
@@ -831,12 +831,12 @@ class Boldgrid_Seo_Admin {
 
 				echo $meta;
 
-			} 
+			}
 
 			// Else echo the home url
 			else {
 
-				echo home_url( '/' ); 
+				echo home_url( '/' );
 
 			}
 
@@ -896,11 +896,11 @@ class Boldgrid_Seo_Admin {
 
 					&& ! apply_filters( "{$this->prefix}/seo/add_keywords", false ) )
 
-				|| ('meta_type' == $field['name'] 
+				|| ('meta_type' == $field['name']
 
 					&& ! apply_filters( "{$this->prefix}/seo/add_type", false ) )
 
-				|| ('meta_image' == $field['name'] 
+				|| ('meta_image' == $field['name']
 
 					&& ! apply_filters( "{$this->prefix}/seo/add_image", false ) )
 
