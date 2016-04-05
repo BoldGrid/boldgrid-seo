@@ -704,11 +704,9 @@ class Boldgrid_Seo_Admin {
 	 * @return	void
 	 */
 	public function meta_og_title(  ) {
-
 		$content = $this->seo_title( ',' );
-
-		if ( $content ) : printf( $this->settings['meta_fields']['title'] . "\n", $content ); endif;
-
+		if ( $content ) : sprintf( $this->settings['meta_fields']['title'] . "\n", $content );
+		endif;
 	}
 
 	/**
