@@ -704,8 +704,12 @@ class Boldgrid_Seo_Admin {
 	 */
 	public function meta_og_title(  ) {
 		$content = $this->seo_title( ',' );
-		if ( $content ) : sprintf( $this->settings['meta_fields']['title'] . "\n", $content );
-		endif;
+		if ( is_author() ) {
+			$content = str_replace( ',', ' |', wp_strip_all_tags( $content ) );
+		}
+		if ( $content ) {
+			printf( $this->settings['meta_fields']['title'] . "\n", $content );
+		}
 	}
 
 	/**
