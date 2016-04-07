@@ -211,7 +211,6 @@ class Boldgrid_Seo_Admin {
 			} # || )
 
 			wp_enqueue_style(
-
 				$this->plugin_name,
 
 				plugin_dir_url( __FILE__ ) .
@@ -287,11 +286,11 @@ class Boldgrid_Seo_Admin {
 	 * @since 	1.0.0
 	 * @return 	string 	Page Title - Blog Name
 	 */
-	 public function boldgrid_titles(  ) {
-		 if ( isset( $_GET['action'] ) && $_GET['action'] === 'edit' && isset( $_GET['post'] ) ) {
+	public function boldgrid_titles() {
+		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] ) ) {
 			return apply_filters( 'the_title', get_the_title( $_GET['post'] ) ) . ' - ' . get_bloginfo( 'name' );
-		 }
-	 }
+		}
+	}
 
 
 
