@@ -10,7 +10,7 @@
  * @link http://www.boldgrid.com
  * @since 1.0.0
  * @package Boldgrid_Seo
- *         
+ *
  *          @wordpress-plugin
  *          Plugin Name: BoldGrid SEO
  *          Plugin URI: http://www.boldgrid.com
@@ -45,7 +45,7 @@ if ( ! defined( 'BOLDGRID_SEO_PATH' ) ) {
  *
  * @var $boldgrid_seo_php_version This checks that PHP is 5.3.0 or higher.
  * @var $boldgrid_seo_wp_version This checks that WordPress is 4.0 or higher.
- *     
+ *
  * @since 1.0.0
  */
 $boldgrid_seo_php_version = version_compare( phpversion(), '5.3.0', '>=' );
@@ -53,62 +53,62 @@ $boldgrid_seo_wp_version = version_compare( get_bloginfo( 'version' ), '4.0', '>
 
 if ( ! $boldgrid_seo_php_version or ! $boldgrid_seo_wp_version ) :
 	function boldgrid_php_error() {
-		printf( '<div class="error">' . '<p>%s</p>' . '</div>', 
-			
-			esc_html__( 
-				'BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+', 
-				'boldgrid_seo' ) );
-		
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-	}
-	
-	if ( defined( 'WP_CLI' ) ) :
-		
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-		
-		WP_CLI::warning( 
-			
-			__( 
-				'BoldGrid Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin.', 
+		printf( '<div class="error">' . '<p>%s</p>' . '</div>',
+
+			esc_html__(
+				'BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+',
 				'boldgrid_seo' ) );
 
-		
-	 
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+	}
+
+	if ( defined( 'WP_CLI' ) ) :
+
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+
+		WP_CLI::warning(
+
+			__(
+				'BoldGrid Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin.',
+				'boldgrid_seo' ) );
+
+
+
 
 	else :
 		add_action( 'admin_notices', 'boldgrid_php_error' );
-	
+
 
 	endif;
- 
+
 
 else : // Load the rest of the plugin that contains code suited for passing the version check.
 	function activate_boldgrid_seo() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-activator.php';
-		
+
 		Boldgrid_Seo_Activator::activate();
 	}
-	
+
 	/**
 	 * The code that runs during plugin deactivation.
 	 * This action is documented in includes/class-boldgrid-seo-deactivator.php
 	 */
 	function deactivate_boldgrid_seo() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-deactivator.php';
-		
+
 		Boldgrid_Seo_Deactivator::deactivate();
 	}
-	
+
 	register_activation_hook( __FILE__, 'activate_boldgrid_seo' );
-	
+
 	register_deactivation_hook( __FILE__, 'deactivate_boldgrid_seo' );
-	
+
 	/**
 	 * The core plugin class that is used to define internationalization,
 	 * admin-specific hooks, and public-facing site hooks.
 	 */
 	require plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo.php';
-	
+
 	/**
 	 * Begins execution of the plugin.
 	 *
@@ -122,7 +122,7 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 		$plugin = new Boldgrid_Seo();
 		$plugin->run();
 	}
-	
+
 	run_boldgrid_seo();
 
 

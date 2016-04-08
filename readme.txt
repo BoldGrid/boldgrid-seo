@@ -20,12 +20,13 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
-= 1.0.7 in progress =
-* Bug fix: Fixing undefined index error.
-* Bug fix: Fixing extraneous markup printing to author pages.
+= 1.1 in progress =
+* Bug fix:		JIRA WPB-1809	Fixed undefined index "action" for some scenarios.  Optimized update class and addessed CodeSniffer items.
+* Bug fix: 						Fixing undefined index error.
+* Bug fix: 						Fixing extraneous markup printing to author pages.
 
 = 1.0.6 =
-* Misc:     Update JS to pass JSHint.
+* Misc:							Update JS to pass JSHint.
 * Misc:			JIRA WPB-1361	Added license file.
 
 = 1.0.5 =
@@ -33,7 +34,7 @@ BoldGrid SEO provides website search engine optimization.
 
 = 1.0.4 =
 * Rework:		JIRA WPB-1619	Updated require and include statements for standards.
-* Bug fix:              JIRA WPB-1638   Fixing updated filter from WordPress Update.
+* Bug fix:		JIRA WPB-1638   Fixing updated filter from WordPress Update.
 
 = 1.0.3 =
 * Bug fix:		JIRA WPB-1553	Changed __DIR__ to dirname( __FILE__ ) for PHP <=5.2.
