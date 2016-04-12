@@ -68,17 +68,21 @@ class Boldgrid_Seo_Update {
 			// Make an array of plugin update pages.
 			$plugin_update_pages = array (
 				'plugins.php',
-				'plugin-install.php',
 				'update-core.php'
 			);
+
+			// Is page for plugin information?
+			$is_plugin_information = ( 'plugin-install.php' === $pagenow && isset( $_GET['plugin'] ) &&
+				 isset( $_GET['tab'] ) && 'plugin-information' === $_GET['tab'] );
 
 			// Is this a plugin update action?
 			$is_plugin_update = ( isset( $_REQUEST['action'] ) &&
 				 'update-plugin' === $_REQUEST['action'] && 'admin-ajax.php' === $pagenow );
 
 			// Add filters to modify plugin update transient information.
-			if ( in_array( $pagenow, $plugin_update_pages, true ) || $is_plugin_update ) {
-				// Add filters.
+			if ( in_array( $pagenow, $plugin_update_pages, true ) || $is_plugin_information ||
+				 $is_plugin_update ) {
+			// Add filters.
 				add_filter( 'pre_set_site_transient_update_plugins',
 					array (
 						$this,

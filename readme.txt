@@ -20,6 +20,9 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
+= 1.1.0.1 In progress =
+* Bug fix:		JIRA WPB-1816	Fixed update class interference with the Add Plugins page.
+
 = 1.1 =
 * Bug fix:		JIRA WPB-1809	Fixed undefined index "action" for some scenarios.  Optimized update class and addressed CodeSniffer items.
 * Bug fix: 						Fixing undefined index error.
