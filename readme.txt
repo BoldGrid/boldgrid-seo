@@ -2,7 +2,7 @@
 Contributors: imh_brad, joemoto, rramo012, timph
 Tags: inspiration,customization,build,create,design,seo,search engine optimization
 Requires at least: 4.3
-Tested up to: 4.5.1
+Tested up to: 4.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ BoldGrid SEO provides website search engine optimization.
 == Changelog ==
 
 = 1.1.1 In progress =
-* Update:		JIRA WPB-1884	Passed WordPress 4.5.1 testing.
+* Testing:		JIRA WPB-2046	Tested on WordPress 4.5.3.
 
 = 1.1.0.1 =
 * Bug fix:		JIRA WPB-1816	Fixed update class interference with the Add Plugins page.
