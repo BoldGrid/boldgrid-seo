@@ -27,14 +27,46 @@
 // If this file is called directly, abort.
 defined( 'WPINC' ) ?  : die();
 
-// Define version:
-if ( ! defined( 'BOLDGRID_SEO_VERSION' ) ) {
+// Define version.
+if ( false === defined( 'BOLDGRID_SEO_VERSION' ) ) {
 	define( 'BOLDGRID_SEO_VERSION', '1.1.0.1' );
 }
 
-// Define boldgrid-seo Path
-if ( ! defined( 'BOLDGRID_SEO_PATH' ) ) {
-	define( 'BOLDGRID_SEO_PATH', __DIR__ );
+// Define boldgrid-seo path.
+if ( false === defined( 'BOLDGRID_SEO_PATH' ) ) {
+	define( 'BOLDGRID_SEO_PATH', dirname( __FILE__ ) );
+}
+
+// Define Editor configuration directory.
+if ( false === defined( 'BOLDGRID_SEO_CONFIGDIR' ) ) {
+	define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/config' );
+}
+
+// Load the Boldgrid_Seo class.
+require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo.php';
+
+// If DOING_CRON, then check if this plugin should be auto-updated.
+if ( true === defined( 'DOING_CRON' ) && DOING_CRON ){
+	// Ensure required definitions for pluggable.
+	if ( false === defined( 'AUTH_COOKIE' ) ) {
+		define( 'AUTH_COOKIE', null );
+	}
+
+	if ( false === defined( 'LOGGED_IN_COOKIE' ) ) {
+		define( 'LOGGED_IN_COOKIE', null );
+	}
+
+	// Load the pluggable class, if needed.
+	require_once ABSPATH . 'wp-includes/pluggable.php';
+
+	// Include the update class.
+	require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-update.php';
+
+	// Instantiate the update class.
+	$plugin_update = new Boldgrid_Seo_Update();
+
+	// Check and update plugins.
+	$plugin_update->wp_update_this_plugin();
 }
 
 /**
@@ -102,12 +134,6 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 	register_activation_hook( __FILE__, 'activate_boldgrid_seo' );
 
 	register_deactivation_hook( __FILE__, 'deactivate_boldgrid_seo' );
-
-	/**
-	 * The core plugin class that is used to define internationalization,
-	 * admin-specific hooks, and public-facing site hooks.
-	 */
-	require plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo.php';
 
 	/**
 	 * Begins execution of the plugin.

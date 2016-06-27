@@ -13,38 +13,6 @@
  */
 class Boldgrid_Seo_Update {
 	/**
-	 * BoldGrid SEO config class object.
-	 *
-	 * @access private
-	 * @var object The BoldGrid SEO config object.
-	 */
-	private $boldgrid_seo_config = null;
-
-	/**
-	 * Setter for the BoldGrid SEO config class object.
-	 *
-	 * @access private
-	 *
-	 * @param object $boldgrid_seo_config The BoldGrid SEO config object.
-	 * @return bool
-	 */
-	private function set_boldgrid_seo_config( $boldgrid_seo_config ) {
-		$this->boldgrid_seo_config = $boldgrid_seo_config;
-		return true;
-	}
-
-	/**
-	 * Getter for the BoldGrid SEO config class object.
-	 *
-	 * @access protected
-	 *
-	 * @return object $this->boldgrid_seo_config
-	 */
-	protected function get_boldgrid_seo_config() {
-		return $this->boldgrid_seo_config;
-	}
-
-	/**
 	 * Constructor.
 	 *
 	 * Add hooks.
@@ -52,14 +20,10 @@ class Boldgrid_Seo_Update {
 	 * @global $pagenow The current WordPress page filename.
 	 * @global $wp_version The WordPress version.
 	 *
-	 * @param object $boldgrid_seo_config The BoldGrid SEO object.
 	 * @return null
 	 *
 	 */
-	public function __construct( $boldgrid_seo_config ) {
-		// Set the BoldGrid SEO class object (used to get configs).
-		$this->set_boldgrid_seo_config( $boldgrid_seo_config );
-
+	public function __construct() {
 		// Only for wp-admin.
 		if ( is_admin() ) {
 			// Get the current WordPress page filename.
@@ -117,14 +81,25 @@ class Boldgrid_Seo_Update {
 	 */
 	public function custom_plugins_transient_update( $transient ) {
 		// Get version data transient.
-		if ( is_multisite() ) {
+		if ( true === is_multisite() ) {
 			$version_data = get_site_transient( 'boldgrid_seo_version_data' );
 		} else {
 			$version_data = get_transient( 'boldgrid_seo_version_data' );
 		}
 
-		// Get the BoldGrid SEO class object for getting configs.
-		$boldgrid_seo_config = $this->get_boldgrid_seo_config();
+		// Set the config class file path.
+		$config_class_path = BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-config.php';
+
+		// If the config class file is not readable, then return the current transient.
+		if ( false === is_readable( $config_class_path ) ) {
+			return $transient;
+		}
+
+		// Include the config class.
+		require_once $config_class_path;
+
+		// Instantiate the config class.
+		$boldgrid_seo_config = new Boldgrid_Seo_Config();
 
 		// Get configs.
 		$configs = $boldgrid_seo_config->get_configs();
