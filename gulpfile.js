@@ -15,7 +15,7 @@ var config = {
 
 // Run JSHint & Minify Assets.
 gulp.task( 'js', function(  ) {
-  return gulp.src([ 
+  return gulp.src([
     '!' + config.src + '/admin/js/**/*.min.js',
     config.src + '/admin/js/**/*.js' ])
     .pipe( jshint() )
@@ -31,7 +31,7 @@ gulp.task( 'js', function(  ) {
 
 // Minify CSS Assets.
 gulp.task( 'css', function(  ) {
-  return gulp.src([ 
+  return gulp.src([
     '!' + config.src + '/admin/css/**/*.min.css',
     config.src + '/admin/css/**/*.css' ])
     .pipe( gulp.dest( config.dist + '/admin/css' ) )

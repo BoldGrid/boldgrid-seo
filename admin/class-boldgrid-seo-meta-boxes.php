@@ -142,7 +142,7 @@ class Boldgrid_SEO_Meta_Box {
 	 * @since	1.0.0
 	 */
 	public function create_box( $args ) {
-		
+
 		// defaults
 		$args = wp_parse_args( $args, array(
 
@@ -186,7 +186,7 @@ class Boldgrid_SEO_Meta_Box {
 	public function inside( $post, $args ) {
 
 		// Get all variables from add_meta_box
-		extract( $args ); 
+		extract( $args );
 
 		// Content before the fields
 		if ( $args['before'] ) {
@@ -218,7 +218,7 @@ class Boldgrid_SEO_Meta_Box {
 					.removeClass( 'hide-if-js' );
 				jQuery( '#<?php echo $id; ?> > .inside' )
 					.addClass( '<?php echo $this->prefix; ?>-fields <?php echo $this->prefix; ?>-cf' );
-			} );	
+			} );
 			</script>
 		</div>
 
@@ -253,7 +253,7 @@ class Boldgrid_SEO_Meta_Box {
 			foreach ( $_POST["{$this->prefix}_nonce"] as $k => $v ) {
 
 				$is_valid_nonce = ( wp_verify_nonce( $v, $this->settings['nonce']['action'] . "_{$k}" ) ) ? true : false;
-				
+
 				$group_id = $k;
 
 			}
@@ -270,7 +270,7 @@ class Boldgrid_SEO_Meta_Box {
 			|| empty( $_POST[$this->prefix] ) ) {
 
 				return;
-		
+
 		}
 
 		if ( ! empty( $this->boxes[$group_id] ) ) {

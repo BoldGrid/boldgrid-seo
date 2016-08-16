@@ -11,24 +11,24 @@
 class Boldgrid_SEO_Breadcrumbs {
 
 	public function boldgrid_breadcrumbs( $args = array (  ) ) {
-	
+
 		// Do not display on the homepage
 		if ( is_front_page(  ) ) {
-	
+
 			return;
-	
+
 		}
-	
+
 		// Set default arguments
 		$defaults = array (
-	
+
 			'separator_icon'      => '&gt;',
 			'breadcrumbs_id'      => 'breadcrumbs',
 			'breadcrumbs_classes' => 'breadcrumb-trail breadcrumbs',
 			'home_title'          => 'Home'
-	
+
 		);
-	
+
 		// Parse any arguments added
 		$args = apply_filters( 'boldgrid_breadcrumbs_args', wp_parse_args( $args, $defaults ) );
 

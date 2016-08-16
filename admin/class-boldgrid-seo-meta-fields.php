@@ -112,7 +112,7 @@ class Boldgrid_SEO_Meta_Field {
 	 * @return	HTML
 	 */
 	public function create_field( $field ) {
-		
+
 		// defaults
 		$field = wp_parse_args( $field, array(
 
@@ -341,7 +341,7 @@ class Boldgrid_SEO_Meta_Field {
 			'append'		=> '',
 			'readonly'		=> 0,
 			'disabled'		=> 0,
-	
+
 		) );
 
 		// vars
@@ -354,7 +354,7 @@ class Boldgrid_SEO_Meta_Field {
 				);
 
 		$s = array( 'readonly',
-					'disabled' 
+					'disabled'
 				);
 
 		$e = '';
@@ -645,13 +645,13 @@ class Boldgrid_SEO_Meta_Field {
 
 				array ( 'type'  => 'option',
 					    'value' => '',
-					    'label' => '- ' . $field['placeholder'] . ' -' ) 
+					    'label' => '- ' . $field['placeholder'] . ' -' )
 				);
 
 		}
 
 		// html
-		$e .= '<select ' . acf_esc_attr( $atts ) . '>';	
+		$e .= '<select ' . acf_esc_attr( $atts ) . '>';
 
 		// construct html
 		if ( ! empty( $els ) ) {
@@ -757,7 +757,7 @@ class Boldgrid_SEO_Meta_Field {
 				$atts = array(
 
 					'type'	=> 'checkbox',
-					'id'	=> $field['id'], 
+					'id'	=> $field['id'],
 					'name'	=> $field['name'],
 					'value'	=> $value,
 

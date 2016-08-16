@@ -35,7 +35,7 @@ function repeater( e ) {
 // Strip out remaining traces of HTML to form our cleanText output to scan
 function boldgridStripper( html ) {
 	var tmp;
-	
+
 	tmp = document.implementation.createHTMLDocument( 'New' ).body;
 	tmp.innerHTML = html;
 	return tmp.textContent || tmp.innerText || "";
@@ -80,12 +80,12 @@ function topWords( text ) {
 				limit      = $this.attr( 'maxlength' ),
 				$counter   = jQuery( '<span />', {
 					'class' : 'boldgrid-seo-meta-counter',
-					'style' : 'font-weight: bold' 
+					'style' : 'font-weight: bold'
 				} );
 
 				$container = jQuery( '<div />', {
 					'class' : 'boldgrid-seo-meta-countdown boldgrid-seo-meta-extra',
-					'html'  : ' characters left' 
+					'html'  : ' characters left'
 				} );
 
 			if ( limit ) {
@@ -138,7 +138,7 @@ jQuery( document ).ready( function(  ) {
 		// Set to a height of two since it's much more compact.
 		$meta_title_height.attr( 'rows', '2' );
 	}
-	
+
 	// Delegate event to the 1 column radio to listen for change and activate trigger.
 	jQuery( document ).delegate( $wp_screen_columns + '1 input:radio:checked',
 		// What to do if change happens.

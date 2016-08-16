@@ -8,7 +8,7 @@
  *
  * @link https://boldgrid.com
  * @since 1.0.0
- *       
+ *
  * @package Boldgrid_Seo
  * @subpackage Boldgrid_Seo/includes
  */
@@ -25,7 +25,7 @@
  * @author BoldGrid <support@boldgrid.com>
  */
 class Boldgrid_Seo_i18n {
-	
+
 	/**
 	 * The domain specified for this plugin.
 	 *
@@ -34,7 +34,7 @@ class Boldgrid_Seo_i18n {
 	 * @var string $domain The domain identifier for this plugin.
 	 */
 	private $domain;
-	
+
 	/**
 	 * Load the plugin text domain for translation.
 	 *
@@ -43,7 +43,7 @@ class Boldgrid_Seo_i18n {
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain( $this->domain, false, BOLDGRID_SEO_PATH . '/languages/' );
 	}
-	
+
 	/**
 	 * Set the domain equal to that of the specified domain.
 	 *
