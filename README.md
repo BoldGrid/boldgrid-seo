@@ -23,7 +23,7 @@ BoldGrid SEO provides website search engine optimization.
 ### 1.1.2 In progress ###
 * Misc:			JIRA WPB-2256	Updated readme.txt for Tested up to: 4.6.
 * Rework:		JIRA WPB-1825	Formatting.
-* Bug Fix:		Fixing issue where HTML prints inside of <title> tags.
+* Bug Fix:		Fixing issue where HTML prints inside of title tags.
 
 ### 1.1.1 ###
 * New feature:	JIRA WPB-2037	Added capability for auto-updates by BoldGrid API response.
