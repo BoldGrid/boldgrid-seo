@@ -378,9 +378,8 @@ class Boldgrid_Seo_Admin {
 			$title = $content;
 
 		}
-
-		return trim( $title );
-
+		$title = trim( str_replace( ',', ' |', wp_strip_all_tags( $title ) ) );
+		return $title;
 	}
 
 	/**
