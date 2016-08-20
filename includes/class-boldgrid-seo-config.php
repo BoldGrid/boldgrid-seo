@@ -43,7 +43,6 @@ class Boldgrid_Seo_Config {
 	 */
 	protected function set_configs( $configs ) {
 		$this->configs = $configs;
-
 		return true;
 	}
 
@@ -67,5 +66,17 @@ class Boldgrid_Seo_Config {
 		$configs = array_merge( $global_configs, $local_configs );
 
 		$this->set_configs( $configs );
+	}
+
+	/**
+	 * Set the default title per each page & post.
+	 *
+	 * @since 	1.0.0
+	 * @return 	string 	Page Title - Blog Name
+	 */
+	public function boldgrid_titles() {
+		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] ) ) {
+			return apply_filters( 'the_title', get_the_title( $_GET['post'] ) ) . ' - ' . get_bloginfo( 'name' );
+		}
 	}
 }

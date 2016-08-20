@@ -49,6 +49,15 @@ class Boldgrid_Seo {
 	protected $version;
 
 	/**
+	 * The plugins configs
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $configs    An array of the plugins configurations
+	 */
+	protected $configs = array();
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -62,6 +71,7 @@ class Boldgrid_Seo {
 		$this->version = '1.0.0';
 		$this->prefix = 'boldgrid-seo';
 		$this->load_dependencies();
+		$this->assign_configs();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->boldgrid_seo_meta_fields();
@@ -76,6 +86,14 @@ class Boldgrid_Seo {
 				'load_boldgrid_seo_update'
 			) );
 		}
+	}
+
+	/**
+	 * Load the BoldGrid SEO update class
+	 */
+	public function assign_configs() {
+		$configs = new Boldgrid_Seo_Config();
+		$this->configs = $configs->get_configs();
 	}
 
 	/**
@@ -105,6 +123,11 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function load_dependencies() {
+		/*
+		 * The class responsible for loading the configs.
+		 */
+		require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-config.php';
+
 		/*
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
@@ -251,9 +274,7 @@ class Boldgrid_Seo {
 	 */
 	private function boldgrid_seo_breadcrumbs() {
 		$plugin_breadcrumbs = new Boldgrid_SEO_Breadcrumbs();
-
-		$this->loader->add_action( 'boldgrid_add_breadcrumbs', $plugin_breadcrumbs,
-			'boldgrid_breadcrumbs' );
+		$this->loader->add_action( 'boldgrid_add_breadcrumbs', $plugin_breadcrumbs, 'boldgrid_breadcrumbs' );
 	}
 
 	/**
