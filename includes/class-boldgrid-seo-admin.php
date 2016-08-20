@@ -80,9 +80,7 @@ class Boldgrid_Seo_Admin {
 	 * @return    string    The prefix 'boldgrid-seo'.
 	 */
 	public function get_prefix(  ) {
-
 		return $this->prefix;
-
 	}
 
 	/**
@@ -92,9 +90,7 @@ class Boldgrid_Seo_Admin {
 	 * @return    string    The name of the plugin 'boldgrid_seo'.
 	 */
 	public function get_plugin_name(  ) {
-
 		return $this->plugin_name;
-
 	}
 
 	/**
@@ -104,9 +100,7 @@ class Boldgrid_Seo_Admin {
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version(  ) {
-
 		return $this->version;
-
 	}
 
 	/**
@@ -115,7 +109,6 @@ class Boldgrid_Seo_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles( $hook ) {
-
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -128,26 +121,18 @@ class Boldgrid_Seo_Admin {
 		 * class.
 		 */
 		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) )
-
 			|| ! in_array( $GLOBALS['post_type'], $this->boldgrid_post_types(  ) ) ) {
-
 				return;
+		} # || )
 
-			} # || )
-
-			wp_enqueue_style(
-				$this->plugin_name,
-
-				plugin_dir_url( __FILE__ ) .
-
-				'/css/boldgrid-seo-admin.css',
-
-				array(  ),
-
-				$this->version, 'all'
-
-			);
-
+		wp_enqueue_style(
+			$this->plugin_name,
+			plugin_dir_url( dirname(__FILE__) ) .
+			'/assets/css/boldgrid-seo-admin.css',
+			array(),
+			$this->version,
+			'all'
+		);
 	}
 
 	/**
@@ -168,28 +153,17 @@ class Boldgrid_Seo_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) )
+		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) ) || ! in_array( $GLOBALS['post_type'], $this->boldgrid_post_types(  ) ) ) {
+			return;
+		}
 
-			|| ! in_array( $GLOBALS['post_type'], $this->boldgrid_post_types(  ) ) ) {
-
-				return;
-
-			} # || )
-
-			wp_enqueue_script(
-
-				$this->plugin_name,
-
-				plugin_dir_url( __FILE__ ) .
-
-				'js/boldgrid-seo-admin.js',
-
-				array ( 'jquery' ),
-
-				$this->version, false
-
-			);
-
+		wp_enqueue_script(
+			$this->plugin_name,
+			plugin_dir_url( dirname(__FILE__) ) .
+			'/assets/js/boldgrid-seo-admin.js',
+			array ( 'jquery' ),
+			$this->version, false
+		);
 	}
 
 	/**
