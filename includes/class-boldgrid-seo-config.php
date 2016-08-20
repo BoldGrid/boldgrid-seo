@@ -52,20 +52,41 @@ class Boldgrid_Seo_Config {
 	public function __construct() {
 		// Define Editor configuration directory.
 		if ( false === defined( 'BOLDGRID_SEO_CONFIGDIR' ) ) {
-			define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/config' );
+			define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/configs' );
 		}
+		self::assign_configs();
 
-		$global_configs = require BOLDGRID_SEO_CONFIGDIR . '/config.plugin.php';
+		$configs = $this->configs;
 
-		$local_configs = array ();
+		$local = BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
 
-		if ( file_exists( $local_config_filename = BOLDGRID_SEO_CONFIGDIR . '/config.local.php' ) ) {
-			$local_configs = include $local_config_filename;
+		if ( file_exists( $local ) ) {
+			require_once BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
+			$configs = array_merge( $this->configs, $local );
 		}
-
-		$configs = array_merge( $global_configs, $local_configs );
 
 		$this->set_configs( $configs );
+	}
+
+	/**
+	 * Include customizer configuration options to assign.
+	 *
+	 * Configuration files for the customizer are loaded from
+	 * includes/configs/customizer-options/.
+	 *
+	 * @since    1.1
+	 * @access   private
+	 */
+	private function assign_configs( $folder = '' ) {
+		$path = __DIR__ . '/configs/'. $folder;
+		foreach ( glob( $path . '/*.config.php' ) as $filename ) {
+			$option = basename( str_replace( '.config.php', '', $filename ) );
+			if ( ! empty( $folder ) ) {
+				$this->configs[ $folder ][ $option ] = include $filename;
+			} else {
+				$this->configs[ $option ] = include $filename;
+			}
+		}
 	}
 
 	/**

@@ -68,26 +68,12 @@ class Boldgrid_Seo_Meta_Box {
 	 * @since    1.0.0
 	 */
 	public function __construct( $prefix, $plugin_name, $version ) {
-
 		$this->prefix      = $prefix;
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-
-		$this->settings    = array(
-
-			'post_types' => array( 'post','page' ),
-
-			'nonce'      => array(
-
-				'action'     => $this->plugin_name,
-				'name'       => "{$this->plugin_name}_nonce",
-
-			),
-
-		);
-
+		$configs = new Boldgrid_Seo_Config();
+		$this->settings    = $configs->get_configs()['meta-box'];
 		$this->boxes = array();
-
 	}
 
 	/**

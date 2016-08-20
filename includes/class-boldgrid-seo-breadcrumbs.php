@@ -9,20 +9,22 @@
  * @link       https://boldgrid.com
  */
 class Boldgrid_SEO_Breadcrumbs {
-	public function boldgrid_breadcrumbs( $args = array() ) {
-		// Do not display on the homepage
-		if ( is_front_page(  ) ) {
-			return;
-		}
+	public function __construct() {
 		// Set default arguments
-		$defaults = array (
+		$this->defaults = array (
 			'separator_icon'      => '&gt;',
 			'breadcrumbs_id'      => 'breadcrumbs',
 			'breadcrumbs_classes' => 'breadcrumb-trail breadcrumbs',
 			'home_title'          => 'Home'
 		);
+	}
+	public function boldgrid_breadcrumbs( $args = array() ) {
+		// Do not display on the homepage
+		if ( is_front_page(  ) ) {
+			return;
+		}
 		// Parse any arguments added
-		$args = apply_filters( 'boldgrid_breadcrumbs_args', wp_parse_args( $args, $defaults ) );
+		$args = apply_filters( 'boldgrid_breadcrumbs_args', wp_parse_args( $args, $this->defaults ) );
 		// Set variable for adding separator markup
 		$separator = '<span class="separator"> ' . esc_attr( $args['separator_icon'] ) . ' </span>';
 		// Get global post object
