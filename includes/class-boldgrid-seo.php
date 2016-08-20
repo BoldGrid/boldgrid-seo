@@ -81,10 +81,7 @@ class Boldgrid_Seo {
 		// Load the config and update classes in the admin pages:
 		if ( is_admin() ) {
 			// Add an action to load the update class on init:
-			add_action( 'init', array (
-				$this,
-				'load_boldgrid_seo_update'
-			) );
+			add_action( 'init', array ( $this, 'load_boldgrid_seo_update' ) );
 		}
 	}
 
@@ -100,9 +97,6 @@ class Boldgrid_Seo {
 	 * Load the BoldGrid SEO update class
 	 */
 	public function load_boldgrid_seo_update() {
-		// Load and check for plugin updates.
-		require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-update.php';
-
 		$boldgrid_seo_update = new Boldgrid_Seo_Update();
 	}
 
@@ -123,8 +117,6 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function load_dependencies() {
-
-
 		$this->loader = new Boldgrid_Seo_Loader();
 	}
 
@@ -140,7 +132,6 @@ class Boldgrid_Seo {
 	private function set_locale() {
 		$plugin_i18n = new Boldgrid_Seo_i18n();
 		$plugin_i18n->set_domain( $this->get_plugin_name() );
-
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
@@ -157,26 +148,18 @@ class Boldgrid_Seo {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'wp_loaded', $plugin_admin, 'register_field_groups' );
-
 		$this->loader->add_action( 'wp_head', $plugin_admin, 'wp_head', 1 );
-		$this->loader->add_action( "{$this->prefix}/seo/description", $plugin_admin,
-			'meta_description' );
+		$this->loader->add_action( "{$this->prefix}/seo/description", $plugin_admin, 'meta_description' );
 		$this->loader->add_action( "{$this->prefix}/seo/keywords", $plugin_admin, 'meta_keywords' );
-		$this->loader->add_action( "{$this->prefix}/seo/classification", $plugin_admin,
-			'meta_classification' );
-		$this->loader->add_action( "{$this->prefix}/seo/site_name", $plugin_admin,
-			'meta_site_name' );
+		$this->loader->add_action( "{$this->prefix}/seo/classification", $plugin_admin, 'meta_classification' );
+		$this->loader->add_action( "{$this->prefix}/seo/site_name", $plugin_admin, 'meta_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:title", $plugin_admin, 'meta_og_title' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:image", $plugin_admin, 'meta_og_image' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:type", $plugin_admin, 'meta_og_type' );
-		$this->loader->add_action( "{$this->prefix}/seo/permalink", $plugin_admin,
-			'meta_permalink' );
-
-		$this->loader->add_filter( 'boldgrid/seo/archive_title', $plugin_admin,
-			'boldgrid_seo_simplify_archive_title' );
+		$this->loader->add_action( "{$this->prefix}/seo/permalink", $plugin_admin, 'meta_permalink' );
+		$this->loader->add_filter( 'boldgrid/seo/archive_title', $plugin_admin, 'boldgrid_seo_simplify_archive_title' );
 		$this->loader->add_filter( 'tiny_mce_before_init', $plugin_admin, 'boldgrid_tinymce_init' );
-		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $plugin_admin,
-			'manual_image', 99 );
+		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $plugin_admin, 'manual_image', 99 );
 
 		// Check version for updated filters
 		$wp_version = version_compare( get_bloginfo( 'version' ), '4.4', '>=' );
@@ -195,20 +178,12 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_meta_fields() {
-		$plugin_meta_field = new Boldgrid_Seo_Meta_Field( $this->get_prefix(),
-			$this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( "{$this->prefix}/meta/add_field", $plugin_meta_field,
-			'add_field', 10, 2 );
-		$this->loader->add_action( "{$this->prefix}/meta/create_field", $plugin_meta_field,
-			'create_field' );
-		$this->loader->add_action( "{$this->prefix}/meta/update_field", $plugin_meta_field,
-			'update_field', 10, 4 );
-
-		$this->loader->add_filter( "{$this->prefix}/meta/update_value/type=checkbox",
-			$plugin_meta_field, 'update_checkbox', 10, 3 );
-		$this->loader->add_filter( "{$this->prefix}/meta/update_value/type=select",
-			$plugin_meta_field, 'update_select', 10, 3 );
+		$plugin_meta_field = new Boldgrid_Seo_Meta_Field( $this->get_prefix(), $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( "{$this->prefix}/meta/add_field", $plugin_meta_field, 'add_field', 10, 2 );
+		$this->loader->add_action( "{$this->prefix}/meta/create_field", $plugin_meta_field, 'create_field' );
+		$this->loader->add_action( "{$this->prefix}/meta/update_field", $plugin_meta_field, 'update_field', 10, 4 );
+		$this->loader->add_filter( "{$this->prefix}/meta/update_value/type=checkbox", $plugin_meta_field, 'update_checkbox', 10, 3 );
+		$this->loader->add_filter( "{$this->prefix}/meta/update_value/type=select", $plugin_meta_field, 'update_select', 10, 3 );
 	}
 
 	/**
@@ -219,14 +194,10 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_meta_boxes() {
-		$plugin_meta_boxes = new Boldgrid_Seo_Meta_Box( $this->get_prefix(),
-			$this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( "{$this->prefix}/meta/create_box", $plugin_meta_boxes,
-			'create_box' );
+		$plugin_meta_boxes = new Boldgrid_Seo_Meta_Box( $this->get_prefix(), $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( "{$this->prefix}/meta/create_box", $plugin_meta_boxes, 'create_box' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'add_boxes' );
-		$this->loader->add_action( "{$this->prefix}/meta/register_field_group", $plugin_meta_boxes,
-			'register_field_group' );
+		$this->loader->add_action( "{$this->prefix}/meta/register_field_group", $plugin_meta_boxes, 'register_field_group' );
 		$this->loader->add_action( 'save_post', $plugin_meta_boxes, 'save_boxes' );
 	}
 
