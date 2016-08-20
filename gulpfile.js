@@ -11,35 +11,37 @@ var gulp     = require( 'gulp' ),
 var config = {
     src:  '.',
     dist: '.',
+    jsDir: '/assets/js',
+    cssDir: '/assets/css',
 }
 
 // Run JSHint & Minify Assets.
 gulp.task( 'js', function(  ) {
   return gulp.src([
-    '!' + config.src + '/admin/js/**/*.min.js',
-    config.src + '/admin/js/**/*.js' ])
+    '!' + config.src + config.jsDir + '/**/*.min.js',
+    config.src + config.jsDir + '/**/*.js' ])
     .pipe( jshint() )
     .pipe( jshint.reporter( 'jshint-stylish' ) )
     .pipe( jshint.reporter( 'fail' ) )
-    .pipe( gulp.dest( config.dist + '/admin/js' ) )
+    .pipe( gulp.dest( config.dist + config.jsDir + 'js' ) )
     .pipe( uglify() )
     .pipe( rename({
       suffix: '.min'
     }) )
-    .pipe( gulp.dest( config.dist + '/admin/js' ) );
+    .pipe( gulp.dest( config.dist + config.jsDir + 'js' ) );
 });
 
 // Minify CSS Assets.
 gulp.task( 'css', function(  ) {
   return gulp.src([
-    '!' + config.src + '/admin/css/**/*.min.css',
-    config.src + '/admin/css/**/*.css' ])
-    .pipe( gulp.dest( config.dist + '/admin/css' ) )
+    '!' + config.src + config.cssDir + '/**/*.min.css',
+    config.src + config.cssDir + '/css/**/*.css' ])
+    .pipe( gulp.dest( config.dist + config.cssDir + '/css' ) )
     .pipe( cssnano({
     discardComments: { removeAll: true }
     }) )
     .pipe( rename({ suffix: '.min' }) )
-    .pipe( gulp.dest( config.dist + '/admin/css' ) );
+    .pipe( gulp.dest( config.dist + config.cssDir + '/css' ) );
 });
 
 // Setup Translations.
