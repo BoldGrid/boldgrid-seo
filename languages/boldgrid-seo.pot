@@ -15,46 +15,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: admin/class-boldgrid-seo-admin.php:91
-msgid "Search Engine Optimization"
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:95
-msgid "SEO Title"
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:99
-msgid "This is <b>very important</b> for Google and Bing, see the Help Tab for more information.  Limit is %d characters."
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:104
-msgid "Meta Description"
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:107
-msgid "Typically what will show in a <b>S</b>earch <b>E</b>ngine <b>R</b>esults <b>P</b>age ( SERP ).  This is important, but secondary to your SEO Title.  Limit is %d characters."
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:112
-msgid "Meta Keywords"
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:116
-msgid "We recommend using only one or two keywords. Too many keywords can actually hurt your SEO."
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:120
-msgid "Open Graph Image"
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:123, admin/class-boldgrid-seo-admin.php:130
-msgid "Used by some social media sites when a user shares this content."
-msgstr ""
-
-#: admin/class-boldgrid-seo-admin.php:127
-msgid "Open Graph Type"
-msgstr ""
-
-#: admin/class-boldgrid-seo-meta-fields.php:568
+#: includes/class-boldgrid-seo-meta-field.php:568
 msgid "Select"
 msgstr ""

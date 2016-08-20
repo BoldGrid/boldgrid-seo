@@ -23,12 +23,12 @@ gulp.task( 'js', function(  ) {
     .pipe( jshint() )
     .pipe( jshint.reporter( 'jshint-stylish' ) )
     .pipe( jshint.reporter( 'fail' ) )
-    .pipe( gulp.dest( config.dist + config.jsDir + 'js' ) )
+    .pipe( gulp.dest( config.dist + config.jsDir ) )
     .pipe( uglify() )
     .pipe( rename({
       suffix: '.min'
     }) )
-    .pipe( gulp.dest( config.dist + config.jsDir + 'js' ) );
+    .pipe( gulp.dest( config.dist + config.jsDir ) );
 });
 
 // Minify CSS Assets.
