@@ -123,42 +123,7 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function load_dependencies() {
-		/*
-		 * The class responsible for loading the configs.
-		 */
-		require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-config.php';
 
-		/*
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-loader.php';
-
-		/*
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-i18n.php';
-
-		/*
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once BOLDGRID_SEO_PATH . '/admin/class-boldgrid-seo-admin.php';
-
-		/*
-		 * The class responsible for defining the actions for the meta fields in BoldGrid SEO.
-		 */
-		require_once BOLDGRID_SEO_PATH . '/admin/class-boldgrid-seo-meta-fields.php';
-
-		/*
-		 * The class responsible for defining the meta boxes used for BoldGrid SEO.
-		 */
-		require_once BOLDGRID_SEO_PATH . '/admin/class-boldgrid-seo-meta-boxes.php';
-
-		/*
-		 * The class responsible for adding breadcrumb options for a BoldGrid theme.
-		 */
-		require_once BOLDGRID_SEO_PATH . '/admin/class-boldgrid-seo-breadcrumbs.php';
 
 		$this->loader = new Boldgrid_Seo_Loader();
 	}
@@ -230,7 +195,7 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_meta_fields() {
-		$plugin_meta_field = new Boldgrid_SEO_Meta_Field( $this->get_prefix(),
+		$plugin_meta_field = new Boldgrid_Seo_Meta_Field( $this->get_prefix(),
 			$this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( "{$this->prefix}/meta/add_field", $plugin_meta_field,
@@ -254,7 +219,7 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_meta_boxes() {
-		$plugin_meta_boxes = new Boldgrid_SEO_Meta_Box( $this->get_prefix(),
+		$plugin_meta_boxes = new Boldgrid_Seo_Meta_Box( $this->get_prefix(),
 			$this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( "{$this->prefix}/meta/create_box", $plugin_meta_boxes,
@@ -273,7 +238,7 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_breadcrumbs() {
-		$plugin_breadcrumbs = new Boldgrid_SEO_Breadcrumbs();
+		$plugin_breadcrumbs = new Boldgrid_Seo_Breadcrumbs();
 		$this->loader->add_action( 'boldgrid_add_breadcrumbs', $plugin_breadcrumbs, 'boldgrid_breadcrumbs' );
 	}
 

@@ -14,9 +14,9 @@
 // If this file is called directly, abort.
 defined( 'WPINC' ) ? : die;
 
-if ( ! class_exists( 'Boldgrid_SEO_Meta_Box' ) ) :
+if ( ! class_exists( 'Boldgrid_Seo_Meta_Box' ) ) :
 
-class Boldgrid_SEO_Meta_Box {
+class Boldgrid_Seo_Meta_Box {
 	/**
 	 * The unique prefix.
 	 *

@@ -27,6 +27,9 @@
 // If this file is called directly, abort.
 defined( 'WPINC' ) ?  : die();
 
+// Include the autoloader
+include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'autoload.php' );
+
 // Define version.
 if ( false === defined( 'BOLDGRID_SEO_VERSION' ) ) {
 	define( 'BOLDGRID_SEO_VERSION', '1.1.1' );

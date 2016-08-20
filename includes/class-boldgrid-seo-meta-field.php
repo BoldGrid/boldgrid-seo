@@ -14,9 +14,9 @@
 // If this file is called directly, abort.
 defined( 'WPINC' ) ? : die;
 
-if (! class_exists('Boldgrid_SEO_Meta_Field') ) :
+if ( ! class_exists('Boldgrid_Seo_Meta_Field') ) :
 
-class Boldgrid_SEO_Meta_Field {
+class Boldgrid_Seo_Meta_Field {
 	/**
 	 * The unique prefix for BoldGrid SEO.
 	 *
