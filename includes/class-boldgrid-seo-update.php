@@ -104,7 +104,7 @@ class Boldgrid_Seo_Update {
 
 		// Get the installed plugin data.
 		$plugin_data = get_plugin_data( BOLDGRID_SEO_PATH . '/boldgrid-seo.php', false );
-		var_dump( $configs ); die;
+
 		// Get the WordPress version.
 		global $wp_version;
 
