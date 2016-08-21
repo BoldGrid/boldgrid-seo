@@ -31,40 +31,25 @@ defined( 'WPINC' ) ?  : die();
 include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'autoload.php' );
 
 // Define version.
-if ( false === defined( 'BOLDGRID_SEO_VERSION' ) ) {
-	define( 'BOLDGRID_SEO_VERSION', '1.1.1' );
-}
+defined( 'BOLDGRID_SEO_VERSION' ) || define( 'BOLDGRID_SEO_VERSION', get_file_data( __FILE__, array( 'Version' ), 'plugin')[0] );
 
 // Define boldgrid-seo path.
-if ( false === defined( 'BOLDGRID_SEO_PATH' ) ) {
-	define( 'BOLDGRID_SEO_PATH', dirname( __FILE__ ) );
-}
+defined( 'BOLDGRID_SEO_PATH' ) || define( 'BOLDGRID_SEO_PATH', dirname( __FILE__ ) );
 
 // Define Editor configuration directory.
-if ( false === defined( 'BOLDGRID_SEO_CONFIGDIR' ) ) {
-	define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/config' );
-}
+defined( 'BOLDGRID_SEO_CONFIGDIR' ) || define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/config' );
 
 // If DOING_CRON, then check if this plugin should be auto-updated.
-if ( true === defined( 'DOING_CRON' ) && DOING_CRON ){
+if ( defined( 'DOING_CRON' ) && DOING_CRON ){
 	// Ensure required definitions for pluggable.
-	if ( false === defined( 'AUTH_COOKIE' ) ) {
-		define( 'AUTH_COOKIE', null );
-	}
-
-	if ( false === defined( 'LOGGED_IN_COOKIE' ) ) {
-		define( 'LOGGED_IN_COOKIE', null );
-	}
-
+	defined( 'AUTH_COOKIE' ) || define( 'AUTH_COOKIE', null );
+	defined( 'LOGGED_IN_COOKIE' ) || define( 'LOGGED_IN_COOKIE', null );
 	// Load the pluggable class, if needed.
 	require_once ABSPATH . 'wp-includes/pluggable.php';
-
 	// Include the update class.
 	require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-update.php';
-
 	// Instantiate the update class.
 	$plugin_update = new Boldgrid_Seo_Update();
-
 	// Check and update plugins.
 	$plugin_update->wp_update_this_plugin();
 }
