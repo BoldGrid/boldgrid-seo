@@ -143,8 +143,7 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new Boldgrid_Seo_Admin( $this->get_plugin_name(), $this->get_version() );
-
+		$plugin_admin = new Boldgrid_Seo_Admin( $this->configs );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'wp_loaded', $plugin_admin, 'register_field_groups' );

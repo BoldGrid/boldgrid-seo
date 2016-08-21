@@ -55,18 +55,21 @@ class Boldgrid_Seo_Admin {
 	 */
 	protected $settings;
 
+	protected $configs;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * @since    1.0.0
 	 */
 
-	public function __construct() {
+	public function __construct( $configs ) {
 		$this->prefix      = 'boldgrid-seo';
 		$this->plugin_name = strtolower( __CLASS__ );
 		$this->version     = '1.0.0';
-		$configs = new Boldgrid_Seo_Config();
-		$this->settings    = $configs->get_configs()['admin'];
+		$this->configs = $configs;
+		$this->settings = $this->configs['admin'];
+
 		$this->settings = apply_filters( "{$this->prefix}/seo/settings", $this->settings );
 	}
 
