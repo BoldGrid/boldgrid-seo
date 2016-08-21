@@ -61,8 +61,8 @@ class Boldgrid_Seo_Config {
 		$local = BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
 
 		if ( file_exists( $local ) ) {
-			require_once BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
-			$configs = array_merge( $this->configs, $local );
+			$file = require_once $local;
+			$configs = array_replace_recursive( $configs, $file );
 		}
 
 		$this->set_configs( $configs );

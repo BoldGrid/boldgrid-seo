@@ -5,5 +5,5 @@
 return array(
 	'base' => array(
 		'asset_server'   => 'https://wp-assets-dev.boldgrid.com',
-	)
+	),
 );
