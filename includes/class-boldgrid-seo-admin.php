@@ -106,9 +106,9 @@ class Boldgrid_Seo_Admin {
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			$this->configs['base']['plugin_url'] . '/assets/css/boldgrid-seo-admin.css',
+			$this->configs['plugin_url'] . '/assets/css/boldgrid-seo-admin.css',
 			array(),
-			$this->configs['base']['version'],
+			$this->configs['version'],
 			'all'
 		);
 	}
@@ -137,9 +137,9 @@ class Boldgrid_Seo_Admin {
 
 		wp_enqueue_script(
 			$this->plugin_name,
-			$this->configs['base']['plugin_url'] . '/assets/js/boldgrid-seo-admin.js',
+			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-admin.js',
 			array ( 'jquery' ),
-			$this->configs['base']['version'],
+			$this->configs['version'],
 			false
 		);
 	}

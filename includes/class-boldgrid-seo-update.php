@@ -81,22 +81,20 @@ class Boldgrid_Seo_Update {
 	 */
 	public function custom_plugins_transient_update( $transient ) {
 		// Get version data transient.
-		if ( true === is_multisite() ) {
-			$version_data = get_site_transient( 'boldgrid_seo_version_data' );
-		} else {
-			$version_data = get_transient( 'boldgrid_seo_version_data' );
-		}
+		$version_data = get_site_transient( 'boldgrid_seo_version_data' );
 
 		// Set the config class file path.
 		$config_class_path = BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-config.php';
 
 		// If the config class file is not readable, then return the current transient.
-		if ( false === is_readable( $config_class_path ) ) {
+		if ( ! is_readable( $config_class_path ) ) {
 			return $transient;
 		}
 
 		// Include the config class.
-		require_once $config_class_path;
+		if ( ! class_exists ( 'Boldgrid_Seo_Config' ) ) {
+			include $config_class_path;
+		}
 
 		// Instantiate the config class.
 		$boldgrid_seo_config = new Boldgrid_Seo_Config();
@@ -106,7 +104,7 @@ class Boldgrid_Seo_Update {
 
 		// Get the installed plugin data.
 		$plugin_data = get_plugin_data( BOLDGRID_SEO_PATH . '/boldgrid-seo.php', false );
-
+		var_dump( $configs ); die;
 		// Get the WordPress version.
 		global $wp_version;
 

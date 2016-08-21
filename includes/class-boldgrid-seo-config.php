@@ -61,7 +61,7 @@ class Boldgrid_Seo_Config {
 		$local = BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
 
 		if ( file_exists( $local ) ) {
-			$file = require_once $local;
+			$file = include $local;
 			$configs = array_replace_recursive( $configs, $file );
 		}
 
@@ -79,10 +79,13 @@ class Boldgrid_Seo_Config {
 	 */
 	private function assign_configs( $folder = '' ) {
 		$path = __DIR__ . '/configs/'. $folder;
+		$this->configs = include $path .'/base.config.php';
 		foreach ( glob( $path . '/*.config.php' ) as $filename ) {
 			$option = basename( str_replace( '.config.php', '', $filename ) );
 			if ( ! empty( $folder ) ) {
 				$this->configs[ $folder ][ $option ] = include $filename;
+			} elseif ( 'base' === $option ) {
+				continue;
 			} else {
 				$this->configs[ $option ] = include $filename;
 			}

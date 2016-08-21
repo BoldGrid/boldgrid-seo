@@ -45,8 +45,6 @@ if ( false === defined( 'BOLDGRID_SEO_CONFIGDIR' ) ) {
 	define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/config' );
 }
 
-
-
 // If DOING_CRON, then check if this plugin should be auto-updated.
 if ( true === defined( 'DOING_CRON' ) && DOING_CRON ){
 	// Ensure required definitions for pluggable.
@@ -87,39 +85,21 @@ $boldgrid_seo_wp_version = version_compare( get_bloginfo( 'version' ), '4.0', '>
 
 if ( ! $boldgrid_seo_php_version or ! $boldgrid_seo_wp_version ) :
 	function boldgrid_php_error() {
-		printf( '<div class="error">' . '<p>%s</p>' . '</div>',
-
-			esc_html__(
-				'BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+',
-				'boldgrid_seo' ) );
-
+		printf( '<div class="error"><p>%s</p></div>',
+			esc_html__( 'BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+', 'boldgrid_seo' )
+		);
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 	}
 
 	if ( defined( 'WP_CLI' ) ) :
-
 		deactivate_plugins( plugin_basename( __FILE__ ) );
-
-		WP_CLI::warning(
-
-			__(
-				'BoldGrid Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin.',
-				'boldgrid_seo' ) );
-
-
-
-
+		WP_CLI::warning( __( 'BoldGrid Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin.', 'boldgrid_seo' ) );
 	else :
 		add_action( 'admin_notices', 'boldgrid_php_error' );
-
-
 	endif;
-
-
 else : // Load the rest of the plugin that contains code suited for passing the version check.
 	function activate_boldgrid_seo() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-activator.php';
-
 		Boldgrid_Seo_Activator::activate();
 	}
 
@@ -129,12 +109,10 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 	 */
 	function deactivate_boldgrid_seo() {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-deactivator.php';
-
 		Boldgrid_Seo_Deactivator::deactivate();
 	}
 
 	register_activation_hook( __FILE__, 'activate_boldgrid_seo' );
-
 	register_deactivation_hook( __FILE__, 'deactivate_boldgrid_seo' );
 
 	/**
@@ -150,8 +128,5 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 		$plugin = new Boldgrid_Seo();
 		$plugin->run();
 	}
-
 	run_boldgrid_seo();
-
-
 endif;
