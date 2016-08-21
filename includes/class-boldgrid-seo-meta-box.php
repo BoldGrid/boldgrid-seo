@@ -36,15 +36,6 @@ class Boldgrid_Seo_Meta_Box {
 	protected $plugin_name;
 
 	/**
-	 * The current version of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $version        The current version of the plugin.
-	 */
-	protected $version;
-
-	/**
 	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
@@ -62,17 +53,18 @@ class Boldgrid_Seo_Meta_Box {
 	 */
 	protected $boxes;
 
+	protected $configs;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct( $prefix, $plugin_name, $version ) {
+	public function __construct( $prefix, $plugin_name, $configs ) {
 		$this->prefix      = $prefix;
 		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-		$configs = new Boldgrid_Seo_Config();
-		$this->settings    = $configs->get_configs()['meta-box'];
+		$this->configs = $configs;
+		$this->settings    = $this->configs['meta-box'];
 		$this->boxes = array();
 	}
 

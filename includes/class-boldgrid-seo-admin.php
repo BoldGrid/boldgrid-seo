@@ -38,15 +38,6 @@ class Boldgrid_Seo_Admin {
 	protected $plugin_name;
 
 	/**
-	 * The current version of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
-	 */
-	protected $version;
-
-	/**
 	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
@@ -66,10 +57,8 @@ class Boldgrid_Seo_Admin {
 	public function __construct( $configs ) {
 		$this->prefix      = 'boldgrid-seo';
 		$this->plugin_name = strtolower( __CLASS__ );
-		$this->version     = '1.0.0';
 		$this->configs = $configs;
 		$this->settings = $this->configs['admin'];
-
 		$this->settings = apply_filters( "{$this->prefix}/seo/settings", $this->settings );
 	}
 
@@ -91,16 +80,6 @@ class Boldgrid_Seo_Admin {
 	 */
 	public function get_plugin_name(  ) {
 		return $this->plugin_name;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
-	 */
-	public function get_version(  ) {
-		return $this->version;
 	}
 
 	/**
@@ -127,10 +106,9 @@ class Boldgrid_Seo_Admin {
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			plugin_dir_url( dirname(__FILE__) ) .
-			'/assets/css/boldgrid-seo-admin.css',
+			$this->configs['base']['plugin_url'] . '/assets/css/boldgrid-seo-admin.css',
 			array(),
-			$this->version,
+			$this->configs['base']['version'],
 			'all'
 		);
 	}
@@ -159,10 +137,10 @@ class Boldgrid_Seo_Admin {
 
 		wp_enqueue_script(
 			$this->plugin_name,
-			plugin_dir_url( dirname(__FILE__) ) .
-			'/assets/js/boldgrid-seo-admin.js',
+			$this->configs['base']['plugin_url'] . '/assets/js/boldgrid-seo-admin.js',
 			array ( 'jquery' ),
-			$this->version, false
+			$this->configs['base']['version'],
+			false
 		);
 	}
 

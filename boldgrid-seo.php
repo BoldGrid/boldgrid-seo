@@ -45,8 +45,7 @@ if ( false === defined( 'BOLDGRID_SEO_CONFIGDIR' ) ) {
 	define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/config' );
 }
 
-// Load the Boldgrid_Seo class.
-require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo.php';
+
 
 // If DOING_CRON, then check if this plugin should be auto-updated.
 if ( true === defined( 'DOING_CRON' ) && DOING_CRON ){

@@ -17,7 +17,7 @@
  */
 
 // If this file is called directly, abort.
-defined( 'WPINC' ) ?  : die();
+defined( 'WPINC' ) ? : die();
 class Boldgrid_Seo {
 
 	/**
@@ -40,15 +40,6 @@ class Boldgrid_Seo {
 	protected $plugin_name;
 
 	/**
-	 * The current version of the plugin.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string $version The current version of the plugin.
-	 */
-	protected $version;
-
-	/**
 	 * The plugins configs
 	 *
 	 * @since    1.0.0
@@ -68,7 +59,6 @@ class Boldgrid_Seo {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'boldgrid-seo';
-		$this->version = '1.0.0';
 		$this->prefix = 'boldgrid-seo';
 		$this->load_dependencies();
 		$this->assign_configs();
@@ -177,7 +167,7 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_meta_fields() {
-		$plugin_meta_field = new Boldgrid_Seo_Meta_Field( $this->get_prefix(), $this->get_plugin_name(), $this->get_version() );
+		$plugin_meta_field = new Boldgrid_Seo_Meta_Field( $this->get_prefix(), $this->get_plugin_name(), $this->configs );
 		$this->loader->add_action( "{$this->prefix}/meta/add_field", $plugin_meta_field, 'add_field', 10, 2 );
 		$this->loader->add_action( "{$this->prefix}/meta/create_field", $plugin_meta_field, 'create_field' );
 		$this->loader->add_action( "{$this->prefix}/meta/update_field", $plugin_meta_field, 'update_field', 10, 4 );
@@ -193,7 +183,7 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_meta_boxes() {
-		$plugin_meta_boxes = new Boldgrid_Seo_Meta_Box( $this->get_prefix(), $this->get_plugin_name(), $this->get_version() );
+		$plugin_meta_boxes = new Boldgrid_Seo_Meta_Box( $this->get_prefix(), $this->get_plugin_name(), $this->configs );
 		$this->loader->add_action( "{$this->prefix}/meta/create_box", $plugin_meta_boxes, 'create_box' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'add_boxes' );
 		$this->loader->add_action( "{$this->prefix}/meta/register_field_group", $plugin_meta_boxes, 'register_field_group' );
@@ -208,7 +198,7 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_breadcrumbs() {
-		$plugin_breadcrumbs = new Boldgrid_Seo_Breadcrumbs();
+		$plugin_breadcrumbs = new Boldgrid_Seo_Breadcrumbs( $this->configs );
 		$this->loader->add_action( 'boldgrid_add_breadcrumbs', $plugin_breadcrumbs, 'boldgrid_breadcrumbs' );
 	}
 
@@ -250,15 +240,5 @@ class Boldgrid_Seo {
 	 */
 	public function get_prefix() {
 		return $this->prefix;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since 1.0.0
-	 * @return string The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 }

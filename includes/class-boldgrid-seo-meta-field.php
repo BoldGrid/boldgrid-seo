@@ -42,7 +42,7 @@ class Boldgrid_Seo_Meta_Field {
 	 * @access   protected
 	 * @var      string    $version        The current version of the plugin.
 	 */
-	protected $version;
+	protected $configs;
 
 	/**
 	 * The settings of this plugin.
@@ -67,12 +67,10 @@ class Boldgrid_Seo_Meta_Field {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct( $prefix, $plugin_name, $version ) {
-
+	public function __construct( $prefix, $plugin_name, $configs ) {
 		$this->prefix      = $prefix;
 		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-
+		$this->configs     = $configs;
 	}
 
 	/**
@@ -82,27 +80,17 @@ class Boldgrid_Seo_Meta_Field {
 	 * @return	HTML
 	 */
 	public function add_field( $field, $field_group ) {
-
 		$group_id = false;
-
 		if ( is_array( $field_group ) && ! empty( $field_group['id'] ) ) {
-
 			$group_id = $field_group['id'];
-
 		} elseif ( is_string(  ) ) {
-
 			$group_id = $field_group;
-
 		}
-
 		if ( ! $group_id ) {
-
 			return;
-
 		}
 
 		$this->fields[ $group_id ][ $field['name'] ] = $field;
-
 	}
 
 	/**
@@ -131,7 +119,6 @@ class Boldgrid_Seo_Meta_Field {
 			'_id'          => '',
 			'_name'        => '',
 		) );
-
 		$this->render_field( $field );
 	}
 
