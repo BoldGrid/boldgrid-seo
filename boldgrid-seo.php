@@ -11,24 +11,23 @@
  * @since 1.0.0
  * @package Boldgrid_Seo
  *
- *          @wordpress-plugin
- *          Plugin Name: BoldGrid SEO
- *          Plugin URI: http://www.boldgrid.com
- *          Description: Manage your BoldGrid website's SEO.
- *          Version: 1.0
- *          Author: BoldGrid.com <wpb@boldgrid.com>
- *          Author URI: http://www.boldgrid.com
- *          License: GPL-2.0+
- *          License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- *          Text Domain: boldgrid-seo
- *          Domain Path: /languages
+ * Plugin Name: BoldGrid SEO
+ * Plugin URI: http://www.boldgrid.com
+ * Description: Manage your BoldGrid website's SEO.
+ * Version: 1.0
+ * Author: BoldGrid.com <wpb@boldgrid.com>
+ * Author URI: http://www.boldgrid.com
+ * License: GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain: boldgrid-seo
+ * Domain Path: /languages
  */
 
 // If this file is called directly, abort.
 defined( 'WPINC' ) ?  : die();
 
 // Include the autoloader
-include_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'autoload.php' );
+include_once wp_normalize_path( plugin_dir_path( __FILE__ ) . '/autoload.php' );
 
 // Define version.
 defined( 'BOLDGRID_SEO_VERSION' ) || define( 'BOLDGRID_SEO_VERSION', get_file_data( __FILE__, array( 'Version' ), 'plugin')[0] );
@@ -69,7 +68,7 @@ if ( ! $boldgrid_seo_php_version or ! $boldgrid_seo_wp_version ) :
 	endif;
 else : // Load the rest of the plugin that contains code suited for passing the version check.
 	function activate_boldgrid_seo() {
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-activator.php';
+		require_once wp_normalize_path( plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-activator.php' );
 		Boldgrid_Seo_Activator::activate();
 	}
 
@@ -78,7 +77,7 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 	 * This action is documented in includes/class-boldgrid-seo-deactivator.php
 	 */
 	function deactivate_boldgrid_seo() {
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-deactivator.php';
+		require_once wp_normalize_path( plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-deactivator.php' );
 		Boldgrid_Seo_Deactivator::deactivate();
 	}
 
