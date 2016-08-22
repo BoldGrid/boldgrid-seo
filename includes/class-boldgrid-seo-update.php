@@ -12,6 +12,8 @@
  * BoldGrid SEO Update class.
  */
 class Boldgrid_Seo_Update {
+
+	protected $configs;
 	/**
 	 * Constructor.
 	 *
@@ -23,14 +25,15 @@ class Boldgrid_Seo_Update {
 	 * @return null
 	 *
 	 */
-	public function __construct() {
+	public function __construct( $configs ) {
+		$this->configs = $configs;
 		// Only for wp-admin.
 		if ( is_admin() ) {
 			// Get the current WordPress page filename.
 			global $pagenow;
 
 			// Make an array of plugin update pages.
-			$plugin_update_pages = array (
+			$plugin_update_pages = array(
 				'plugins.php',
 				'update-core.php'
 			);
@@ -41,31 +44,15 @@ class Boldgrid_Seo_Update {
 				 'plugin-information' === $_GET['tab'] );
 
 			// Is this a plugin update action?
-			$is_plugin_update = ( isset( $_REQUEST['action'] ) &&
-				 'update-plugin' === $_REQUEST['action'] && 'admin-ajax.php' === $pagenow );
+			$is_plugin_update = ( isset( $_REQUEST['action'] ) && 'update-plugin' === $_REQUEST['action'] && 'admin-ajax.php' === $pagenow );
 
 			// Add filters to modify plugin update transient information.
-			if ( in_array( $pagenow, $plugin_update_pages, true ) || $is_plugin_information ||
-				 $is_plugin_update ) {
-			// Add filters.
-				add_filter( 'pre_set_site_transient_update_plugins',
-					array (
-						$this,
-						'custom_plugins_transient_update'
-					), 10, 1 );
-
-				add_filter( 'plugins_api',
-					array (
-						$this,
-						'custom_plugins_transient_update'
-					), 10, 1 );
-
+			if ( in_array( $pagenow, $plugin_update_pages, true ) || $is_plugin_information || $is_plugin_update ) {
+				// Add filters.
+				add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'custom_plugins_transient_update' ), 10, 1 );
+				add_filter( 'plugins_api', array( $this, 'custom_plugins_transient_update' ), 10, 1 );
 				// Force WP to check for updates, don't rely on cache / transients.
-				add_filter( 'site_transient_update_plugins',
-					array (
-						$this,
-						'site_transient_update_plugins'
-					), 10 );
+				add_filter( 'site_transient_update_plugins', array( $this, 'site_transient_update_plugins' ), 10 );
 			}
 		}
 	}
@@ -83,24 +70,10 @@ class Boldgrid_Seo_Update {
 		// Get version data transient.
 		$version_data = get_site_transient( 'boldgrid_seo_version_data' );
 
-		// Set the config class file path.
-		$config_class_path = BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-config.php';
-
-		// If the config class file is not readable, then return the current transient.
-		if ( ! is_readable( $config_class_path ) ) {
+		// If no configs, then return the current transient.
+		if ( ! $this->configs ) {
 			return $transient;
 		}
-
-		// Include the config class.
-		if ( ! class_exists ( 'Boldgrid_Seo_Config' ) ) {
-			include $config_class_path;
-		}
-
-		// Instantiate the config class.
-		$boldgrid_seo_config = new Boldgrid_Seo_Config();
-
-		// Get configs.
-		$configs = $boldgrid_seo_config->get_configs();
 
 		// Get the installed plugin data.
 		$plugin_data = get_plugin_data( BOLDGRID_SEO_PATH . '/boldgrid-seo.php', false );
@@ -109,7 +82,7 @@ class Boldgrid_Seo_Update {
 		global $wp_version;
 
 		// Do we have $configs?
-		$have_configs = ( false === empty( $configs ) );
+		$have_configs = ( false === empty( $this->configs ) );
 
 		// Is force-check present?
 		$is_force_check = isset( $_GET['force-check'] );
@@ -120,12 +93,7 @@ class Boldgrid_Seo_Update {
 		// If we have no transient or force-check is called, and we do have configs, then get data and set transient.
 		if ( $have_configs && ( false === $version_data || ( $is_force_check && $is_data_old ) ) ) {
 			// Determine the plugin update release channel.
-			if ( is_multisite() ) {
-				( $options = get_site_option( 'boldgrid_settings' ) ) ||
-					 ( $options = get_option( 'boldgrid_settings' ) );
-			} else {
-				$options = get_option( 'boldgrid_settings' );
-			}
+			$options = get_option( 'boldgrid_settings' );
 
 			// Set the release channel.
 			$channel = isset( $options['release_channel'] ) ? $options['release_channel'] : 'stable';
@@ -140,8 +108,7 @@ class Boldgrid_Seo_Update {
 
 			$params = http_build_query( $params_array );
 
-			$query = $configs['asset_server'] . $configs['ajax_calls']['get_plugin_version'] . '?' .
-				 $params;
+			$query = $this->configs['asset_server'] . $this->configs['ajax_calls']['get_plugin_version'] . '?' . $params;
 
 			// Make the call.
 			$version_data = json_decode( wp_remote_retrieve_body( wp_remote_get( $query ) ) );
@@ -153,14 +120,9 @@ class Boldgrid_Seo_Update {
 				$version_data->updated = time();
 
 				// Save the update data in a transient.
-				if ( is_multisite() ) {
-					delete_site_transient( 'boldgrid_seo_version_data' );
-					set_site_transient( 'boldgrid_seo_version_data', $version_data,
-						8 * HOUR_IN_SECONDS );
-				} else {
-					delete_transient( 'boldgrid_seo_version_data' );
-					set_transient( 'boldgrid_seo_version_data', $version_data, 8 * HOUR_IN_SECONDS );
-				}
+				delete_site_transient( 'boldgrid_seo_version_data' );
+				set_site_transient( 'boldgrid_seo_version_data', $version_data, 8 * HOUR_IN_SECONDS );
+
 			} else {
 				// Something went wrong, so just skip adding update data; return unchanged transient data.
 				return $transient;
@@ -188,8 +150,7 @@ class Boldgrid_Seo_Update {
 				// If we have data, format it for use, else set a default message.
 				if ( false === empty( $transient->sections ) && count( $transient->sections ) > 0 ) {
 					foreach ( $transient->sections as $section => $section_data ) {
-						$transient->sections[$section] = html_entity_decode( $section_data,
-							ENT_QUOTES );
+						$transient->sections[$section] = html_entity_decode( $section_data, ENT_QUOTES );
 					}
 				} else {
 					$transient->sections['description'] = 'Data not available';
@@ -204,8 +165,8 @@ class Boldgrid_Seo_Update {
 			$transient->tested = $version_data->result->data->tested_wp_version;
 			// $transient->downloaded = $version_data->result->data->downloads;
 			$transient->last_updated = $version_data->result->data->release_date;
-			$transient->download_link = $configs['asset_server'] .
-				 $configs['ajax_calls']['get_asset'] . '?id=' . $version_data->result->data->asset_id .
+			$transient->download_link = $this->configs['asset_server'] .
+				 $this->configs['ajax_calls']['get_asset'] . '?id=' . $version_data->result->data->asset_id .
 				 '&installed_seo_version=' . $plugin_data['Version'] . '&installed_wp_version=' .
 				 $wp_version;
 
@@ -255,7 +216,7 @@ class Boldgrid_Seo_Update {
 				$obj->url = $version_data->result->data->siteurl;
 			}
 
-			$obj->package = $configs['asset_server'] . $configs['ajax_calls']['get_asset'] . '?id=' .
+			$obj->package = $this->configs['asset_server'] . $this->configs['ajax_calls']['get_asset'] . '?id=' .
 				 $version_data->result->data->asset_id . '&installed_seo_version=' .
 				 $plugin_data['Version'] . '&installed_wp_version=' . $wp_version;
 
@@ -302,41 +263,11 @@ class Boldgrid_Seo_Update {
 	 */
 	public function wp_update_this_plugin () {
 		// Add filters to modify plugin update transient information.
-		add_filter( 'pre_set_site_transient_update_plugins',
-			array (
-				$this,
-				'custom_plugins_transient_update'
-			)
-		);
-
-		add_filter( 'plugins_api',
-			array (
-				$this,
-				'custom_plugins_transient_update'
-			)
-		);
-
-		add_filter( 'site_transient_update_plugins',
-			array (
-				$this,
-				'site_transient_update_plugins'
-			)
-		);
-
-		add_filter( 'auto_update_plugin',
-			array (
-				$this,
-				'auto_update_this_plugin'
-			), 10, 2
-		);
-
-		add_filter( 'auto_update_plugins',
-			array (
-				$this,
-				'auto_update_this_plugin'
-			), 10, 2
-		);
-
+		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'custom_plugins_transient_update' ) );
+		add_filter( 'plugins_api', array( $this, 'custom_plugins_transient_update' ) );
+		add_filter( 'site_transient_update_plugins', array( $this, 'site_transient_update_plugins' ) );
+		add_filter( 'auto_update_plugin', array( $this, 'auto_update_this_plugin' ), 10, 2 );
+		add_filter( 'auto_update_plugins', array( $this, 'auto_update_this_plugin' ), 10, 2 );
 		// Have WordPress check for plugin updates.
 		wp_maybe_auto_update();
 	}

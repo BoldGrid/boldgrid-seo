@@ -67,12 +67,7 @@ class Boldgrid_Seo {
 		$this->boldgrid_seo_meta_fields();
 		$this->boldgrid_seo_meta_boxes();
 		$this->boldgrid_seo_breadcrumbs();
-
-		// Load the config and update classes in the admin pages:
-		if ( is_admin() ) {
-			// Add an action to load the update class on init:
-			add_action( 'init', array ( $this, 'load_boldgrid_seo_update' ) );
-		}
+		$this->boldgrid_seo_update();
 	}
 
 	/**
@@ -86,8 +81,17 @@ class Boldgrid_Seo {
 	/**
 	 * Load the BoldGrid SEO update class
 	 */
-	public function load_boldgrid_seo_update() {
-		$boldgrid_seo_update = new Boldgrid_Seo_Update();
+	public function boldgrid_seo_update() {
+		$update = new Boldgrid_Seo_Update( $this->configs );
+		// If DOING_CRON, then check if this plugin should be auto-updated.
+		if ( defined( 'DOING_CRON' ) && DOING_CRON ){
+			// Ensure required definitions for pluggable.
+			defined( 'AUTH_COOKIE' ) || define( 'AUTH_COOKIE', null );
+			defined( 'LOGGED_IN_COOKIE' ) || define( 'LOGGED_IN_COOKIE', null );
+			// Load the pluggable class, if needed.
+			require_once ABSPATH . 'wp-includes/pluggable.php';
+			$update->wp_update_this_plugin();
+		}
 	}
 
 	/**

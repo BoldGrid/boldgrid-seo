@@ -15,7 +15,7 @@
  *          Plugin Name: BoldGrid SEO
  *          Plugin URI: http://www.boldgrid.com
  *          Description: Manage your BoldGrid website's SEO.
- *          Version: 1.1.1
+ *          Version: 1.0
  *          Author: BoldGrid.com <wpb@boldgrid.com>
  *          Author URI: http://www.boldgrid.com
  *          License: GPL-2.0+
@@ -38,21 +38,6 @@ defined( 'BOLDGRID_SEO_PATH' ) || define( 'BOLDGRID_SEO_PATH', dirname( __FILE__
 
 // Define Editor configuration directory.
 defined( 'BOLDGRID_SEO_CONFIGDIR' ) || define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/config' );
-
-// If DOING_CRON, then check if this plugin should be auto-updated.
-if ( defined( 'DOING_CRON' ) && DOING_CRON ){
-	// Ensure required definitions for pluggable.
-	defined( 'AUTH_COOKIE' ) || define( 'AUTH_COOKIE', null );
-	defined( 'LOGGED_IN_COOKIE' ) || define( 'LOGGED_IN_COOKIE', null );
-	// Load the pluggable class, if needed.
-	require_once ABSPATH . 'wp-includes/pluggable.php';
-	// Include the update class.
-	require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-update.php';
-	// Instantiate the update class.
-	$plugin_update = new Boldgrid_Seo_Update();
-	// Check and update plugins.
-	$plugin_update->wp_update_this_plugin();
-}
 
 /**
  * Check Versions.
