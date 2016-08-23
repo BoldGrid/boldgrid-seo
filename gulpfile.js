@@ -5,6 +5,7 @@ var gulp     = require( 'gulp' ),
     jshint   = require( 'gulp-jshint' ),
     rename   = require( 'gulp-rename' ),
     sort     = require( 'gulp-sort' ),
+	git      = require( 'gulp-git' ),
     readme   = require( 'gulp-readme-to-markdown' );
 
 // Configs.
@@ -66,5 +67,12 @@ gulp.task('readme', function() {
     .pipe( gulp.dest( config.dist ) );
 });
 
+// Clone remote repo to sub folder ($CWD/sub/folder/git-test)
+gulp.task( 'clone', function() {
+  git.clone( 'https://github.com/justintadlock/butterbean', { args: config.src + '/includes/lib/butterbean' }, function( err ) {
+    // silent
+  });
+});
+
 // Build.
-gulp.task( 'default', ['translate', 'js', 'css', 'readme'] );
+gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone'] );
