@@ -61,9 +61,9 @@ class Boldgrid_Seo {
 		$this->plugin_name = 'boldgrid-seo';
 		$this->prefix = 'boldgrid-seo';
 		$this->load_dependencies();
-		$this->assign_configs();
 		$this->set_locale();
 		$this->define_admin_hooks();
+		$this->boldgrid_seo_config();
 		$this->boldgrid_seo_meta_fields();
 		$this->boldgrid_seo_meta_boxes();
 		$this->boldgrid_seo_breadcrumbs();
@@ -73,7 +73,7 @@ class Boldgrid_Seo {
 	/**
 	 * Load the BoldGrid SEO update class
 	 */
-	public function assign_configs() {
+	public function boldgrid_seo_config() {
 		$configs = new Boldgrid_Seo_Config();
 		$this->configs = $configs->get_configs();
 	}

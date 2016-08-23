@@ -7,9 +7,16 @@ if ( ! function_exists( 'boldgrid_seo_autoload' ) ) {
 	 */
 	function boldgrid_seo_autoload( $class_name ) {
 		$paths = array();
-		if ( 0 === stripos( $class_name, 'Boldgrid_Seo' ) ) {
+		$our_class = ( 0 === stripos( $class_name, 'Boldgrid_Seo' ) );
+
+		if ( $our_class ) {
 			$path     = dirname( __FILE__ ) . '/includes/';
+			$is_interface = ( substr( $class_name, -strlen( 'Interface' ) ) == 'Interface' );
 			$filename = 'class-' . strtolower( str_replace( '_', '-', $class_name ) ) . '.php';
+			if ( $is_interface ) {
+				$interface = str_replace( '_Interface', '', $class_name );
+				$filename = 'interface-' . strtolower( str_replace( '_', '-', $interface ) ) . '.php';
+			}
 
 			$paths[] = $path . $filename;
 

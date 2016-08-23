@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * BoldGrid Form configuration class
  */
-class Boldgrid_Seo_Config {
+class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	/**
 	 * Configs.
 	 *
@@ -77,7 +77,7 @@ class Boldgrid_Seo_Config {
 	 * @since    1.1
 	 * @access   private
 	 */
-	private function assign_configs( $folder = '' ) {
+	public function assign_configs( $folder = '' ) {
 		$path = __DIR__ . '/configs/'. $folder;
 		$this->configs = include $path .'/base.config.php';
 		foreach ( glob( $path . '/*.config.php' ) as $filename ) {
