@@ -15,6 +15,3 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: includes/class-boldgrid-seo-meta-field.php:568
-msgid "Select"
-msgstr ""

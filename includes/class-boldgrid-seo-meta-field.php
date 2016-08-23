@@ -456,7 +456,7 @@ class Boldgrid_Seo_Meta_Field {
 
 		// placeholder
 		if ( empty( $field['placeholder'] ) ) {
-			$field['placeholder'] = __( "Select", $this->plugin_name );
+			$field['placeholder'] = __( 'Select', 'boldgrid-seo' );
 		}
 
 		// vars
