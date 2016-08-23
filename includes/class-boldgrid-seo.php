@@ -62,8 +62,8 @@ class Boldgrid_Seo {
 		$this->prefix = 'boldgrid-seo';
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_admin_hooks();
 		$this->boldgrid_seo_config();
+		$this->boldgrid_seo_admin();
 		$this->boldgrid_seo_meta_fields();
 		$this->boldgrid_seo_meta_boxes();
 		$this->boldgrid_seo_breadcrumbs();
@@ -136,30 +136,30 @@ class Boldgrid_Seo {
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function define_admin_hooks() {
-		$plugin_admin = new Boldgrid_Seo_Admin( $this->configs );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'wp_loaded', $plugin_admin, 'register_field_groups' );
-		$this->loader->add_action( 'wp_head', $plugin_admin, 'wp_head', 1 );
-		$this->loader->add_action( "{$this->prefix}/seo/description", $plugin_admin, 'meta_description' );
-		$this->loader->add_action( "{$this->prefix}/seo/keywords", $plugin_admin, 'meta_keywords' );
-		$this->loader->add_action( "{$this->prefix}/seo/classification", $plugin_admin, 'meta_classification' );
-		$this->loader->add_action( "{$this->prefix}/seo/site_name", $plugin_admin, 'meta_site_name' );
-		$this->loader->add_action( "{$this->prefix}/seo/og:title", $plugin_admin, 'meta_og_title' );
-		$this->loader->add_action( "{$this->prefix}/seo/og:image", $plugin_admin, 'meta_og_image' );
-		$this->loader->add_action( "{$this->prefix}/seo/og:type", $plugin_admin, 'meta_og_type' );
-		$this->loader->add_action( "{$this->prefix}/seo/permalink", $plugin_admin, 'meta_permalink' );
-		$this->loader->add_filter( 'boldgrid/seo/archive_title', $plugin_admin, 'boldgrid_seo_simplify_archive_title' );
-		$this->loader->add_filter( 'tiny_mce_before_init', $plugin_admin, 'boldgrid_tinymce_init' );
-		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $plugin_admin, 'manual_image', 99 );
+	private function boldgrid_seo_admin() {
+		$admin = new Boldgrid_Seo_Admin( $this->configs );
+		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_loaded', $admin, 'register_field_groups' );
+		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
+		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
+		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
+		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
+		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
+		$this->loader->add_action( "{$this->prefix}/seo/permalink", $admin, 'meta_permalink' );
+		$this->loader->add_filter( 'boldgrid/seo/archive_title', $admin, 'boldgrid_seo_simplify_archive_title' );
+		$this->loader->add_filter( 'tiny_mce_before_init', $admin, 'boldgrid_tinymce_init' );
+		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $admin, 'manual_image', 99 );
 
 		// Check version for updated filters
 		$wp_version = version_compare( get_bloginfo( 'version' ), '4.4', '>=' );
 		if ( $wp_version ) {
-			$this->loader->add_filter( 'pre_get_document_title', $plugin_admin, 'wp_title', 99, 2 );
+			$this->loader->add_filter( 'pre_get_document_title', $admin, 'wp_title', 99, 2 );
 		} else {
-			$this->loader->add_filter( 'wp_title', $plugin_admin, 'wp_title', 99, 2 );
+			$this->loader->add_filter( 'wp_title', $admin, 'wp_title', 99, 2 );
 		}
 	}
 
