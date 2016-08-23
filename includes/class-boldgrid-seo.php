@@ -83,8 +83,9 @@ class Boldgrid_Seo {
 	 * Load the BoldGrid SEO update class
 	 */
 	public function load_butterbean() {
-		$configs = new Boldgrid_Seo_Config();
-		$this->configs = $configs->get_configs();
+		$butterbean = new Boldgrid_Seo_Butterbean( $this->configs );
+		$this->loader->add_action( 'load-post.php', $butterbean, 'load' );
+		$this->loader->add_action( 'load-post-new.php', $butterbean, 'load' );
 	}
 
 	/**
