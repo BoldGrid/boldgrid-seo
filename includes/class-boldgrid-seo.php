@@ -68,12 +68,21 @@ class Boldgrid_Seo {
 		$this->boldgrid_seo_meta_boxes();
 		$this->boldgrid_seo_breadcrumbs();
 		$this->boldgrid_seo_update();
+		$this->load_butterbean();
 	}
 
 	/**
 	 * Load the BoldGrid SEO update class
 	 */
 	public function boldgrid_seo_config() {
+		$configs = new Boldgrid_Seo_Config();
+		$this->configs = $configs->get_configs();
+	}
+
+	/**
+	 * Load the BoldGrid SEO update class
+	 */
+	public function load_butterbean() {
 		$configs = new Boldgrid_Seo_Config();
 		$this->configs = $configs->get_configs();
 	}
