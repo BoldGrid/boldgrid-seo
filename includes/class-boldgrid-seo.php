@@ -63,10 +63,10 @@ class Boldgrid_Seo {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->boldgrid_seo_config();
-		$this->boldgrid_seo_admin();
-		$this->boldgrid_seo_meta_fields();
-		$this->boldgrid_seo_meta_boxes();
-		$this->boldgrid_seo_breadcrumbs();
+//		$this->boldgrid_seo_admin();
+//		$this->boldgrid_seo_meta_fields();
+//		$this->boldgrid_seo_meta_boxes();
+//		$this->boldgrid_seo_breadcrumbs();
 		$this->boldgrid_seo_update();
 		$this->load_butterbean();
 	}
@@ -86,6 +86,7 @@ class Boldgrid_Seo {
 		$butterbean = new Boldgrid_Seo_Butterbean( $this->configs );
 		$this->loader->add_action( 'load-post.php', $butterbean, 'load' );
 		$this->loader->add_action( 'load-post-new.php', $butterbean, 'load' );
+		$this->loader->add_action( 'butterbean_register', $butterbean, 'register', 10, 2 );
 	}
 
 	/**

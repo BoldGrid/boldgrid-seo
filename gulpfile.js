@@ -69,7 +69,7 @@ gulp.task('readme', function() {
 
 // Clone remote repo to sub folder ($CWD/sub/folder/git-test)
 gulp.task( 'clone', function() {
-  git.clone( 'https://github.com/justintadlock/butterbean', { args: config.src + '/includes/lib/butterbean' }, function( err ) {
+  git.clone( 'https://github.com/CaerCam/butterbean', { args: config.src + '/includes/lib/butterbean' }, function( err ) {
     // silent
   });
 });
