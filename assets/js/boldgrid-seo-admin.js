@@ -6,10 +6,19 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 	var self;
 
-	$.fn.extend( {
-		wordcount : function(  ) {
-			var $this      = $( this ),
-				limit      = $this.attr( 'maxlength' ),
+	BOLDGRID.SEO.WordCount = {
+		/**
+		 * Initialize Word Count.
+		 */
+		init : function () {
+			$( document ).ready( function() {
+				self._setWordCounts();
+				self._setMetaBoxDisplay();
+			});
+		},
+
+		wordCount : function( $element ) {
+			var limit      = $element.attr( 'maxlength' ),
 				$counter   = $( '<span />', {
 					'class' : 'boldgrid-seo-meta-counter',
 					'style' : 'font-weight: bold'
@@ -20,49 +29,39 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				} );
 
 			if ( limit ) {
-				 $this
+				 $element
 					.removeAttr( 'maxlength' )
 					.after( $container.prepend( $counter ) )
-					.on( 'keyup focus' , function(  ) {
-						$counter.setCounter( $this, limit );
+					.on( 'keyup focus' , function() {
+						self.setCounter( $counter, $element, limit );
 					} );
 			}
 
-			$counter.setCounter( $this, limit );
+			self.setCounter( $counter, $element, limit );
 		},
 
 		// Set the counter element for meta description and meta title
-		setCounter : function( $target, limit ) {
-			var $this = $( this ),
-				text  = $target.val(  ),
+		setCounter : function( $counter, $target, limit ) {
+			var text  = $target.val(),
 				chars = text.length;
 
-			$( this ).html( limit - chars );
+			$counter.html( limit - chars );
 
 			if ( chars > limit ) {
-				$this.css( { 'color' : 'red' } );
+				$counter.css( { 'color' : 'red' } );
 			} else if ( chars > 0 && chars < 30 ) {
-				$this.css( { 'color' : 'goldenrod' } );
+				$counter.css( { 'color' : 'goldenrod' } );
 			} else if ( chars > 29 ) {
-				$this.css( { 'color' : 'limegreen' } );
+				$counter.css( { 'color' : 'limegreen' } );
 			} else {
-				$this.css( { 'color' : 'black' } );
+				$counter.css( { 'color' : 'black' } );
 			}
-		}
-	} );
-
-	BOLDGRID.SEO.WordCount = {
-		/**
-		 * Initialize Word Count.
-		 */
-		init : function () {
-			$( document ).ready( function() {
-				self.setWordCount();
-			});
 		},
 
-		setWordCount : function () {
-			var $meta_title_height, $wp_screen_columns;
+		_setMetaBoxDisplay : function() {
+			var $document = $( document ),
+			    $meta_title_height,
+			    $wp_screen_columns;
 
 			// Meta Title's textarea's height to set
 			$meta_title_height = $( '#boldgrid-seo-field-meta_title' );
@@ -80,7 +79,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			}
 
 			// Delegate event to the 1 column radio to listen for change and activate trigger.
-			$( document ).delegate( $wp_screen_columns + '1 input:radio:checked',
+			$document.delegate( $wp_screen_columns + '1 input:radio:checked',
 				// What to do if change happens.
 				'change', function( event ) {
 					// We will set the height of the meta title section to one row.
@@ -89,7 +88,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			);
 
 			// Delegate event to the 2 column radio to listen for change and activate trigger.
-			$( document ).delegate( $wp_screen_columns + '2 input:radio:checked',
+			$document.delegate( $wp_screen_columns + '2 input:radio:checked',
 				// What to do if change happens.
 				'change', function( event ) {
 					// We will set the height of the meta title section to two rows.
@@ -100,16 +99,20 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			// Trigger events on change.
 			$( $wp_screen_columns + '2 input:radio:checked' )
 				.trigger( 'change' );
+		},
 
+		// Set the WordCounts in the SEO Metabox
+		_setWordCounts : function() {
 			// Apply our wordcount counter to the meta title and meta description textarea fields.
 			$( '#boldgrid-seo-field-meta_title, #boldgrid-seo-field-meta_description' )
 				.each( function() {
-					$( this ).wordcount();
-				} );
+					self.wordCount( $( this ) );
+				});
 		},
 	};
 
 	self = BOLDGRID.SEO.WordCount;
+
 })( jQuery );
 
 BOLDGRID.SEO.WordCount = new BOLDGRID.SEO.WordCount.init();
