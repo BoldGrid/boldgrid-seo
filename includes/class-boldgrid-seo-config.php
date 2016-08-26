@@ -111,7 +111,23 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 		elseif ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] )
 			&& $meta = get_post_field( 'post_content', $_GET['post'] ) ) {
 				$description = wp_trim_words( $meta, '30', '' );
+				$description = explode( '.', $description );
+
+				$count = count( $description );
+
+				if ( $count > 1 ) {
+					array_pop( $description );
+				}
+
+				$meta_desc = '';
+
+				foreach( $description as $v ) {
+					$meta_desc .= "{$v}. ";
+				}
+
+				$meta_desc = trim( $meta_desc );
 		}
-		return $description;
+
+		return $meta_desc;
 	}
 }
