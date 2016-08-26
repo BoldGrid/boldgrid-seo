@@ -50,21 +50,13 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	 * Constructor.
 	 */
 	public function __construct() {
-		// Define Editor configuration directory.
-		if ( false === defined( 'BOLDGRID_SEO_CONFIGDIR' ) ) {
-			define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/configs' );
-		}
 		self::assign_configs();
-
 		$configs = $this->configs;
-
 		$local = BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
-
 		if ( file_exists( $local ) ) {
 			$file = include $local;
 			$configs = array_replace_recursive( $configs, $file );
 		}
-
 		$this->set_configs( $configs );
 	}
 
