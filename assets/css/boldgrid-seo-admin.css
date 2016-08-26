@@ -96,7 +96,6 @@
 	margin: 0;
 	box-sizing: border-box;
 	font-size: 14px;
-	line-height: 15px;
 }
 
 .boldgrid-seo-input-wrap input {
@@ -136,4 +135,19 @@ ul.boldgrid-seo-checkbox-list li input {
 
 .boldgrid-seo-meta-extra {
 	font-size: .75em;
+}
+/* Set properties when metabox is placed under editor */
+#boldgrid-seo #boldgrid-seo-field-meta_description {
+	height: 5em;
+}
+#boldgrid-seo #boldgrid-seo-field-meta_title {
+	height: 2em;
+}
+/* Set properties when metabox is placed in sidebar */
+#side-sortables #boldgrid-seo #boldgrid-seo-field-meta_title {
+	height: 3em;
+	line-height: 17px;
+}
+#side-sortables #boldgrid-seo #boldgrid-seo-field-meta_description {
+	height: 7.5em;
 }
