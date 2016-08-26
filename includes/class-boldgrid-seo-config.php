@@ -104,15 +104,10 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	 */
 	public function meta_description() {
 		$description = '';
-		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] )
-			&& $meta = get_post_meta( $_GET['post'], 'meta_description', true ) ) {
-				$description = $meta;
-		}
-		elseif ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] )
-			&& $meta = get_post_field( 'post_content', $_GET['post'] ) ) {
+		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] &&
+			isset( $_GET['post'] ) && $meta = get_post_field( 'post_content', $_GET['post'] ) ) {
 				$description = wp_trim_words( $meta, '30', '' );
 				$description = explode( '.', $description );
-
 				$count = count( $description );
 
 				if ( $count > 1 ) {
@@ -120,14 +115,15 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 				}
 
 				$meta_desc = '';
-
 				foreach( $description as $v ) {
 					$meta_desc .= "{$v}. ";
 				}
 
 				$meta_desc = trim( $meta_desc );
+				unset( $description );
+				$description = $meta_desc;
 		}
 
-		return $meta_desc;
+		return $description;
 	}
 }
