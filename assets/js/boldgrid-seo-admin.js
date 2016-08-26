@@ -9,6 +9,8 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 	BOLDGRID.SEO.WordCount = {
 		/**
 		 * Initialize Word Count.
+		 *
+		 * @since 1.2.1
 		 */
 		init : function () {
 			$( document ).ready( function() {
@@ -16,6 +18,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			});
 		},
 
+		/**
+		 * Get the word count of a metabox field.
+		 *
+		 * @since 1.2.1
+		 */
 		wordCount : function( $element ) {
 			var limit      = $element.attr( 'maxlength' ),
 				$counter   = $( '<span />', {
@@ -39,7 +46,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			self.setCounter( $counter, $element, limit );
 		},
 
-		// Set the counter element for meta description and meta title
+		/**
+		 * Set the colors of the count to reflect ideal lengths.
+		 *
+		 * @since 1.2.1
+		 */
 		setCounter : function( $counter, $target, limit ) {
 			var text  = $target.val(),
 			    chars = text.length;
@@ -57,7 +68,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			}
 		},
 
-		// Set the WordCounts in the SEO Metabox
+		/**
+		 * Set the word counts for each field in the SEO Metabox.
+		 *
+		 * @since 1.2.1
+		 */
 		_setWordCounts : function() {
 			// Apply our wordcount counter to the meta title and meta description textarea fields.
 			$( '#boldgrid-seo-field-meta_title, #boldgrid-seo-field-meta_description' )
