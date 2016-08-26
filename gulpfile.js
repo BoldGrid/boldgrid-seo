@@ -35,7 +35,7 @@ gulp.task( 'js', function(  ) {
 gulp.task( 'css', function(  ) {
   return gulp.src([
     '!' + config.src + config.cssDir + '/**/*.min.css',
-    config.src + config.cssDir + '/css/**/*.css' ])
+    config.src + config.cssDir + '/**/*.css' ])
     .pipe( gulp.dest( config.dist + config.cssDir + '/css' ) )
     .pipe( cssnano({
     discardComments: { removeAll: true }
