@@ -112,4 +112,4 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 	self = BOLDGRID.SEO.WordCount;
 })( jQuery );
 
-BOLDGRID.SEO = new BOLDGRID.SEO.WordCount.init();
+BOLDGRID.SEO.WordCount = new BOLDGRID.SEO.WordCount.init();
