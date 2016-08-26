@@ -87,12 +87,31 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	/**
 	 * Set the default title per each page & post.
 	 *
-	 * @since 	1.0.0
-	 * @return 	string 	Page Title - Blog Name
+	 * @since   1.0.0
+	 * @return  string  Page Title - Blog Name
 	 */
-	public function boldgrid_titles() {
+	public function meta_title() {
 		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] ) ) {
 			return apply_filters( 'the_title', get_the_title( $_GET['post'] ) ) . ' - ' . get_bloginfo( 'name' );
 		}
+	}
+
+	/**
+	 * Set the default meta description for each page & post.
+	 *
+	 * @since   1.2.1
+	 * @return  string $description A meta description that will be used by default.
+	 */
+	public function meta_description() {
+		$description = '';
+		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] )
+			&& $meta = get_post_meta( $_GET['post'], 'meta_description', true ) ) {
+				$description = $meta;
+		}
+		elseif ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] )
+			&& $meta = get_post_field( 'post_content', $_GET['post'] ) ) {
+				$description = wp_trim_words( $meta, '30', '' );
+		}
+		return $description;
 	}
 }
