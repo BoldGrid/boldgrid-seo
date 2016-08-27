@@ -151,7 +151,7 @@ ul.boldgrid-seo-checkbox-list li input {
 #side-sortables #boldgrid-seo #boldgrid-seo-field-meta_description {
 	height: 7.5em;
 }
-#butterbean-control-bgseo_robots_index .butterbean-radio-list li
+#butterbean-control-bgseo_robots_index .butterbean-radio-list li,
 #butterbean-control-bgseo_robots_follow .butterbean-radio-list li {
 	display: inline-block;
 	padding-right: 1em;
