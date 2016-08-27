@@ -13,5 +13,8 @@
     "Optimization"
   ],
   "homepage": "https://github.com/BoldGrid/boldgrid-seo",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "selectize": "selectize.js#^0.12.3"
+  }
 }
