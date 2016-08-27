@@ -317,7 +317,7 @@ class Boldgrid_Seo_Admin {
 					str_replace(
 						array ( "\r","\n" ),
 						'',
-						term_description(  )
+						term_description()
 					)
 				)
 			);

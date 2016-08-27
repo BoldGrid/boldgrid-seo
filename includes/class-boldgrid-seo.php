@@ -63,7 +63,7 @@ class Boldgrid_Seo {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->boldgrid_seo_config();
-//		$this->boldgrid_seo_admin();
+		$this->boldgrid_seo_admin();
 //		$this->boldgrid_seo_meta_fields();
 //		$this->boldgrid_seo_meta_boxes();
 //		$this->boldgrid_seo_breadcrumbs();
@@ -151,19 +151,19 @@ class Boldgrid_Seo {
 		$admin = new Boldgrid_Seo_Admin( $this->configs );
 		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'wp_loaded', $admin, 'register_field_groups' );
-		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
-		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
-		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
-		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
-		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );
-		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
-		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
-		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
-		$this->loader->add_action( "{$this->prefix}/seo/permalink", $admin, 'meta_permalink' );
-		$this->loader->add_filter( 'boldgrid/seo/archive_title', $admin, 'boldgrid_seo_simplify_archive_title' );
-		$this->loader->add_filter( 'tiny_mce_before_init', $admin, 'boldgrid_tinymce_init' );
-		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $admin, 'manual_image', 99 );
+//		$this->loader->add_action( 'wp_loaded', $admin, 'register_field_groups' );
+//		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
+//		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
+//		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
+//		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
+//		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );
+//		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
+//		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
+//		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
+//		$this->loader->add_action( "{$this->prefix}/seo/permalink", $admin, 'meta_permalink' );
+//		$this->loader->add_filter( 'boldgrid/seo/archive_title', $admin, 'boldgrid_seo_simplify_archive_title' );
+//		$this->loader->add_filter( 'tiny_mce_before_init', $admin, 'boldgrid_tinymce_init' );
+//		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $admin, 'manual_image', 99 );
 
 		// Check version for updated filters
 		$wp_version = version_compare( get_bloginfo( 'version' ), '4.4', '>=' );

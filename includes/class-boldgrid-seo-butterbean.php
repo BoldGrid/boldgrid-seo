@@ -117,7 +117,8 @@ class Boldgrid_Seo_Butterbean {
 					'type'        => 'text',
 					'section'     => 'bgseo_visibility',
 					'attr'        => array(
-						'class' => 'widefat'
+						'class' => 'widefat',
+						'placeholder' => get_permalink( $_GET['post'] ),
 					),
 					'label'       => 'Canonical Link',
 					'description' => 'The canonical URL that this page should point to, leave it empty to default to the permalink.',
