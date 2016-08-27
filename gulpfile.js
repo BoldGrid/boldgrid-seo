@@ -57,7 +57,7 @@ gulp.task( 'translate', function (  ) {
       bugReport: 'https://boldgrid.com',
       team: 'The BoldGrid Team <support@boldgrid.com>'
     }) )
-    .pipe( gulp.dest( config.dist + '/languages' ) )
+    .pipe( gulp.dest( config.dist + '/languages' ) );
 } );
 
 
@@ -77,9 +77,9 @@ gulp.task( 'clone', function() {
 
 //Convert readme.txt to Markdown for Github
 gulp.task('bower', function() {
-  gulp.src( config.bowerDir + '/selectize/dist/js/standalone/**/*.js' )
+  gulp.src( './bower_components/selectize/dist/js/standalone/**/*.js' )
   	.pipe( gulp.dest( config.dist + '/assets/js') );
-  gulp.src( config.bowerDir + '/selectize/dist/css/**/*.css' )
+  gulp.src( './bower_components/selectize/dist/css/**/*.css' )
   	  .pipe( gulp.dest( config.dist + 'assets/css' ) );
 });
 
