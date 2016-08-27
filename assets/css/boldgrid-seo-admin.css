@@ -135,6 +135,7 @@ ul.boldgrid-seo-checkbox-list li input {
 
 .boldgrid-seo-meta-extra {
 	font-size: .75em;
+	padding: .5em 0 0 .2em;
 }
 /* Set properties when metabox is placed under editor */
 #boldgrid-seo #boldgrid-seo-field-meta_description {
