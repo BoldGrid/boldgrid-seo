@@ -36,13 +36,13 @@ gulp.task( 'js', function(  ) {
 gulp.task( 'css', function(  ) {
   return gulp.src([
     '!' + config.src + config.cssDir + '/**/*.min.css',
-    config.src + config.cssDir + '/css/**/*.css' ])
-    .pipe( gulp.dest( config.dist + config.cssDir + '/css' ) )
+    config.src + config.cssDir + '/**/*.css' ])
+    .pipe( gulp.dest( config.dist + config.cssDir ) )
     .pipe( cssnano({
     discardComments: { removeAll: true }
     }) )
     .pipe( rename({ suffix: '.min' }) )
-    .pipe( gulp.dest( config.dist + config.cssDir + '/css' ) );
+    .pipe( gulp.dest( config.dist + config.cssDir ) );
 });
 
 // Setup Translations.

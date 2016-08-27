@@ -60,6 +60,7 @@ class Boldgrid_Seo_Admin {
 		$this->configs = $configs;
 		$this->settings = $this->configs['admin'];
 		$this->settings = apply_filters( "{$this->prefix}/seo/settings", $this->settings );
+		$this->util = new Boldgrid_Seo_Util();
 	}
 
 	/**
@@ -352,7 +353,8 @@ class Boldgrid_Seo_Admin {
 					$content = wp_trim_words( $meta, '30', '' );
 			}
 		}
-		if ( $content ) : printf( $this->settings['meta_fields']['description'] . "\n", $content ); endif;
+
+		if ( $content ) : printf( $this->settings['meta_fields']['description'] . "\n", $this->util->get_sentences( $content ) ); endif;
 	}
 
 	/**

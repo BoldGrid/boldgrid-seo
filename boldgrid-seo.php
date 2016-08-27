@@ -35,9 +35,6 @@ defined( 'BOLDGRID_SEO_VERSION' ) || define( 'BOLDGRID_SEO_VERSION', get_file_da
 // Define boldgrid-seo path.
 defined( 'BOLDGRID_SEO_PATH' ) || define( 'BOLDGRID_SEO_PATH', dirname( __FILE__ ) );
 
-// Define Editor configuration directory.
-defined( 'BOLDGRID_SEO_CONFIGDIR' ) || define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/config' );
-
 /**
  * Check Versions.
  *

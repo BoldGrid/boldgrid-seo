@@ -50,21 +50,14 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	 * Constructor.
 	 */
 	public function __construct() {
-		// Define Editor configuration directory.
-		if ( false === defined( 'BOLDGRID_SEO_CONFIGDIR' ) ) {
-			define( 'BOLDGRID_SEO_CONFIGDIR', BOLDGRID_SEO_PATH . '/includes/configs' );
-		}
+		$this->util = new Boldgrid_Seo_Util();
 		self::assign_configs();
-
 		$configs = $this->configs;
-
 		$local = BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
-
 		if ( file_exists( $local ) ) {
 			$file = include $local;
 			$configs = array_replace_recursive( $configs, $file );
 		}
-
 		$this->set_configs( $configs );
 	}
 
@@ -89,18 +82,6 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 			} else {
 				$this->configs[ $option ] = include $filename;
 			}
-		}
-	}
-
-	/**
-	 * Set the default title per each page & post.
-	 *
-	 * @since 	1.0.0
-	 * @return 	string 	Page Title - Blog Name
-	 */
-	public function boldgrid_titles() {
-		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] ) ) {
-			return apply_filters( 'the_title', get_the_title( $_GET['post'] ) ) . ' - ' . get_bloginfo( 'name' );
 		}
 	}
 }
