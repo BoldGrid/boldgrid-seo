@@ -67,7 +67,8 @@ class Boldgrid_Seo_Butterbean {
 					'attr'        => array(
 						'id' => 'boldgrid-seo-field-meta_title',
 						'placeholder' => $this->util->meta_title(),
-						'class' => 'widefat'
+						'maxlength' => '70',
+						'class' => 'widefat',
 					),
 					'label'       => 'SEO Title',
 					'description' => ' ',
@@ -81,6 +82,7 @@ class Boldgrid_Seo_Butterbean {
 				'attr'        => array(
 					'id' => 'boldgrid-seo-field-meta_description',
 					'placeholder' => $this->util->meta_description(),
+					'maxlength' => '156',
 					'class' => 'widefat',
 				),
 				'label'       => 'SEO Description',
