@@ -191,6 +191,7 @@ class Boldgrid_Seo_Admin {
 		if ( apply_filters( "{$this->prefix}/seo/automate_head",
 			 apply_filters( "{$this->plugin_name}/automate_head", true ) ) ) {
 			do_action( "{$this->prefix}/seo/description" 	 	);
+			do_action( "{$this->prefix}/seo/canonical" 	 	    );
 			do_action( "{$this->prefix}/seo/keywords" 	  	 	);
 			do_action( "{$this->prefix}/seo/classification" 	);
 			do_action( "{$this->prefix}/seo/site_name"		 	);
@@ -229,6 +230,20 @@ class Boldgrid_Seo_Admin {
 		}
 		$title = trim( str_replace( ',', ' |', wp_strip_all_tags( $title ) ) );
 		return $title;
+	}
+
+	public function canonical_url() {
+		if ( ! empty( $GLOBALS['post']->ID ) ) {
+			// Look for a custom canonical url to override the default permalink.
+			if ( $canonical = get_post_meta( $GLOBALS['post']->ID, 'bgseo_canonical', true ) ) {
+				$content = $canonical;
+			}
+			// Otherwise use the default permalink for page or post.
+			elseif ( $canonical = get_permalink( $GLOBALS['post']->ID ) ) {
+				$content = $canonical;
+			}
+		}
+		if ( isset( $content ) ) : printf( $this->settings['meta_fields']['canonical'] . "\n", esc_url( $content ) ); endif;
 	}
 
 	/**
@@ -471,6 +486,36 @@ class Boldgrid_Seo_Admin {
 		}
 		elseif ( ! empty( $GLOBALS['post']->ID )
 			&& $meta = apply_filters( "{$this->prefix}/seo/add_image_field", $GLOBALS['post']->ID ) ) {
+				$content = $meta;
+		}
+		elseif ( ! empty( $GLOBALS['post']->ID )
+			&& $meta = get_post_meta( $GLOBALS['post']->ID, 'meta_image', true ) ) {
+				$content = $meta;
+		}
+		elseif ( ! empty( $GLOBALS['post']->ID )
+			&& $meta_array = wp_get_attachment_image_src( get_post_thumbnail_id( $GLOBALS['post']->ID ), 'full' ) ) {
+				if ( ! empty( $meta_array[0] ) ) {
+					$content = $meta_array[0];
+				}
+		}
+
+		if ( $content ) : printf( $this->settings['meta_fields']['image'] . "\n", $content ); endif;
+	}
+
+	/**
+	 * Open Graph image from featured image.
+	 *
+	 * @since	1.0.0
+	 * @return	void
+	 */
+	public function robots() {
+		$content = '';
+		if ( is_home(  )
+			&& $meta = get_option( 'meta_image' ) ) {
+				$content = $meta;
+		}
+		elseif ( ! empty( $GLOBALS['post']->ID )
+			&& $meta = apply_filters( "{$this->prefix}/seo/robots", $GLOBALS['post']->ID ) ) {
 				$content = $meta;
 		}
 		elseif ( ! empty( $GLOBALS['post']->ID )

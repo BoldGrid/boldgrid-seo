@@ -155,6 +155,7 @@ class Boldgrid_Seo {
 		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
 		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
 		$this->loader->add_action( "{$this->prefix}/seo/robots", $admin, 'robots' );
+		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'canonical_url' );
 //		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
 //		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
 //		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );

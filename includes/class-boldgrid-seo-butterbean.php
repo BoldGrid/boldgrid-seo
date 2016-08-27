@@ -274,6 +274,10 @@ class Boldgrid_Seo_Butterbean {
 			array( 'sanitize_callback' => 'wp_kses_post' )
 		);
 		$manager->register_setting(
+			'bgseo_canonical',
+			array( 'sanitize_callback' => 'esc_url_raw' )
+		);
+		$manager->register_setting(
 			'bbe_checkbox_a',
 			array( 'sanitize_callback' => 'butterbean_validate_boolean' )
 		);
