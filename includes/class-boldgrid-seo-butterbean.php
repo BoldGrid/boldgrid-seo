@@ -69,7 +69,7 @@ class Boldgrid_Seo_Butterbean {
 						'class' => 'widefat'
 					),
 					'label'       => 'SEO Title',
-					'description' => 'This is your SEO Title',
+					'description' => ' ',
 				)
 		);
 		$manager->register_control(
@@ -86,42 +86,42 @@ class Boldgrid_Seo_Butterbean {
 			)
 		);
 		$manager->register_control(
-			'bbe_checkbox_a',
-			array(
-				'type'        => 'checkbox',
-				'section'     => 'bgseo_visibility',
-				'label'       => 'Example Checkbox',
-				'description' => 'Example description.'
-			)
-		);
-		$manager->register_control(
-			'bbe_checkboxes_a',
-			array(
-				'type'        => 'checkboxes',
-				'section'     => 'bgseo_visibility',
-				'label'       => 'Example Checkbox',
-				'description' => 'Example description.',
-				'choices'     => array(
-					'choice_d' => 'Choice D',
-					'choice_e' => 'Choice E',
-					'choice_f' => 'Choice F',
-				)
-			)
-		);
-		$manager->register_control(
-			'bbe_radio_a',
+			'bgseo_robots_index',
 			array(
 				'type'        => 'radio',
-				'section'     => 'bbe_radio_fields',
-				'label'       => 'Example Radio',
-				'description' => 'Example description.',
+				'section'     => 'bgseo_visibility',
+				'label'       => 'Meta Robots Index',
+				//'description' => 'Example description.',
 				'choices'     => array(
-					''         => 'None',
-					'choice_a' => 'Choice A',
-					'choice_b' => 'Choice B',
-					'choice_c' => 'Choice C',
+					'choice_a' => 'index',
+					'choice_b' => 'noindex',
 				)
 			)
+		);
+		$manager->register_control(
+			'bgseo_robots_follow',
+			array(
+				'type'        => 'radio',
+				'section'     => 'bgseo_visibility',
+				'label'       => 'Meta Robots Follow',
+				//'description' => 'Example description.',
+				'choices'     => array(
+					'choice_a' => 'follow',
+					'choice_b' => 'nofollow',
+				)
+			)
+		);
+		$manager->register_control(
+				'bgseo_canonical',
+				array(
+					'type'        => 'text',
+					'section'     => 'bgseo_visibility',
+					'attr'        => array(
+						'class' => 'widefat'
+					),
+					'label'       => 'Canonical Link',
+					'description' => 'The canonical URL that this page should point to, leave it empty to default to the permalink.',
+				)
 		);
 		$manager->register_control(
 			'bbe_select_a',
