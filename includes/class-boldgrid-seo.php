@@ -84,8 +84,8 @@ class Boldgrid_Seo {
 	 */
 	public function load_butterbean() {
 		$butterbean = new Boldgrid_Seo_Butterbean( $this->configs );
-		$this->loader->add_action( 'load-post.php', $butterbean, 'load' );
-		$this->loader->add_action( 'load-post-new.php', $butterbean, 'load' );
+		$this->loader->add_action( 'plugins_loaded', $butterbean, 'load' );
+		//$this->loader->add_action( 'load-post-new.php', $butterbean, 'load' );
 		$this->loader->add_action( 'butterbean_register', $butterbean, 'register', 10, 2 );
 	}
 

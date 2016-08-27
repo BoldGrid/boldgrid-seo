@@ -35,26 +35,26 @@ msgstr ""
 msgid "Meta Description"
 msgstr ""
 
-#: includes/configs/admin.config.php:30
+#: includes/configs/admin.config.php:31
 msgid "Typically what will show in a <b>S</b>earch <b>E</b>ngine <b>R</b>esults <b>P</b>age ( SERP ).  This is important, but secondary to your SEO Title.  Limit is %d characters."
 msgstr ""
 
-#: includes/configs/admin.config.php:34
+#: includes/configs/admin.config.php:35
 msgid "Meta Keywords"
 msgstr ""
 
-#: includes/configs/admin.config.php:38
+#: includes/configs/admin.config.php:39
 msgid "We recommend using only one or two keywords. Too many keywords can actually hurt your SEO."
 msgstr ""
 
-#: includes/configs/admin.config.php:41
+#: includes/configs/admin.config.php:42
 msgid "Open Graph Image"
 msgstr ""
 
-#: includes/configs/admin.config.php:44, includes/configs/admin.config.php:50
+#: includes/configs/admin.config.php:45, includes/configs/admin.config.php:51
 msgid "Used by some social media sites when a user shares this content."
 msgstr ""
 
-#: includes/configs/admin.config.php:47
+#: includes/configs/admin.config.php:48
 msgid "Open Graph Type"
 msgstr ""

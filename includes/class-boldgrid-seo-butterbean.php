@@ -2,13 +2,9 @@
 class Boldgrid_Seo_Butterbean {
 	public function __construct( $configs ) {
 		$this->configs = $configs;
+		$this->util = new Boldgrid_Seo_Util();
 	}
 	public function load() {
-		// Only load on pages and posts.
-		if ( 'page' !== get_current_screen()->post_type && 'post' !== get_current_screen()->post_type ) {
-			return;
-		}
-
 		require_once( BOLDGRID_SEO_PATH . '/includes/lib/butterbean/butterbean.php' );
 	}
 
@@ -22,23 +18,23 @@ class Boldgrid_Seo_Butterbean {
 				'label'     => 'BoldGrid SEO',
 				'post_type' => array( 'post', 'page' ),
 				'context'   => 'normal',
-				'priority'  => 'high'
+				'priority'  => 'high',
 			)
 		);
 		$manager  = $butterbean->get_manager( 'boldgrid_seo' );
 		/* === Register Sections === */
 		$manager->register_section(
-			'bbe_text_fields',
+			'bgseo_meta',
 			array(
-				'label' => 'Text Fields',
+				'label' => 'Title & Description',
 				'icon'  => 'dashicons-edit'
 			)
 		);
 		$manager->register_section(
-			'bbe_common_fields',
+			'bgseo_visibility',
 			array(
-				'label' => 'Common Fields',
-				'icon'  => 'dashicons-admin-generic'
+				'label' => 'Search Visibility',
+				'icon'  => 'dashicons-visibility'
 			)
 		);
 		$manager->register_section(
@@ -64,22 +60,28 @@ class Boldgrid_Seo_Butterbean {
 		);
 		/* === Register Controls === */
 		$manager->register_control(
-				'bbe_text_a',
+				'boldgrid_seo_title',
 				array(
 					'type'        => 'text',
-					'section'     => 'bbe_text_fields',
-					'attr'        => array( 'class' => 'widefat' ),
-					'label'       => 'Example Text',
-					'description' => 'Example description.'
+					'section'     => 'bgseo_meta',
+					'attr'        => array(
+						'placeholder' => $this->util->meta_title(),
+						'class' => 'widefat'
+					),
+					'label'       => 'SEO Title',
+					'description' => 'This is your SEO Title',
 				)
 		);
 		$manager->register_control(
-			'bbe_textarea_a',
+			'boldgrid_seo_description',
 			array(
 				'type'        => 'textarea',
-				'section'     => 'bbe_text_fields',
-				'attr'        => array( 'class' => 'widefat' ),
-				'label'       => 'Example Textarea',
+				'section'     => 'bgseo_meta',
+				'attr'        => array(
+					'placeholder' => $this->util->meta_description(),
+					'class' => 'widefat',
+				),
+				'label'       => 'SEO Description',
 				'description' => 'Example description.'
 			)
 		);
@@ -87,7 +89,7 @@ class Boldgrid_Seo_Butterbean {
 			'bbe_checkbox_a',
 			array(
 				'type'        => 'checkbox',
-				'section'     => 'bbe_common_fields',
+				'section'     => 'bgseo_visibility',
 				'label'       => 'Example Checkbox',
 				'description' => 'Example description.'
 			)
@@ -96,7 +98,7 @@ class Boldgrid_Seo_Butterbean {
 			'bbe_checkboxes_a',
 			array(
 				'type'        => 'checkboxes',
-				'section'     => 'bbe_common_fields',
+				'section'     => 'bgseo_visibility',
 				'label'       => 'Example Checkbox',
 				'description' => 'Example description.',
 				'choices'     => array(
@@ -286,7 +288,7 @@ class Boldgrid_Seo_Butterbean {
 			array( 'sanitize_callback' => 'sanitize_key' )
 		);
 		$manager->register_setting(
-			new ButterBean_Setting_Date(
+			new ButterBean_Setting_Datetime(
 				$manager,
 				'bbe_date_a'
 			)
