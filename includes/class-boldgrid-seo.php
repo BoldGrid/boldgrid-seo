@@ -87,6 +87,9 @@ class Boldgrid_Seo {
 		$this->loader->add_action( 'plugins_loaded', $butterbean, 'load' );
 		//$this->loader->add_action( 'load-post-new.php', $butterbean, 'load' );
 		$this->loader->add_action( 'butterbean_register', $butterbean, 'register', 10, 2 );
+		// Add our custom template checks.
+		$this->loader->add_filter( 'butterbean_control_template', $butterbean, 'get_html_template', 10, 2 );
+
 	}
 
 	/**

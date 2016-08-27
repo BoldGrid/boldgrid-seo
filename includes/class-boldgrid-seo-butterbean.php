@@ -8,6 +8,19 @@ class Boldgrid_Seo_Butterbean {
 		require_once( BOLDGRID_SEO_PATH . '/includes/lib/butterbean/butterbean.php' );
 	}
 
+	/**
+	 * Get custom templates and load them in to render in our metabox.
+	 *
+	 * @since 1.2.1
+	 */
+	public function get_html_template( $located, $slug ) {
+		if ( $slug === 'html' ) {
+			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-html.php";
+		}
+
+		return $located;
+	}
+
 	public function register( $butterbean, $post_type ) {
 		if ( 'page' !== $post_type && 'post' !== $post_type )
 			return;
@@ -23,6 +36,13 @@ class Boldgrid_Seo_Butterbean {
 		);
 		$manager  = $butterbean->get_manager( 'boldgrid_seo' );
 		/* === Register Sections === */
+		$manager->register_section(
+			'bgseo_dashboard',
+			array(
+				'label' => 'SEO Dashboard',
+				'icon'  => 'dashicons-chart-area'
+			)
+		);
 		$manager->register_section(
 			'bgseo_meta',
 			array(
@@ -40,25 +60,27 @@ class Boldgrid_Seo_Butterbean {
 		$manager->register_section(
 			'bbe_color_fields',
 			array(
-				'label' => 'Color Fields',
-				'icon'  => 'dashicons-art'
+				'label' => 'Search Keywords',
+				'icon'  => 'dashicons-search'
 			)
 		);
 		$manager->register_section(
 			'bbe_radio_fields',
 			array(
-				'label' => 'Radio Fields',
-				'icon'  => 'dashicons-carrot'
-			)
-		);
-		$manager->register_section(
-			'bbe_special_fields',
-			array(
-				'label' => 'Special Fields',
-				'icon'  => 'dashicons-star-filled'
+				'label' => 'Readability',
+				'icon'  => 'dashicons-book'
 			)
 		);
 		/* === Register Controls === */
+		new Boldgrid_Seo_Controls_Html( $manager, 'html' );
+		$manager->register_control(
+			'bgseo_dash_html',
+			array(
+				'type'        => 'html',
+				'section'     => 'bgseo_dashboard',
+				'description' => '<div class="hellow"><p>huhuhuhuhuu</p></div>',
+			)
+		);
 		$manager->register_control(
 				'boldgrid_seo_title',
 				array(
