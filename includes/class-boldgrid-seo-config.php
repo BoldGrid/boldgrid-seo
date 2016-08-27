@@ -50,6 +50,7 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	 * Constructor.
 	 */
 	public function __construct() {
+		$this->util = new Boldgrid_Seo_Util();
 		self::assign_configs();
 		$configs = $this->configs;
 		$local = BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
@@ -82,48 +83,5 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 				$this->configs[ $option ] = include $filename;
 			}
 		}
-	}
-
-	/**
-	 * Set the default title per each page & post.
-	 *
-	 * @since   1.0.0
-	 * @return  string  Page Title - Blog Name
-	 */
-	public function meta_title() {
-		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] && isset( $_GET['post'] ) ) {
-			return apply_filters( 'the_title', get_the_title( $_GET['post'] ) ) . ' - ' . get_bloginfo( 'name' );
-		}
-	}
-
-	/**
-	 * Set the default meta description for each page & post.
-	 *
-	 * @since   1.2.1
-	 * @return  string $description A meta description that will be used by default.
-	 */
-	public function meta_description() {
-		$description = '';
-		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] &&
-			isset( $_GET['post'] ) && $meta = get_post_field( 'post_content', $_GET['post'] ) ) {
-				$description = wp_trim_words( $meta, '30', '' );
-				$description = explode( '.', $description );
-				$count = count( $description );
-
-				if ( $count > 1 ) {
-					array_pop( $description );
-				}
-
-				$meta_desc = '';
-				foreach( $description as $v ) {
-					$meta_desc .= "{$v}. ";
-				}
-
-				$meta_desc = trim( $meta_desc );
-				unset( $description );
-				$description = $meta_desc;
-		}
-
-		return $description;
 	}
 }
