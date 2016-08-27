@@ -152,8 +152,8 @@ class Boldgrid_Seo {
 		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_scripts' );
 //		$this->loader->add_action( 'wp_loaded', $admin, 'register_field_groups' );
-//		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
-//		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
+		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
+		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
 //		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
 //		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
 //		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );

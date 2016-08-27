@@ -269,7 +269,7 @@ class Boldgrid_Seo_Admin {
 
 			// Look for a custom meta on a posts page
 			elseif ( $posts_page_id
-				&& $meta = get_post_meta( $posts_page_id, 'meta_title', true ) ) {
+				&& $meta = get_post_meta( $posts_page_id, 'boldgrid_seo_title', true ) ) {
 					$content = $meta;
 			}
 
@@ -284,7 +284,7 @@ class Boldgrid_Seo_Admin {
 		} else {
 			// Look for a custom meta title and override post title
 			if ( ! empty( $GLOBALS['post']->ID ) ) {
-				if ( $meta_title = get_post_meta( $GLOBALS['post']->ID, 'meta_title', true ) ) {
+				if ( $meta_title = get_post_meta( $GLOBALS['post']->ID, 'boldgrid_seo_title', true ) ) {
 					$content = $meta_title;
 				}
 
@@ -353,6 +353,7 @@ class Boldgrid_Seo_Admin {
 					$content = wp_trim_words( $meta, '30', '' );
 			}
 		}
+		//var_dump( $content ); die;
 
 		if ( $content ) : printf( $this->settings['meta_fields']['description'] . "\n", $this->util->get_sentences( $content ) ); endif;
 	}
@@ -513,7 +514,7 @@ class Boldgrid_Seo_Admin {
 		if ( is_home(  ) ) : $posts_page_id = get_option( 'page_for_posts' );
 			// Look for a permalink on a posts page
 			if ( $posts_page_id
-				&& $meta = get_post_meta( $posts_page_id, 'meta_title', true ) ) {
+				&& $meta = get_post_meta( $posts_page_id, 'boldgrid_seo_title', true ) ) {
 				echo $meta;
 			}
 			// Look for a posts page post permalink
