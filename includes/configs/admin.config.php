@@ -9,6 +9,7 @@ return array(
 		'title'            => '<meta property="og:title" content="%s">',
 		'image'            => '<meta property="og:image" content="%s">',
 		'type'             => '<meta property="og:type" content="%s">',
+		'canonical'        => '<link rel="canonical" href="%s" />',
 	),
 	'field_groups'      => array (
 		array (
