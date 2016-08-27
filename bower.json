@@ -1,0 +1,17 @@
+{
+  "name": "boldgrid-seo",
+  "description": "BoldGrid SEO provides website search engine optimization.",
+  "main": "boldgrid-seo.php",
+  "authors": [
+    "The BoldGrid Team"
+  ],
+  "license": "GPL-2.0",
+  "keywords": [
+    "SEO",
+    "Search",
+    "Engine",
+    "Optimization"
+  ],
+  "homepage": "https://github.com/BoldGrid/boldgrid-seo",
+  "private": true
+}
