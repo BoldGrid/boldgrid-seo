@@ -80,7 +80,7 @@ gulp.task('bower', function() {
   gulp.src( './bower_components/selectize/dist/js/standalone/**/*.js' )
   	.pipe( gulp.dest( config.dist + '/assets/js') );
   gulp.src( './bower_components/selectize/dist/css/**/*.css' )
-  	  .pipe( gulp.dest( config.dist + 'assets/css' ) );
+  	  .pipe( gulp.dest( config.dist + '/assets/css' ) );
 });
 
 // Build.
