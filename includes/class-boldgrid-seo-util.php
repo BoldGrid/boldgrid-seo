@@ -73,18 +73,50 @@ class Boldgrid_Seo_Util {
 				$sentences[] = $sentence;
 			}
 		}
-		// Remove last sentence since it's likely partial if we have more than one.
+		// Check how many setences we have left and prepare the string for output.
+		$string = $this->construct_sentences( $sentences );
+
+		return $string;
+	}
+
+	/**
+	 * Construct Sentences.
+	 *
+	 * This will check out the number of sentences in the
+	 * array and format them for output.
+	 *
+	 * @since 1.2.1
+	 *
+	 * @param array $sentences An array containing sentences to format.
+	 * @return string $string A String containing our formatted sentences.
+	 */
+	public function construct_sentences( $sentences ) {
 		$count = count( $sentences );
-		if ( $count > 1 ) {
-			array_pop( $sentences );
+		switch( $count ) {
+			// Check out a single sentence returned.
+			case 1 :
+				// Create string with our setence.
+				$sentences = implode( $sentences, '' ) . '.';
+				// If it's a longer sentence it should have ellipses.
+				strlen( $sentences ) < 130 ? : $sentences = $sentences . '..';
+				break;
+			// Two sentences retuned might contain a partial.
+			case 2 :
+				// Remove the partial sentences from the end.
+				array_pop( $sentences );
+				// Create single sentence with period at the end.
+				$sentences = implode( $sentences, '' ) . '.';
+				break;
+			// Multiple sentences are the most likely scenario.
+			default :
+				// Remove last sentence since it's likely a partial.
+				array_pop( $sentences );
+				// Create string with whole sentences and puncuation.
+				$sentences = implode( $sentences, '. ' );
+				// Remove any whitespace for output.
+				$sentences = trim( $sentences );
 		}
-		// Convert array back into a clean string.
-		$clean = '';
-		foreach( $sentences as $v ) {
-			$clean .= "{$v}. ";
-		}
-		// String is clean.
-		$string = trim( $clean );
+		$string = $sentences;
 
 		return $string;
 	}

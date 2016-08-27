@@ -157,7 +157,7 @@ class Boldgrid_Seo {
 //		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
 //		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
 //		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );
-//		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
 //		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
 //		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
 //		$this->loader->add_action( "{$this->prefix}/seo/permalink", $admin, 'meta_permalink' );

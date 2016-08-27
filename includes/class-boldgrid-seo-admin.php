@@ -299,6 +299,7 @@ class Boldgrid_Seo_Admin {
 			||   1 < $GLOBALS['page'] ) ) {
 				$content .= "$sep Page " . max( $GLOBALS['paged'], $GLOBALS['page'] );
 		}
+
 		return $content;
 	}
 

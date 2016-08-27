@@ -262,12 +262,11 @@ class Boldgrid_Seo_Butterbean {
 		);
 		/* === Register Settings === */
 		$manager->register_setting(
-			'bgseo_meta',
-			array( 'default' => 'heufuy' ),
+			'boldgrid_seo_title',
 			array( 'sanitize_callback' => 'wp_filter_nohtml_kses' )
 		);
 		$manager->register_setting(
-			'bbe_textarea_a',
+			'boldgrid_seo_description',
 			array( 'sanitize_callback' => 'wp_kses_post' )
 		);
 		$manager->register_setting(
