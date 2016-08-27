@@ -334,7 +334,7 @@ class Boldgrid_Seo_Admin {
 
 			// Look for a custom meta on a posts page
 			elseif ( $posts_page_id
-				&& $meta = get_post_meta( $posts_page_id, 'meta_description', true ) ) {
+				&& $meta = get_post_meta( $posts_page_id, 'boldgrid_seo_description', true ) ) {
 					$content = $meta;
 			}
 
@@ -345,7 +345,7 @@ class Boldgrid_Seo_Admin {
 			}
 		} else {
 			if ( ! empty( $GLOBALS['post']->ID )
-				&& $meta = get_post_meta( $GLOBALS['post']->ID, 'meta_description', true ) ) {
+				&& $meta = get_post_meta( $GLOBALS['post']->ID, 'boldgrid_seo_description', true ) ) {
 					$content = $meta;
 			}
 			elseif ( ! empty( $GLOBALS['post']->ID )
