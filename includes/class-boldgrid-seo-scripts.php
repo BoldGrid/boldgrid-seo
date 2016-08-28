@@ -88,5 +88,21 @@ class Boldgrid_Seo_Scripts {
 			$this->configs['version'],
 			false
 		);
+
+		wp_enqueue_script(
+			$this->configs['plugin_name'] . '-content-analysis',
+			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-content-analysis.js',
+			array ( 'jquery' ),
+			$this->configs['version'],
+			false
+		);
+
+		wp_enqueue_script(
+			$this->configs['plugin_name'] . '-text-statistics',
+			$this->configs['plugin_url'] . '/assets/js/text-statistics/index.js',
+			array ( 'jquery' ),
+			$this->configs['version'],
+			false
+		);
 	}
 }

@@ -22,6 +22,7 @@ gulp.task( 'js', function(  ) {
   return gulp.src([
     '!' + config.src + config.jsDir + '/**/*.min.js',
 	'!' + config.src + config.jsDir + '/**/selectize*.js',
+	'!' + config.src + config.jsDir + '/**/text-statistics/*.js',
     config.src + config.jsDir + '/**/*.js' ])
     .pipe( jshint() )
     .pipe( jshint.reporter( 'jshint-stylish' ) )

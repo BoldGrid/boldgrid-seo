@@ -64,7 +64,6 @@
 			if ( format === 'text' ) {
 				text = self.stripper( text );
 			}
-
 			return text;
 		},
 		// Strip out remaining traces of HTML to form our cleanText output to scan
