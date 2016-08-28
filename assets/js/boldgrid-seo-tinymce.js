@@ -65,7 +65,6 @@
 				text = self.stripper( text );
 			}
 
-			console.log( text );
 			return text;
 		},
 		// Strip out remaining traces of HTML to form our cleanText output to scan

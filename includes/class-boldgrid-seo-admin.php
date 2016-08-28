@@ -84,68 +84,6 @@ class Boldgrid_Seo_Admin {
 	}
 
 	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles( $hook ) {
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Boldgrid_Seo_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Boldgrid_Seo_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) )
-			|| ! in_array( $GLOBALS['post_type'], $this->boldgrid_post_types(  ) ) ) {
-				return;
-		} # || )
-
-		wp_enqueue_style(
-			$this->plugin_name,
-			$this->configs['plugin_url'] . '/assets/css/boldgrid-seo-admin.css',
-			array(),
-			$this->configs['version'],
-			'all'
-		);
-	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts( $hook ) {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Boldgrid_Seo_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Boldgrid_Seo_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) ) || ! in_array( $GLOBALS['post_type'], $this->boldgrid_post_types(  ) ) ) {
-			return;
-		}
-
-		wp_enqueue_script(
-			$this->plugin_name,
-			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-admin.js',
-			array ( 'jquery' ),
-			$this->configs['version'],
-			false
-		);
-	}
-
-	/**
 	 * Inject JS to have repeater active for TinyMCE content.
 	 *
 	 * @since 	1.0.0
@@ -160,7 +98,7 @@ class Boldgrid_Seo_Admin {
 	 *
 	 * @since	1.0.0
 	 */
-	public function boldgrid_post_types(  ) {
+	public function post_types(  ) {
 		$this->settings['post_types'] = get_post_types(
 			array(
 				'public' => true,
@@ -594,7 +532,7 @@ class Boldgrid_Seo_Admin {
 	 */
 	public function register_field_groups(  ) {
 		// locations for this field group
-		if ( $post_types = $this->boldgrid_post_types(  ) ) {
+		if ( $post_types = $this->post_types(  ) ) {
 			foreach ( $post_types as $post_type ) {
 				$this->settings['field_groups'][0]['post_types'][] = $post_type;
 			}

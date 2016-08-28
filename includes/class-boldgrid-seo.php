@@ -76,6 +76,8 @@ class Boldgrid_Seo {
 	 */
 	public function enqueue_scripts() {
 		$scripts = new Boldgrid_Seo_Scripts( $this->configs );
+		$this->loader->add_action( 'admin_enqueue_scripts', $scripts, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $scripts, 'enqueue_scripts' );
 		$this->loader->add_filter( 'tiny_mce_before_init', $scripts, 'tiny_mce' );
 	}
 
@@ -160,8 +162,6 @@ class Boldgrid_Seo {
 	 */
 	private function boldgrid_seo_admin() {
 		$admin = new Boldgrid_Seo_Admin( $this->configs );
-		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_scripts' );
 //		$this->loader->add_action( 'wp_loaded', $admin, 'register_field_groups' );
 		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
 		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
