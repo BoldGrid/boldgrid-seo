@@ -74,6 +74,9 @@ gulp.task( 'clone', function() {
   git.clone( 'https://github.com/justintadlock/butterbean', { args: config.src + '/includes/lib/butterbean' }, function( err ) {
     // silent
   });
+  git.clone( 'https://github.com/cgiffard/TextStatistics.js', { args: config.src + '/assets/js/text-statistics' }, function( err ) {
+    // silent
+  });
 });
 
 //Convert readme.txt to Markdown for Github
