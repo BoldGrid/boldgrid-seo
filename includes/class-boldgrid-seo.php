@@ -69,6 +69,14 @@ class Boldgrid_Seo {
 //		$this->boldgrid_seo_breadcrumbs();
 		$this->boldgrid_seo_update();
 		$this->load_butterbean();
+		$this->enqueue_scripts();
+	}
+	/**
+	 * Load the BoldGrid SEO JS and CSS Files.
+	 */
+	public function enqueue_scripts() {
+		$scripts = new Boldgrid_Seo_Scripts( $this->configs );
+		$this->loader->add_filter( 'tiny_mce_before_init', $scripts, 'tiny_mce' );
 	}
 
 	/**

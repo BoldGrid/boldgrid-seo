@@ -15,46 +15,42 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: includes/class-boldgrid-seo-meta-field.php:459
-msgid "Select"
-msgstr ""
-
-#: includes/configs/admin.config.php:16
+#: includes/configs/admin.config.php:17
 msgid "Search Engine Optimization"
 msgstr ""
 
-#: includes/configs/admin.config.php:19
+#: includes/configs/admin.config.php:20
 msgid "SEO Title"
 msgstr ""
 
-#: includes/configs/admin.config.php:23
+#: includes/configs/admin.config.php:24
 msgid "This is <b>very important</b> for Google and Bing, see the Help Tab for more information.  Limit is %d characters."
 msgstr ""
 
-#: includes/configs/admin.config.php:27
+#: includes/configs/admin.config.php:28
 msgid "Meta Description"
 msgstr ""
 
-#: includes/configs/admin.config.php:31
+#: includes/configs/admin.config.php:32
 msgid "Typically what will show in a <b>S</b>earch <b>E</b>ngine <b>R</b>esults <b>P</b>age ( SERP ).  This is important, but secondary to your SEO Title.  Limit is %d characters."
 msgstr ""
 
-#: includes/configs/admin.config.php:35
+#: includes/configs/admin.config.php:36
 msgid "Meta Keywords"
 msgstr ""
 
-#: includes/configs/admin.config.php:39
+#: includes/configs/admin.config.php:40
 msgid "We recommend using only one or two keywords. Too many keywords can actually hurt your SEO."
 msgstr ""
 
-#: includes/configs/admin.config.php:42
+#: includes/configs/admin.config.php:43
 msgid "Open Graph Image"
 msgstr ""
 
-#: includes/configs/admin.config.php:45, includes/configs/admin.config.php:51
+#: includes/configs/admin.config.php:46, includes/configs/admin.config.php:52
 msgid "Used by some social media sites when a user shares this content."
 msgstr ""
 
-#: includes/configs/admin.config.php:48
+#: includes/configs/admin.config.php:49
 msgid "Open Graph Type"
 msgstr ""
