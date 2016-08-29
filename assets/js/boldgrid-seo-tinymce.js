@@ -46,7 +46,7 @@
 			return text;
 		},
 		wpContent : function( targetId, format ) {
-			var text, report;
+			var text, report = {};
 			format = typeof format !== 'undefined' ? format : 'raw';
 			switch ( targetId ) {
 				// Grab text from TinyMCE Editor.
@@ -64,8 +64,11 @@
 			if ( format === 'text' ) {
 				text = self.stripper( text );
 			}
-			report = self.generateReport( text );
-			console.log(report);
+
+			if ( text !== '' ) {
+				report = self.generateReport( text );
+			}
+
 			return report;
 		},
 		// Strip out remaining traces of HTML to form our cleanText output to scan
@@ -76,11 +79,14 @@
 			return tmp.textContent || tmp.innerText || "";
 		},
 		generateReport : function( content ) {
-			var report = {};
-			report = {
-				'readingEase' : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
-				'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
-			};
+			var words, report = {};
+			words = textstatistics( content ).wordCount();
+			if ( words > 50 ) {
+				report = {
+					'readingEase' : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
+					'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
+				};
+			}
 			return report;
 		},
 	};
