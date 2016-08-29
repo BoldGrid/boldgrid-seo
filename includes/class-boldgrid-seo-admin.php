@@ -125,9 +125,10 @@ class Boldgrid_Seo_Admin {
 	 * @since	1.0.0
 	 * @return	void
 	 */
-	public function wp_head(  ) {
+	public function wp_head() {
 		if ( apply_filters( "{$this->prefix}/seo/automate_head",
 			 apply_filters( "{$this->plugin_name}/automate_head", true ) ) ) {
+			do_action( "{$this->prefix}/seo/before"             );
 			do_action( "{$this->prefix}/seo/description" 	 	);
 			do_action( "{$this->prefix}/seo/robots" 	 	    );
 			do_action( "{$this->prefix}/seo/canonical" 	 	    );
@@ -137,12 +138,15 @@ class Boldgrid_Seo_Admin {
 			do_action( "{$this->prefix}/seo/og:locale"          );
 			do_action( "{$this->prefix}/seo/og:type"            );
 			do_action( "{$this->prefix}/seo/og:title"		 	);
-			do_action( "{$this->prefix}/seo/og:site_name"		);
 			do_action( "{$this->prefix}/seo/og:description"		);
+			do_action( "{$this->prefix}/seo/og:url"             );
+			do_action( "{$this->prefix}/seo/og:site_name"		);
+
 			do_action( "{$this->prefix}/seo/og:image"		 	);
 			//do_action( "{$this->prefix}/seo/twitter:title"	 );
 			//do_action( "{$this->prefix}/seo/twitter:domain"    );
 			//do_action( "{$this->prefix}/seo/twitter:image:src" );
+			do_action( "{$this->prefix}/seo/after"              );
 		}
 	}
 
@@ -159,7 +163,7 @@ class Boldgrid_Seo_Admin {
 
 		$title = "$title $sep " . get_bloginfo( 'blogname' );
 
-		if ( is_feed(  ) ) {
+		if ( is_feed() ) {
 			return $title;
 		}
 
@@ -173,18 +177,96 @@ class Boldgrid_Seo_Admin {
 		return $title;
 	}
 
-	public function canonical_url() {
-		if ( ! empty( $GLOBALS['post']->ID ) ) {
+	public function canonical_url(  ) {
+		global $wp_query, $posts;
+		$content = $this->get_url( $wp_query );
+		if ( ! empty( $GLOBALS['post']->ID ) && $canonical = get_post_meta( $GLOBALS['post']->ID, 'bgseo_canonical', true ) ) {
 			// Look for a custom canonical url to override the default permalink.
-			if ( $canonical = get_post_meta( $GLOBALS['post']->ID, 'bgseo_canonical', true ) ) {
-				$content = $canonical;
-			}
-			// Otherwise use the default permalink for page or post.
-			elseif ( $canonical = get_permalink( $GLOBALS['post']->ID ) ) {
-				$content = $canonical;
-			}
+			$content = $canonical;
 		}
-		if ( isset( $content ) ) : printf( $this->settings['meta_fields']['canonical'] . "\n", esc_url( $content ) ); endif;
+
+		if ( ! empty( $content ) ) : printf( $this->settings['meta_fields']['canonical'] . "\n", esc_url( $content ) ); endif;
+	}
+
+	public function get_url( $query, $show_page = true ) {
+		if ( $query->is_404 ) {
+			return false;
+		}
+		$link    = '';
+		$haspost = count( $query->posts ) > 0;
+		if ( get_query_var( 'm' ) ) {
+			$m = preg_replace( '/[^0-9]/', '', get_query_var( 'm' ) );
+			switch ( $p ) {
+				case 4:
+					$link = get_year_link( $m );
+					break;
+				case 6:
+					$link = get_month_link( $this->substr( $m, 0, 4 ), $this->substr( $m, 4, 2 ) );
+					break;
+				case 8:
+					$link = get_day_link( $this->substr( $m, 0, 4 ), $this->substr( $m, 4, 2 ), $this->substr( $m, 6, 2 ) );
+					break;
+				default:
+					return false;
+			}
+		} elseif ( $query->is_home && ( get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) {
+			$link = get_permalink( $pageid );
+		} elseif ( is_front_page() || ( $query->is_home && ( get_option( 'show_on_front' ) != 'page' || ! get_option( 'page_for_posts' ) ) ) ) {
+			if ( function_exists( 'icl_get_home_url' ) ) {
+				$link = icl_get_home_url();
+			} else {
+				$link = trailingslashit( home_url() );
+			}
+		} elseif ( ( $query->is_single || $query->is_page ) && $haspost ) {
+			$post = $query->posts[0];
+			$link = get_permalink( $post->ID );
+		} elseif ( $query->is_author && $haspost ) {
+			$author = get_userdata( get_query_var( 'author' ) );
+			if ( false === $author ) {
+				return false;
+			}
+			$link = get_author_posts_url( $author->ID, $author->user_nicename );
+		} elseif ( $query->is_category && $haspost ) {
+			$link = get_category_link( get_query_var( 'cat' ) );
+		} elseif ( $query->is_tag && $haspost ) {
+			$tag = get_term_by( 'slug', get_query_var( 'tag' ), 'post_tag' );
+			if ( ! empty( $tag->term_id ) ) {
+				$link = get_tag_link( $tag->term_id );
+			}
+		} elseif ( $query->is_day && $haspost ) {
+			$link = get_day_link( get_query_var( 'year' ),
+				get_query_var( 'monthnum' ),
+				get_query_var( 'day' ) );
+		} elseif ( $query->is_month && $haspost ) {
+			$link = get_month_link( get_query_var( 'year' ),
+				get_query_var( 'monthnum' ) );
+		} elseif ( $query->is_year && $haspost ) {
+			$link = get_year_link( get_query_var( 'year' ) );
+		} elseif ( $query->is_tax && $haspost ) {
+			$taxonomy = get_query_var( 'taxonomy' );
+			$term     = get_query_var( 'term' );
+			if ( ! empty( $term ) ) {
+				$link = get_term_link( $term, $taxonomy );
+			}
+		} elseif ( $query->is_archive && function_exists( 'get_post_type_archive_link' ) && ( $post_type = get_query_var( 'post_type' ) ) ) {
+			if ( is_array( $post_type ) ) {
+				$post_type = reset( $post_type );
+			}
+			$link = get_post_type_archive_link( $post_type );
+		} elseif ( $query->is_search ) {
+			$search_query = get_search_query();
+			// Regex catches case when /search/page/N without search term is itself mistaken for search term. R.
+			if ( ! empty( $search_query ) && ! preg_match( '|^page/\d+$|', $search_query ) ) {
+				$link = get_search_link();
+			}
+		} else {
+			return false;
+		}
+		if ( empty( $link ) || ! is_string( $link ) ) {
+			return false;
+		}
+
+		return $link;
 	}
 
 	/**
@@ -193,8 +275,7 @@ class Boldgrid_Seo_Admin {
 	 * @since	1.0.0
 	 * @return	void
 	 */
-	public function seo_title( $sep="|" ) {
-
+	public function seo_title( $sep = "|" ) {
 		if ( ',' != $sep ) {
 			$sep = " $sep";
 		}
@@ -424,6 +505,12 @@ class Boldgrid_Seo_Admin {
 		}
 	}
 
+	public function meta_og_url() {
+		global $wp_query, $posts;
+		$content = $this->get_url( $wp_query );
+		if ( ! empty( $content ) ) : printf( $this->settings['meta_fields']['og_url'] . "\n", esc_url( $content ) ); endif;
+	}
+
 	/**
 	 * Open Graph image from featured image.
 	 *
@@ -461,15 +548,16 @@ class Boldgrid_Seo_Admin {
 	 * @return	void
 	 */
 	public function robots() {
-		if ( is_404() ) {
-			$follow = 'follow';
+		$follow = 'follow';
+		$index  = 'index';
+		if ( is_404() || is_search() ) {
 			$index = 'noindex';
 		}
 		if ( ! empty( $GLOBALS['post']->ID ) ) {
 			$follow = get_post_meta( $GLOBALS['post']->ID, 'bgseo_robots_follow', true );
 			$index = get_post_meta( $GLOBALS['post']->ID, 'bgseo_robots_index', true );
 		}
-		if ( $follow && $index ) : printf( $this->settings['meta_fields']['robots'] . "\n", esc_attr( $index ), esc_attr( $follow ) ); endif;
+		printf( $this->settings['meta_fields']['robots'] . "\n", esc_attr( $index ), esc_attr( $follow ) );
 	}
 
 	/**

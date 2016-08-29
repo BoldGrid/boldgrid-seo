@@ -174,11 +174,11 @@ class Boldgrid_Seo {
 		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_url' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:description", $admin, 'meta_og_description' );
 //		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
 //		$this->loader->add_action( "{$this->prefix}/seo/permalink", $admin, 'meta_permalink' );
 //		$this->loader->add_filter( 'boldgrid/seo/archive_title', $admin, 'boldgrid_seo_simplify_archive_title' );
-//		$this->loader->add_filter( 'tiny_mce_before_init', $admin, 'boldgrid_tinymce_init' );
 //		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $admin, 'manual_image', 99 );
 
 		// Check version for updated filters
