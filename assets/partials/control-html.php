@@ -4,8 +4,7 @@
 <# if ( data.description ) { #>
 	<div class="bgseo-keywords">{{{ data.description }}}</div>
 <# } #>
-<div {{{ data.attr }}}>{{{ data.value }}}</div>
-<div id="bgseo-analysis"></div>
+<div id="bgseo-dashboard"></div>
 <?php
 $meta = '';
 if ( isset( $_GET['post'] ) && ! empty( $_GET['post'] )  &&

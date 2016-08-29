@@ -19,12 +19,11 @@
 		readingEase: function( content ) {
 			var result;
 			result = textstatistics( content ).fleschKincaidReadingEase();
-			$( '#content' ).trigger( 'bgseo-analysis', [{ 'readingEase': result }] );
 			return result;
 		},
 		// Get the Flesch Kincaid Grade Level from content.
 		gradeLevel: function( content ) {
-			var grade, result= {};
+			var grade, result = {};
 			grade = textstatistics( content ).fleschKincaidGradeLevel();
 			result = self.gradeAnalysis( grade );
 			return result;
@@ -102,7 +101,10 @@
 
 			keywordCount = self.keywordCount( content, keyword );
 			wordCount = textstatistics( content ).wordCount();
+			// Get the density.
 			result = ( ( keywordCount / wordCount ) * 100 );
+			// Round it off.
+			result = Math.round( result * 10 ) / 10;
 
 			return result;
 		},
