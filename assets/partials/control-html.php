@@ -1,5 +1,7 @@
 <?php
-if ( $meta = get_post_meta( $_GET['post'], 'boldgrid_seo_title', true ) ) {
+$meta = '';
+if ( isset( $_GET['post'] ) && ! empty( $_GET['post'] )  &&
+	$meta = get_post_meta( $_GET['post'], 'boldgrid_seo_title', true ) ) {
 	echo 'Great it looks like you have a custom SEO Title!';
 	echo '<br>';
 } else {

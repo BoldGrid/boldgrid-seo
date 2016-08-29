@@ -60,7 +60,7 @@ class Boldgrid_Seo_Butterbean {
 		$manager->register_section(
 			'bbe_color_fields',
 			array(
-				'label' => 'Search Keywords',
+				'label' => 'Keywords',
 				'icon'  => 'dashicons-search'
 			)
 		);
@@ -144,7 +144,7 @@ class Boldgrid_Seo_Butterbean {
 					'section'     => 'bgseo_visibility',
 					'attr'        => array(
 						'class' => 'widefat',
-						'placeholder' => get_permalink( $_GET['post'] ),
+						'placeholder' => ( isset( $_GET['post'] ) && ! empty( $_GET['post'] ) ) ? get_permalink( $_GET['post'] ) : 'Enter a page title.',
 					),
 					'label'       => 'Canonical Link',
 					'description' => 'The canonical URL that this page should point to, leave it empty to default to the permalink.',

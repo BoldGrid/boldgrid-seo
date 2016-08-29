@@ -18,7 +18,15 @@ class Boldgrid_Seo_Scripts {
 		$this->admin = new Boldgrid_Seo_Admin( $this->configs );
 	}
 	public function tiny_mce( $init ) {
-		$init['setup'] = "function( editor ) { editor.on('keyup', function ( e ) { BOLDGRID.SEO.TinyMCE.tmceChange( e ); } ); }";
+		$init['setup'] = "function( editor ) {
+			var timer;
+			editor.on( 'keyup paste', function ( e ) {
+				clearTimeout( timer );
+				timer = setTimeout( function() {
+					BOLDGRID.SEO.TinyMCE.tmceChange( e );
+				}, 2000 );
+			} );
+		}";
 		return $init;
 	}
 	/**
