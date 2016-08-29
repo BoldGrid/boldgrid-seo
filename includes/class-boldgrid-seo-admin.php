@@ -135,8 +135,9 @@ class Boldgrid_Seo_Admin {
 			do_action( "{$this->prefix}/seo/classification" 	);
 			do_action( "{$this->prefix}/seo/site_name"		 	);
 			do_action( "{$this->prefix}/seo/og:locale"          );
-			do_action( "{$this->prefix}/seo/og:title"		 	);
 			do_action( "{$this->prefix}/seo/og:type"            );
+			do_action( "{$this->prefix}/seo/og:title"		 	);
+			do_action( "{$this->prefix}/seo/og:site_name"		);
 			do_action( "{$this->prefix}/seo/og:description"		);
 			do_action( "{$this->prefix}/seo/og:image"		 	);
 			//do_action( "{$this->prefix}/seo/twitter:title"	 );
@@ -495,6 +496,11 @@ class Boldgrid_Seo_Admin {
 		}
 
 		printf( $this->settings['meta_fields']['og_type'] . "\n", $type );
+	}
+
+	public function meta_og_site_name() {
+		$name = get_bloginfo( 'name' );
+		printf( $this->settings['meta_fields']['og_site_name'] . "\n", $name );
 	}
 
 	/**
