@@ -119,8 +119,8 @@ class Boldgrid_Seo_Butterbean {
 				'label'       => 'Meta Robots Index',
 				//'description' => 'Example description.',
 				'choices'     => array(
-					'choice_a' => 'index',
-					'choice_b' => 'noindex',
+					'index' => 'index',
+					'noindex' => 'noindex',
 				)
 			)
 		);
@@ -132,8 +132,8 @@ class Boldgrid_Seo_Butterbean {
 				'label'       => 'Meta Robots Follow',
 				//'description' => 'Example description.',
 				'choices'     => array(
-					'choice_a' => 'follow',
-					'choice_b' => 'nofollow',
+					'follow' => 'follow',
+					'nofollow' => 'nofollow',
 				)
 			)
 		);
@@ -144,7 +144,7 @@ class Boldgrid_Seo_Butterbean {
 					'section'     => 'bgseo_visibility',
 					'attr'        => array(
 						'class' => 'widefat',
-						'placeholder' => ( isset( $_GET['post'] ) && ! empty( $_GET['post'] ) ) ? get_permalink( $_GET['post'] ) : 'Enter a page title.',
+						'placeholder' => ( isset( $_GET['post'] ) && ! empty( $_GET['post'] ) ) ? get_permalink( $_GET['post'] ) : '',
 					),
 					'label'       => 'Canonical Link',
 					'description' => 'The canonical URL that this page should point to, leave it empty to default to the permalink.',
@@ -311,36 +311,17 @@ class Boldgrid_Seo_Butterbean {
 			)
 		);
 		$manager->register_setting(
-			'bbe_radio_a',
-			array( 'sanitize_callback' => 'sanitize_key' )
-		);
-		$manager->register_setting(
-			'bbe_select_a',
-			array( 'sanitize_callback' => 'sanitize_key' )
-		);
-		$manager->register_setting(
-			new ButterBean_Setting_Datetime(
-				$manager,
-				'bbe_date_a'
+			'bgseo_robots_index',
+			array(
+				'default' => 'index',
+				'sanitize_callback' => 'sanitize_key'
 			)
 		);
 		$manager->register_setting(
-			'bbe_color_a',
-			array( 'sanitize_callback' => 'sanitize_hex_color_no_hash' )
-		);
-		$manager->register_setting(
-			'bbe_palette_a',
-			array( 'sanitize_callback' => 'sanitize_key' )
-		);
-		$manager->register_setting(
-			'bbe_image_a',
-			array( 'sanitize_callback' => 'absint' )
-		);
-		$manager->register_setting(
-			new ButterBean_Setting_Array(
-				$manager,
-				'bbe_multiavatars_a',
-				array( 'sanitize_callback' => 'absint' )
+			'bgseo_robots_follow',
+			array(
+				'default' => 'follow',
+				'sanitize_callback' => 'sanitize_key'
 			)
 		);
 	}
