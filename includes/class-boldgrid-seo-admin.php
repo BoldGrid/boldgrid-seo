@@ -129,14 +129,16 @@ class Boldgrid_Seo_Admin {
 		if ( apply_filters( "{$this->prefix}/seo/automate_head",
 			 apply_filters( "{$this->plugin_name}/automate_head", true ) ) ) {
 			do_action( "{$this->prefix}/seo/description" 	 	);
+			do_action( "{$this->prefix}/seo/robots" 	 	    );
 			do_action( "{$this->prefix}/seo/canonical" 	 	    );
 			do_action( "{$this->prefix}/seo/keywords" 	  	 	);
 			do_action( "{$this->prefix}/seo/classification" 	);
 			do_action( "{$this->prefix}/seo/site_name"		 	);
+			do_action( "{$this->prefix}/seo/og:locale"          );
 			do_action( "{$this->prefix}/seo/og:title"		 	);
+			do_action( "{$this->prefix}/seo/og:type"            );
+			do_action( "{$this->prefix}/seo/og:description"		);
 			do_action( "{$this->prefix}/seo/og:image"		 	);
-			do_action( "{$this->prefix}/seo/og:type"		 	);
-
 			//do_action( "{$this->prefix}/seo/twitter:title"	 );
 			//do_action( "{$this->prefix}/seo/twitter:domain"    );
 			//do_action( "{$this->prefix}/seo/twitter:image:src" );
@@ -257,15 +259,15 @@ class Boldgrid_Seo_Admin {
 	}
 
 	/**
-	 * Meta description.
+	 * Get the meta description.
 	 *
-	 * @since	1.0.0
-	 * @return	void
+	 * @since	1.2.1
+	 * @return	string $content String containing content of meta description.
 	 */
-	public function meta_description(  ) {
+	public function get_meta_description() {
 		$content = '';
 
-		if ( is_archive(  ) ) {
+		if ( is_archive() ) {
 			$content = apply_filters( "{$this->prefix}/seo/archive_description",
 				strip_tags(
 					str_replace(
@@ -286,30 +288,41 @@ class Boldgrid_Seo_Admin {
 					$content = $meta;
 			}
 
-			// Look for a custom meta on a posts page
+			// Look for custom meta on a posts page.
 			elseif ( $posts_page_id
-				&& $meta = get_post_meta( $posts_page_id, 'boldgrid_seo_description', true ) ) {
+				&& $meta = get_post_meta( $posts_page_id, 'bgseo_description', true ) ) {
 					$content = $meta;
 			}
 
-			// Look for a posts page content
+			// Look for a posts page content.
 			elseif ( $posts_page_id
 				&& $meta = get_post_field( 'post_content', $posts_page_id ) ) {
-					$content = wp_trim_words( $meta, '30', '' );
+					$content = wp_trim_words( $meta, '40', '' );
+					$content = $this->util->get_sentences( $content );
 			}
 		} else {
 			if ( ! empty( $GLOBALS['post']->ID )
-				&& $meta = get_post_meta( $GLOBALS['post']->ID, 'boldgrid_seo_description', true ) ) {
+				&& $meta = get_post_meta( $GLOBALS['post']->ID, 'bgseo_description', true ) ) {
 					$content = $meta;
 			}
 			elseif ( ! empty( $GLOBALS['post']->ID )
 				&& $meta = get_post_field( 'post_content', $GLOBALS['post']->ID ) ) {
-					$content = wp_trim_words( $meta, '30', '' );
+					$content = wp_trim_words( $meta, '40', '' );
+					$content = $this->util->get_sentences( $content );
 			}
 		}
-		//var_dump( $content ); die;
 
-		if ( $content ) : printf( $this->settings['meta_fields']['description'] . "\n", $this->util->get_sentences( $content ) ); endif;
+		return $content;
+	}
+
+	public function meta_description() {
+		$content = $this->get_meta_description();
+		if ( $content ) : printf( $this->settings['meta_fields']['description'] . "\n", $content ); endif;
+	}
+
+	public function meta_og_description() {
+		$content = $this->get_meta_description();
+		if ( $content ) : printf( $this->settings['meta_fields']['og_description'] . "\n", $content ); endif;
 	}
 
 	/**
@@ -441,52 +454,47 @@ class Boldgrid_Seo_Admin {
 	}
 
 	/**
-	 * Open Graph image from featured image.
+	 * Set metarobots follow/index.
 	 *
-	 * @since	1.0.0
+	 * @since	1.2.1
 	 * @return	void
 	 */
 	public function robots() {
-		$content = '';
-		if ( is_home(  )
-			&& $meta = get_option( 'meta_image' ) ) {
-				$content = $meta;
+		if ( is_404() ) {
+			$follow = 'follow';
+			$index = 'noindex';
 		}
-		elseif ( ! empty( $GLOBALS['post']->ID )
-			&& $meta = apply_filters( "{$this->prefix}/seo/robots", $GLOBALS['post']->ID ) ) {
-				$content = $meta;
+		if ( ! empty( $GLOBALS['post']->ID ) ) {
+			$follow = get_post_meta( $GLOBALS['post']->ID, 'bgseo_robots_follow', true );
+			$index = get_post_meta( $GLOBALS['post']->ID, 'bgseo_robots_index', true );
 		}
-		elseif ( ! empty( $GLOBALS['post']->ID )
-			&& $meta = get_post_meta( $GLOBALS['post']->ID, 'meta_image', true ) ) {
-				$content = $meta;
-		}
-		elseif ( ! empty( $GLOBALS['post']->ID )
-			&& $meta_array = wp_get_attachment_image_src( get_post_thumbnail_id( $GLOBALS['post']->ID ), 'full' ) ) {
-				if ( ! empty( $meta_array[0] ) ) {
-					$content = $meta_array[0];
-				}
-		}
-
-		if ( $content ) : printf( $this->settings['meta_fields']['image'] . "\n", $content ); endif;
+		if ( $follow && $index ) : printf( $this->settings['meta_fields']['robots'] . "\n", esc_attr( $index ), esc_attr( $follow ) ); endif;
 	}
 
 	/**
+	 * Get the blog's locale for OpenGraph.
+	 *
+	 * @since 1.2.1
+	 */
+	public function meta_og_locale() {
+		$locale = get_locale();
+		printf( $this->settings['meta_fields']['locale'] . "\n", $locale );
+	}
+	/**
 	 * Open graph type.
 	 *
-	 * @since	1.0.0
+	 * @since	1.2.1
 	 */
 	public function meta_og_type(  ) {
-		$content = '';
-		if ( ! empty( $GLOBALS['post']->ID )
-			&& $meta = get_post_meta( $GLOBALS['post']->ID, 'meta_type', true ) ) {
-				$content = $meta;
+		$type = 'object';
+		if ( is_singular() ) {
+			$type = 'article';
 		}
-		elseif ( $meta = get_option( 'meta_type ') ) {
-			$content = $meta;
+		if ( is_front_page() || is_home() ) {
+			$type = 'website';
 		}
-		if ( $content ) {
-			printf( $this->settings['meta_fields']['type'] . "\n", $content );
-		}
+
+		printf( $this->settings['meta_fields']['og_type'] . "\n", $type );
 	}
 
 	/**

@@ -82,7 +82,7 @@ class Boldgrid_Seo_Butterbean {
 			)
 		);
 		$manager->register_control(
-				'boldgrid_seo_title',
+				'bgseo_title',
 				array(
 					'type'        => 'text',
 					'section'     => 'bgseo_meta',
@@ -97,7 +97,7 @@ class Boldgrid_Seo_Butterbean {
 				)
 		);
 		$manager->register_control(
-			'boldgrid_seo_description',
+			'bgseo_description',
 			array(
 				'type'        => 'textarea',
 				'section'     => 'bgseo_meta',
@@ -288,11 +288,11 @@ class Boldgrid_Seo_Butterbean {
 		);
 		/* === Register Settings === */
 		$manager->register_setting(
-			'boldgrid_seo_title',
+			'bgseo_title',
 			array( 'sanitize_callback' => 'wp_filter_nohtml_kses' )
 		);
 		$manager->register_setting(
-			'boldgrid_seo_description',
+			'bgseo_description',
 			array( 'sanitize_callback' => 'wp_kses_post' )
 		);
 		$manager->register_setting(

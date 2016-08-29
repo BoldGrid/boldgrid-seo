@@ -167,12 +167,14 @@ class Boldgrid_Seo {
 		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
 		$this->loader->add_action( "{$this->prefix}/seo/robots", $admin, 'robots' );
 		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'canonical_url' );
+		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'meta_og_locale' );
 //		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
 //		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
 //		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:description", $admin, 'meta_og_description' );
 //		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
-//		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
 //		$this->loader->add_action( "{$this->prefix}/seo/permalink", $admin, 'meta_permalink' );
 //		$this->loader->add_filter( 'boldgrid/seo/archive_title', $admin, 'boldgrid_seo_simplify_archive_title' );
 //		$this->loader->add_filter( 'tiny_mce_before_init', $admin, 'boldgrid_tinymce_init' );
