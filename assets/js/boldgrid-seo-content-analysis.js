@@ -83,16 +83,47 @@
 			return description;
 		},
 		// Gets the count of the keywords in the content.
-		keywordCount: function( content ) {
+		keywordCount: function( content, keyword ) {
 			var keywordCount;
 			keywordCount = content.split( keyword ).length - 1;
 			return keywordCount;
 		},
 		// Very basic kw density check.
 		keywordDensity : function( content, keyword ) {
-			var result,  wordCount;
+			var result, keywordCount, wordCount;
+			keywordCount = self.keywordCount( content, keyword );
 			wordCount = textstatistics( content ).wordCount();
-			result = ( ( self.keywordCount() / wordCount ) * 100 );
+			result = self.recommendedKeywords( content, 10 );
+			//result = ( ( keywordCount / wordCount ) * 100 );
+			return result;
+		},
+		// Get recommended keywords from content.
+		recommendedKeywords: function( text, n ) {
+			// Split text on non word characters
+			var words = text.toLowerCase().split( /\W+/ ),
+			    positions = [],
+			    wordCounts = [];
+
+			for ( var i=0; i < words.length; i++ ) {
+				var word = words[i];
+				if ( ! word || word.length < 3 || _bgseoStopWords.indexOf( word ) > -1 ) {
+					continue;
+				}
+
+				if ( typeof positions[word] == 'undefined' ) {
+					positions[word] = wordCounts.length;
+					wordCounts.push( [word, 1] );
+				} else {
+					wordCounts[positions[word]][1]++;
+				}
+			}
+			// Put most frequent words at the beginning.
+			wordCounts.sort( function ( a, b ) {
+				return b[1] - a[1];
+			});
+			// Return the first n items
+			result = wordCounts.slice( 0, n );
+
 			return result;
 		},
 	};

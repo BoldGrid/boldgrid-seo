@@ -42,7 +42,7 @@
 		},
 		tmceChange: function( e ) {
 			var text, targetId = e.target.id;
-			text = self.wpContent( targetId );
+			text = self.wpContent( targetId, 'text' );
 			return text;
 		},
 		wpContent : function( targetId, format ) {
@@ -85,8 +85,10 @@
 				report = {
 					'readingEase' : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
 					'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
+					'keywordDensity' : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
 				};
 			}
+			console.log( report );
 			return report;
 		},
 	};
