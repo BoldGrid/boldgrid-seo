@@ -37,10 +37,12 @@ return array(
 		),
 	),
 	'control' => array(
-		'bgseo_dash_html' =>array(
+		'bgseo_dash_html' => array(
 			'type'        => 'html',
 			'section'     => 'bgseo_dashboard',
-			'html' => '<div class="hellow"><p>huhuhuhuhuu</p></div>',
+			'label' => 'hey',
+			'value' => '<div class="hellow"><p>huhuhuhuhuu</p></div>',
+			'description' => 'moops',
 		),
 		'bgseo_title' => array(
 			'type'        => 'text',
@@ -70,7 +72,6 @@ return array(
 			'type'        => 'radio',
 			'section'     => 'bgseo_visibility',
 			'label'       => 'Meta Robots Index',
-			//'description' => 'Example description.',
 			'choices'     => array(
 				'index' => 'index',
 				'noindex' => 'noindex',
@@ -90,15 +91,16 @@ return array(
 			'section'     => 'bgseo_visibility',
 			'attr'        => array(
 				'class' => 'widefat',
-
 			),
 			'label'       => 'Canonical Link',
 			'description' => 'The canonical URL that this page should point to, leave it empty to default to the permalink.',
 		),
-
+		'bgseo_content_html' => array(
+			'type'        => 'html',
+			'section'     => 'bgseo_keywords',
+			'label' => 'hey',
+			'html' => '<div class="hellow"><p>huhuhuhuhuu</p></div>',
+			'description' => 'moops',
+		),
 	),
-	'settings' => array(
-
-	),
-
 );

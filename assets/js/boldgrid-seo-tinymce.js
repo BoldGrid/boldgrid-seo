@@ -62,7 +62,7 @@
 					break;
 			}
 			if ( format === 'text' ) {
-				text = self.stripper( text );
+				text = self.stripper( text.toLowerCase() );
 			}
 
 			if ( text !== '' ) {
@@ -88,8 +88,8 @@
 					'keywordDensity' : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
 				};
 			}
-			console.log( report );
-			return report;
+
+			$( '#content' ).trigger( 'bgseo-analysis', [report] );
 		},
 	};
 

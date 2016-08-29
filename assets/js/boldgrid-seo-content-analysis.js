@@ -11,13 +11,18 @@
 		 */
 		init : function () {
 			$( document ).ready( function() {
-				//self.readingEase();
+				self.seoTitle();
+				self.seoDescription();
+			});
+			$( document ).on( 'bgseo-analysis', function(e, eventInfo) {
+				console.log( eventInfo );
 			});
 		},
 		// Gets the Flesch Kincaid Reading Ease Score.
 		readingEase: function( content ) {
 			var result;
 			result = textstatistics( content ).fleschKincaidReadingEase();
+			$( '#content' ).trigger( 'bgseo-analysis', [{ 'readingEase': result }] );
 			return result;
 		},
 		// Get the Flesch Kincaid Grade Level from content.
@@ -82,6 +87,9 @@
 			}
 			return description;
 		},
+		getKeywords: function() {
+
+		},
 		// Gets the count of the keywords in the content.
 		keywordCount: function( content, keyword ) {
 			var keywordCount;
@@ -90,11 +98,13 @@
 		},
 		// Very basic kw density check.
 		keywordDensity : function( content, keyword ) {
+			// Normalize.
+			keyword = keyword.toLowerCase();
 			var result, keywordCount, wordCount;
 			keywordCount = self.keywordCount( content, keyword );
+			console.log( 'keyword count:  ' + keywordCount );
 			wordCount = textstatistics( content ).wordCount();
-			result = self.recommendedKeywords( content, 10 );
-			//result = ( ( keywordCount / wordCount ) * 100 );
+			result = ( ( keywordCount / wordCount ) * 100 );
 			return result;
 		},
 		// Get recommended keywords from content.
@@ -126,6 +136,24 @@
 
 			return result;
 		},
+		seoTitle: function() {
+			var title = $( '#boldgrid-seo-field-meta_title' );
+			// Listen for changes to input value.
+			title.on( 'input propertychange paste', function() {
+				var titleLength = $( this ).val().length;
+				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
+			});
+			title.trigger( 'bgseo-analysis', [{ 'titleLength': title.val().length }] );
+		},
+		seoDescription: function() {
+			var desc = $( '#boldgrid-seo-field-meta_description' );
+			// Listen for changes to input value.
+			desc.on( 'input propertychange paste', function() {
+				var descLength = $( this ).val().length;
+				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
+			});
+			desc.trigger( 'bgseo-analysis', [{ 'descLength': desc.val().length }] );
+		}
 	};
 
 	self = BOLDGRID.SEO.ContentAnalysis;
