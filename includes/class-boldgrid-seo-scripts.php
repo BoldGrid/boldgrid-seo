@@ -115,7 +115,7 @@ class Boldgrid_Seo_Scripts {
 		);
 
 		// Localize the script with new data
-		wp_localize_script( $this->configs['plugin_name'] . '-text-statistics', '_bgseoStopWords', $this->configs['stopwords'] );
+		wp_localize_script( $this->configs['plugin_name'] . '-text-statistics', '_bgseoStopWords', $this->configs['i18n']['stopwords'] );
 
 		// Enqueued script with localized data.
 		wp_enqueue_script( $this->configs['plugin_name'] . '-text-statistics' );

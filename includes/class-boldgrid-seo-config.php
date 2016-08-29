@@ -52,6 +52,7 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	public function __construct() {
 		$this->util = new Boldgrid_Seo_Util();
 		self::assign_configs();
+		self::assign_configs( 'i18n' );
 		$configs = $this->configs;
 		$local = BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
 		if ( file_exists( $local ) ) {
@@ -72,7 +73,7 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	 */
 	public function assign_configs( $folder = '' ) {
 		$path = __DIR__ . '/configs/'. $folder;
-		$this->configs = include $path .'/base.config.php';
+		if ( $folder === '' ) $this->configs = include $path . '/base.config.php';
 		foreach ( glob( $path . '/*.config.php' ) as $filename ) {
 			$option = basename( str_replace( '.config.php', '', $filename ) );
 			if ( ! empty( $folder ) ) {

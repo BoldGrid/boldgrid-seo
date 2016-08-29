@@ -38,8 +38,6 @@ class Boldgrid_Seo_Controls_Html extends ButterBean_Control {
 
 	public function to_json() {
 		parent::to_json();
-
-
 		$this->json['html'] = $this->html;
 	}
 }
