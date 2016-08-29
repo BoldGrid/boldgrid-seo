@@ -98,13 +98,15 @@
 		},
 		// Very basic kw density check.
 		keywordDensity : function( content, keyword ) {
+			var result, keywordCount, wordCount;
+
 			// Normalize.
 			keyword = keyword.toLowerCase();
-			var result, keywordCount, wordCount;
+
 			keywordCount = self.keywordCount( content, keyword );
-			console.log( 'keyword count:  ' + keywordCount );
 			wordCount = textstatistics( content ).wordCount();
 			result = ( ( keywordCount / wordCount ) * 100 );
+
 			return result;
 		},
 		// Get recommended keywords from content.

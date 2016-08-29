@@ -86,6 +86,7 @@
 					'readingEase' : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
 					'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
 					'keywordDensity' : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
+					'recommendedKeywords' : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 3 ),
 				};
 			}
 
