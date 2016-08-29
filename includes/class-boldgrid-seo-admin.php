@@ -284,13 +284,18 @@ class Boldgrid_Seo_Admin {
 
 		global $post, $paged, $page;
 
-		if ( is_404(  ) ) {
+		if ( is_404() ) {
 			$content = apply_filters( "{$this->prefix}/seo/404_title", "Not Found, Error 404" );
 		}
 
-		elseif ( is_archive(  ) ) {
+		elseif ( is_archive() ) {
 			$content = apply_filters( "{$this->prefix}/seo/archive_title",
 				get_the_archive_title(  ) . "$sep " . get_bloginfo( 'blogname' ) );
+		}
+
+		elseif ( is_search() ) {
+			$s = get_search_query();
+			$content = apply_filters( "{$this->prefix}/seo/search_title", 'Search for ' . "$s$sep " . get_bloginfo( 'blogname' ) );
 		}
 
 		elseif ( is_home(  ) ) {
@@ -508,6 +513,10 @@ class Boldgrid_Seo_Admin {
 	public function meta_og_url() {
 		global $wp_query, $posts;
 		$content = $this->get_url( $wp_query );
+		if ( ! empty( $GLOBALS['post']->ID ) && $canonical = get_post_meta( $GLOBALS['post']->ID, 'bgseo_canonical', true ) ) {
+			// Look for a custom canonical url to override the default permalink.
+			$content = $canonical;
+		}
 		if ( ! empty( $content ) ) : printf( $this->settings['meta_fields']['og_url'] . "\n", esc_url( $content ) ); endif;
 	}
 
