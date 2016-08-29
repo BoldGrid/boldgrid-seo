@@ -172,9 +172,9 @@ class Boldgrid_Seo {
 //		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
 //		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
-		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_site_name' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:site_name", $admin, 'meta_og_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
-		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_url' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:url", $admin, 'meta_og_url' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:description", $admin, 'meta_og_description' );
 //		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
 //		$this->loader->add_action( "{$this->prefix}/seo/permalink", $admin, 'meta_permalink' );

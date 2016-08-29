@@ -290,7 +290,7 @@ class Boldgrid_Seo_Admin {
 
 		elseif ( is_archive() ) {
 			$content = apply_filters( "{$this->prefix}/seo/archive_title",
-				get_the_archive_title(  ) . "$sep " . get_bloginfo( 'blogname' ) );
+				get_the_archive_title() . "$sep " . get_bloginfo( 'blogname' ) );
 		}
 
 		elseif ( is_search() ) {
@@ -298,7 +298,7 @@ class Boldgrid_Seo_Admin {
 			$content = apply_filters( "{$this->prefix}/seo/search_title", 'Search for ' . "$s$sep " . get_bloginfo( 'blogname' ) );
 		}
 
-		elseif ( is_home(  ) ) {
+		elseif ( is_home() ) {
 			$posts_page_id = get_option( 'page_for_posts' );
 			$front_page_id = get_option( 'page_on_front' );
 

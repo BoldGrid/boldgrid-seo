@@ -14,17 +14,20 @@
 				//self.readingEase();
 			});
 		},
+		// Gets the Flesch Kincaid Reading Ease Score.
 		readingEase: function( content ) {
 			var result;
 			result = textstatistics( content ).fleschKincaidReadingEase();
 			return result;
 		},
+		// Get the Flesch Kincaid Grade Level from content.
 		gradeLevel: function( content ) {
 			var grade, result= {};
 			grade = textstatistics( content ).fleschKincaidGradeLevel();
 			result = self.gradeAnalysis( grade );
 			return result;
 		},
+		// Returns information about the grade for display.
 		gradeAnalysis: function( grade ) {
 			var description = {};
 			grade = grade * 10;
@@ -78,6 +81,19 @@
 				};
 			}
 			return description;
+		},
+		// Gets the count of the keywords in the content.
+		keywordCount: function( content ) {
+			var keywordCount;
+			keywordCount = content.split( keyword ).length - 1;
+			return keywordCount;
+		},
+		// Very basic kw density check.
+		keywordDensity : function( content, keyword ) {
+			var result,  wordCount;
+			wordCount = textstatistics( content ).wordCount();
+			result = ( ( self.keywordCount() / wordCount ) * 100 );
+			return result;
 		},
 	};
 
