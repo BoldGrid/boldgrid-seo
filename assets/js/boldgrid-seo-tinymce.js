@@ -11,6 +11,7 @@
 		 */
 		init : function () {
 			self.onloadContent();
+			self.generateReport();
 			$( document ).ready( function() {
 				self.editorChange();
 			});
@@ -19,17 +20,21 @@
 			var text,
 				editor = $( '#content.wp-editor-area[aria-hidden=false]' );
 			$( window ).on( 'load', function() {
-				// Check if tinyMCE is available.
-				if ( tinymce.activeEditor ) {
-					text = tinyMCE.get( wpActiveEditor ).getContent();
-				}
-				// Check if the editor is available.
-				if ( editor.length ) {
-					text = $( '#content' ).val();
-					text = text.replace( /\r?\n|\r/g, '' );
+				var content;
+
+				if ( tinymce.ActiveEditor ) {
+					content = tinyMCE.get( wpActiveEditor ).getContent();
+				} else {
+					content = $( '#content' ).val();
+					content = content.replace( /\r?\n|\r/g, '' );
 				}
 
-				return text;
+				content = {
+					'raw': content,
+					'text': self.stripper( content.toLowerCase() ),
+				};
+
+				$( '#content' ).trigger( 'bgseo-analysis', [content] );
 			});
 		},
 		editorChange: function() {
@@ -42,12 +47,11 @@
 		},
 		tmceChange: function( e ) {
 			var text, targetId = e.target.id;
-			text = self.wpContent( targetId, 'text' );
+			text = self.wpContent( targetId );
 			return text;
 		},
-		wpContent : function( targetId, format ) {
-			var text, report = {};
-			format = typeof format !== 'undefined' ? format : 'raw';
+		wpContent : function( targetId ) {
+			var text = {};
 			switch ( targetId ) {
 				// Grab text from TinyMCE Editor.
 				case 'tinymce' :
@@ -61,15 +65,12 @@
 					text = text.replace( /\r?\n|\r/g, '' );
 					break;
 			}
-			if ( format === 'text' ) {
-				text = self.stripper( text.toLowerCase() );
-			}
 
-			if ( text !== '' ) {
-				report = self.generateReport( text );
-			}
-
-			return report;
+			text = {
+				'raw': text,
+				'text': self.stripper( text.toLowerCase() ),
+			};
+			$( '#content' ).trigger( 'bgseo-analysis', [text] );
 		},
 		// Strip out remaining traces of HTML to form our cleanText output to scan
 		stripper: function( html ) {
@@ -78,19 +79,29 @@
 			tmp.innerHTML = html;
 			return tmp.textContent || tmp.innerText || "";
 		},
-		generateReport : function( content ) {
-			var words, report = {};
-			words = textstatistics( content ).wordCount();
-			if ( words > 50 ) {
-				report = {
-					'readingEase' : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
-					'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
-					'keywordDensity' : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
-					'recommendedKeywords' : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 3 ),
-				};
-			}
-
-			$( '#content' ).trigger( 'bgseo-analysis', [report] );
+		generateReport : function() {
+			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
+				var words, report = {};
+				if ( eventInfo.raw ) {
+					var raw = eventInfo.raw;
+					report.rawstatistics = {
+						'numberOfHeadings': $( raw ).find( 'h1,h2,h3,h4' ).length,
+					};
+				}
+				if ( eventInfo.text ) {
+					var content = eventInfo.text;
+					words = textstatistics( content ).wordCount();
+					if ( words > 50 ) {
+						report.textstatistics = {
+							'readingEase' : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
+							'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
+							'keywordDensity' : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
+							'recommendedKeywords' : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 3 ),
+						};
+					}
+				}
+				console.log( report );
+			});
 		},
 	};
 

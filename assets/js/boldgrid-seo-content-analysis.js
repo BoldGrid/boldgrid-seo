@@ -14,9 +14,6 @@
 				self.seoTitle();
 				self.seoDescription();
 			});
-			$( document ).on( 'bgseo-analysis', function(e, eventInfo) {
-				console.log( eventInfo );
-			});
 		},
 		// Gets the Flesch Kincaid Reading Ease Score.
 		readingEase: function( content ) {
@@ -114,7 +111,8 @@
 			// Split text on non word characters
 			var words = text.toLowerCase().split( /\W+/ ),
 			    positions = [],
-			    wordCounts = [];
+			    wordCounts = [],
+				result;
 
 			for ( var i=0; i < words.length; i++ ) {
 				var word = words[i];

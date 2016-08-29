@@ -20,7 +20,8 @@ class Boldgrid_Seo_Scripts {
 	public function tiny_mce( $init ) {
 		$init['setup'] = "function( editor ) {
 			var timer;
-			editor.on( 'keyup paste', function ( e ) {
+			editor.on( 'keyup propertychange paste', function ( e ) {
+				console.log( e );
 				clearTimeout( timer );
 				timer = setTimeout( function() {
 					BOLDGRID.SEO.TinyMCE.tmceChange( e );
