@@ -32,7 +32,7 @@ if ( ! function_exists( 'boldgrid_seo_autoload' ) ) {
 			foreach ( $paths as $path ) {
 				$path = wp_normalize_path( $path );
 				if ( file_exists( $path ) ) {
-					include_once $path;
+					include $path;
 					return;
 				}
 			}

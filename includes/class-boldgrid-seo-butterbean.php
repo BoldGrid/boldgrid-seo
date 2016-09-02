@@ -27,13 +27,18 @@ class Boldgrid_Seo_Butterbean {
 		/* === Register Managers === */
 		$butterbean->register_manager( 'boldgrid_seo', $this->configs['meta-box']['manager'] );
 		$manager  = $butterbean->get_manager( 'boldgrid_seo' );
+		if ( ! class_exists( 'Boldgrid_Seo_Controls_Html' ) ) {
+			include_once plugin_dir_path( __FILE__ ) . "/class-boldgrid-seo-controls-html.php";
+		}
+		$butterbean->register_control_type( 'html', 'Boldgrid_Seo_Controls_Html' );
 		/* === Register Sections === */
 		$sections = $this->configs['meta-box']['section'];
 		foreach( $sections as $section => $settings ) {
 			$manager->register_section( $section, $settings );
 		}
 		/* === Register Controls === */
-		new Boldgrid_Seo_Controls_Html( $manager, 'html' );
+
+
 		$controls = $this->configs['meta-box']['control'];
 		$controls['bgseo_canonical']['attr']['placeholder'] = ( isset( $_GET['post'] ) && ! empty( $_GET['post'] ) ) ? get_permalink( $_GET['post'] ) : '';
 		foreach( $controls as $control => $settings ) {

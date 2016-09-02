@@ -132,26 +132,19 @@ class Boldgrid_Seo_Admin {
 			do_action( "{$this->prefix}/seo/description" 	 	);
 			do_action( "{$this->prefix}/seo/robots" 	 	    );
 			do_action( "{$this->prefix}/seo/canonical" 	 	    );
-			do_action( "{$this->prefix}/seo/keywords" 	  	 	);
-			do_action( "{$this->prefix}/seo/classification" 	);
-			do_action( "{$this->prefix}/seo/site_name"		 	);
 			do_action( "{$this->prefix}/seo/og:locale"          );
 			do_action( "{$this->prefix}/seo/og:type"            );
 			do_action( "{$this->prefix}/seo/og:title"		 	);
 			do_action( "{$this->prefix}/seo/og:description"		);
 			do_action( "{$this->prefix}/seo/og:url"             );
 			do_action( "{$this->prefix}/seo/og:site_name"		);
-
 			do_action( "{$this->prefix}/seo/og:image"		 	);
-			//do_action( "{$this->prefix}/seo/twitter:title"	 );
-			//do_action( "{$this->prefix}/seo/twitter:domain"    );
-			//do_action( "{$this->prefix}/seo/twitter:image:src" );
 			do_action( "{$this->prefix}/seo/after"              );
 		}
 	}
 
 	/**
-	 * Meta title.
+	 * Set the title.
 	 *
 	 * @since	1.0.0
 	 * @return	void
@@ -208,8 +201,8 @@ class Boldgrid_Seo_Admin {
 		}
 
 		elseif ( is_archive() ) {
-			$content = apply_filters( "{$this->prefix}/seo/archive_title",
-				get_the_archive_title() . "$sep " . get_bloginfo( 'blogname' ) );
+			$content = get_the_archive_title() . "$sep " . get_bloginfo( 'blogname' );
+			$content = $this->simplify_archive_title( $content );
 		}
 
 		elseif ( is_search() ) {
@@ -264,6 +257,16 @@ class Boldgrid_Seo_Admin {
 		return $content;
 	}
 
+	public function simplify_archive_title( $title ) {
+		$delimiter = ': ';
+		$array     = explode( $delimiter, $title );
+		if ( 1 < count( $array ) ) {
+			array_shift( $array );
+			return implode( $delimiter, $array );
+		}
+		return $title;
+	}
+
 	/**
 	 * Get the meta description.
 	 *
@@ -283,19 +286,10 @@ class Boldgrid_Seo_Admin {
 					)
 				)
 			);
-		}
-		elseif ( is_home(  ) ) {
+		} elseif ( is_home() ) {
 			$posts_page_id = get_option( 'page_for_posts' );
-			$front_page_id = get_option( 'page_on_front' );
-			// If pages are default with home being posts and a site meta exists
-			if (   ! $posts_page_id
-				&& ! $front_page_id
-				&& $meta = get_option( 'options_meta_description' ) ) {
-					$content = $meta;
-			}
-
 			// Look for custom meta on a posts page.
-			elseif ( $posts_page_id
+			if ( $posts_page_id
 				&& $meta = get_post_meta( $posts_page_id, 'bgseo_description', true ) ) {
 					$content = $meta;
 			}
@@ -308,6 +302,12 @@ class Boldgrid_Seo_Admin {
 			}
 		} else {
 			if ( ! empty( $GLOBALS['post']->ID )
+				&& $meta = get_post_meta( $GLOBALS['post']->ID, 'meta_description', true ) ) {
+					update_post_meta( $GLOBALS['post']->ID, 'bgseo_description', $meta );
+					delete_post_meta( $GLOBALS['post']->ID, 'meta_description' );
+					$content = get_post_meta( $GLOBALS['post']->ID, 'bgseo_description', true );
+			}
+			elseif ( ! empty( $GLOBALS['post']->ID )
 				&& $meta = get_post_meta( $GLOBALS['post']->ID, 'bgseo_description', true ) ) {
 					$content = $meta;
 			}
@@ -329,76 +329,6 @@ class Boldgrid_Seo_Admin {
 	public function meta_og_description() {
 		$content = $this->get_meta_description();
 		if ( $content ) : printf( $this->settings['meta_fields']['og_description'] . "\n", $content ); endif;
-	}
-
-	/**
-	 * Meta Keywords.
-	 *
-	 * @since	1.0.0
-	 */
-	public function meta_keywords(  ) {
-		$content = '';
-
-		if ( apply_filters( "{$this->prefix}/seo/add_keywords", false ) ) {
-			if ( is_home(  ) ) {
-				$posts_page_id = get_option( 'page_for_posts' );
-				$front_page_id = get_option( 'page_on_front' );
-				// If pages are default with home being posts and a site meta exists
-				if (   ! $posts_page_id
-					&& ! $front_page_id
-					&& $meta = get_option( 'options_meta_keywords' ) ) {
-						$content = $meta;
-				}
-
-				// Look for a custom meta on a posts page
-				elseif ( $posts_page_id
-					&& $meta = get_post_meta( $posts_page_id, 'meta_keywords', true ) ) {
-						$content = $meta;
-				}
-			} else {
-				if ( ! empty( $GLOBALS['post']->ID )
-					&& $meta = get_post_meta( $GLOBALS['post']->ID, 'meta_keywords', true ) ) {
-						$content = $meta;
-				}
-			}
-
-			if ( $content ) {
-				printf( $this->settings['meta_fields']['keywords'] . "\n", $content );
-			}
-		}
-	}
-
-	/**
-	 * Meta classification.
-	 *
-	 * @since	1.0.0
-	 * @return	void
-	 */
-	public function meta_classification(  ) {
-		if ( $meta = get_option( 'meta_classification' ) ) :
-			printf( $this->settings['meta_fields']['classification'] . "\n", $meta );
-		endif;
-	}
-
-	/**
-	 * Twitter domain.
-	 *
-	 * @since 	1.0.0
-	 */
-	public function meta_twitter_domain(  ) {
-		$content = '';
-		( $meta = get_option( 'meta_title' ) ? $content = $meta : $content = get_option( 'blogname' ) );
-		if ( $content ) : printf( $this->settings['meta_fields']['twitter_domain'] . "\n", $content ); endif;
-	}
-
-	/**
-	 * Twitter title.
-	 *
-	 * @since	1.0.0
-	 */
-	public function meta_twitter_title(  ) {
-		$content = $this->seo_title( ',' );
-		if ( $content ) : printf( $this->settings['meta_fields']['twitter_title'] . "\n", $content ); endif;
 	}
 
 	/**
@@ -447,22 +377,11 @@ class Boldgrid_Seo_Admin {
 	 */
 	public function meta_og_image(  ) {
 		$content = '';
-		if ( is_home(  )
-			&& $meta = get_option( 'meta_image' ) ) {
-				$content = $meta;
-		}
-		elseif ( ! empty( $GLOBALS['post']->ID )
-			&& $meta = apply_filters( "{$this->prefix}/seo/add_image_field", $GLOBALS['post']->ID ) ) {
-				$content = $meta;
-		}
-		elseif ( ! empty( $GLOBALS['post']->ID )
-			&& $meta = get_post_meta( $GLOBALS['post']->ID, 'meta_image', true ) ) {
-				$content = $meta;
-		}
-		elseif ( ! empty( $GLOBALS['post']->ID )
-			&& $meta_array = wp_get_attachment_image_src( get_post_thumbnail_id( $GLOBALS['post']->ID ), 'full' ) ) {
-				if ( ! empty( $meta_array[0] ) ) {
-					$content = $meta_array[0];
+		// Check for feature image and use this as the open graph image.
+		if ( ! empty( $GLOBALS['post']->ID )
+			&& $meta = wp_get_attachment_image_src( get_post_thumbnail_id( $GLOBALS['post']->ID ), 'full' ) ) {
+				if ( ! empty( $meta[0] ) ) {
+					$content = $meta[0];
 				}
 		}
 
@@ -518,94 +437,9 @@ class Boldgrid_Seo_Admin {
 		$name = get_bloginfo( 'name' );
 		printf( $this->settings['meta_fields']['og_site_name'] . "\n", $name );
 	}
-
-	/**
-	 * Open graph URL.
-	 *
-	 * @since	1.0.0
-	 */
-	public function meta_permalink(  ) {
-		if ( is_home(  ) ) : $posts_page_id = get_option( 'page_for_posts' );
-			// Look for a permalink on a posts page
-			if ( $posts_page_id
-				&& $meta = get_post_meta( $posts_page_id, 'boldgrid_seo_title', true ) ) {
-				echo $meta;
-			}
-			// Look for a posts page post permalink
-			elseif ( $posts_page_id
-				&& $meta = get_the_title( $posts_page_id ) ) {
-				echo $meta;
-			} else {
-				echo home_url( '/' );
-			}
-		else : echo get_permalink(  );
-		endif;
-	}
-
-	/**
-	 * Image override returns false by default.
-	 *
-	 * @since	1.0.0
-	 */
-	public function manual_image( $post_id ) {
-		if ( is_numeric( $post_id ) ) {
-			return false;
-		} else {
-			return $post_id;
-		}
-	}
-
-	/**
-	 * Add the meta box.
-	 *
-	 * @since	1.0.0
-	 */
-	public function register_field_groups(  ) {
-		// locations for this field group
-		if ( $post_types = $this->post_types(  ) ) {
-			foreach ( $post_types as $post_type ) {
-				$this->settings['field_groups'][0]['post_types'][] = $post_type;
-			}
-		}
-
-		foreach ( $this->settings['field_groups'][0]['fields'] as $key => &$field ) {
-			if ( empty( $field ) ) {
-				continue;
-			}
-
-			// Remove keywords or open graph image field unless asked for
-			if ( ('meta_keywords' == $field['name']
-					&& ! apply_filters( "{$this->prefix}/seo/add_keywords", false ) )
-				|| ('meta_type' == $field['name']
-					&& ! apply_filters( "{$this->prefix}/seo/add_type", false ) )
-				|| ('meta_image' == $field['name']
-					&& ! apply_filters( "{$this->prefix}/seo/add_image", false ) )
-			) {
-				unset( $this->settings['field_groups'][0]['fields'][$key] );
-				continue;
-			}
-
-			// Add max length to instructions
-			if ( ! empty( $field['maxlength'] ) ) {
-				$field['instructions'] = sprintf( $field['instructions'], $field['maxlength'] );
-			}
-		}
-
-		foreach ( $this->settings['field_groups'] as $field_group ) {
-			do_action( "{$this->prefix}/meta/register_field_group", $field_group );
-		}
-	}
 }
 
 unset( $class_name );
 
-function boldgrid_seo_simplify_archive_title( $title ) {
-	$delimiter = ': ';
-	$array     = explode( $delimiter, $title );
-	if ( 1 < count( $array ) ) {
-		array_shift( $array );
-		return implode( $delimiter, $array );
-	}
-	return $title;
-}
+
 endif;

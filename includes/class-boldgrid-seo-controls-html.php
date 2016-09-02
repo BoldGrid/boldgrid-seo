@@ -38,6 +38,14 @@ class Boldgrid_Seo_Controls_Html extends ButterBean_Control {
 
 	public function to_json() {
 		parent::to_json();
-		$this->json['html'] = $this->html;
+		$this->json['value'] = $this->type;
 	}
+	/**
+	 * Prints Underscore.js template.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+
 }

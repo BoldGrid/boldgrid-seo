@@ -162,22 +162,18 @@ class Boldgrid_Seo {
 	 */
 	private function boldgrid_seo_admin() {
 		$admin = new Boldgrid_Seo_Admin( $this->configs );
-//		$this->loader->add_action( 'wp_loaded', $admin, 'register_field_groups' );
 		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
 		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
 		$this->loader->add_action( "{$this->prefix}/seo/robots", $admin, 'robots' );
 		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'canonical_url' );
 		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'meta_og_locale' );
 //		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
-//		$this->loader->add_action( "{$this->prefix}/seo/classification", $admin, 'meta_classification' );
-//		$this->loader->add_action( "{$this->prefix}/seo/site_name", $admin, 'meta_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:site_name", $admin, 'meta_og_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:url", $admin, 'meta_og_url' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:description", $admin, 'meta_og_description' );
 //		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
-//		$this->loader->add_action( "{$this->prefix}/seo/permalink", $admin, 'meta_permalink' );
 //		$this->loader->add_filter( 'boldgrid/seo/archive_title', $admin, 'boldgrid_seo_simplify_archive_title' );
 //		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $admin, 'manual_image', 99 );
 
@@ -188,37 +184,6 @@ class Boldgrid_Seo {
 		} else {
 			$this->loader->add_filter( 'wp_title', $admin, 'wp_title', 99, 2 );
 		}
-	}
-
-	/**
-	 * Register all of the hooks related to the Meta Field areas
-	 * of the plugin in the Page and Post editors.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 */
-	private function boldgrid_seo_meta_fields() {
-		$plugin_meta_field = new Boldgrid_Seo_Meta_Field( $this->get_prefix(), $this->get_plugin_name(), $this->configs );
-		$this->loader->add_action( "{$this->prefix}/meta/add_field", $plugin_meta_field, 'add_field', 10, 2 );
-		$this->loader->add_action( "{$this->prefix}/meta/create_field", $plugin_meta_field, 'create_field' );
-		$this->loader->add_action( "{$this->prefix}/meta/update_field", $plugin_meta_field, 'update_field', 10, 4 );
-		$this->loader->add_filter( "{$this->prefix}/meta/update_value/type=checkbox", $plugin_meta_field, 'update_checkbox', 10, 3 );
-		$this->loader->add_filter( "{$this->prefix}/meta/update_value/type=select", $plugin_meta_field, 'update_select', 10, 3 );
-	}
-
-	/**
-	 * Register all of the hooks related to the Meta Boxes
-	 * in the plugin in the Page and Post editors.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 */
-	private function boldgrid_seo_meta_boxes() {
-		$plugin_meta_boxes = new Boldgrid_Seo_Meta_Box( $this->get_prefix(), $this->get_plugin_name(), $this->configs );
-		$this->loader->add_action( "{$this->prefix}/meta/create_box", $plugin_meta_boxes, 'create_box' );
-		$this->loader->add_action( 'add_meta_boxes', $plugin_meta_boxes, 'add_boxes' );
-		$this->loader->add_action( "{$this->prefix}/meta/register_field_group", $plugin_meta_boxes, 'register_field_group' );
-		$this->loader->add_action( 'save_post', $plugin_meta_boxes, 'save_boxes' );
 	}
 
 	/**

@@ -1,10 +1,15 @@
-<# if ( data.label ) { #>
-	<span class="butterbean-label">{{ data.label }}</span>
+
+<# if ( ! _.isUndefined( data.textstatistics ) ) { #>
+	<# if ( ! _.isUndefined( data.textstatistics.readingEase ) ) { #>
+	<div class="bgseo-keywords">Reading Ease: {{{ data.textstatistics.readingEase }}}</div>
+	<# } #>
+	<# if ( ! _.isUndefined( data.textstatistics.recommendedKeywords ) ) { #>
+	<div class="bgseo-keywords">Based on your content, search engines will most likely think
+		this page is about these Keywords: {{{ data.textstatistics.recommendedKeywords[0][0] }}},
+		{{{ data.textstatistics.recommendedKeywords[1][0] }}}, {{{ data.textstatistics.recommendedKeywords[2][0] }}}.
+	</div>
+	<# } #>
 <# } #>
-<# if ( data.description ) { #>
-	<div class="bgseo-keywords">{{{ data.description }}}</div>
-<# } #>
-<div id="bgseo-dashboard"></div>
 <?php
 $meta = '';
 if ( isset( $_GET['post'] ) && ! empty( $_GET['post'] )  &&

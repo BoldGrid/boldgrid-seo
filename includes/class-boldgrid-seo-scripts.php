@@ -21,7 +21,6 @@ class Boldgrid_Seo_Scripts {
 		$init['setup'] = "function( editor ) {
 			var timer;
 			editor.on( 'keyup propertychange paste', function ( e ) {
-				console.log( e );
 				clearTimeout( timer );
 				timer = setTimeout( function() {
 					BOLDGRID.SEO.TinyMCE.tmceChange( e );
@@ -36,21 +35,10 @@ class Boldgrid_Seo_Scripts {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles( $hook ) {
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Boldgrid_Seo_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Boldgrid_Seo_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) )
 			|| ! in_array( $GLOBALS['post_type'], $this->admin->post_types() ) ) {
 				return;
-		} # || )
+		}
 
 		wp_enqueue_style(
 			$this->configs['plugin_name'],
@@ -67,17 +55,6 @@ class Boldgrid_Seo_Scripts {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts( $hook ) {
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Boldgrid_Seo_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Boldgrid_Seo_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) ) || ! in_array( $GLOBALS['post_type'], $this->admin->post_types() ) ) {
 			return;
 		}
@@ -113,6 +90,14 @@ class Boldgrid_Seo_Scripts {
 			array ( 'jquery' ),
 			$this->configs['version'],
 			false
+		);
+
+		wp_enqueue_script(
+			'bgseo-butterbean-control-js',
+			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-butterbean-control.js',
+			array( 'butterbean', 'backbone', 'wp-util' ),
+			$this->configs['version'],
+			true
 		);
 
 		// Localize the script with new data

@@ -100,7 +100,8 @@
 						};
 					}
 				}
-				console.log( report );
+
+				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
 		},
 	};
