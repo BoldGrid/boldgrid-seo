@@ -70,7 +70,7 @@ class Boldgrid_Seo_Scripts {
 		wp_enqueue_script(
 			$this->configs['plugin_name'] . '-tinymce',
 			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-tinymce.js',
-			array ( 'jquery' ),
+			array ( 'jquery', 'wp-util', 'word-count' ),
 			$this->configs['version'],
 			false
 		);

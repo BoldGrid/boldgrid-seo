@@ -65,19 +65,20 @@
 					text = text.replace( /\r?\n|\r/g, '' );
 					break;
 			}
-
 			text = {
 				'raw': text,
 				'text': self.stripper( text.toLowerCase() ),
 			};
+			console.log( text.text.replace(/\[.*?\]/g, " ") );
 			$( '#content' ).trigger( 'bgseo-analysis', [text] );
+
 		},
 		// Strip out remaining traces of HTML to form our cleanText output to scan
 		stripper: function( html ) {
 			var tmp;
 			tmp = document.implementation.createHTMLDocument( 'New' ).body;
 			tmp.innerHTML = html;
-			return tmp.textContent || tmp.innerText || "";
+			return tmp.textContent || tmp.innerText || " ";
 		},
 		generateReport : function() {
 			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
@@ -97,8 +98,12 @@
 							'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
 							'keywordDensity' : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
 							'recommendedKeywords' : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 3 ),
+							'wordCount' : textstatistics( content ).wordCount(),
 						};
 					}
+				}
+				if ( eventInfo.count ) {
+					console.log( eventInfo.count );
 				}
 
 				$( '#content' ).trigger( 'bgseo-report', [report] );
@@ -111,3 +116,44 @@
 })( jQuery );
 
 BOLDGRID.SEO.TinyMCE.init();
+
+( function( $, counter ) {
+	$( function() {
+		var $content = $( '#content' ),
+			$count = $( '#wp-word-count' ).find( '.word-count' ),
+			prevCount = 0,
+			contentEditor;
+
+		function update() {
+			var text, count;
+
+			if ( ! contentEditor || contentEditor.isHidden() ) {
+				text = $content.val();
+			} else {
+				text = contentEditor.getContent( { format: 'raw' } );
+			}
+
+			count = counter.count( text );
+
+			if ( count !== prevCount ) {
+				$content.trigger( 'bgseo-analysis', [{'count': count}]);
+			}
+
+			prevCount = count;
+		}
+
+		$( document ).on( 'tinymce-editor-init', function( event, editor ) {
+			if ( editor.id !== 'content' ) {
+				return;
+			}
+
+			contentEditor = editor;
+
+			editor.on( 'nodechange keyup', _.debounce( update, 1000 ) );
+		} );
+
+		$content.on( 'input keyup', _.debounce( update, 1000 ) );
+
+		update();
+	} );
+} )( jQuery, new wp.utils.WordCounter() );
