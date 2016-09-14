@@ -29,7 +29,7 @@ defined( 'WPINC' ) ?  : die();
 
 // Define version.
 if ( false === defined( 'BOLDGRID_SEO_VERSION' ) ) {
-	define( 'BOLDGRID_SEO_VERSION', '1.2' );
+	define( 'BOLDGRID_SEO_VERSION', implode( get_file_data( __FILE__, array( 'Version' ), 'plugin' ) ) );
 }
 
 // Define boldgrid-seo path.
