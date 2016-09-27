@@ -20,7 +20,7 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
-= 1.2.2 =
+= 1.2.2 In progress =
 * Misc:			JIRA WPB-2420	Added EOF line breaks.
 
 = 1.2.1 =
