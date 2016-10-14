@@ -12,6 +12,10 @@ BoldGrid SEO provides website search engine optimization.
 
 BoldGrid SEO provides website search engine optimization.
 
+## Requirements ##
+
+* PHP 5.3 or higher.
+
 ## Installation ##
 
 1. Upload the entire boldgrid-seo folder to the /wp-content/plugins/ directory.
@@ -19,6 +23,9 @@ BoldGrid SEO provides website search engine optimization.
 2. Activate the plugin through the Plugins menu in WordPress.
 
 ## Changelog ##
+
+### 1.3.1 In progress ###
+* Misc:			JIRA WPB-2503	Added plugin requirements to readme.txt file.
 
 ### 1.3 ###
 * Misc:			JIRA WPB-2420	Added EOF line breaks.
