@@ -143,7 +143,7 @@ class Boldgrid_Seo_Util {
 		$description = '';
 		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] &&
 			isset( $_GET['post'] ) && $meta = get_post_field( 'post_content', $_GET['post'] ) ) {
-				$description = wp_trim_words( $meta, '30', '' );
+				$description = wp_trim_words( strip_shortcodes( $meta ), '30', '' );
 				$description = $this->get_sentences( $description );
 		}
 
