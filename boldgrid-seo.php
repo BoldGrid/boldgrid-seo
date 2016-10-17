@@ -30,7 +30,7 @@ defined( 'WPINC' ) ?  : die();
 include_once wp_normalize_path( plugin_dir_path( __FILE__ ) . '/autoload.php' );
 
 // Define version.
-defined( 'BOLDGRID_SEO_VERSION' ) || define( 'BOLDGRID_SEO_VERSION', get_file_data( __FILE__, array( 'Version' ), 'plugin')[0] );
+defined( 'BOLDGRID_SEO_VERSION' ) || define( 'BOLDGRID_SEO_VERSION', implode( get_file_data( __FILE__, array( 'Version' ), 'plugin' ) ) );
 
 // Define boldgrid-seo path.
 defined( 'BOLDGRID_SEO_PATH' ) || define( 'BOLDGRID_SEO_PATH', dirname( __FILE__ ) );
