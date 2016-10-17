@@ -85,6 +85,11 @@
 			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
 				var words, count, report = {};
 
+				// Get WordPress' more acurate word counts.
+				if ( eventInfo.count ) {
+					report.wordCount = eventInfo.count;
+				}
+
 				report = {
 					title : {
 						length : $( '#boldgrid-seo-field-meta_title' ).val().length,
@@ -120,10 +125,7 @@
 					}
 				}
 
-				// Get WordPress' acurate counts.
-				if ( eventInfo.count ) {
-					report.wordCount = eventInfo.count;
-				}
+
 
 				// Listen to changes to the SEO Title.
 				if ( eventInfo.titleLength ) {
