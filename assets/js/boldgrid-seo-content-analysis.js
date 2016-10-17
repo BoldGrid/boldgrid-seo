@@ -145,7 +145,6 @@
 				var titleLength = $( this ).val().length;
 				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
 			});
-			title.trigger( 'bgseo-analysis', [{ 'titleLength': title.val().length }] );
 		},
 		seoDescription: function() {
 			var desc = $( '#boldgrid-seo-field-meta_description' );
@@ -154,7 +153,6 @@
 				var descLength = $( this ).val().length;
 				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
 			});
-			desc.trigger( 'bgseo-analysis', [{ 'descLength': desc.val().length }] );
 		}
 	};
 

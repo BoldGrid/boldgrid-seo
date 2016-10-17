@@ -70,6 +70,7 @@
 				'text': self.stripper( text.toLowerCase() ),
 			};
 			console.log( text.text.replace(/\[.*?\]/g, " ") );
+
 			$( '#content' ).trigger( 'bgseo-analysis', [text] );
 
 		},
@@ -82,13 +83,30 @@
 		},
 		generateReport : function() {
 			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
-				var words, report = {};
+				var words, count, report = {};
+
+				report = {
+					title : {
+						length : $( '#boldgrid-seo-field-meta_title' ).val().length,
+						keywordUsage : 0,
+					},
+					description : {
+						length : $( '#boldgrid-seo-field-meta_description' ).val().length,
+						keywordUsage : 0,
+					}
+				};
+
+				// Listen for changes to raw HTML in editor.
 				if ( eventInfo.raw ) {
 					var raw = eventInfo.raw;
 					report.rawstatistics = {
-						'numberOfHeadings': $( raw ).find( 'h1,h2,h3,h4' ).length,
+						'h1Count': $( raw ).find( 'h1' ).length,
+						'h2Count': $( raw ).find( 'h2' ).length,
+						'h3Count': $( raw ).find( 'h3' ).length,
 					};
 				}
+
+				// Listen for changes to the actual text entered by user.
 				if ( eventInfo.text ) {
 					var content = eventInfo.text;
 					words = textstatistics( content ).wordCount();
@@ -98,14 +116,26 @@
 							'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
 							'keywordDensity' : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
 							'recommendedKeywords' : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 3 ),
-							'wordCount' : textstatistics( content ).wordCount(),
 						};
 					}
 				}
+
+				// Get WordPress' acurate counts.
 				if ( eventInfo.count ) {
-					console.log( eventInfo.count );
+					report.wordCount = eventInfo.count;
 				}
 
+				// Listen to changes to the SEO Title.
+				if ( eventInfo.titleLength ) {
+					report.title.length = eventInfo.titleLength;
+				}
+
+				// Listen to changes to the SEO Description.
+				if ( eventInfo.descLength ) {
+					report.description.length = eventInfo.descLength;
+				}
+
+				// Send analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
 		},

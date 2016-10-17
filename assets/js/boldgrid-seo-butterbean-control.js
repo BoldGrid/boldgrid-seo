@@ -30,7 +30,6 @@
 			// Only render template if model is active.
 			if ( this.model.get( 'active' ) )
 				this.el.innerHTML = this.bgseo_template( this.model.toJSON() );
-				console.log( this.model.toJSON() );
 			return this;
 		},
 	});
