@@ -125,8 +125,6 @@
 					}
 				}
 
-
-
 				// Listen to changes to the SEO Title.
 				if ( eventInfo.titleLength ) {
 					report.title.length = eventInfo.titleLength;
