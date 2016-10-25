@@ -112,9 +112,9 @@
 		recommendedKeywords: function( text, n ) {
 			// Split text on non word characters
 			var words = text.toLowerCase().split( /\W+/ ),
-			    positions = [],
+			    positions = {},
 			    wordCounts = [],
-				result;
+			    result;
 
 			for ( var i=0; i < words.length; i++ ) {
 				var word = words[i];
@@ -126,6 +126,7 @@
 					positions[word] = wordCounts.length;
 					wordCounts.push( [word, 1] );
 				} else {
+					console.log(wordCounts[positions[word]]);
 					wordCounts[positions[word]][1]++;
 				}
 			}

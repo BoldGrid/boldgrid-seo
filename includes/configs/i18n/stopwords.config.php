@@ -39,6 +39,7 @@ return array(
 	__( "down" , 'bgseo' ),
 	__( "during" , 'bgseo' ),
 	__( "each" , 'bgseo' ),
+	__( "every", 'bgseo' ),
 	__( "few" , 'bgseo' ),
 	__( "for" , 'bgseo' ),
 	__( "from" , 'bgseo' ),
