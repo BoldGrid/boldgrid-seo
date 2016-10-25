@@ -17,7 +17,7 @@
  * @since  1.0.0
  * @access public
  */
-class Boldgrid_Seo_Controls_Html extends ButterBean_Control {
+class Boldgrid_Seo_Control_Dashboard extends ButterBean_Control {
 
 	/**
 	 * The type of control.
@@ -26,7 +26,7 @@ class Boldgrid_Seo_Controls_Html extends ButterBean_Control {
 	 * @access public
 	 * @var    string
 	 */
-	public $type = 'html';
+	public $type = 'dashboard';
 
 	/**
 	 * Adds custom data to the json array. This data is passed to the Underscore template.

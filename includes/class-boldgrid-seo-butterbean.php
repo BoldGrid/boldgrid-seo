@@ -14,8 +14,8 @@ class Boldgrid_Seo_Butterbean {
 	 * @since 1.2.1
 	 */
 	public function get_html_template( $located, $slug ) {
-		if ( $slug === 'html' ) {
-			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-html.php";
+		if ( $slug === 'dashboard' ) {
+			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-dashboard.php";
 		}
 
 		return $located;
@@ -27,10 +27,10 @@ class Boldgrid_Seo_Butterbean {
 		/* === Register Managers === */
 		$butterbean->register_manager( 'boldgrid_seo', $this->configs['meta-box']['manager'] );
 		$manager  = $butterbean->get_manager( 'boldgrid_seo' );
-		if ( ! class_exists( 'Boldgrid_Seo_Controls_Html' ) ) {
-			include_once plugin_dir_path( __FILE__ ) . "/class-boldgrid-seo-controls-html.php";
+		if ( ! class_exists( 'Boldgrid_Seo_Control_Dashboard' ) ) {
+			include_once plugin_dir_path( __FILE__ ) . "/class-boldgrid-seo-control-dashboard.php";
 		}
-		$butterbean->register_control_type( 'html', 'Boldgrid_Seo_Controls_Html' );
+		$butterbean->register_control_type( 'dashboard', 'Boldgrid_Seo_Control_Dashboard' );
 		/* === Register Sections === */
 		$sections = $this->configs['meta-box']['section'];
 		foreach( $sections as $section => $settings ) {

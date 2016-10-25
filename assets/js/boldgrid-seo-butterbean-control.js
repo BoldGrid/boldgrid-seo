@@ -1,5 +1,5 @@
 ( function ( $ ) {
-	butterbean.views.register_control( 'html', {
+	butterbean.views.register_control( 'dashboard', {
 		// Wrapper element for the control.
 		tagName : 'div',
 
@@ -15,7 +15,7 @@
 
 			var type = this.model.get( 'type' );
 
-			this.bgseo_template = wp.template( 'butterbean-control-html' );
+			this.bgseo_template = wp.template( 'butterbean-control-dashboard' );
 
 			// Bind changes so that the view is re-rendered when the model changes.
 			_.bindAll( this, 'render' );

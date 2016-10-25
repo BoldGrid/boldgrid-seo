@@ -38,7 +38,7 @@ return array(
 	),
 	'control' => array(
 		'bgseo_dash_html' => array(
-			'type'        => 'html',
+			'type'        => 'dashboard',
 			'section'     => 'bgseo_dashboard',
 			'label' => 'hey',
 			'value' => '<div class="hellow"><p>huhuhuhuhuu</p></div>',
@@ -96,7 +96,7 @@ return array(
 			'description' => 'The canonical URL that this page should point to, leave it empty to default to the permalink.',
 		),
 		'bgseo_content_html' => array(
-			'type'        => 'html',
+			'type'        => 'dashboard',
 			'section'     => 'bgseo_keywords',
 			'label' => 'hey',
 			'html' => '<div class="hellow"><p>huhuhuhuhuu</p></div>',

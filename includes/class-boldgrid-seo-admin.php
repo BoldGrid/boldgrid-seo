@@ -107,14 +107,7 @@ class Boldgrid_Seo_Admin {
 
 		unset( $this->settings['post_types']['attachment'] );
 
-		return apply_filters( "{$this->prefix}/seo/post_types",
-
-			apply_filters( "{$this->plugin_name}/post_types",
-
-				$this->settings['post_types'] )
-
-		);
-
+		return apply_filters( "{$this->prefix}/seo/post_types", apply_filters( "{$this->plugin_name}/post_types", $this->settings['post_types'] ) );
 	}
 
 	/**
@@ -223,7 +216,7 @@ class Boldgrid_Seo_Admin {
 
 			// Look for a custom meta on a posts page
 			elseif ( $posts_page_id
-				&& $meta = get_post_meta( $posts_page_id, 'boldgrid_seo_title', true ) ) {
+				&& $meta = get_post_meta( $posts_page_id, 'bgseo_title', true ) ) {
 					$content = $meta;
 			}
 
@@ -238,7 +231,7 @@ class Boldgrid_Seo_Admin {
 		} else {
 			// Look for a custom meta title and override post title
 			if ( ! empty( $GLOBALS['post']->ID ) ) {
-				if ( $meta_title = get_post_meta( $GLOBALS['post']->ID, 'boldgrid_seo_title', true ) ) {
+				if ( $meta_title = get_post_meta( $GLOBALS['post']->ID, 'bgseo_title', true ) ) {
 					$content = $meta_title;
 				}
 
@@ -338,9 +331,8 @@ class Boldgrid_Seo_Admin {
 	 * @return	void
 	 */
 	public function meta_site_name(  ) {
-		$content = '';
-		( $meta = get_option( 'meta_title' ) ? $content = $meta : $content = get_option( 'blogname' ) );
-		if ( $content ) : printf( $this->settings['meta_fields']['site_name'] . "\n", $content ); endif;
+		$site_name = get_option( 'blogname' );
+		if ( $site_name ) : printf( $this->settings['meta_fields']['site_name'] . "\n", $site_name ); endif;
 	}
 
 	/**

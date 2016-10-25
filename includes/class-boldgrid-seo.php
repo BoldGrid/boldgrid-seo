@@ -64,9 +64,6 @@ class Boldgrid_Seo {
 		$this->set_locale();
 		$this->boldgrid_seo_config();
 		$this->boldgrid_seo_admin();
-//		$this->boldgrid_seo_meta_fields();
-//		$this->boldgrid_seo_meta_boxes();
-//		$this->boldgrid_seo_breadcrumbs();
 		$this->boldgrid_seo_update();
 		$this->load_butterbean();
 		$this->enqueue_scripts();
@@ -99,7 +96,6 @@ class Boldgrid_Seo {
 		$this->loader->add_action( 'butterbean_register', $butterbean, 'register', 10, 2 );
 		// Add our custom template checks.
 		$this->loader->add_filter( 'butterbean_control_template', $butterbean, 'get_html_template', 10, 2 );
-
 	}
 
 	/**
@@ -108,7 +104,7 @@ class Boldgrid_Seo {
 	public function boldgrid_seo_update() {
 		$update = new Boldgrid_Seo_Update( $this->configs );
 		// If DOING_CRON, then check if this plugin should be auto-updated.
-		if ( defined( 'DOING_CRON' ) && DOING_CRON ){
+		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			// Ensure required definitions for pluggable.
 			defined( 'AUTH_COOKIE' ) || define( 'AUTH_COOKIE', null );
 			defined( 'LOGGED_IN_COOKIE' ) || define( 'LOGGED_IN_COOKIE', null );
@@ -167,15 +163,11 @@ class Boldgrid_Seo {
 		$this->loader->add_action( "{$this->prefix}/seo/robots", $admin, 'robots' );
 		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'canonical_url' );
 		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'meta_og_locale' );
-//		$this->loader->add_action( "{$this->prefix}/seo/keywords", $admin, 'meta_keywords' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:site_name", $admin, 'meta_og_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:url", $admin, 'meta_og_url' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:description", $admin, 'meta_og_description' );
-//		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
-//		$this->loader->add_filter( 'boldgrid/seo/archive_title', $admin, 'boldgrid_seo_simplify_archive_title' );
-//		$this->loader->add_filter( "{$this->prefix}/seo/add_image_field", $admin, 'manual_image', 99 );
 
 		// Check version for updated filters
 		$wp_version = version_compare( get_bloginfo( 'version' ), '4.4', '>=' );
