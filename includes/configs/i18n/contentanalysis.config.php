@@ -5,9 +5,10 @@ return array(
 	'topKeywords' => __( 'Based on your content the search engines see the word %s the most, so they would think your page is related to that word.', 'bgseo' ),
 	'seoTitle' => array(
 		'length' => array(
-			'bad'  => __( 'You haven\'t entered a custom SEO Title to your page, you should consider adding one.', 'bgseo' ),
+			'badEmpty'  => __( 'You haven\'t entered a custom SEO Title to your page, you should consider adding one.', 'bgseo' ),
+			'badLong'  => __( 'Your custom SEO Title is longer than the recommended 70 characters, you should consider making it shorter.', 'bgseo' ),
 			'ok'   => __( 'We suggest making your SEO title at least 30 characters.', 'bgseo' ),
-			'good' => __( 'You SEO Title is a good length, and optimized for Search Engines!', 'bgseo' ),
+			'good' => __( 'Your SEO Title is a good length, and optimized for Search Engines!', 'bgseo' ),
 		) ,
 		'keywordUsage' => array(
 			'bad'  => __( 'You should try to use your focus keyword at least one time in your SEO title.', 'bgseo' ),

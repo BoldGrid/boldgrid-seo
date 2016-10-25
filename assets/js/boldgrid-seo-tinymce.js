@@ -83,7 +83,10 @@
 		},
 		generateReport : function() {
 			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
-				var words, count, report = {};
+				var words,
+				    count,
+				    report = {},
+				    titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length;
 
 				// Get WordPress' more acurate word counts.
 				if ( eventInfo.count ) {
@@ -92,7 +95,8 @@
 
 				report = {
 					title : {
-						length : $( '#boldgrid-seo-field-meta_title' ).val().length,
+						length : titleLength,
+						lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoTitleLengthScore( titleLength ),
 						keywordUsage : 0,
 					},
 					description : {
@@ -134,7 +138,7 @@
 				if ( eventInfo.descLength ) {
 					report.description.length = eventInfo.descLength;
 				}
-
+				console.log(report);
 				// Send analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});

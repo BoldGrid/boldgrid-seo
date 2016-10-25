@@ -75,7 +75,7 @@ class Boldgrid_Seo_Scripts {
 			false
 		);
 
-		wp_enqueue_script(
+		wp_register_script(
 			$this->configs['plugin_name'] . '-content-analysis',
 			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-content-analysis.js',
 			array ( 'jquery' ),
@@ -102,9 +102,12 @@ class Boldgrid_Seo_Scripts {
 
 		// Localize the script with new data
 		wp_localize_script( $this->configs['plugin_name'] . '-text-statistics', '_bgseoStopWords', $this->configs['i18n']['stopwords'] );
-
 		// Enqueued script with localized data.
 		wp_enqueue_script( $this->configs['plugin_name'] . '-text-statistics' );
 
+		// Localize the script with new data
+		wp_localize_script( $this->configs['plugin_name'] . '-content-analysis', '_bgseoContentAnalysis', $this->configs['i18n']['contentanalysis'] );
+		// Enqueued script with localized data.
+		wp_enqueue_script( $this->configs['plugin_name'] . '-content-analysis' );
 	}
 }

@@ -15,7 +15,6 @@
 	clear: both;
 }
 
-
 .boldgrid-seo-bl {
 	padding: 0;
 	margin: 0;
@@ -30,8 +29,6 @@
 	padding: 0;
 	float: none;
 }
-
-
 
 .boldgrid-seo-postbox > .inside, .boldgrid-seo-fields {
 	margin: 0 !important;
@@ -71,7 +68,6 @@
 	margin: 3px 0 0 !important;
 	padding: 0 !important;
 }
-
 
 .boldgrid-seo-field .boldgrid-seo-input {
 	vertical-align: top;
@@ -156,4 +152,37 @@ ul.boldgrid-seo-checkbox-list li input {
 #butterbean-control-bgseo_robots_follow .butterbean-radio-list li {
 	display: inline-block;
 	padding-right: 1em;
+}
+
+.status.red {
+	width: 13px;
+	height: 13px;
+	background: red;
+	content: '';
+	vertical-align: middle;
+	display: inline-block;
+	border-radius: 100%;
+	margin-right: 10px;
+}
+
+.status.green {
+	width: 13px;
+	height: 13px;
+	background: green;
+	content: '';
+	vertical-align: middle;
+	display: inline-block;
+	border-radius: 100%;
+	margin-right: 10px;
+}
+
+.status.yellow {
+	width: 13px;
+	height: 13px;
+	background: goldenrod;
+	content: '';
+	vertical-align: middle;
+	display: inline-block;
+	border-radius: 100%;
+	margin-right: 10px;
 }

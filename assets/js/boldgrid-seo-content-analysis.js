@@ -147,6 +147,37 @@
 				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
 			});
 		},
+		seoTitleLengthScore: function( titleLength ) {
+			var msg = {};
+
+			if ( titleLength === 0 ) {
+				msg = {
+					status: 'red',
+					msg: _bgseoContentAnalysis.seoTitle.length.badEmpty,
+				};
+			}
+			if ( titleLength > 0 && titleLength < 30) {
+				msg = {
+					status: 'yellow',
+					msg: _bgseoContentAnalysis.seoTitle.length.ok,
+				};
+			}
+			if ( titleLength > 30 && titleLength < 70) {
+				msg = {
+					status: 'green',
+					msg: _bgseoContentAnalysis.seoTitle.length.good,
+				};
+			}
+
+			if ( titleLength > 70 ) {
+				msg = {
+					status: 'red',
+					msg: _bgseoContentAnalysis.seoTitle.length.badLong,
+				};
+			}
+
+			return msg;
+		},
 		seoDescription: function() {
 			var desc = $( '#boldgrid-seo-field-meta_description' );
 			// Listen for changes to input value.

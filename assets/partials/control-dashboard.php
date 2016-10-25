@@ -10,4 +10,9 @@
 		<# } #>
 	</div>
 	<# } #>
+
+<# } #>
+
+<# if ( ! _.isUndefined( data.title ) ) { #>
+	<span class="status {{{ data.title.lengthScore.status }}}">&nbsp;</span><span class="anaysis-suggestion">{{{ data.title.lengthScore.msg }}}</span>
 <# } #>
