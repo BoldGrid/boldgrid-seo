@@ -45,4 +45,10 @@ return array(
 			'good' => __( 'Your content is over the recommended minimum of 300 words, good job!', 'bgseo' ),
 		),
 	),
+	'image' => array(
+		'length' => array(
+			'good' => __( 'Your article contains at least one image, which increases your optimization, awesome!', 'bgseo' ),
+			'bad' => __( 'Try adding at least one image to your content to further optimize your page.', 'bgseo' ),
+		),
+	),
 );
