@@ -185,7 +185,38 @@
 				var descLength = $( this ).val().length;
 				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
 			});
-		}
+		},
+		seoDescriptionLengthScore: function( descriptionLength ) {
+			var msg = {};
+
+			if ( descriptionLength === 0 ) {
+				msg = {
+					status: 'red',
+					msg: _bgseoContentAnalysis.seoDescription.length.badEmpty,
+				};
+			}
+			if ( descriptionLength > 0 && titleLength < 126 ) {
+				msg = {
+					status: 'yellow',
+					msg: _bgseoContentAnalysis.seoDescription.length.ok,
+				};
+			}
+			if ( descriptionLength > 125 && descriptionLength < 156 ) {
+				msg = {
+					status: 'green',
+					msg: _bgseoContentAnalysis.seoDescriptione.length.good,
+				};
+			}
+
+			if ( descriptionLength > 156 ) {
+				msg = {
+					status: 'red',
+					msg: _bgseoContentAnalysis.seoDescription.length.badLong,
+				};
+			}
+
+			return msg;
+		},
 	};
 
 	self = BOLDGRID.SEO.ContentAnalysis;
