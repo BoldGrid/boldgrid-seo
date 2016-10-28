@@ -13,6 +13,17 @@
 
 <# } #>
 
-<# if ( ! _.isUndefined( data.title ) ) { #>
-	<span class="status {{{ data.title.lengthScore.status }}}">&nbsp;</span><span class="anaysis-suggestion">{{{ data.title.lengthScore.msg }}}</span>
-<# } #>
+<div class="bgseo-recommendations">
+	<# if ( ! _.isUndefined( data.title ) ) { #>
+		<span class="status {{{ data.title.lengthScore.status }}}">&nbsp;</span>
+		<span class="anaysis-suggestion">{{{ data.title.lengthScore.msg }}}</span>
+	<# } #>
+</div>
+<div class="bgseo-recommendations">
+	<# if ( ! _.isUndefined( data.description ) ) { #>
+		<# if ( ! _.isUndefined( data.description.lengthScore ) ) { #>
+			<span class="status {{{ data.description.lengthScore.status }}}">&nbsp;</span>
+			<span class="anaysis-suggestion">{{{ data.description.lengthScore.msg }}}</span>
+		<# } #>
+	<# } #>
+</div>

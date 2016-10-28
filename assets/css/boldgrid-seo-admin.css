@@ -153,36 +153,29 @@ ul.boldgrid-seo-checkbox-list li input {
 	display: inline-block;
 	padding-right: 1em;
 }
-
-.status.red {
+.status {
+	float: left;
 	width: 13px;
 	height: 13px;
-	background: red;
 	content: '';
 	vertical-align: middle;
 	display: inline-block;
 	border-radius: 100%;
 	margin-right: 10px;
+}
+.status.red {
+	background: red;
 }
 
 .status.green {
-	width: 13px;
-	height: 13px;
 	background: green;
-	content: '';
-	vertical-align: middle;
-	display: inline-block;
-	border-radius: 100%;
-	margin-right: 10px;
 }
 
 .status.yellow {
-	width: 13px;
-	height: 13px;
 	background: goldenrod;
-	content: '';
-	vertical-align: middle;
-	display: inline-block;
-	border-radius: 100%;
-	margin-right: 10px;
+}
+
+.analysis-suggestion {
+	float: left;
+	width: calc( 100% - 40px );
 }

@@ -195,7 +195,7 @@
 					msg: _bgseoContentAnalysis.seoDescription.length.badEmpty,
 				};
 			}
-			if ( descriptionLength > 0 && titleLength < 126 ) {
+			if ( descriptionLength > 0 && descriptionLength < 126 ) {
 				msg = {
 					status: 'yellow',
 					msg: _bgseoContentAnalysis.seoDescription.length.ok,

@@ -22,7 +22,7 @@ return array(
 	),
 	'seoDescription' => array(
 		'length' => array(
-			'badEmpty'  => __( 'Your custom SEO Description is empty!  You should consider adding one with your focus keyword.', 'bgseo' ),
+			'badEmpty'  => __( 'Your custom SEO Description is empty!  Try adding a description with your focus keyword in it.', 'bgseo' ),
 			'badLong'  => __( 'Your custom SEO Description is over the 156 character recommended length, you should consider making it shorter.', 'bgseo' ),
 			'ok'   => __( 'You should make your SEO description longer!  We recommend 125-156 characters for the best results.', 'bgseo' ),
 			'good' => __( 'Your SEO Description looks great, and is optimized for search engines!', 'bgseo' ),
