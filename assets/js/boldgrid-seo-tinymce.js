@@ -144,6 +144,8 @@
 								keywordDensity : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
 								recommendedKeywords : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 1 ),
 							};
+							// Assign recommended keyword to text input placeholder.
+							$( '#bgseo-custom-keyword' ).attr( 'placeholder', report.textstatistics.recommendedKeywords[0][0] );
 						}
 					}
 
