@@ -100,9 +100,6 @@
 			}
 			return description;
 		},
-		getKeywords: function() {
-
-		},
 		// Gets the count of the keywords in the content.
 		keywordCount: function( content, keyword ) {
 			var keywordCount;
