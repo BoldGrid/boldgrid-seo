@@ -90,5 +90,15 @@ return array(
 			'type'        => 'keywords',
 			'section'     => 'bgseo_keywords',
 		),
+		'bgseo_custom_keyword' => array(
+			'type'        => 'text',
+			'section'     => 'bgseo_keywords',
+			'attr'        => array(
+				'id' => 'bgseo-custom-keyword',
+				'maxlength' => '90',
+				'class' => 'widefat',
+			),
+			'label'       => 'Custom SEO Target Keyword',
+		),
 	),
 );

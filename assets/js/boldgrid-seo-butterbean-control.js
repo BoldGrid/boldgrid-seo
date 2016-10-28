@@ -1,4 +1,12 @@
 ( function ( $ ) {
+
+	'use strict';
+
+	/**
+	 * Registers dashboard display as control.
+	 *
+	 * @since 1.4
+	 */
 	butterbean.views.register_control( 'dashboard', {
 		// Wrapper element for the control.
 		tagName : 'div',
@@ -33,6 +41,12 @@
 			return this;
 		},
 	});
+
+	/**
+	 * Registers the keywords display as a control.
+	 *
+	 * @since 1.4
+	 */
 	butterbean.views.register_control( 'keywords', {
 		// Wrapper element for the control.
 		tagName : 'div',
@@ -67,4 +81,5 @@
 			return this;
 		},
 	});
+
 })( jQuery );

@@ -2,7 +2,7 @@
 return array(
 	'noSEOTitle' => __( 'You should consider adding a custom SEO Title to your page!' , 'bgseo' ),
 	'longerTitle' => __( 'We suggest making your SEO title at least 30 characters.', 'bgseo' ),
-	'topKeywords' => __( 'Based on your content the search engines see the word %s the most, so they would think your page is related to that word.', 'bgseo' ),
+	'topKeywords' => __( 'Based on your content and frequent use, search engines will likely think this article is about: %s.', 'bgseo' ),
 	'seoTitle' => array(
 		'length' => array(
 			'badEmpty'  => __( 'You haven\'t entered a custom SEO Title to your page, you should consider adding one.', 'bgseo' ),

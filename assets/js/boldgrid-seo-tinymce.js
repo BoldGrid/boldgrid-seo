@@ -13,23 +13,6 @@
 			self.onloadContent();
 			self.generateReport();
 			$( document ).ready( function() {
-				if ( wp.media ) {
-					var newObject = {
-						insertContent: function(html){
-							// to extract the image source
-							$(html).find('img').attr('src');
-						}
-					};
-
-					// assign the newObject to window.QTags property
-					window.QTags = newObject;
-
-					wp.media.view.Modal.prototype.on( 'open', function() {
-						$( '.media-toolbar .media-button' ).on( 'click', _.debounce( function() {
-							$( '#content' ).trigger( 'bgseo-media-inserted' );
-						}, 5000 ) );
-					});
-				}
 				self.editorChange();
 			});
 		},
