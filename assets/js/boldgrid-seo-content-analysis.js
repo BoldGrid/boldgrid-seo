@@ -255,17 +255,19 @@
 			return msg;
 		},
 		// Checks if user has any images in their content.
-		seoImageScore: function( imageLength ) {
+		seoImageLengthScore: function( imageLength ) {
 			var msg = {
 				status: 'green',
 				msg: _bgseoContentAnalysis.image.length.good,
 			};
-			if ( imageLength === 0 ) {
+			if ( ! imageLength ) {
 				msg = {
 					status: 'red',
 					msg: _bgseoContentAnalysis.image.length.bad,
 				};
 			}
+
+			return msg;
 		},
 	};
 

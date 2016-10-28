@@ -39,7 +39,7 @@ return array(
 	),
 	'content' => array(
 		'length' => array(
-			'badEmpty'  => __( 'You haven\'t entered any content yet!  As you start writing your content, and recommendations for better SEO will be made!', 'bgseo' ),
+			'badEmpty'  => __( 'You haven\'t entered any content yet!  As you start writing your content, we\'ll make recommendations for better SEO!', 'bgseo' ),
 			'badShort'  => __( 'The content should be longer, try writing more relevant information about the focus keyword of this page.', 'bgseo' ),
 			'ok'   => __( 'We recommend a minimum of 300 words for the best SEO results.', 'bgseo' ),
 			'good' => __( 'Your content is over the recommended minimum of 300 words, good job!', 'bgseo' ),
@@ -50,5 +50,10 @@ return array(
 			'good' => __( 'Your article contains at least one image, which increases your optimization, awesome!', 'bgseo' ),
 			'bad' => __( 'Try adding at least one image to your content to further optimize your page.', 'bgseo' ),
 		),
+	),
+	'readingEase' => array(
+		'good' => 'Your content\'s readability is great! It\'s easily understood by the majority of readers!',
+		'ok' => 'Your content looks good, but you could simplify the text a bit to make it more readable to a wider audience.',
+		'bad' => 'The content is very hard to read, and is best understood by university graduates.  You should consider making your sentences shorter and using easier words for people to understand.',
 	),
 );
