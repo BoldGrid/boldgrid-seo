@@ -4,6 +4,7 @@ class Boldgrid_Seo_Butterbean {
 		$this->configs = $configs;
 		$this->util = new Boldgrid_Seo_Util();
 	}
+
 	public function load() {
 		require_once( BOLDGRID_SEO_PATH . '/includes/lib/butterbean/butterbean.php' );
 	}
@@ -17,6 +18,9 @@ class Boldgrid_Seo_Butterbean {
 		if ( $slug === 'dashboard' ) {
 			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-dashboard.php";
 		}
+		if ( $slug === 'keywords' ) {
+			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-keywords.php";
+		}
 
 		return $located;
 	}
@@ -27,10 +31,17 @@ class Boldgrid_Seo_Butterbean {
 		/* === Register Managers === */
 		$butterbean->register_manager( 'boldgrid_seo', $this->configs['meta-box']['manager'] );
 		$manager  = $butterbean->get_manager( 'boldgrid_seo' );
+
 		if ( ! class_exists( 'Boldgrid_Seo_Control_Dashboard' ) ) {
 			include_once plugin_dir_path( __FILE__ ) . "/class-boldgrid-seo-control-dashboard.php";
 		}
 		$butterbean->register_control_type( 'dashboard', 'Boldgrid_Seo_Control_Dashboard' );
+
+		if ( ! class_exists( 'Boldgrid_Seo_Control_Keywords' ) ) {
+			include_once plugin_dir_path( __FILE__ ) . "/class-boldgrid-seo-control-keywords.php";
+		}
+		$butterbean->register_control_type( 'keywords', 'Boldgrid_Seo_Control_Keywords' );
+
 		/* === Register Sections === */
 		$sections = $this->configs['meta-box']['section'];
 		foreach( $sections as $section => $settings ) {

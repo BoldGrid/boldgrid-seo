@@ -31,18 +31,11 @@ return array(
 			'label' => 'Keywords',
 			'icon'  => 'dashicons-search'
 		),
-		'bgseo_readability' => array(
-			'label' => 'Readability',
-			'icon'  => 'dashicons-book'
-		),
 	),
 	'control' => array(
 		'bgseo_dash_html' => array(
 			'type'        => 'dashboard',
 			'section'     => 'bgseo_dashboard',
-			'label' => 'hey',
-			'value' => '<div class="hellow"><p>huhuhuhuhuu</p></div>',
-			'description' => 'moops',
 		),
 		'bgseo_title' => array(
 			'type'        => 'text',
@@ -54,7 +47,6 @@ return array(
 				'class' => 'widefat',
 			),
 			'label'       => 'SEO Title',
-			'description' => ' ',
 		),
 		'bgseo_description' => array(
 			'type'        => 'textarea',
@@ -66,7 +58,6 @@ return array(
 				'class' => 'widefat',
 			),
 			'label'       => 'SEO Description',
-			'description' => 'Example description.'
 		),
 		'bgseo_robots_index' => array(
 			'type'        => 'radio',
@@ -95,12 +86,9 @@ return array(
 			'label'       => 'Canonical Link',
 			'description' => 'The canonical URL that this page should point to, leave it empty to default to the permalink.',
 		),
-		'bgseo_content_html' => array(
-			'type'        => 'dashboard',
+		'bgseo_keywords_html' => array(
+			'type'        => 'keywords',
 			'section'     => 'bgseo_keywords',
-			'label' => 'hey',
-			'html' => '<div class="hellow"><p>huhuhuhuhuu</p></div>',
-			'description' => 'moops',
 		),
 	),
 );
