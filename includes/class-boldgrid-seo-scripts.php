@@ -59,6 +59,14 @@ class Boldgrid_Seo_Scripts {
 			return;
 		}
 
+		wp_register_script(
+			$this->configs['plugin_name'] . '-util',
+			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-util.js',
+			array ( 'jquery' ),
+			$this->configs['version'],
+			false
+		);
+
 		wp_enqueue_script(
 			$this->configs['plugin_name'] . '-admin',
 			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-admin.js',
@@ -78,7 +86,7 @@ class Boldgrid_Seo_Scripts {
 		wp_register_script(
 			$this->configs['plugin_name'] . '-content-analysis',
 			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-content-analysis.js',
-			array ( 'jquery' ),
+			array ( 'jquery', $this->configs['plugin_name'] . '-util' ),
 			$this->configs['version'],
 			false
 		);

@@ -32,46 +32,61 @@
 		gradeAnalysis: function( grade ) {
 			var description = {};
 			grade = grade * 10;
-			if ( grade > 100 && grade < 90 ) {
+			if ( grade.isBetween( 70, 80 ) ) {
+				console.log( 'grade is between 70 and 80!' );
+			}
+			if ( grade > 90 ) {
 				description = {
-					'score'      : grade,
+					'lengthScore'      : grade,
 					'gradeLevel' : '5th grade',
 					'explanation': 'Very easy to read. Easily understood by an average 11-year-old student.',
+					'status' : 'green',
+					'msg' : _bgseoContentAnalysis.readingEase.goodHigh,
 				};
 			}
-			if ( grade > 80 && grade < 90 ) {
+			if ( grade.isBetween( 80, 90 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : '6th grade',
 					'explanation': 'Easy to read. Conversational English for consumers.',
+					'status' : 'green',
+					'msg' : _bgseoContentAnalysis.readingEase.goodMedHigh,
 				};
 			}
-			if ( grade > 70 && grade < 80 ) {
+			if ( grade.isBetween( 70, 80 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : '7th grade',
 					'explanation': 'Fairly easy to read.',
+					'status' : 'green',
+					'msg' : _bgseoContentAnalysis.readingEase.goodMedLow,
 				};
 			}
-			if ( grade > 60 && grade < 70 ) {
+			if ( grade.isBetween( 60, 70 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : '8th & 9th',
 					'explanation': 'Plain English. Easily understood by 13- to 15-year-old students.',
+					'status' : 'green',
+					'msg' : _bgseoContentAnalysis.readingEase.goodLow,
 				};
 			}
-			if ( grade > 50 && grade < 60 ) {
+			if ( grade.isBetween( 50, 60 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : '10th to 12th',
 					'explanation': 'Fairly difficult to read.',
+					'status' : 'yellow',
+					'msg' : _bgseoContentAnalysis.readingEase.ok,
 				};
 			}
-			if ( grade > 30 && grade < 50 ) {
+			if ( grade.isBetween( 30, 50 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : 'College Student',
 					'explanation': 'Difficult to read.',
+					'status' : 'red',
+					'msg' : _bgseoContentAnalysis.readingEase.badHigh,
 				};
 			}
 			if ( grade < 30 ) {
@@ -79,6 +94,8 @@
 					'score'      : grade,
 					'gradeLevel' : 'College Graduate',
 					'explanation': 'Difficult to read.',
+					'status' : 'red',
+					'msg' : _bgseoContentAnalysis.readingEase.badLow,
 				};
 			}
 			return description;
