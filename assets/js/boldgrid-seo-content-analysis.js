@@ -175,13 +175,13 @@
 					msg: _bgseoContentAnalysis.seoTitle.length.badEmpty,
 				};
 			}
-			if ( titleLength > 0 && titleLength < 30) {
+			if ( titleLength.isBetween( 0, 30 ) ) {
 				msg = {
 					status: 'yellow',
 					msg: _bgseoContentAnalysis.seoTitle.length.ok,
 				};
 			}
-			if ( titleLength > 30 && titleLength < 70) {
+			if ( titleLength.isBetween( 30, 70 ) ) {
 				msg = {
 					status: 'green',
 					msg: _bgseoContentAnalysis.seoTitle.length.good,
