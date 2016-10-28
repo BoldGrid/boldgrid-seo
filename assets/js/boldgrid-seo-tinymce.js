@@ -89,11 +89,6 @@
 				    titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
 				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
-				// Get WordPress' more acurate word counts.
-				if ( eventInfo.count ) {
-					report.wordCount = eventInfo.count;
-				}
-
 				report = {
 					title : {
 						length : titleLength,
@@ -106,6 +101,15 @@
 						keywordUsage : 0,
 					}
 				};
+				// Get WordPress' more acurate word counts.
+				if ( eventInfo.count ) {
+					report.wordCount = eventInfo.count;
+					report.content =  {
+						length : descriptionLength,
+						lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
+						keywordUsage : 0,
+					};
+				}
 
 				// Listen for changes to raw HTML in editor.
 				if ( eventInfo.raw ) {
