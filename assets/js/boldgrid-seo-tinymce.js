@@ -39,7 +39,7 @@
 		},
 		editorChange: function() {
 			var text, targetId;
-			$( '#content.wp-editor-area' ).on( 'input propertychange paste', function() {
+			$( '#content.wp-editor-area' ).on( 'input propertychange paste nodechange', function() {
 				targetId = $( this ).attr( 'id' );
 				text = self.wpContent( targetId );
 			});
@@ -82,32 +82,32 @@
 			return tmp.textContent || tmp.innerText || " ";
 		},
 		generateReport : function() {
-			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
-				var words,
-				    count,
-				    report = {},
-				    titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
+			var words,
+				count,
+				report = {};
+
+			$( document ).on( 'bgseo-analysis bgseo-media-inserted', function( e, eventInfo ) {
+				var titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
 				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
-				report = {
-					title : {
-						length : titleLength,
-						lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoTitleLengthScore( titleLength ),
-						keywordUsage : 0,
-					},
-					description : {
-						length : descriptionLength,
-						lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoDescriptionLengthScore( descriptionLength ),
-						keywordUsage : 0,
-					}
+				report.title = {
+					length : titleLength,
+					lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoTitleLengthScore( titleLength ),
+					keywordUsage : 0,
 				};
+				report.description = {
+					length : descriptionLength,
+					lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoDescriptionLengthScore( descriptionLength ),
+					keywordUsage : 0,
+				};
+
+
 				// Get WordPress' more acurate word counts.
-				if ( eventInfo.count ) {
+				if ( ! _.isUndefined( eventInfo.count ) ) {
 					report.wordCount = eventInfo.count;
-					report.content =  {
-						length : descriptionLength,
-						lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
-						keywordUsage : 0,
+					report.content = {
+						length : eventInfo.count,
+						lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
 					};
 				}
 
@@ -118,6 +118,7 @@
 						'h1Count': $( raw ).find( 'h1' ).length,
 						'h2Count': $( raw ).find( 'h2' ).length,
 						'h3Count': $( raw ).find( 'h3' ).length,
+						imageCount: $( raw ).find( 'img' ).length,
 					};
 				}
 
@@ -125,12 +126,13 @@
 				if ( eventInfo.text ) {
 					var content = eventInfo.text;
 					words = textstatistics( content ).wordCount();
-					if ( words > 50 ) {
+
+					if ( words > 99 ) {
 						report.textstatistics = {
-							'readingEase' : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
-							'gradeLevel'  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
-							'keywordDensity' : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
-							'recommendedKeywords' : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 1 ),
+							readingEase : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
+							gradeLevel  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
+							keywordDensity : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'Business' ),
+							recommendedKeywords : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 1 ),
 						};
 					}
 				}
@@ -156,6 +158,13 @@
 })( jQuery );
 
 BOLDGRID.SEO.TinyMCE.init();
+
+jQuery( document ).ready( function( $ ) {
+	wp.media.editor.add('content').on( 'all', function(){
+		console.log( 'added' );
+	});
+
+});
 
 ( function( $, counter ) {
 	$( function() {

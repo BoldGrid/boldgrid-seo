@@ -1,19 +1,21 @@
 /** Analysis suggestions **/
 .bgseo-recommendations {
 	display: inline-block;
+	margin-left: -12px;
 }
 .analysis-suggestion::before {
+	display: inline-block;
 	float: left;
-	margin: 3px 10px;
+	margin: 3px 10px 3px -22px;
 	width: 13px;
 	height: 13px;
 	content: '';
 	vertical-align: middle;
-	display: inline-block;
 	border-radius: 100%;
 }
 .analysis-suggestion {
 	float: left;
+	margin-left: 32px;
 }
 .analysis-suggestion.red::before {
 	background: red;
@@ -24,7 +26,6 @@
 .analysis-suggestion.yellow::before {
 	background: goldenrod;
 }
-
 
 /** Nofollow/Noindex styles **/
 #butterbean-control-bgseo_robots_index .butterbean-radio-list li,
