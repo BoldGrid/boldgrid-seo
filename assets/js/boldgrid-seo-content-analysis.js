@@ -32,9 +32,7 @@
 		gradeAnalysis: function( grade ) {
 			var description = {};
 			grade = grade * 10;
-			if ( grade.isBetween( 70, 80 ) ) {
-				console.log( 'grade is between 70 and 80!' );
-			}
+
 			if ( grade > 90 ) {
 				description = {
 					'lengthScore'      : grade,
