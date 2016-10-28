@@ -1,6 +1,6 @@
 /** Analysis suggestions **/
 .bgseo-recommendations {
-	display: inline-block;
+	display: flex;
 	margin-left: -12px;
 }
 .analysis-suggestion::before {

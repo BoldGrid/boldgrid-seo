@@ -14,6 +14,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @since 1.2.1
 		 */
 		init : function () {
+			// Adds a function for bool response if number is within a range.
 			Number.prototype.isBetween = function( min, max ) {
 				return this > min && this < max;
 			};
