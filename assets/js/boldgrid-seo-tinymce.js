@@ -86,7 +86,8 @@
 				var words,
 				    count,
 				    report = {},
-				    titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length;
+				    titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
+				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
 				// Get WordPress' more acurate word counts.
 				if ( eventInfo.count ) {
@@ -100,7 +101,8 @@
 						keywordUsage : 0,
 					},
 					description : {
-						length : $( '#boldgrid-seo-field-meta_description' ).val().length,
+						length : descriptionLength,
+						lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoDescriptionLengthScore( descriptionLength ),
 						keywordUsage : 0,
 					}
 				};
