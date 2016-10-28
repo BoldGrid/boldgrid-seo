@@ -254,7 +254,21 @@
 
 			return msg;
 		},
+		// Checks if user has any images in their content.
+		seoImageScore: function( imageLength ) {
+			var msg = {
+				status: 'green',
+				msg: _bgseoContentAnalysis.image.length.good,
+			};
+			if ( imageLength === 0 ) {
+				msg = {
+					status: 'red',
+					msg: _bgseoContentAnalysis.image.length.bad,
+				};
+			}
+		},
 	};
+
 
 	self = BOLDGRID.SEO.ContentAnalysis;
 
