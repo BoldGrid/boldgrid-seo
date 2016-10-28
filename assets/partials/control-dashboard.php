@@ -15,16 +15,18 @@
 
 <div class="bgseo-recommendations">
 	<# if ( ! _.isUndefined( data.title ) ) { #>
-		<span class="status {{{ data.title.lengthScore.status }}}">&nbsp;</span>
-		<span class="analysis-suggestion">{{{ data.title.lengthScore.msg }}}</span>
+		<span class="analysis-suggestion {{{ data.title.lengthScore.status }}}">
+			{{{ data.title.lengthScore.msg }}}
+		</span>
 	<# } #>
 </div>
 
 <div class="bgseo-recommendations">
 	<# if ( ! _.isUndefined( data.description ) ) { #>
 		<# if ( ! _.isUndefined( data.description.lengthScore ) ) { #>
-			<span class="status {{{ data.description.lengthScore.status }}}">&nbsp;</span>
-			<span class="analysis-suggestion">{{{ data.description.lengthScore.msg }}}</span>
+			<span class="analysis-suggestion {{{ data.description.lengthScore.status }}}">
+				{{{ data.description.lengthScore.msg }}}
+			</span>
 		<# } #>
 	<# } #>
 </div>

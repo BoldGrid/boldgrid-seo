@@ -1,181 +1,34 @@
-.boldgrid-seo-hl:before,
-.boldgrid-seo-hl:after,
-.boldgrid-seo-bl:before,
-.boldgrid-seo-bl:after,
-.boldgrid-seo-cf:before,
-.boldgrid-seo-cf:after {
-	content: "";
-	display: block;
-	line-height: 0;
-}
-
-.boldgrid-seo-hl:after,
-.boldgrid-seo-bl:after,
-.boldgrid-seo-cf:after {
-	clear: both;
-}
-
-.boldgrid-seo-bl {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	display: block;
-	position: relative;
-}
-
-.boldgrid-seo-bl > li {
-	display: block;
-	margin: 0;
-	padding: 0;
-	float: none;
-}
-
-.boldgrid-seo-postbox > .inside, .boldgrid-seo-fields {
-	margin: 0 !important;
-	padding: 0 !important;
-	position: relative;
-}
-
-.boldgrid-seo-fields > .boldgrid-seo-field {
-	margin: 0;
-	padding: 15px 12px;
-	border-top: #EEEEEE solid 1px;
-}
-
-.boldgrid-seo-fields > .boldgrid-seo-field:first-child {
-	border-top: none !important;
-}
-
-.boldgrid-seo-field .boldgrid-seo-label {
-	vertical-align: top;
-	margin: 0 0 10px;
-}
-
-.boldgrid-seo-field .boldgrid-seo-label label {
-	display: block;
-	font-weight: bold;
-	font-size: 13px;
-	line-height: 1.4em;
-	margin: 0 0 3px;
-}
-
-.boldgrid-seo-field .boldgrid-seo-label p {
-	color: #777777;
-	display: block;
-	font-size: 12px;
-	line-height: 1.4em;
-	font-style: normal;
-	margin: 3px 0 0 !important;
-	padding: 0 !important;
-}
-
-.boldgrid-seo-field .boldgrid-seo-input {
-	vertical-align: top;
-}
-
-.boldgrid-seo-input-wrap {
-	position: relative;
-	overflow: hidden;
-}
-
-.boldgrid-seo-field input[type="text"],
-.boldgrid-seo-field input[type="password"],
-.boldgrid-seo-field input[type="number"],
-.boldgrid-seo-field input[type="search"],
-.boldgrid-seo-field input[type="email"],
-.boldgrid-seo-field input[type="url"],
-.boldgrid-seo-field textarea,
-.boldgrid-seo-field select {
-	width: 100%;
-	padding: 3px 5px;
-	resize: none;
-	margin: 0;
-	box-sizing: border-box;
-	font-size: 14px;
-}
-
-.boldgrid-seo-input-wrap input {
-	height: 28px;
-	margin: 0;
-}
-
-ul.boldgrid-seo-radio-list,
-ul.boldgrid-seo-checkbox-list {
-	background: transparent !important;
-	position: relative;
-	padding: 1px;
-	margin: 0;
-}
-
-ul.boldgrid-seo-radio-list li,
-ul.boldgrid-seo-checkbox-list li {
-	font-size: 13px;
-	line-height: 22px;
-	margin: 0;
-	position: relative;
-	word-wrap: break-word;
-}
-
-ul.boldgrid-seo-radio-list li label,
-ul.boldgrid-seo-checkbox-list li label {
-	display: inline;
-	margin: 2px 0;
-}
-
-ul.boldgrid-seo-radio-list li input,
-ul.boldgrid-seo-checkbox-list li input {
-	margin: -1px 4px 0 0;
-	width: auto !important;
-	vertical-align: middle;
-}
-
-.boldgrid-seo-meta-extra {
-	font-size: .75em;
-	padding: .5em 0 0 .2em;
-}
-/* Set properties when metabox is placed under editor */
-#boldgrid-seo #boldgrid-seo-field-meta_description {
-	height: 5em;
-}
-#boldgrid-seo #boldgrid-seo-field-meta_title {
-	height: 2em;
-}
-/* Set properties when metabox is placed in sidebar */
-#side-sortables #boldgrid-seo #boldgrid-seo-field-meta_title {
-	height: 3em;
-	line-height: 17px;
-}
-#side-sortables #boldgrid-seo #boldgrid-seo-field-meta_description {
-	height: 7.5em;
-}
-#butterbean-control-bgseo_robots_index .butterbean-radio-list li,
-#butterbean-control-bgseo_robots_follow .butterbean-radio-list li {
+/** Analysis suggestions **/
+.bgseo-recommendations {
 	display: inline-block;
-	padding-right: 1em;
 }
-.status {
+.analysis-suggestion::before {
 	float: left;
+	margin: 3px 10px;
 	width: 13px;
 	height: 13px;
 	content: '';
 	vertical-align: middle;
 	display: inline-block;
 	border-radius: 100%;
-	margin-right: 10px;
 }
-.status.red {
+.analysis-suggestion {
+	float: left;
+}
+.analysis-suggestion.red::before {
 	background: red;
 }
-
-.status.green {
+.analysis-suggestion.green::before {
 	background: green;
 }
-
-.status.yellow {
+.analysis-suggestion.yellow::before {
 	background: goldenrod;
 }
 
-.analysis-suggestion {
-	float: left;
-	width: calc( 100% - 40px );
+
+/** Nofollow/Noindex styles **/
+#butterbean-control-bgseo_robots_index .butterbean-radio-list li,
+#butterbean-control-bgseo_robots_follow .butterbean-radio-list li {
+	display: inline-block;
+	padding-right: 1em;
 }
