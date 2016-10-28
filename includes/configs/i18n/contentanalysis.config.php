@@ -54,7 +54,7 @@ return array(
 	'readingEase' => array(
 		'goodHigh' => 'Your content\'s readability is looking great! It\'s very easy to understand by the majority of readers!',
 		'goodMedHigh' => 'The readability of your content is easy to understand by most readers! Awesome!',
-		'goodMedLow' => 'Your content is fairly easy to understand by most readers.',
+		'goodMedLow' => 'Your content is pretty easy to understand by most readers.',
 		'goodLow' => 'The readability of this content is okay, but could use some improvements to reach a wider audience.',
 		'ok' => 'Your content is pretty hard to read, so you should try to simplify it.',
 		'badHigh' => 'The content is hard to read. Try shortening some sentences and using less complex wording to improve this score.',
