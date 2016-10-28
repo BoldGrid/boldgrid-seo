@@ -147,6 +147,8 @@
 				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
 			});
 		},
+
+		// Measured by character count.
 		seoTitleLengthScore: function( titleLength ) {
 			var msg = {};
 
@@ -186,6 +188,8 @@
 				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
 			});
 		},
+
+		// Measured by character count.
 		seoDescriptionLengthScore: function( descriptionLength ) {
 			var msg = {};
 
@@ -212,6 +216,39 @@
 				msg = {
 					status: 'red',
 					msg: _bgseoContentAnalysis.seoDescription.length.badLong,
+				};
+			}
+
+			return msg;
+		},
+
+		// Measured by word count.
+		seoContentLengthScore: function( contentLength ) {
+			var msg = {};
+
+			if ( contentLength === 0 ) {
+				msg = {
+					status: 'red',
+					msg: _bgseoContentAnalysis.content.length.badEmpty,
+				};
+			}
+			if ( contentLength > 0 && contentLength < 199 ) {
+				msg = {
+					status: 'red',
+					msg: _bgseoContentAnalysis.content.length.badShort,
+				};
+			}
+			if ( contentLength > 198 && contentLength < 300 ) {
+				msg = {
+					status: 'yellow',
+					msg: _bgseoContentAnalysis.content.length.ok,
+				};
+			}
+
+			if ( contentLength > 299 ) {
+				msg = {
+					status: 'green',
+					msg: _bgseoContentAnalysis.content.length.good,
 				};
 			}
 
