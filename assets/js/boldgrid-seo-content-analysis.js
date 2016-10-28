@@ -216,19 +216,18 @@
 					msg: _bgseoContentAnalysis.seoDescription.length.badEmpty,
 				};
 			}
-			if ( descriptionLength > 0 && descriptionLength < 126 ) {
+			if ( descriptionLength.isBetween( 0, 126 ) ) {
 				msg = {
 					status: 'yellow',
 					msg: _bgseoContentAnalysis.seoDescription.length.ok,
 				};
 			}
-			if ( descriptionLength > 125 && descriptionLength < 156 ) {
+			if ( descriptionLength.isBetween( 125, 156 ) ) {
 				msg = {
 					status: 'green',
 					msg: _bgseoContentAnalysis.seoDescriptione.length.good,
 				};
 			}
-
 			if ( descriptionLength > 156 ) {
 				msg = {
 					status: 'red',
