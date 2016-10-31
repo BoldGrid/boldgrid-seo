@@ -138,7 +138,6 @@
 					positions[word] = wordCounts.length;
 					wordCounts.push( [word, 1] );
 				} else {
-					console.log(wordCounts[positions[word]]);
 					wordCounts[positions[word]][1]++;
 				}
 			}

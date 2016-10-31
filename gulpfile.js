@@ -80,13 +80,5 @@ gulp.task( 'clone', function() {
   });
 });
 
-//Convert readme.txt to Markdown for Github
-gulp.task('bower', function() {
-  gulp.src( './bower_components/selectize/dist/js/standalone/**/*.js' )
-  	.pipe( gulp.dest( config.dist + '/assets/js') );
-  gulp.src( './bower_components/selectize/dist/css/**/*.css' )
-  	  .pipe( gulp.dest( config.dist + '/assets/css' ) );
-});
-
 // Build.
-gulp.task( 'default', ['bower', 'translate', 'js', 'css', 'readme', 'clone'] );
+gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone'] );
