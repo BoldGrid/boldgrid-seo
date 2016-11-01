@@ -59,7 +59,7 @@ class Boldgrid_Seo_Scripts {
 			return;
 		}
 
-		wp_register_script(
+		wp_enqueue_script(
 			"{$this->configs['plugin_name']}-util",
 			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-util.js",
 			array ( 'jquery' ),
@@ -114,6 +114,14 @@ class Boldgrid_Seo_Scripts {
 			array( 'butterbean', 'backbone', 'wp-util' ),
 			$this->configs['version'],
 			true
+		);
+
+		wp_enqueue_script(
+			"{$this->configs['plugin_name']}-robots",
+			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-robots.js",
+			array ( 'jquery' ),
+			$this->configs['version'],
+			false
 		);
 
 		// Localize the script with new data
