@@ -39,7 +39,7 @@
 			});
 		},
 		/**
-		 * Gets score of follow/nofollow status.
+		 * Gets score of the SEO Title.
 		 *
 		 * Checks the length provided and returns a score for the SEO
 		 * title.  This score is based on character count.

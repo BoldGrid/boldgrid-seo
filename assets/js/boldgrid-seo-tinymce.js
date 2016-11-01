@@ -96,7 +96,7 @@
 				};
 				report.description = {
 					length : descriptionLength,
-					lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoDescriptionLengthScore( descriptionLength ),
+					lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
 					keywordUsage : 0,
 				};
 

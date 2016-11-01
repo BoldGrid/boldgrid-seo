@@ -4,16 +4,6 @@
 	var self;
 
 	BOLDGRID.SEO.ContentAnalysis = {
-		/**
-		 * Initialize TinyMCE Content.
-		 *
-		 * @since 1.2.1
-		 */
-		init : function () {
-			$( document ).ready( function() {
-				self.seoDescription();
-			});
-		},
 		// Gets the Flesch Kincaid Reading Ease Score.
 		readingEase: function( content ) {
 			var result;
@@ -156,46 +146,6 @@
 
 			return result;
 		},
-		seoDescription: function() {
-			var desc = $( '#boldgrid-seo-field-meta_description' );
-			// Listen for changes to input value.
-			desc.on( 'input propertychange paste', function() {
-				var descLength = $( this ).val().length;
-				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
-			});
-		},
-		// Measured by character count.
-		seoDescriptionLengthScore: function( descriptionLength ) {
-			var msg = {};
-
-			if ( descriptionLength === 0 ) {
-				msg = {
-					status: 'red',
-					msg: _bgseoContentAnalysis.seoDescription.length.badEmpty,
-				};
-			}
-			if ( descriptionLength.isBetween( 0, 126 ) ) {
-				msg = {
-					status: 'yellow',
-					msg: _bgseoContentAnalysis.seoDescription.length.ok,
-				};
-			}
-			if ( descriptionLength.isBetween( 125, 156 ) ) {
-				msg = {
-					status: 'green',
-					msg: _bgseoContentAnalysis.seoDescriptione.length.good,
-				};
-			}
-			if ( descriptionLength > 156 ) {
-				msg = {
-					status: 'red',
-					msg: _bgseoContentAnalysis.seoDescription.length.badLong,
-				};
-			}
-
-			return msg;
-		},
-
 		// Measured by word count.
 		seoContentLengthScore: function( contentLength ) {
 			var msg = {};
@@ -248,5 +198,3 @@
 	self = BOLDGRID.SEO.ContentAnalysis;
 
 })( jQuery );
-
-BOLDGRID.SEO.ContentAnalysis.init();
