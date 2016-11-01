@@ -91,7 +91,7 @@
 
 				report.title = {
 					length : titleLength,
-					lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoTitleLengthScore( titleLength ),
+					lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
 					keywordUsage : 0,
 				};
 				report.description = {

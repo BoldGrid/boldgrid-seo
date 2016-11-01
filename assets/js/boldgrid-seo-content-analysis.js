@@ -11,7 +11,6 @@
 		 */
 		init : function () {
 			$( document ).ready( function() {
-				self.seoTitle();
 				self.seoDescription();
 			});
 		},
@@ -157,48 +156,6 @@
 
 			return result;
 		},
-		seoTitle: function() {
-			var title = $( '#boldgrid-seo-field-meta_title' );
-			// Listen for changes to input value.
-			title.on( 'input propertychange paste', function() {
-				var titleLength = $( this ).val().length;
-				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
-			});
-		},
-		// Measured by character count.
-		seoTitleLengthScore: function( titleLength ) {
-			var msg = {};
-			// No title entered.
-			if ( titleLength === 0 ) {
-				msg = {
-					status: 'red',
-					msg: _bgseoContentAnalysis.seoTitle.length.badEmpty,
-				};
-			}
-			// Title is 0-30 characters.
-			if ( titleLength.isBetween( 0, 31 ) ) {
-				msg = {
-					status: 'yellow',
-					msg: _bgseoContentAnalysis.seoTitle.length.ok,
-				};
-			}
-			// Title is 30-70 characters.
-			if ( titleLength.isBetween( 29, 71 ) ) {
-				msg = {
-					status: 'green',
-					msg: _bgseoContentAnalysis.seoTitle.length.good,
-				};
-			}
-			// Title is grater than 70 characters.
-			if ( titleLength > 70 ) {
-				msg = {
-					status: 'red',
-					msg: _bgseoContentAnalysis.seoTitle.length.badLong,
-				};
-			}
-
-			return msg;
-		},
 		seoDescription: function() {
 			var desc = $( '#boldgrid-seo-field-meta_description' );
 			// Listen for changes to input value.
@@ -207,7 +164,6 @@
 				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
 			});
 		},
-
 		// Measured by character count.
 		seoDescriptionLengthScore: function( descriptionLength ) {
 			var msg = {};
