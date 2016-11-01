@@ -115,5 +115,3 @@
 	self = BOLDGRID.SEO.Readability;
 
 })( jQuery );
-
-BOLDGRID.SEO.Readability.init();
