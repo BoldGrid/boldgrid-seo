@@ -33,10 +33,10 @@
 		_title: function() {
 			var title = $( '#boldgrid-seo-field-meta_title' );
 			// Listen for changes to input value.
-			title.on( 'input propertychange paste', function() {
+			title.on( 'input propertychange paste', _.debounce( function() {
 				var titleLength = $( this ).val().length;
 				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
-			});
+			}, 1000 ) );
 		},
 		/**
 		 * Gets score of the SEO Title.
