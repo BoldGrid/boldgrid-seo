@@ -33,16 +33,18 @@
 			var description = {};
 			grade = grade * 10;
 
+			// Grade is higher than 90.
 			if ( grade > 90 ) {
 				description = {
-					'lengthScore'      : grade,
+					'lengthScore' : grade,
 					'gradeLevel' : '5th grade',
 					'explanation': 'Very easy to read. Easily understood by an average 11-year-old student.',
 					'status' : 'green',
 					'msg' : _bgseoContentAnalysis.readingEase.goodHigh,
 				};
 			}
-			if ( grade.isBetween( 80, 90 ) ) {
+			// Grade is 80-90.
+			if ( grade.isBetween( 79, 91 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : '6th grade',
@@ -51,7 +53,8 @@
 					'msg' : _bgseoContentAnalysis.readingEase.goodMedHigh,
 				};
 			}
-			if ( grade.isBetween( 70, 80 ) ) {
+			// Grade is 70-90.
+			if ( grade.isBetween( 69, 81 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : '7th grade',
@@ -60,7 +63,8 @@
 					'msg' : _bgseoContentAnalysis.readingEase.goodMedLow,
 				};
 			}
-			if ( grade.isBetween( 60, 70 ) ) {
+			// Grade is 60-70.
+			if ( grade.isBetween( 59, 71 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : '8th & 9th',
@@ -69,7 +73,8 @@
 					'msg' : _bgseoContentAnalysis.readingEase.goodLow,
 				};
 			}
-			if ( grade.isBetween( 50, 60 ) ) {
+			// Grade is 50-60.
+			if ( grade.isBetween( 49, 61 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : '10th to 12th',
@@ -78,7 +83,8 @@
 					'msg' : _bgseoContentAnalysis.readingEase.ok,
 				};
 			}
-			if ( grade.isBetween( 30, 50 ) ) {
+			// Grade is 30-50.
+			if ( grade.isBetween( 29, 51 ) ) {
 				description = {
 					'score'      : grade,
 					'gradeLevel' : 'College Student',
@@ -87,6 +93,7 @@
 					'msg' : _bgseoContentAnalysis.readingEase.badHigh,
 				};
 			}
+			// Grade is less than 30.
 			if ( grade < 30 ) {
 				description = {
 					'score'      : grade,
@@ -158,30 +165,31 @@
 				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
 			});
 		},
-
 		// Measured by character count.
 		seoTitleLengthScore: function( titleLength ) {
 			var msg = {};
-
+			// No title entered.
 			if ( titleLength === 0 ) {
 				msg = {
 					status: 'red',
 					msg: _bgseoContentAnalysis.seoTitle.length.badEmpty,
 				};
 			}
-			if ( titleLength.isBetween( 0, 30 ) ) {
+			// Title is 0-30 characters.
+			if ( titleLength.isBetween( 0, 31 ) ) {
 				msg = {
 					status: 'yellow',
 					msg: _bgseoContentAnalysis.seoTitle.length.ok,
 				};
 			}
-			if ( titleLength.isBetween( 30, 70 ) ) {
+			// Title is 30-70 characters.
+			if ( titleLength.isBetween( 29, 71 ) ) {
 				msg = {
 					status: 'green',
 					msg: _bgseoContentAnalysis.seoTitle.length.good,
 				};
 			}
-
+			// Title is grater than 70 characters.
 			if ( titleLength > 70 ) {
 				msg = {
 					status: 'red',

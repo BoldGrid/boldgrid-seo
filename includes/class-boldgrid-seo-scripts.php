@@ -60,8 +60,8 @@ class Boldgrid_Seo_Scripts {
 		}
 
 		wp_register_script(
-			$this->configs['plugin_name'] . '-util',
-			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-util.js',
+			"{$this->configs['plugin_name']}-util",
+			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-util.js",
 			array ( 'jquery' ),
 			$this->configs['version'],
 			false

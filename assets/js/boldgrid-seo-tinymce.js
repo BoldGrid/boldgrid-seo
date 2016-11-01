@@ -99,6 +99,9 @@
 					lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoDescriptionLengthScore( descriptionLength ),
 					keywordUsage : 0,
 				};
+				report.robotIndex = {
+					lengthScore: BOLDGRID.SEO.Robots.indexScore(),
+				};
 
 				if ( eventInfo ) {
 					// Get WordPress' more acurate word counts.
@@ -158,6 +161,12 @@
 					// Listen to changes to the SEO Description.
 					if ( eventInfo.descLength ) {
 						report.description.length = eventInfo.descLength;
+					}
+
+					if ( eventInfo.robotIndex ) {
+						report.robotIndex = {
+							lengthScore : eventInfo.robotIndex,
+						};
 					}
 
 				}

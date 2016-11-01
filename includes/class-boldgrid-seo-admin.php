@@ -119,21 +119,18 @@ class Boldgrid_Seo_Admin {
 	 * @return	void
 	 */
 	public function wp_head() {
-		if ( apply_filters( "{$this->prefix}/seo/automate_head",
-			 apply_filters( "{$this->plugin_name}/automate_head", true ) ) ) {
-			do_action( "{$this->prefix}/seo/before"             );
-			do_action( "{$this->prefix}/seo/description" 	 	);
-			do_action( "{$this->prefix}/seo/robots" 	 	    );
-			do_action( "{$this->prefix}/seo/canonical" 	 	    );
-			do_action( "{$this->prefix}/seo/og:locale"          );
-			do_action( "{$this->prefix}/seo/og:type"            );
-			do_action( "{$this->prefix}/seo/og:title"		 	);
-			do_action( "{$this->prefix}/seo/og:description"		);
-			do_action( "{$this->prefix}/seo/og:url"             );
-			do_action( "{$this->prefix}/seo/og:site_name"		);
-			do_action( "{$this->prefix}/seo/og:image"		 	);
-			do_action( "{$this->prefix}/seo/after"              );
-		}
+		do_action( "{$this->prefix}/seo/before"             );
+		do_action( "{$this->prefix}/seo/description" 	 	);
+		do_action( "{$this->prefix}/seo/robots" 	 	    );
+		do_action( "{$this->prefix}/seo/canonical" 	 	    );
+		do_action( "{$this->prefix}/seo/og:locale"          );
+		do_action( "{$this->prefix}/seo/og:type"            );
+		do_action( "{$this->prefix}/seo/og:title"		 	);
+		do_action( "{$this->prefix}/seo/og:description"		);
+		do_action( "{$this->prefix}/seo/og:url"             );
+		do_action( "{$this->prefix}/seo/og:site_name"		);
+		do_action( "{$this->prefix}/seo/og:image"		 	);
+		do_action( "{$this->prefix}/seo/after"              );
 	}
 
 	/**
