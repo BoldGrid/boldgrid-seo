@@ -132,6 +132,14 @@ class Boldgrid_Seo_Scripts {
 			false
 		);
 
+		wp_enqueue_script(
+			"{$this->configs['plugin_name']}-description",
+			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-description.js",
+			array ( 'jquery', $this->configs['plugin_name'] . '-content-analysis' ),
+			$this->configs['version'],
+			false
+		);
+
 		// Localize the script with new data
 		wp_localize_script( $this->configs['plugin_name'] . '-text-statistics', '_bgseoStopWords', $this->configs['i18n']['stopwords'] );
 		// Enqueued script with localized data.

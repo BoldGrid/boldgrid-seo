@@ -35,10 +35,10 @@
 		_description : function() {
 			var desc = $( '#boldgrid-seo-field-meta_description' );
 			// Listen for changes to input value.
-			desc.on( 'input propertychange paste', function() {
+			desc.on( 'input propertychange paste', _.debounce( function() {
 				var descLength = $( this ).val().length;
 				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
-			});
+			}, 1000 ) );
 		},
 
 		/**
