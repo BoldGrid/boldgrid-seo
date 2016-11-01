@@ -102,7 +102,7 @@ class Boldgrid_Seo_Scripts {
 
 		wp_enqueue_script(
 			'bgseo-control-dashboard-js',
-			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-control-dashboard.js',
+			$this->configs['plugin_url'] . '/assets/js/control/boldgrid-seo-control-dashboard.js',
 			array( 'butterbean', 'backbone', 'wp-util' ),
 			$this->configs['version'],
 			true
@@ -110,7 +110,7 @@ class Boldgrid_Seo_Scripts {
 
 		wp_enqueue_script(
 			'bgseo-control-keywords-js',
-			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-control-keywords.js',
+			$this->configs['plugin_url'] . '/assets/js/control/boldgrid-seo-control-keywords.js',
 			array( 'butterbean', 'backbone', 'wp-util' ),
 			$this->configs['version'],
 			true
