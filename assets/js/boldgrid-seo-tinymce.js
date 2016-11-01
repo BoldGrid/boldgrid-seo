@@ -147,7 +147,6 @@
 
 						if ( words > 99 ) {
 							report.textstatistics = {
-								readingEase : BOLDGRID.SEO.ContentAnalysis.readingEase( content ),
 								gradeLevel  : BOLDGRID.SEO.ContentAnalysis.gradeLevel( content ),
 								keywordDensity : BOLDGRID.SEO.ContentAnalysis.keywordDensity( content, 'gads' ),
 								recommendedKeywords : BOLDGRID.SEO.ContentAnalysis.recommendedKeywords( content, 1 ),

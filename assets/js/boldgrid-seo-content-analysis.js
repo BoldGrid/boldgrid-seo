@@ -4,23 +4,16 @@
 	var self;
 
 	BOLDGRID.SEO.ContentAnalysis = {
-		// Gets the Flesch Kincaid Reading Ease Score.
-		readingEase: function( content ) {
-			var result;
-			result = textstatistics( content ).fleschKincaidReadingEase();
-			return result;
-		},
 		// Get the Flesch Kincaid Grade Level from content.
 		gradeLevel: function( content ) {
 			var grade, result = {};
-			grade = textstatistics( content ).fleschKincaidGradeLevel();
+			grade = textstatistics( content ).fleschKincaidReadingEase();
 			result = self.gradeAnalysis( grade );
 			return result;
 		},
 		// Returns information about the grade for display.
 		gradeAnalysis: function( grade ) {
 			var description = {};
-			grade = grade * 10;
 
 			// Grade is higher than 90.
 			if ( grade > 90 ) {
