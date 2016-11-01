@@ -22,6 +22,10 @@
 				self._title();
 			});
 		},
+		getTitle : function() {
+			var title = $( '#boldgrid-seo-field-meta_title' );
+			return title;
+		},
 		/**
 		 * Sets up event listener for changes made to the SEO Title.
 		 *
@@ -31,7 +35,7 @@
 		 * @since 1.3.1
 		 */
 		_title: function() {
-			var title = $( '#boldgrid-seo-field-meta_title' );
+			var title = self.getTitle();
 			// Listen for changes to input value.
 			title.on( 'input propertychange paste', _.debounce( function() {
 				var titleLength = $( this ).val().length;

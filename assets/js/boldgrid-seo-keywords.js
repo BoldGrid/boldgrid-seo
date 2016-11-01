@@ -99,6 +99,21 @@
 
 			return result;
 		},
+		getCustomKeyword : function() {
+			var keyword = $( '#bgseo-custom-keyword' ).val();
+			// Trim the input since it's user input to be sure there's no spaces.
+			keyword = $.trim( keyword );
+
+			return keyword;
+		},
+
+		keywordsInTitle : function() {
+			var keyword, title = BOLDGRID.SEO.Title.getTitle();
+		},
+
+		keywordsInDescription : function() {
+
+		},
 	};
 
 	self = BOLDGRID.SEO.Keywords;

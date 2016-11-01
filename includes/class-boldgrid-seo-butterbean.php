@@ -83,6 +83,11 @@ class Boldgrid_Seo_Butterbean {
 				'sanitize_callback' => 'sanitize_key'
 			)
 		);
+		$manager->register_setting(
+			'bgseo_custom_keyword',
+			array( 'sanitize_callback' => 'wp_filter_nohtml_kses' )
+		);
+
 	}
 }
 ?>
