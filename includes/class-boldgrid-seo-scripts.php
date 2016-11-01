@@ -119,7 +119,7 @@ class Boldgrid_Seo_Scripts {
 		wp_enqueue_script(
 			"{$this->configs['plugin_name']}-robots",
 			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-robots.js",
-			array ( 'jquery' ),
+			array ( 'jquery', $this->configs['plugin_name'] . '-content-analysis' ),
 			$this->configs['version'],
 			false
 		);

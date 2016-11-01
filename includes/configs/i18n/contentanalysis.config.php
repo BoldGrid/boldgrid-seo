@@ -60,4 +60,12 @@ return array(
 		'badHigh' => 'The content is hard to read. Try shortening some sentences and using less complex wording to improve this score.',
 		'badLow' => 'The text here is very hard to read, and is best understood by university graduates.  You should consider making your sentences shorter and using easier words for people to understand.',
 	),
+	'noIndex' => array(
+		'good' => 'This article is being indexed by search engines!',
+		'bad' =>  'Your page is being blocked from search engine indexing!',
+	),
+	'noFollow' => array(
+		'good' => 'Great, your links are set to follow for search engines!',
+		'bad' => 'Your links are set to nofollow for search engines!',
+	),
 );

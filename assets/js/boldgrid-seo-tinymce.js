@@ -99,8 +99,13 @@
 					lengthScore:  BOLDGRID.SEO.ContentAnalysis.seoDescriptionLengthScore( descriptionLength ),
 					keywordUsage : 0,
 				};
+
 				report.robotIndex = {
 					lengthScore: BOLDGRID.SEO.Robots.indexScore(),
+				};
+
+				report.robotFollow = {
+					lengthScore: BOLDGRID.SEO.Robots.followScore(),
 				};
 
 				if ( eventInfo ) {
@@ -169,6 +174,11 @@
 						};
 					}
 
+					if ( eventInfo.robotFollow ) {
+						report.robotFollow = {
+							lengthScore : eventInfo.robotFollow,
+						};
+					}
 				}
 				console.log(report);
 				// Send analysis to display the report.
