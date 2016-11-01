@@ -6,7 +6,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 	var self;
 
-	BOLDGRID.SEO.WordCount = {
+	BOLDGRID.SEO.Admin = {
 		/**
 		 * Initialize Word Count.
 		 *
@@ -82,8 +82,8 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		},
 	};
 
-	self = BOLDGRID.SEO.WordCount;
+	self = BOLDGRID.SEO.Admin;
 
 })( jQuery );
 
-BOLDGRID.SEO.WordCount.init();
+BOLDGRID.SEO.Admin.init();

@@ -155,12 +155,11 @@
 							if ( BOLDGRID.SEO.Keywords.getCustomKeyword().length ) {
 								customKeyword = { customKeyword : BOLDGRID.SEO.Keywords.getCustomKeyword() };
 							} else {
-								// Assign recommended keyword to text input placeholder.
-								$( '#bgseo-custom-keyword' ).attr( 'placeholder', report.textstatistics.recommendedKeywords[0][0] );
 								// Set customKeyword to recommended keyword search.
 								customKeyword = { customKeyword : report.textstatistics.recommendedKeywords[0][0] };
 							}
-
+							// Assign recommended keyword to text input placeholder.
+							$( '#bgseo-custom-keyword' ).attr( 'placeholder', report.textstatistics.recommendedKeywords[0][0] );
 							// Extends the report.
 							_.extend( report.textstatistics, customKeyword );
 						}
