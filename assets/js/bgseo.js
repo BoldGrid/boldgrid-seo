@@ -985,6 +985,7 @@ BOLDGRID.SEO.Robots.init();
 	 * @since 1.3.1
 	 */
 	BOLDGRID.SEO.Title = {
+
 		/**
 		 * Initialize SEO Title Analysis.
 		 *
@@ -995,10 +996,19 @@ BOLDGRID.SEO.Robots.init();
 				self._title();
 			});
 		},
+
+		/**
+		 * Gets the SEO Title.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} title Contains wrapped set with BoldGrid SEO Title..
+		 */
 		getTitle : function() {
 			var title = $( '#boldgrid-seo-field-meta_title' );
 			return title;
 		},
+
 		/**
 		 * Sets up event listener for changes made to the SEO Title.
 		 *
@@ -1015,6 +1025,7 @@ BOLDGRID.SEO.Robots.init();
 				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
 			}, 1000 ) );
 		},
+
 		/**
 		 * Gets score of the SEO Title.
 		 *
@@ -1022,6 +1033,9 @@ BOLDGRID.SEO.Robots.init();
 		 * title.  This score is based on character count.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {Number} titleLength The length of the title to generate score for.
+		 *
 		 * @returns {Object} msg Contains status indicator color and message to update.
 		 */
 		titleScore: function( titleLength ) {
@@ -1064,6 +1078,65 @@ BOLDGRID.SEO.Robots.init();
 })( jQuery );
 
 BOLDGRID.SEO.Title.init();
+
+( function ( $ ) {
+
+	'use strict';
+
+	var self;
+
+	/**
+	 * BoldGrid SEO Tooltips.
+	 *
+	 * This will add the neccessary functionality for tooltips to be displayed
+	 * for each control we create and display.
+	 *
+	 * @since 1.3.1
+	 */
+	BOLDGRID.SEO.Tooltips = {
+
+		/**
+		 * Initializes BoldGrid SEO Tooltips.
+		 *
+		 * @since 1.3.1
+		 */
+		init : function () {
+			$( document ).ready( function() {
+				self.hideToolTips();
+				self._enableTooltips();
+				self._toggleTooltip();
+			});
+		},
+		_toggleTooltip : function() {
+			$( '.butterbean-label, .bgseo-tooltip' ).on( 'click', function( e ) {
+				self.toggleTooltip( e );
+			});
+		},
+		_enableTooltips : function() {
+			var controls = $( '.butterbean-label' ).next( '.butterbean-description' ),
+			    $tooltip = $( '<span />', {
+					'class'         : 'bgseo-tooltip dashicons dashicons-editor-help',
+					'aria-expanded' : 'false'
+				});
+
+			// If a description exists for any of the controls, add the tooltip.
+			if ( controls.length ) {
+				controls.prev().append( $tooltip );
+			}
+		},
+		toggleTooltip : function( e ) {
+			$( e.currentTarget ).next( '.butterbean-description' ).slideToggle();
+		},
+		hideToolTips : function() {
+			$( '.butterbean-control .butterbean-description' ).hide();
+		},
+	};
+
+	self = BOLDGRID.SEO.Tooltips;
+
+})( jQuery );
+
+BOLDGRID.SEO.Tooltips.init();
 
 ( function ( $ ) {
 

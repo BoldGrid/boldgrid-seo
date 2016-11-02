@@ -33,3 +33,10 @@
 	display: inline-block;
 	padding-right: 1em;
 }
+
+/** Tooltip Styles **/
+.bgseo-tooltip {
+	padding-left: 0.3em;
+	font-size: 18px;
+	vertical-align: bottom;
+}
