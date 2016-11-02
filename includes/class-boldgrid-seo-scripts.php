@@ -13,10 +13,12 @@
  */
 class Boldgrid_Seo_Scripts {
 	protected $configs;
+
 	public function __construct( $configs ) {
 		$this->configs = $configs;
 		$this->admin = new Boldgrid_Seo_Admin( $this->configs );
 	}
+
 	public function tiny_mce( $init ) {
 		$init['setup'] = "function( editor ) {
 			var timer;
@@ -35,14 +37,13 @@ class Boldgrid_Seo_Scripts {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles( $hook ) {
-		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) )
-			|| ! in_array( $GLOBALS['post_type'], $this->admin->post_types() ) ) {
-				return;
+		if ( ! in_array( $hook, array ( 'post.php','post-new.php' ) ) || ! in_array( $GLOBALS['post_type'], $this->admin->post_types() ) ) {
+			return;
 		}
 
 		wp_enqueue_style(
 			$this->configs['plugin_name'],
-			$this->configs['plugin_url'] . '/assets/css/boldgrid-seo-admin.css',
+			"{$this->configs['plugin_url']}/assets/css/boldgrid-seo-admin.css",
 			array(),
 			$this->configs['version'],
 			'all'
@@ -59,9 +60,11 @@ class Boldgrid_Seo_Scripts {
 			return;
 		}
 
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		wp_register_script(
 			"{$this->configs['plugin_name']}-bgseo",
-			"{$this->configs['plugin_url']}/assets/js/bgseo.min.js",
+			"{$this->configs['plugin_url']}/assets/js/bgseo{$min}.js",
 			array ( 'jquery', 'backbone', 'underscore', 'wp-util', 'word-count', 'butterbean' ),
 			$this->configs['version'],
 			true
@@ -69,21 +72,21 @@ class Boldgrid_Seo_Scripts {
 
 		// Register the script
 		wp_register_script(
-			$this->configs['plugin_name'] . '-text-statistics',
-			$this->configs['plugin_url'] . '/assets/js/text-statistics/index.js',
+			"{$this->configs['plugin_name']}-text-statistics",
+			"{$this->configs['plugin_url']}/assets/js/text-statistics/index.js",
 			array ( 'jquery' ),
 			$this->configs['version'],
 			false
 		);
 
-		// Localize the script with new data
-		wp_localize_script( $this->configs['plugin_name'] . '-text-statistics', '_bgseoStopWords', $this->configs['i18n']['stopwords'] );
+		// Localize the script with new data.
+		wp_localize_script( "{$this->configs['plugin_name']}-text-statistics", '_bgseoStopWords', $this->configs['i18n']['stopwords'] );
 		// Enqueued script with localized data.
-		wp_enqueue_script( $this->configs['plugin_name'] . '-text-statistics' );
+		wp_enqueue_script( "{$this->configs['plugin_name']}-text-statistics" );
 
-		// Localize the script with new data
-		wp_localize_script( $this->configs['plugin_name'] . '-bgseo', '_bgseoContentAnalysis', $this->configs['i18n']['contentanalysis'] );
+		// Localize the script with new data.
+		wp_localize_script( "{$this->configs['plugin_name']}-bgseo", '_bgseoContentAnalysis', $this->configs['i18n']['contentanalysis'] );
 		// Enqueued script with localized data.
-		wp_enqueue_script( $this->configs['plugin_name'] . '-bgseo' );
+		wp_enqueue_script( "{$this->configs['plugin_name']}-bgseo" );
 	}
 }

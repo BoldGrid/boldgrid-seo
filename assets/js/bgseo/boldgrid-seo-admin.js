@@ -2,6 +2,7 @@ var BOLDGRID = BOLDGRID || {};
 BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 ( function ( $ ) {
+
 	'use strict';
 
 	var self;
