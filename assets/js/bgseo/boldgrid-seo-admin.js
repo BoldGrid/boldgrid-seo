@@ -7,7 +7,16 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 	var self;
 
+	/**
+	 * BoldGrid SEO Admin.
+	 *
+	 * This is responsible for setting the counters for the SEO Title &
+	 * Description tab.
+	 *
+	 * @since 1.2.1
+	 */
 	BOLDGRID.SEO.Admin = {
+
 		/**
 		 * Initialize Word Count.
 		 *
@@ -23,6 +32,8 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * Get the word count of a metabox field.
 		 *
 		 * @since 1.2.1
+		 *
+		 * @param {Object} $element The element to apply the word counter to.
 		 */
 		wordCount : function( $element ) {
 			var limit      = $element.attr( 'maxlength' ),
@@ -36,7 +47,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				});
 
 			if ( limit ) {
-				 $element
+				$element
 					.removeAttr( 'maxlength' )
 					.after( $container.prepend( $counter ) )
 					.on( 'keyup focus' , function() {
@@ -51,6 +62,10 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * Set the colors of the count to reflect ideal lengths.
 		 *
 		 * @since 1.2.1
+		 *
+		 * @param {Object} $counter New element to create for counter.
+		 * @param {Object} $target Element to check the input value of.
+		 * @param {Number} limit The maxlength of the input to calculate on.
 		 */
 		setCounter : function( $counter, $target, limit ) {
 			var text  = $target.val(),
@@ -58,19 +73,31 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 			$counter.html( limit - chars );
 
-			if ( chars > limit ) {
-				$counter.css( { 'color' : 'red' } );
-			} else if ( chars > 0 && chars < 30 ) {
-				$counter.css( { 'color' : 'goldenrod' } );
-			} else if ( chars > 29 ) {
-				$counter.css( { 'color' : 'limegreen' } );
+			if ( $target.context.id === 'boldgrid-seo-field-meta_description' ) {
+				if ( chars > limit ) {
+					$counter.css( { 'color' : 'red' } );
+				} else if ( chars.isBetween( 0, 126 ) ) {
+					$counter.css( { 'color' : 'goldenrod' } );
+				} else if ( chars > 125 ) {
+					$counter.css( { 'color' : 'limegreen' } );
+				} else {
+					$counter.css( { 'color' : 'black' } );
+				}
 			} else {
-				$counter.css( { 'color' : 'black' } );
+				if ( chars > limit ) {
+					$counter.css( { 'color' : 'red' } );
+				} else if ( chars.isBetween( 0, 30 ) ) {
+					$counter.css( { 'color' : 'goldenrod' } );
+				} else if ( chars > 29 ) {
+					$counter.css( { 'color' : 'limegreen' } );
+				} else {
+					$counter.css( { 'color' : 'black' } );
+				}
 			}
 		},
 
 		/**
-		 * Set the word counts for each field in the SEO Metabox.
+		 * Set the word counts for each field in the SEO Title & Description Tab.
 		 *
 		 * @since 1.2.1
 		 */
