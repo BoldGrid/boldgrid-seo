@@ -94,6 +94,7 @@ var BOLDGRID = BOLDGRID || {};
 BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 ( function ( $ ) {
+
 	'use strict';
 
 	var self;
@@ -181,6 +182,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 BOLDGRID.SEO.Admin.init();
 
 ( function ( $ ) {
+
 	'use strict';
 
 	var self;
@@ -383,12 +385,33 @@ BOLDGRID.SEO.Admin.init();
 BOLDGRID.SEO.TinyMCE.init();
 
 ( function ( $ ) {
+
 	'use strict';
 
 	var self;
 
+	/**
+	 * BoldGrid SEO Content Analysis.
+	 *
+	 * This is responsible for general analysis of the user's content.
+	 *
+	 * @since 1.3.1
+	 */
 	BOLDGRID.SEO.ContentAnalysis = {
-		// Measured by word count.
+
+		/**
+		 * Content Length Score.
+		 *
+		 * This is responsible for the user's content length scoring.  The content
+		 * length for this method is based on the word count, and not character
+		 * counts.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} contentLength The length of the content to provide score on.
+		 *
+		 * @returns {Object} msg Contains the status indicator color and message.
+		 */
 		seoContentLengthScore: function( contentLength ) {
 			var msg = {};
 
@@ -419,7 +442,19 @@ BOLDGRID.SEO.TinyMCE.init();
 
 			return msg;
 		},
-		// Checks if user has any images in their content.
+
+		/**
+		 * Checks if user has any images in their content.
+		 *
+		 * This provides a status and message if the user has included an
+		 * image in their content for their page/post running analysis.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} imageLength Count of images found within content.
+		 *
+		 * @returns {Object} msg Contains the status indicator color and message.
+		 */
 		seoImageLengthScore: function( imageLength ) {
 			var msg = {
 				status: 'green',
@@ -435,7 +470,6 @@ BOLDGRID.SEO.TinyMCE.init();
 			return msg;
 		},
 	};
-
 
 	self = BOLDGRID.SEO.ContentAnalysis;
 
@@ -491,6 +525,9 @@ BOLDGRID.SEO.TinyMCE.init();
 		 * for the SEO description.  This score is based on character count.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {Number} descriptionLength Length of the user's SEO Description.
+		 *
 		 * @returns {Object} msg Contains status indicator color and message to update.
 		 */
 		descriptionScore : function( descriptionLength ) {
@@ -632,6 +669,18 @@ BOLDGRID.SEO.Description.init();
 
 			return result;
 		},
+
+		/**
+		 * Retrieves User's Custom SEO Keyword.
+		 *
+		 * If the user has entered in a custom keyword to run evaluation on,
+		 * then we will retrieve this value instead of the automatically
+		 * generated keyword recommendation.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {string} keyword Trimmed output of user supplied custom keyword.
+		 */
 		getCustomKeyword : function() {
 			var keyword = $( '#bgseo-custom-keyword' ).val();
 			// Trim the input since it's user input to be sure there's no spaces.
@@ -672,6 +721,9 @@ BOLDGRID.SEO.Description.init();
 		 * Gets the Flesch Kincaid Grade based on the content.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {String} content The content to run the analysis on.
+		 *
 		 * @returns {Number} result A number representing the grade of the content.
 		 */
 		gradeLevel : function( content ) {
@@ -688,6 +740,9 @@ BOLDGRID.SEO.Description.init();
 		 * the user can make changes based on their score accurately.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {Number} grade The grade to evalute and return response for.
+		 *
 		 * @returns {Object} description Contains status, explanation and associated grade level.
 		 */
 		gradeAnalysis : function( grade ) {
@@ -763,6 +818,7 @@ BOLDGRID.SEO.Description.init();
 					'msg' : _bgseoContentAnalysis.readingEase.badLow,
 				};
 			}
+
 			return description;
 		},
 	};
@@ -786,6 +842,7 @@ BOLDGRID.SEO.Description.init();
 	 * @since 1.3.1
 	 */
 	BOLDGRID.SEO.Robots = {
+
 		/**
 		 * Initialize BoldGrid SEO Robots.
 		 *
@@ -797,6 +854,7 @@ BOLDGRID.SEO.Description.init();
 				self._follow();
 			});
 		},
+
 		/**
 		 * Sets up event listener for index/noindex radios.
 		 *
@@ -812,6 +870,7 @@ BOLDGRID.SEO.Description.init();
 				$( this ).trigger( 'bgseo-analysis', [{ 'robotIndex': self.indexScore() }] );
 			});
 		},
+
 		/**
 		 * Gets score of index/noindex status.
 		 *
@@ -836,6 +895,7 @@ BOLDGRID.SEO.Description.init();
 
 			return msg;
 		},
+
 		/**
 		 * Sets up event listener for follow/nofollow radios.
 		 *
@@ -851,6 +911,7 @@ BOLDGRID.SEO.Description.init();
 				$( this ).trigger( 'bgseo-analysis', [{ 'robotFollow': self.followScore() }] );
 			});
 		},
+
 		/**
 		 * Gets score of follow/nofollow status.
 		 *
@@ -983,11 +1044,28 @@ BOLDGRID.SEO.Title.init();
 
 	var self;
 
+	/**
+	 * BoldGrid SEO Util.
+	 *
+	 * This will contain any utility functions needed across
+	 * all classes.
+	 *
+	 * @since 1.3.1
+	 */
 	BOLDGRID.SEO.Util = {
+
 		/**
-		 * Initialize Word Count.
+		 * Usage: ( n ).isBetween( min, max )
 		 *
-		 * @since 1.2.1
+		 * Gives you bool response if number is within the minimum
+		 * and maximum numbers specified for the range.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} min Minimum number in range to check.
+		 * @param {Number} max Maximum number in range to check.
+		 *
+		 * @returns {bool} Number is/isn't within range passed in params.
 		 */
 		init : function () {
 			// Adds a function for bool response if number is within a range.
@@ -1004,7 +1082,9 @@ BOLDGRID.SEO.Title.init();
 BOLDGRID.SEO.Util.init();
 
 ( function( $, counter ) {
+
 	$( function() {
+
 		var $content = $( '#content' ),
 			$count = $( '#wp-word-count' ).find( '.word-count' ),
 			prevCount = 0,
@@ -1041,5 +1121,7 @@ BOLDGRID.SEO.Util.init();
 		$content.on( 'input keyup', _.debounce( update, 1000 ) );
 
 		update();
+
 	} );
+
 } )( jQuery, new wp.utils.WordCounter() );
