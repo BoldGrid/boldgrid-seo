@@ -5,7 +5,9 @@ var gulp     = require( 'gulp' ),
     jshint   = require( 'gulp-jshint' ),
     rename   = require( 'gulp-rename' ),
     sort     = require( 'gulp-sort' ),
-	git      = require( 'gulp-git' ),
+    git      = require( 'gulp-git' ),
+    concat   = require( 'gulp-concat' ),
+	pump     = require( 'pump' ),
     readme   = require( 'gulp-readme-to-markdown' );
 
 // Configs.
@@ -18,21 +20,25 @@ var config = {
 };
 
 // Run JSHint & Minify Assets.
-gulp.task( 'js', function(  ) {
-  return gulp.src([
-    '!' + config.src + config.jsDir + '/**/*.min.js',
-	'!' + config.src + config.jsDir + '/**/selectize*.js',
-	'!' + config.src + config.jsDir + '/**/text-statistics/*.js',
-    config.src + config.jsDir + '/**/*.js' ])
-    .pipe( jshint() )
-    .pipe( jshint.reporter( 'jshint-stylish' ) )
-    .pipe( jshint.reporter( 'fail' ) )
-    .pipe( gulp.dest( config.dist + config.jsDir ) )
-    .pipe( uglify() )
-    .pipe( rename({
-      suffix: '.min'
-    }) )
-    .pipe( gulp.dest( config.dist + config.jsDir ) );
+gulp.task( 'jsmin', function ( cb ) {
+	pump( [
+		gulp.src( [
+			config.src + config.jsDir + '/control/*.js',
+			config.src + config.jsDir + '/bgseo/boldgrid-seo-admin.js',
+			config.src + config.jsDir + '/bgseo/boldgrid-seo-tinymce.js',
+			config.src + config.jsDir + '/bgseo/boldgrid-seo-content-analysis.js',
+			config.src + config.jsDir + '/bgseo/*!(admin|tinymce|content-analysis).js'
+		] ),
+		//jshint.reporter( 'fail' ),
+		concat( 'bgseo.js' ),
+		uglify(),
+		rename( {
+			suffix: '.min'
+		} ),
+		gulp.dest(  config.dist + config.jsDir )
+    ],
+    cb
+  );
 });
 
 // Minify CSS Assets.
@@ -81,4 +87,4 @@ gulp.task( 'clone', function() {
 });
 
 // Build.
-gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone'] );
+gulp.task( 'default', ['translate', 'jsmin', 'css', 'readme', 'clone'] );

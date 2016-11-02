@@ -59,44 +59,12 @@ class Boldgrid_Seo_Scripts {
 			return;
 		}
 
-		wp_enqueue_script(
-			"{$this->configs['plugin_name']}-util",
-			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-util.js",
-			array ( 'jquery' ),
-			$this->configs['version'],
-			false
-		);
-
-		wp_enqueue_script(
-			$this->configs['plugin_name'] . '-admin',
-			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-admin.js',
-			array ( 'jquery' ),
-			$this->configs['version'],
-			false
-		);
-
-		wp_enqueue_script(
-			$this->configs['plugin_name'] . '-tinymce',
-			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-tinymce.js',
-			array ( 'jquery' ),
-			$this->configs['version'],
-			false
-		);
-
-		wp_enqueue_script(
-			$this->configs['plugin_name'] . '-wordcount',
-			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-wordcount.js',
-			array ( 'jquery', 'wp-util', 'word-count' ),
-			$this->configs['version'],
-			false
-		);
-
 		wp_register_script(
-			$this->configs['plugin_name'] . '-content-analysis',
-			$this->configs['plugin_url'] . '/assets/js/boldgrid-seo-content-analysis.js',
-			array ( 'jquery', $this->configs['plugin_name'] . '-util' ),
+			"{$this->configs['plugin_name']}-bgseo",
+			"{$this->configs['plugin_url']}/assets/js/bgseo.min.js",
+			array ( 'jquery', 'backbone', 'underscore', 'wp-util', 'word-count', 'butterbean' ),
 			$this->configs['version'],
-			false
+			true
 		);
 
 		// Register the script
@@ -108,70 +76,14 @@ class Boldgrid_Seo_Scripts {
 			false
 		);
 
-		wp_enqueue_script(
-			'bgseo-control-dashboard-js',
-			$this->configs['plugin_url'] . '/assets/js/control/boldgrid-seo-control-dashboard.js',
-			array( 'butterbean', 'backbone', 'wp-util' ),
-			$this->configs['version'],
-			true
-		);
-
-		wp_enqueue_script(
-			'bgseo-control-keywords-js',
-			$this->configs['plugin_url'] . '/assets/js/control/boldgrid-seo-control-keywords.js',
-			array( 'butterbean', 'backbone', 'wp-util' ),
-			$this->configs['version'],
-			true
-		);
-
-		wp_enqueue_script(
-			"{$this->configs['plugin_name']}-robots",
-			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-robots.js",
-			array ( 'jquery', $this->configs['plugin_name'] . '-content-analysis' ),
-			$this->configs['version'],
-			false
-		);
-
-		wp_enqueue_script(
-			"{$this->configs['plugin_name']}-title",
-			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-title.js",
-			array ( 'jquery', $this->configs['plugin_name'] . '-content-analysis' ),
-			$this->configs['version'],
-			false
-		);
-
-		wp_enqueue_script(
-			"{$this->configs['plugin_name']}-description",
-			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-description.js",
-			array ( 'jquery', $this->configs['plugin_name'] . '-content-analysis' ),
-			$this->configs['version'],
-			false
-		);
-
-		wp_enqueue_script(
-			"{$this->configs['plugin_name']}-readability",
-			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-readability.js",
-			array ( 'jquery', $this->configs['plugin_name'] . '-content-analysis' ),
-			$this->configs['version'],
-			false
-		);
-
-		wp_enqueue_script(
-			"{$this->configs['plugin_name']}-keywords",
-			"{$this->configs['plugin_url']}/assets/js/boldgrid-seo-keywords.js",
-			array ( 'jquery', $this->configs['plugin_name'] . '-content-analysis' ),
-			$this->configs['version'],
-			false
-		);
-
 		// Localize the script with new data
 		wp_localize_script( $this->configs['plugin_name'] . '-text-statistics', '_bgseoStopWords', $this->configs['i18n']['stopwords'] );
 		// Enqueued script with localized data.
 		wp_enqueue_script( $this->configs['plugin_name'] . '-text-statistics' );
 
 		// Localize the script with new data
-		wp_localize_script( $this->configs['plugin_name'] . '-content-analysis', '_bgseoContentAnalysis', $this->configs['i18n']['contentanalysis'] );
+		wp_localize_script( $this->configs['plugin_name'] . '-bgseo', '_bgseoContentAnalysis', $this->configs['i18n']['contentanalysis'] );
 		// Enqueued script with localized data.
-		wp_enqueue_script( $this->configs['plugin_name'] . '-content-analysis' );
+		wp_enqueue_script( $this->configs['plugin_name'] . '-bgseo' );
 	}
 }
