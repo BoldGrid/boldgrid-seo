@@ -1,5 +1,7 @@
 ( function( $, counter ) {
+
 	$( function() {
+
 		var $content = $( '#content' ),
 			$count = $( '#wp-word-count' ).find( '.word-count' ),
 			prevCount = 0,
@@ -36,5 +38,7 @@
 		$content.on( 'input keyup', _.debounce( update, 1000 ) );
 
 		update();
+
 	} );
+
 } )( jQuery, new wp.utils.WordCounter() );

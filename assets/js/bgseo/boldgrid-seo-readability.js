@@ -17,6 +17,9 @@
 		 * Gets the Flesch Kincaid Grade based on the content.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {String} content The content to run the analysis on.
+		 *
 		 * @returns {Number} result A number representing the grade of the content.
 		 */
 		gradeLevel : function( content ) {
@@ -33,6 +36,9 @@
 		 * the user can make changes based on their score accurately.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {Number} grade The grade to evalute and return response for.
+		 *
 		 * @returns {Object} description Contains status, explanation and associated grade level.
 		 */
 		gradeAnalysis : function( grade ) {
@@ -108,6 +114,7 @@
 					'msg' : _bgseoContentAnalysis.readingEase.badLow,
 				};
 			}
+
 			return description;
 		},
 	};

@@ -48,6 +48,9 @@
 		 * for the SEO description.  This score is based on character count.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {Number} descriptionLength Length of the user's SEO Description.
+		 *
 		 * @returns {Object} msg Contains status indicator color and message to update.
 		 */
 		descriptionScore : function( descriptionLength ) {

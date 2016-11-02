@@ -99,6 +99,18 @@
 
 			return result;
 		},
+
+		/**
+		 * Retrieves User's Custom SEO Keyword.
+		 *
+		 * If the user has entered in a custom keyword to run evaluation on,
+		 * then we will retrieve this value instead of the automatically
+		 * generated keyword recommendation.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {string} keyword Trimmed output of user supplied custom keyword.
+		 */
 		getCustomKeyword : function() {
 			var keyword = $( '#bgseo-custom-keyword' ).val();
 			// Trim the input since it's user input to be sure there's no spaces.

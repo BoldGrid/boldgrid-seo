@@ -13,6 +13,7 @@
 	 * @since 1.3.1
 	 */
 	BOLDGRID.SEO.Robots = {
+
 		/**
 		 * Initialize BoldGrid SEO Robots.
 		 *
@@ -24,6 +25,7 @@
 				self._follow();
 			});
 		},
+
 		/**
 		 * Sets up event listener for index/noindex radios.
 		 *
@@ -39,6 +41,7 @@
 				$( this ).trigger( 'bgseo-analysis', [{ 'robotIndex': self.indexScore() }] );
 			});
 		},
+
 		/**
 		 * Gets score of index/noindex status.
 		 *
@@ -63,6 +66,7 @@
 
 			return msg;
 		},
+
 		/**
 		 * Sets up event listener for follow/nofollow radios.
 		 *
@@ -78,6 +82,7 @@
 				$( this ).trigger( 'bgseo-analysis', [{ 'robotFollow': self.followScore() }] );
 			});
 		},
+
 		/**
 		 * Gets score of follow/nofollow status.
 		 *
