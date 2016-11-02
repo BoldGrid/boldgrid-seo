@@ -12,6 +12,7 @@
  * BoldGrid SEO Script and Style Enqueue
  */
 class Boldgrid_Seo_Scripts {
+
 	protected $configs;
 
 	public function __construct( $configs ) {
@@ -41,9 +42,12 @@ class Boldgrid_Seo_Scripts {
 			return;
 		}
 
+		// Check if script debug is disabled for minified assets.
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		wp_enqueue_style(
 			$this->configs['plugin_name'],
-			"{$this->configs['plugin_url']}/assets/css/boldgrid-seo-admin.css",
+			"{$this->configs['plugin_url']}/assets/css/boldgrid-seo-admin{$min}.css",
 			array(),
 			$this->configs['version'],
 			'all'
@@ -60,6 +64,7 @@ class Boldgrid_Seo_Scripts {
 			return;
 		}
 
+		// Check if script debug is disabled for minified assets.
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_register_script(
@@ -81,11 +86,13 @@ class Boldgrid_Seo_Scripts {
 
 		// Localize the script with new data.
 		wp_localize_script( "{$this->configs['plugin_name']}-text-statistics", '_bgseoStopWords', $this->configs['i18n']['stopwords'] );
+
 		// Enqueued script with localized data.
 		wp_enqueue_script( "{$this->configs['plugin_name']}-text-statistics" );
 
 		// Localize the script with new data.
 		wp_localize_script( "{$this->configs['plugin_name']}-bgseo", '_bgseoContentAnalysis', $this->configs['i18n']['contentanalysis'] );
+
 		// Enqueued script with localized data.
 		wp_enqueue_script( "{$this->configs['plugin_name']}-bgseo" );
 	}
