@@ -31,6 +31,7 @@ gulp.task( 'jsmin', function ( cb ) {
 		] ),
 		//jshint.reporter( 'fail' ),
 		concat( 'bgseo.js' ),
+		gulp.dest( config.dist + config.jsDir ),
 		uglify(),
 		rename( {
 			suffix: '.min'
