@@ -12,6 +12,7 @@
 	 * @since 1.3.1
 	 */
 	BOLDGRID.SEO.Title = {
+
 		/**
 		 * Initialize SEO Title Analysis.
 		 *
@@ -22,10 +23,19 @@
 				self._title();
 			});
 		},
+
+		/**
+		 * Gets the SEO Title.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} title Contains wrapped set with BoldGrid SEO Title..
+		 */
 		getTitle : function() {
 			var title = $( '#boldgrid-seo-field-meta_title' );
 			return title;
 		},
+
 		/**
 		 * Sets up event listener for changes made to the SEO Title.
 		 *
@@ -42,6 +52,7 @@
 				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
 			}, 1000 ) );
 		},
+
 		/**
 		 * Gets score of the SEO Title.
 		 *
@@ -49,6 +60,9 @@
 		 * title.  This score is based on character count.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {Number} titleLength The length of the title to generate score for.
+		 *
 		 * @returns {Object} msg Contains status indicator color and message to update.
 		 */
 		titleScore: function( titleLength ) {
