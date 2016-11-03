@@ -179,6 +179,32 @@
 
 			return customKeyword;
 		},
+		score : function() {
+			var msg = {};
+			msg = {
+				title : self.titleScore(),
+				description : self.descriptionScore(),
+				content : self.contentScore(),
+			};
+		},
+		titleScore : function( count ) {
+			var msg = {
+				status: 'green',
+				msg : _bgseoContentAnalysis.seoTitle.keywordUsage.good,
+			};
+			if ( 0 === count ) {
+				msg = {
+					status: 'red',
+					msg : _bgseoContentAnalysis.seoTitle.keywordUsage.bad,
+				};
+			}
+			if ( count > 1 ) {
+				msg = {
+					status: 'yellow',
+					msg : _bgseoContentAnalysis.seoTitle.keywordUsage.ok,
+				};
+			}
+		}
 	};
 
 	self = BOLDGRID.SEO.Keywords;
