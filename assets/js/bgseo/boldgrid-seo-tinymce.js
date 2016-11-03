@@ -99,8 +99,13 @@
 					lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
 					keywordUsage : BOLDGRID.SEO.Description.keywords(),
 				};
+
 				report.keywordTitle = {
 					lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+				};
+
+				report.descriptionTitle = {
+					lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 				};
 
 				report.robotIndex = {
