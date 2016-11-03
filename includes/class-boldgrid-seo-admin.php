@@ -14,10 +14,6 @@
 // If called directly, abort.
 defined( 'WPINC' ) ? : die;
 
-$class_name = 'Boldgrid_Seo_Admin';
-
-if ( ! class_exists( $class_name ) ) :
-
 class Boldgrid_Seo_Admin {
 	/**
 	 * The unique prefix for BoldGrid SEO.
@@ -427,8 +423,3 @@ class Boldgrid_Seo_Admin {
 		printf( $this->settings['meta_fields']['og_site_name'] . "\n", $name );
 	}
 }
-
-unset( $class_name );
-
-
-endif;
