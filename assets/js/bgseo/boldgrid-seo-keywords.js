@@ -164,7 +164,7 @@
 		 *
 		 * @since 1.3.1
 		 *
-		 * @returns {Object} customKeyword Contains the customKeyword to add to report.
+		 * @returns {string} customKeyword Contains the customKeyword to add to report.
 		 */
 		getKeyword : function() {
 			var customKeyword,
@@ -178,10 +178,6 @@
 			}
 
 			return customKeyword;
-		},
-
-		keywordsInDescription : function() {
-
 		},
 	};
 
