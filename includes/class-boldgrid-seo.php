@@ -179,18 +179,6 @@ class Boldgrid_Seo {
 	}
 
 	/**
-	 * Register Hook for adding Breadcrumbs to BoldGrid Theme.
-	 * Add any filters to override.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 */
-	private function boldgrid_seo_breadcrumbs() {
-		$plugin_breadcrumbs = new Boldgrid_Seo_Breadcrumbs( $this->configs );
-		$this->loader->add_action( 'boldgrid_add_breadcrumbs', $plugin_breadcrumbs, 'boldgrid_breadcrumbs' );
-	}
-
-	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
 	 * @since 1.0.0
