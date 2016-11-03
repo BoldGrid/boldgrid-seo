@@ -14,6 +14,7 @@
 	 * @since 1.3.1
 	 */
 	BOLDGRID.SEO.TinyMCE = {
+
 		/**
 		 * Initialize TinyMCE Content.
 		 *
@@ -206,6 +207,7 @@
 			tmp.innerHTML = html;
 			return tmp.textContent || tmp.innerText || " ";
 		},
+
 		/**
 		 * Generate the Report based on analysis done.
 		 *
