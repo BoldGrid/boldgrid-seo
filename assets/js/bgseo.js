@@ -214,11 +214,20 @@ BOLDGRID.SEO.Admin.init();
 
 	var self, report = {};
 
+	/**
+	 * BoldGrid TinyMCE Analysis.
+	 *
+	 * This is responsible for generating the actual reports
+	 * displayed within the BoldGrid SEO Dashboard when the user
+	 * is on a page or a post.
+	 *
+	 * @since 1.3.1
+	 */
 	BOLDGRID.SEO.TinyMCE = {
 		/**
 		 * Initialize TinyMCE Content.
 		 *
-		 * @since 1.2.1
+		 * @since 1.3.1
 		 */
 		init : function () {
 			self.onloadContent();
@@ -227,9 +236,22 @@ BOLDGRID.SEO.Admin.init();
 				self.editorChange();
 			});
 		},
+
+		/**
+		 * Runs actions on window load to prepare for analysis.
+		 *
+		 * This method gets the current editor in use by the user on the
+		 * initial page load ( text editor or visual editor ), and also
+		 * is responsible for creating the iframe preview of the page/post
+		 * so we can get the raw html in use by the template/theme the user
+		 * has activated.
+		 *
+		 * @since 1.3.1
+		 */
 		onloadContent: function() {
 			var text,
 				editor = $( '#content.wp-editor-area[aria-hidden=false]' );
+
 			$( window ).on( 'load bgseo-media-inserted', function() {
 				var content,
 				    preview = $( '#preview-action > .preview.button' ).attr( 'href' ),
@@ -244,6 +266,7 @@ BOLDGRID.SEO.Admin.init();
 				        'role'     : 'presentation'
 				    });
 
+				// Get the content of the visual editor or text editor that's present.
 				if ( tinymce.ActiveEditor ) {
 					content = tinyMCE.get( wpActiveEditor ).getContent();
 				} else {
@@ -251,10 +274,16 @@ BOLDGRID.SEO.Admin.init();
 					content = content.replace( /\r?\n|\r/g, '' );
 				}
 
+				// Stores raw and stripped down versions of the content for analysis.
 				content = {
 					'raw': content,
 					'text': self.stripper( content.toLowerCase() ),
 				};
+
+				// Trigger the content analysis for the tinyMCE content.
+				_.defer( function() {
+					$( '#content' ).trigger( 'bgseo-analysis', [content] );
+				});
 
 				/**
 				 * Load the iframe in the metabox if permalink is available.
@@ -266,8 +295,14 @@ BOLDGRID.SEO.Admin.init();
 				 * template has in use on the actual rendered page.
 				 */
 				if ( $( '#sample-permalink' ).length ) {
+
+					// Add the iframe to the BoldGrid SEO Metabox.
 					$( '#butterbean-manager-boldgrid_seo' ).prepend( iframe );
+
+					// Only run this once after the initial iframe has loaded to get current template stats.
 					$( '#bgseo-rendered' ).one( 'load', function() {
+
+						// Inital heading stats stored for later.
 						var headings = {
 							h1 : {
 								length : $( this ).contents().find( 'h1' ).length,
@@ -280,24 +315,36 @@ BOLDGRID.SEO.Admin.init();
 							},
 						};
 
+						// Add the scoring for the h1 to report on.
 						_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
 
 						// Set initial headings count.
 						_.extend( report, headings );
+
+						// The rendered content stats.
 						var renderedContent = {
 							h1Count : $( this ).contents().find( 'h1' ).length - report.rawstatistics.h1Count,
 							h2Count : $( this ).contents().find( 'h2' ).length - report.rawstatistics.h2Count,
 							h3Count : $( this ).contents().find( 'h3' ).length - report.rawstatistics.h3Count,
 						};
+
+						// Add the rendered stats to our report for use later.
 						_.extend( report, { rendered : renderedContent } );
+
+						// Trigger the SEO report to rebuild in the template after initial stats are created.
 						$( '#content' ).trigger( 'bgseo-report', [BOLDGRID.SEO.TinyMCE.getReport()] );
 					});
 				}
-				_.defer( function() {
-					$( '#content' ).trigger( 'bgseo-analysis', [content] );
-				});
 			});
 		},
+
+		/**
+		 * Listens for changes made in the text editor mode.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {string} text The new content to perform analysis on.
+		 */
 		editorChange: function() {
 			var text, targetId;
 			$( '#content.wp-editor-area' ).on( 'input propertychange paste nodechange', function() {
@@ -306,11 +353,28 @@ BOLDGRID.SEO.Admin.init();
 			});
 			return text;
 		},
+
+		/**
+		 * This gets the content from the TinyMCE Visual editor.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {string} text
+		 */
 		tmceChange: function( e ) {
 			var text, targetId = e.target.id;
 			text = self.wpContent( targetId );
 			return text;
 		},
+
+		/**
+		 * Checks which editor is the active editor.
+		 *
+		 * After checking the editor, it will obtain the content and trigger
+		 * the report generation with the new user input.
+		 *
+		 * @since 1.3.1
+		 */
 		wpContent : function( targetId ) {
 			var text = {};
 			switch ( targetId ) {
@@ -334,13 +398,33 @@ BOLDGRID.SEO.Admin.init();
 			$( '#content' ).trigger( 'bgseo-analysis', [text] );
 
 		},
-		// Strip out remaining traces of HTML to form our cleanText output to scan
+
+		/**
+		 * Strips out unwanted html.
+		 *
+		 * This is helpful in removing the  remaining traces of HTML
+		 * that is sometimes leftover to form our clean text output and
+		 * run our text analysis on.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {string} The content with any remaining html removed.
+		 */
 		stripper: function( html ) {
 			var tmp;
 			tmp = document.implementation.createHTMLDocument( 'New' ).body;
 			tmp.innerHTML = html;
 			return tmp.textContent || tmp.innerText || " ";
 		},
+		/**
+		 * Generate the Report based on analysis done.
+		 *
+		 * This will generate a report object and then trigger the
+		 * reporter event, so that the model is updated and changes
+		 * are reflected live for the user in their SEO Dashboard.
+		 *
+		 * @since 1.3.1
+		 */
 		generateReport : function() {
 			var words,
 				count;
@@ -349,33 +433,41 @@ BOLDGRID.SEO.Admin.init();
 				var titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
 				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
+				// Sets default for SEO title analysis.
 				report.title = {
 					length : titleLength,
 					lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
 					keywordUsage : BOLDGRID.SEO.Title.keywords(),
 				};
+
+				// Sets default for SEO Description analysis.
 				report.description = {
 					length : descriptionLength,
 					lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
 					keywordUsage : BOLDGRID.SEO.Description.keywords(),
 				};
 
+				// Sets default for keyword usage in title analysis.
 				report.keywordTitle = {
 					lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 				};
 
+				// Sets default for keyword usage in description analysis.
 				report.descriptionTitle = {
 					lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 				};
 
+				// Sets default for index/noindex analysis.
 				report.robotIndex = {
 					lengthScore: BOLDGRID.SEO.Robots.indexScore(),
 				};
 
+				// Sets default for follow/nofollow analysis.
 				report.robotFollow = {
 					lengthScore: BOLDGRID.SEO.Robots.followScore(),
 				};
 
+				// Listen for event changes being triggered.
 				if ( eventInfo ) {
 					// Get WordPress' more acurate word counts.
 					if ( ! _.isUndefined( eventInfo.count ) ) {
@@ -397,17 +489,29 @@ BOLDGRID.SEO.Admin.init();
 						    raw = eventInfo.raw,
 						    imgLength = $( raw ).find( 'img' ).length;
 
+						// Set the heading counts and image count found in new content update.
 						report.rawstatistics = {
 							'h1Count': $( raw ).find( 'h1' ).length,
 							'h2Count': $( raw ).find( 'h2' ).length,
 							'h3Count': $( raw ).find( 'h3' ).length,
 							imageCount: imgLength,
 						};
+
+						// Set the image use count and analysis found in new content update.
 						report.image = {
 							length : imgLength,
 							lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( imgLength ),
 						};
+
+						/**
+						 * This only needs to be fired if the rendered report
+						 * data is available for analysis.  The calculations take
+						 * into account the template in use for the page/post and
+						 * are stored earlier on in the load process when the user
+						 * first enters the editor.
+						 */
 						if ( ! _.isUndefined( report.rendered ) ) {
+							// Stores the heading coutns for h1-h3 for later analysis.
 							headings = {
 								h1 : {
 									length : report.rendered.h1Count + report.rawstatistics.h1Count,
@@ -419,20 +523,30 @@ BOLDGRID.SEO.Admin.init();
 									length : report.rendered.h3Count + report.rawstatistics.h3Count,
 								},
 							};
+
+							// Generates the scoring for h1 usage with status indicator and message.
 							_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
+
 							// Adds and updates the true heading count as the user modifies content.
+							_.extend( report, headings );
 						}
-						_.extend( report, headings );
 					}
 
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
 						var customKeyword, content = eventInfo.text;
 
+						// Add the text statistic recommended keywords.
 						report.textstatistics = {
 							recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
 						};
 
+						/**
+						 * Only do this analysis if the Word Count is over 99
+						 * words since most of the analysis results are going
+						 * to be invalid or skewed by not having much usable
+						 * content available.
+						 */
 						if ( report.wordCount > 99 ) {
 							report.textstatistics = {
 								gradeLevel  : BOLDGRID.SEO.Readability.gradeLevel( content ),
@@ -440,27 +554,34 @@ BOLDGRID.SEO.Admin.init();
 								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
 							};
 
-							// Extends the report.
+							/**
+							 * Adds the customKeyword that's obtained to the report.
+							 * Note: This can contain the user inputted custom keyword,
+							 * or it can contain the autogenerated recommended keyword
+							 * that was found based on the user's content.
+							 */
 							_.extend( report.textstatistics, { customKeyword : BOLDGRID.SEO.Keywords.getKeyword() } );
 						}
 					}
 
-					// Listen to changes to the SEO Title.
+					// Listen to changes to the SEO Title and update report.
 					if ( eventInfo.titleLength ) {
 						report.title.length = eventInfo.titleLength;
 					}
 
-					// Listen to changes to the SEO Description.
+					// Listen to changes to the SEO Description and update report.
 					if ( eventInfo.descLength ) {
 						report.description.length = eventInfo.descLength;
 					}
 
+					// Listen for changes to noindex/index and update report.
 					if ( eventInfo.robotIndex ) {
 						report.robotIndex = {
 							lengthScore : eventInfo.robotIndex,
 						};
 					}
 
+					// Listen for changes to nofollow/follow and update report.
 					if ( eventInfo.robotFollow ) {
 						report.robotFollow = {
 							lengthScore : eventInfo.robotFollow,
@@ -468,10 +589,21 @@ BOLDGRID.SEO.Admin.init();
 					}
 				}
 
-				// Send analysis to display the report.
+				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
 		},
+
+		/**
+		 * Get's the current report that's generated for output.
+		 *
+		 * This is used for debugging, and to also obtain the current report in
+		 * other classes to perform scoring, analysis, and status indicator updates.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} report The report data that's currently displayed.
+		 */
 		getReport : function() {
 			return report;
 		},
