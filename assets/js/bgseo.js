@@ -307,7 +307,7 @@ BOLDGRID.SEO.Admin.init();
 				report.description = {
 					length : descriptionLength,
 					lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
-					keywordUsage : 0,
+					keywordUsage : BOLDGRID.SEO.Description.keywords(),
 				};
 
 				report.robotIndex = {
