@@ -71,7 +71,7 @@
 			if ( descriptionLength.isBetween( 125, 156 ) ) {
 				msg = {
 					status: 'green',
-					msg: _bgseoContentAnalysis.seoDescriptione.length.good,
+					msg: _bgseoContentAnalysis.seoDescription.length.good,
 				};
 			}
 			if ( descriptionLength > 156 ) {

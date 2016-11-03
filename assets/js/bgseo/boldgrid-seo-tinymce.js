@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var self;
+	var self, report = {};
 
 	BOLDGRID.SEO.TinyMCE = {
 		/**
@@ -83,8 +83,7 @@
 		},
 		generateReport : function() {
 			var words,
-				count,
-				report = {};
+				count;
 
 			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
 				var titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
@@ -153,16 +152,10 @@
 								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
 							};
 
-							if ( BOLDGRID.SEO.Keywords.getCustomKeyword().length ) {
-								customKeyword = { customKeyword : BOLDGRID.SEO.Keywords.getCustomKeyword() };
-							} else {
-								// Set customKeyword to recommended keyword search.
-								customKeyword = { customKeyword : report.textstatistics.recommendedKeywords[0][0] };
-							}
 							// Assign recommended keyword to text input placeholder.
 							$( '#bgseo-custom-keyword' ).attr( 'placeholder', report.textstatistics.recommendedKeywords[0][0] );
 							// Extends the report.
-							_.extend( report.textstatistics, customKeyword );
+							_.extend( report.textstatistics, BOLDGRID.SEO.Keywords.setKeyword() );
 						}
 					}
 
@@ -192,6 +185,9 @@
 				// Send analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
+		},
+		getReport : function() {
+			return report;
 		},
 	};
 
