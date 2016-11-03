@@ -1,13 +1,11 @@
 <?php
 /**
- * Radio image control class extends the built-in radio control.  This control is
- * meant for displaying an image instead of the radio fields.
+ * BoldGrid SEO Keywords Control.
  *
- * @package    ButterBean
- * @subpackage Admin
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2015-2016, Justin Tadlock
- * @link       https://github.com/justintadlock/butterbean
+ * This is used to just rendour custom templates within a section.
+ *
+ * @package    BoldGrid SEO
+ * @since      1.3.1
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
