@@ -244,25 +244,6 @@ BOLDGRID.SEO.Admin.init();
 				        'role'     : 'presentation'
 				    });
 
-				/**
-				 * Load the iframe in the metabox if permalink is available.
-				 * Otherwise we have to save and call back to load a temporary
-				 * preview.  This only impacts "New" page and posts.  To counter
-				 * this we will disable the checks made until the content has had
-				 * a chance to be updated.
-				 */
-				if ( $( '#sample-permalink' ).length ) {
-					$( '#butterbean-manager-boldgrid_seo' ).prepend( iframe );
-					$( '#bgseo-rendered' ).on( 'load', function() {
-						var renderedContent = {
-							h1Count : $( this ).contents().find( 'h1' ).length,
-							h2Count : $( this ).contents().find( 'h2' ).length,
-							h3Count : $( this ).contents().find( 'h3' ).length,
-						};
-						_.extend( report, { rendered : renderedContent } );
-					});
-				}
-
 				if ( tinymce.ActiveEditor ) {
 					content = tinyMCE.get( wpActiveEditor ).getContent();
 				} else {
@@ -277,6 +258,39 @@ BOLDGRID.SEO.Admin.init();
 
 				$( '#content' ).trigger( 'bgseo-analysis', [content] );
 
+				/**
+				 * Load the iframe in the metabox if permalink is available.
+				 * Otherwise we have to save and call back to load a temporary
+				 * preview.  This only impacts "New" page and posts.  To counter
+				 * this we will disable the checks made until the content has had
+				 * a chance to be updated. We will store the found headings minus
+				 * the initial found headings in the content, so we know what the
+				 * template has in use on the actual rendered page.
+				 */
+				if ( $( '#sample-permalink' ).length ) {
+					$( '#butterbean-manager-boldgrid_seo' ).prepend( iframe );
+					$( '#bgseo-rendered' ).one( 'load', function() {
+						var headings = {
+							h1 : {
+								length : $( this ).contents().find( 'h1' ).length,
+							},
+							h2 : {
+								length : $( this ).contents().find( 'h2' ).length,
+							},
+							h3 : {
+								length : $( this ).contents().find( 'h3' ).length,
+							},
+						};
+						// Set initial headings count.
+						_.extend( report, { 'headings' : headings } );
+						var renderedContent = {
+							h1Count : $( this ).contents().find( 'h1' ).length - report.rawstatistics.h1Count,
+							h2Count : $( this ).contents().find( 'h2' ).length - report.rawstatistics.h2Count,
+							h3Count : $( this ).contents().find( 'h3' ).length - report.rawstatistics.h3Count,
+						};
+						_.extend( report, { rendered : renderedContent } );
+					});
+				}
 			});
 		},
 		editorChange: function() {
@@ -374,8 +388,9 @@ BOLDGRID.SEO.Admin.init();
 
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
-						var raw = eventInfo.raw, imgLength;
-						imgLength = $( raw ).find( 'img' ).length;
+						var headings = {},
+						    raw = eventInfo.raw,
+						    imgLength = $( raw ).find( 'img' ).length;
 
 						report.rawstatistics = {
 							'h1Count': $( raw ).find( 'h1' ).length,
@@ -387,6 +402,21 @@ BOLDGRID.SEO.Admin.init();
 							length : imgLength,
 							lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( imgLength ),
 						};
+						if ( ! _.isUndefined( report.rendered ) ) {
+							headings = {
+								h1 : {
+									length : report.rendered.h1Count + report.rawstatistics.h1Count,
+								},
+								h2 : {
+									length : report.rendered.h2Count + report.rawstatistics.h2Count,
+								},
+								h3 : {
+									length : report.rendered.h3Count + report.rawstatistics.h3Count,
+								},
+							};
+							// Adds and updates the true heading count as the user modifies content.
+							_.extend( report, { 'headings': headings } );
+						}
 					}
 
 					// Listen for changes to the actual text entered by user.
