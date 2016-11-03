@@ -20,7 +20,7 @@ var config = {
 };
 
 // Run JSHint & Minify Assets.
-gulp.task( 'jsmin', function ( cb ) {
+gulp.task( 'js', function ( cb ) {
 	pump( [
 		gulp.src( [
 			config.src + config.jsDir + '/control/*.js',
@@ -88,4 +88,4 @@ gulp.task( 'clone', function() {
 });
 
 // Build.
-gulp.task( 'default', ['translate', 'jsmin', 'css', 'readme', 'clone'] );
+gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone'] );
