@@ -71,7 +71,8 @@ return array(
 	'headings' => array(
 		'h1' => array(
 			'good' => 'It looks like this post is using only one H1 tag! Good job!',
-			'bad'  => 'This post has more than one H1 tag which can negatively impact your SEO.  You should try to only have one H1 on your page.',
+			'badMultiple'  => 'This post has more than one H1 tag which can negatively impact your SEO.  You should try to only have one H1 on your page.',
+			'badEmpty' => 'Your page doesn\'t have any H1 tags on it, you should considering adding one that includes your target keyword!',
 		),
 	),
 );

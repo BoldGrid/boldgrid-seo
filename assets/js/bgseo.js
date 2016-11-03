@@ -256,8 +256,6 @@ BOLDGRID.SEO.Admin.init();
 					'text': self.stripper( content.toLowerCase() ),
 				};
 
-				$( '#content' ).trigger( 'bgseo-analysis', [content] );
-
 				/**
 				 * Load the iframe in the metabox if permalink is available.
 				 * Otherwise we have to save and call back to load a temporary
@@ -281,16 +279,23 @@ BOLDGRID.SEO.Admin.init();
 								length : $( this ).contents().find( 'h3' ).length,
 							},
 						};
+
+						_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
+
 						// Set initial headings count.
-						_.extend( report, { 'headings' : headings } );
+						_.extend( report, headings );
 						var renderedContent = {
 							h1Count : $( this ).contents().find( 'h1' ).length - report.rawstatistics.h1Count,
 							h2Count : $( this ).contents().find( 'h2' ).length - report.rawstatistics.h2Count,
 							h3Count : $( this ).contents().find( 'h3' ).length - report.rawstatistics.h3Count,
 						};
 						_.extend( report, { rendered : renderedContent } );
+						$( '#content' ).trigger( 'bgseo-report', [BOLDGRID.SEO.TinyMCE.getReport()] );
 					});
 				}
+				_.defer( function() {
+					$( '#content' ).trigger( 'bgseo-analysis', [content] );
+				});
 			});
 		},
 		editorChange: function() {
@@ -414,9 +419,10 @@ BOLDGRID.SEO.Admin.init();
 									length : report.rendered.h3Count + report.rawstatistics.h3Count,
 								},
 							};
+							_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
 							// Adds and updates the true heading count as the user modifies content.
-							_.extend( report, { 'headings': headings } );
 						}
+						_.extend( report, headings );
 					}
 
 					// Listen for changes to the actual text entered by user.
@@ -665,6 +671,49 @@ BOLDGRID.SEO.TinyMCE.init();
 })( jQuery );
 
 BOLDGRID.SEO.Description.init();
+
+( function ( $ ) {
+
+	'use strict';
+
+	var self;
+
+	BOLDGRID.SEO.Headings = {
+
+		/**
+		 * Initialize BoldGrid SEO Headings Analysis.
+		 *
+		 * @since 1.3.1
+		 */
+		init : function () {
+
+		},
+		score : function( count ) {
+			var msg = {
+					status : 'green',
+					msg : _bgseoContentAnalysis.headings.h1.good,
+				};
+			// If we have more than one H1 tag rendered.
+			if ( count > 1 ) {
+				msg = {
+					status : 'red',
+					msg : _bgseoContentAnalysis.headings.h1.badMultiple,
+				};
+			}
+			// If no H1 tag is present.
+			if ( 0 === count ) {
+				msg = {
+					status : 'red',
+					msg : _bgseoContentAnalysis.headings.h1.badEmpty,
+				};
+			}
+			return msg;
+		},
+	};
+
+	self = BOLDGRID.SEO.Headings;
+
+})( jQuery );
 
 ( function ( $ ) {
 
