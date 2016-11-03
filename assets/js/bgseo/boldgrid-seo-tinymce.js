@@ -21,7 +21,37 @@
 			var text,
 				editor = $( '#content.wp-editor-area[aria-hidden=false]' );
 			$( window ).on( 'load bgseo-media-inserted', function() {
-				var content;
+				var content,
+				    preview = $( '#preview-action > .preview.button' ).attr( 'href' ),
+				    iframe = $( '<iframe />', {
+				        'src'      : preview,
+				        'id'       : 'bgseo-rendered',
+				        'width'    : '0',
+				        'height'   : '0',
+				        'tabindex' : '-1',
+				        'title'    : 'empty',
+				        'class'    : 'hidden',
+				        'role'     : 'presentation'
+				    });
+
+				/**
+				 * Load the iframe in the metabox if permalink is available.
+				 * Otherwise we have to save and call back to load a temporary
+				 * preview.  This only impacts "New" page and posts.  To counter
+				 * this we will disable the checks made until the content has had
+				 * a chance to be updated.
+				 */
+				if ( $( '#sample-permalink' ).length ) {
+					$( '#butterbean-manager-boldgrid_seo' ).prepend( iframe );
+					$( '#bgseo-rendered' ).on( 'load', function() {
+						var renderedContent = {
+							h1Count : $( this ).contents().find( 'h1' ).length,
+							h2Count : $( this ).contents().find( 'h2' ).length,
+							h3Count : $( this ).contents().find( 'h3' ).length,
+						};
+						_.extend( report, { rendered : renderedContent } );
+					});
+				}
 
 				if ( tinymce.ActiveEditor ) {
 					content = tinyMCE.get( wpActiveEditor ).getContent();
@@ -36,6 +66,7 @@
 				};
 
 				$( '#content' ).trigger( 'bgseo-analysis', [content] );
+
 			});
 		},
 		editorChange: function() {
