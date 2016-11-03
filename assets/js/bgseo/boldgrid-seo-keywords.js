@@ -195,7 +195,7 @@
 			msg = {
 				title : self.titleScore(),
 				description : self.descriptionScore(),
-				content : self.contentScore(),
+				//content : self.contentScore(),
 			};
 			return msg;
 		},
@@ -229,6 +229,41 @@
 					msg : _bgseoContentAnalysis.seoTitle.keywordUsage.ok,
 				};
 			}
+
+			return msg;
+		},
+
+		/**
+		 * Used to get the keyword usage scoring description for the description.
+		 *
+		 * Checks the count provided for the number of times the keyword was
+		 * used in the SEO Description field.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} count The number of times keyword is used in the description.
+		 *
+		 * @returns {Object} msg Contains the status indicator color and message for report.
+		 */
+		descriptionScore : function( count ) {
+			var msg = {
+				status: 'green',
+				msg : _bgseoContentAnalysis.seoDescription.keywordUsage.good,
+			};
+			if ( 0 === count ) {
+				msg = {
+					status: 'red',
+					msg : _bgseoContentAnalysis.seoDescription.keywordUsage.bad,
+				};
+			}
+			if ( count > 1 ) {
+				msg = {
+					status: 'yellow',
+					msg : _bgseoContentAnalysis.seoDescription.keywordUsage.ok,
+				};
+			}
+
+			return msg;
 		}
 	};
 
