@@ -169,12 +169,13 @@
 		getKeyword : function() {
 			var customKeyword,
 			    report = BOLDGRID.SEO.TinyMCE.getReport();
-
-			if ( self.getCustomKeyword().length ) {
-				customKeyword = self.getCustomKeyword();
-			} else {
-				// Set customKeyword to recommended keyword search.
-				customKeyword = report.textstatistics.recommendedKeywords[0][0];
+			if ( report.wordCount > 99 ) {
+				if ( self.getCustomKeyword().length ) {
+					customKeyword = self.getCustomKeyword();
+				} else {
+					// Set customKeyword to recommended keyword search.
+					customKeyword = report.textstatistics.recommendedKeywords[0][0];
+				}
 			}
 
 			return customKeyword;

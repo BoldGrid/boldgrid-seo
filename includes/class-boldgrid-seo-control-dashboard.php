@@ -5,6 +5,7 @@
  * This is used to just rendour custom templates within a section.
  *
  * @package    BoldGrid SEO
+ * @since      1.3.1
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 

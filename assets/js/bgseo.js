@@ -361,17 +361,18 @@ BOLDGRID.SEO.Admin.init();
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
 						var customKeyword, content = eventInfo.text;
-						words = textstatistics( content ).wordCount();
 
-						if ( words > 99 ) {
+						report.textstatistics = {
+							recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
+						};
+
+						if ( report.wordCount > 99 ) {
 							report.textstatistics = {
 								gradeLevel  : BOLDGRID.SEO.Readability.gradeLevel( content ),
 								keywordDensity : BOLDGRID.SEO.Keywords.keywordDensity( content, 'gads' ),
 								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
 							};
 
-							// Assign recommended keyword to text input placeholder.
-							$( '#bgseo-custom-keyword' ).attr( 'placeholder', report.textstatistics.recommendedKeywords[0][0] );
 							// Extends the report.
 							_.extend( report.textstatistics, { customKeyword : BOLDGRID.SEO.Keywords.getKeyword() } );
 						}
@@ -775,12 +776,13 @@ BOLDGRID.SEO.Description.init();
 		getKeyword : function() {
 			var customKeyword,
 			    report = BOLDGRID.SEO.TinyMCE.getReport();
-
-			if ( self.getCustomKeyword().length ) {
-				customKeyword = self.getCustomKeyword();
-			} else {
-				// Set customKeyword to recommended keyword search.
-				customKeyword = report.textstatistics.recommendedKeywords[0][0];
+			if ( report.wordCount > 99 ) {
+				if ( self.getCustomKeyword().length ) {
+					customKeyword = self.getCustomKeyword();
+				} else {
+					// Set customKeyword to recommended keyword search.
+					customKeyword = report.textstatistics.recommendedKeywords[0][0];
+				}
 			}
 
 			return customKeyword;
