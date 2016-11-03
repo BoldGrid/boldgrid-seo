@@ -68,4 +68,10 @@ return array(
 		'good' => 'Great, your links are set to follow for search engines!',
 		'bad' => 'Your links are set to nofollow for search engines!',
 	),
+	'headings' => array(
+		'h1' => array(
+			'good' => 'It looks like this post is using only one H1 tag! Good job!'
+			'bad'  => 'This post has more than one H1 tag which can negatively impact your SEO.  You should try to only have one H1 on your page.'
+		),
+	),
 );
