@@ -1,9 +1,22 @@
 <?php
 
+/**
+ * Handles autoloading of the BoldGrid SEO class/interface structure.
+ *
+ * @since 1.3.1
+ * @package Boldgrid_Seo
+ * @subpackage Boldgrid_Seo/includes
+ * @author BoldGrid <support@boldgrid.com>
+ * @link https://boldgrid.com
+ */
+
 if ( ! function_exists( 'boldgrid_seo_autoload' ) ) {
 	/**
-	 * The Kirki class autoloader.
+	 * The BoldGrid SEO class autoloader.
+	 *
 	 * Finds the path to a class that we're requiring and includes the file.
+	 *
+	 * @since 1.3.1
 	 */
 	function boldgrid_seo_autoload( $class_name ) {
 		$paths = array();
@@ -38,6 +51,6 @@ if ( ! function_exists( 'boldgrid_seo_autoload' ) ) {
 			}
 		}
 	}
-	// Run the autoloader
+	// Run the autoloader.
 	spl_autoload_register( 'boldgrid_seo_autoload' );
 }
