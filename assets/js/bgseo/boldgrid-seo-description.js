@@ -83,6 +83,11 @@
 
 			return msg;
 		},
+		keywords : function() {
+			var keyword = BOLDGRID.SEO.Keywords.getKeyword(),
+				description = $( '#boldgrid-seo-field-meta_description' ).val();
+			return description.occurences( keyword );
+		},
 	};
 
 	self = BOLDGRID.SEO.Description;

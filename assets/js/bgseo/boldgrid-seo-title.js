@@ -98,6 +98,11 @@
 
 			return msg;
 		},
+		keywords : function() {
+			var keyword = BOLDGRID.SEO.Keywords.getKeyword(),
+			    title = BOLDGRID.SEO.Title.getTitle().val();
+			return title.occurences( keyword );
+		},
 	};
 
 	self = BOLDGRID.SEO.Title;

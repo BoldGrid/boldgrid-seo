@@ -92,7 +92,7 @@
 				report.title = {
 					length : titleLength,
 					lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
-					keywordUsage : 0,
+					keywordUsage : BOLDGRID.SEO.Title.keywords(),
 				};
 				report.description = {
 					length : descriptionLength,
@@ -155,7 +155,7 @@
 							// Assign recommended keyword to text input placeholder.
 							$( '#bgseo-custom-keyword' ).attr( 'placeholder', report.textstatistics.recommendedKeywords[0][0] );
 							// Extends the report.
-							_.extend( report.textstatistics, BOLDGRID.SEO.Keywords.setKeyword() );
+							_.extend( report.textstatistics, { customKeyword : BOLDGRID.SEO.Keywords.getKeyword() } );
 						}
 					}
 
