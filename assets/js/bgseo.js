@@ -224,6 +224,7 @@ BOLDGRID.SEO.Admin.init();
 	 * @since 1.3.1
 	 */
 	BOLDGRID.SEO.TinyMCE = {
+
 		/**
 		 * Initialize TinyMCE Content.
 		 *
@@ -254,17 +255,7 @@ BOLDGRID.SEO.Admin.init();
 
 			$( window ).on( 'load bgseo-media-inserted', function() {
 				var content,
-				    preview = $( '#preview-action > .preview.button' ).attr( 'href' ),
-				    iframe = $( '<iframe />', {
-				        'src'      : preview,
-				        'id'       : 'bgseo-rendered',
-				        'width'    : '0',
-				        'height'   : '0',
-				        'tabindex' : '-1',
-				        'title'    : 'empty',
-				        'class'    : 'hidden',
-				        'role'     : 'presentation'
-				    });
+				    preview = $( '#preview-action > .preview.button' ).attr( 'href' );
 
 				// Get the content of the visual editor or text editor that's present.
 				if ( tinymce.ActiveEditor ) {
@@ -286,34 +277,29 @@ BOLDGRID.SEO.Admin.init();
 				});
 
 				/**
-				 * Load the iframe in the metabox if permalink is available.
-				 * Otherwise we have to save and call back to load a temporary
-				 * preview.  This only impacts "New" page and posts.  To counter
+				 * Only ajax for preview if permalink is available. This only
+				 * impacts "New" page and posts.  To counter
 				 * this we will disable the checks made until the content has had
 				 * a chance to be updated. We will store the found headings minus
 				 * the initial found headings in the content, so we know what the
 				 * template has in use on the actual rendered page.
 				 */
 				if ( $( '#sample-permalink' ).length ) {
-
-					// Add the iframe to the BoldGrid SEO Metabox.
-					$( '#butterbean-manager-boldgrid_seo' ).prepend( iframe );
-
 					// Only run this once after the initial iframe has loaded to get current template stats.
-					$( '#bgseo-rendered' ).one( 'load', function() {
-
-						// Inital heading stats stored for later.
-						var headings = {
-							h1 : {
-								length : $( this ).contents().find( 'h1' ).length,
-							},
-							h2 : {
-								length : $( this ).contents().find( 'h2' ).length,
-							},
-							h3 : {
-								length : $( this ).contents().find( 'h3' ).length,
-							},
-						};
+					$.get( preview, function( renderedTemplate ) {
+						var $rendered = $( renderedTemplate ),
+							// Inital heading stats stored for later.
+							headings = {
+								h1 : {
+									length : $rendered.find( 'h1' ).length,
+								},
+								h2 : {
+									length : $rendered.find( 'h2' ).length,
+								},
+								h3 : {
+									length : $rendered.find( 'h3' ).length,
+								},
+							};
 
 						// Add the scoring for the h1 to report on.
 						_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
@@ -323,9 +309,9 @@ BOLDGRID.SEO.Admin.init();
 
 						// The rendered content stats.
 						var renderedContent = {
-							h1Count : $( this ).contents().find( 'h1' ).length - report.rawstatistics.h1Count,
-							h2Count : $( this ).contents().find( 'h2' ).length - report.rawstatistics.h2Count,
-							h3Count : $( this ).contents().find( 'h3' ).length - report.rawstatistics.h3Count,
+							h1Count : $rendered.find( 'h1' ).length - report.rawstatistics.h1Count,
+							h2Count : $rendered.find( 'h2' ).length - report.rawstatistics.h2Count,
+							h3Count : $rendered.find( 'h3' ).length - report.rawstatistics.h3Count,
 						};
 
 						// Add the rendered stats to our report for use later.
@@ -333,7 +319,7 @@ BOLDGRID.SEO.Admin.init();
 
 						// Trigger the SEO report to rebuild in the template after initial stats are created.
 						$( '#content' ).trigger( 'bgseo-report', [BOLDGRID.SEO.TinyMCE.getReport()] );
-					});
+					}, 'html' );
 				}
 			});
 		},
@@ -416,6 +402,7 @@ BOLDGRID.SEO.Admin.init();
 			tmp.innerHTML = html;
 			return tmp.textContent || tmp.innerText || " ";
 		},
+
 		/**
 		 * Generate the Report based on analysis done.
 		 *
