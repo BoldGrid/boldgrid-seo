@@ -90,6 +90,14 @@
 
 })( jQuery );
 
+( function ( $ ) {
+
+	'use strict';
+
+
+
+})( jQuery );
+
 var BOLDGRID = BOLDGRID || {};
 BOLDGRID.SEO = BOLDGRID.SEO || {};
 
@@ -576,6 +584,8 @@ BOLDGRID.SEO.Admin.init();
 					}
 				}
 
+				var bgseo_dashboard = report;
+				_.extend( report, bgseo_dashboard );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});

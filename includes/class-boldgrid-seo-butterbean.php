@@ -10,7 +10,7 @@ class Boldgrid_Seo_Butterbean {
 	}
 
 	/**
-	 * Get custom templates and load them in to render in our metabox.
+	 * Get custom control templates and load them in to render in our metabox.
 	 *
 	 * @since 1.2.1
 	 */
@@ -20,6 +20,19 @@ class Boldgrid_Seo_Butterbean {
 		}
 		if ( $slug === 'keywords' ) {
 			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-keywords.php";
+		}
+
+		return $located;
+	}
+
+	/**
+	 * Get custom section template and load into metabox.
+	 *
+	 * @since 1.3.1
+	 */
+	public function get_section_template( $located, $slug ) {
+		if ( $slug === 'bgseo' ) {
+			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/section-bgseo.php";
 		}
 
 		return $located;
@@ -43,6 +56,9 @@ class Boldgrid_Seo_Butterbean {
 		$butterbean->register_control_type( 'keywords', 'Boldgrid_Seo_Control_Keywords' );
 
 		/* === Register Sections === */
+		if ( ! class_exists( 'Boldgrid_Seo_Section' ) ) {
+			include_once plugin_dir_path( __FILE__ ) . "/class-boldgrid-seo-section.php";
+		}
 		$sections = $this->configs['meta-box']['section'];
 		foreach( $sections as $section => $settings ) {
 			$manager->register_section( $section, $settings );

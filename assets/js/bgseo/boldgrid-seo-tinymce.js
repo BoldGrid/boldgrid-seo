@@ -366,6 +366,8 @@
 					}
 				}
 
+				var bgseo_dashboard = report;
+				_.extend( report, bgseo_dashboard );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});

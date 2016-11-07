@@ -17,7 +17,8 @@ return array(
 	'section' => array(
 		'bgseo_dashboard' => array(
 			'label' => __( 'SEO Dashboard', 'bgseo' ),
-			'icon'  => 'dashicons-chart-area'
+			'icon'  => 'dashicons-chart-area',
+			'type' => 'bgseo'
 		),
 		'bgseo_meta' => array(
 			'label' => __( 'Title & Description', 'bgseo' ),
