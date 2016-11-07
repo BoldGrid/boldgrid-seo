@@ -951,7 +951,7 @@ BOLDGRID.SEO.Description.init();
 
 			for ( var i=0; i < words.length; i++ ) {
 				var word = words[i];
-				if ( ! word || word.length < 3 || _bgseoStopWords.indexOf( word ) > -1 ) {
+				if ( ! word || word.length < 3 || _bgseoContentAnalysis.stopWords.indexOf( word ) > -1 ) {
 					continue;
 				}
 

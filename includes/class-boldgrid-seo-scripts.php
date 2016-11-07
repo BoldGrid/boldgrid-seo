@@ -84,14 +84,10 @@ class Boldgrid_Seo_Scripts {
 			false
 		);
 
-		// Localize the script with new data.
-		wp_localize_script( "{$this->configs['plugin_name']}-text-statistics", '_bgseoStopWords', $this->configs['i18n']['stopwords'] );
-
-		// Enqueued script with localized data.
 		wp_enqueue_script( "{$this->configs['plugin_name']}-text-statistics" );
 
 		// Localize the script with new data.
-		wp_localize_script( "{$this->configs['plugin_name']}-bgseo", '_bgseoContentAnalysis', $this->configs['i18n']['contentanalysis'] );
+		wp_localize_script( "{$this->configs['plugin_name']}-bgseo", '_bgseoContentAnalysis', $this->configs['i18n'] );
 
 		// Enqueued script with localized data.
 		wp_enqueue_script( "{$this->configs['plugin_name']}-bgseo" );
