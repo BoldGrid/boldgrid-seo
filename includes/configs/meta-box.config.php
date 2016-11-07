@@ -9,26 +9,26 @@ return array(
 		'name'       => 'boldgrid-seo_nonce',
 	),
 	'manager' => array(
-			'label'     => 'BoldGrid SEO',
+			'label'     => __( 'BoldGrid SEO', 'bgseo' ),
 			'post_type' => array( 'post', 'page' ),
 			'context'   => 'normal',
 			'priority'  => 'high',
 	),
 	'section' => array(
 		'bgseo_dashboard' => array(
-			'label' => 'SEO Dashboard',
+			'label' => __( 'SEO Dashboard', 'bgseo' ),
 			'icon'  => 'dashicons-chart-area'
 		),
 		'bgseo_meta' => array(
-			'label' => 'Title & Description',
+			'label' => __( 'Title & Description', 'bgseo' ),
 			'icon'  => 'dashicons-edit'
 		),
 		'bgseo_visibility' => array(
-			'label' => 'Search Visibility',
+			'label' => __( 'Search Visibility', 'bgseo' ),
 			'icon'  => 'dashicons-visibility'
 		),
 		'bgseo_keywords' => array(
-			'label' => 'Keywords',
+			'label' => __( 'Keywords', 'bgseo' ),
 			'icon'  => 'dashicons-search'
 		),
 	),
@@ -46,7 +46,8 @@ return array(
 				'maxlength' => '70',
 				'class' => 'widefat',
 			),
-			'label'       => 'SEO Title',
+			'label'       => __( 'SEO Title', 'bgseo' ),
+			'description' => __( 'This is very important for search engines.  The SEO Title is what usually shows as the link to your page in a Search Engine Results Page.', 'bgseo' ),
 		),
 		'bgseo_description' => array(
 			'type'        => 'textarea',
@@ -57,12 +58,13 @@ return array(
 				'maxlength' => '156',
 				'class' => 'widefat',
 			),
-			'label'       => 'SEO Description',
+			'label'       => __( 'SEO Description', 'bgseo' ),
+			'description' => __( 'Typically what will show in a Search Engine Results Page (SERP).  This is important, but secondary to your SEO Title.', 'bgseo' ),
 		),
 		'bgseo_robots_index' => array(
 			'type'        => 'radio',
 			'section'     => 'bgseo_visibility',
-			'label'       => 'Meta Robots Index',
+			'label'       => __( 'Meta Robots Index', 'bgseo' ),
 			'choices'     => array(
 				'index' => 'index',
 				'noindex' => 'noindex',
@@ -71,7 +73,7 @@ return array(
 		'bgseo_robots_follow' => array(
 			'type'        => 'radio',
 			'section'     => 'bgseo_visibility',
-			'label'       => 'Meta Robots Follow',
+			'label'       => __( 'Meta Robots Follow', 'bgseo' ),
 			'choices'     => array(
 				'follow' => 'follow',
 				'nofollow' => 'nofollow',
@@ -83,8 +85,8 @@ return array(
 			'attr'        => array(
 				'class' => 'widefat',
 			),
-			'label'       => 'Canonical Link',
-			'description' => 'The canonical URL that this page should point to, leave it empty to default to the permalink.',
+			'label'       => __( 'Canonical Link', 'bgseo' ),
+			'description' => __( 'The canonical URL that this page should point to, leave it empty to default to the permalink.', 'bgseo' ),
 		),
 		'bgseo_keywords_html' => array(
 			'type'        => 'keywords',
@@ -98,7 +100,7 @@ return array(
 				'maxlength' => '60',
 				'class' => 'widefat',
 			),
-			'label'       => 'Custom SEO Target Keyword',
+			'label'       => __( 'Custom SEO Target Keyword', 'bgseo' ),
 		),
 	),
 );
