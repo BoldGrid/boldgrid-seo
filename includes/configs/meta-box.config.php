@@ -22,15 +22,18 @@ return array(
 		),
 		'bgseo_meta' => array(
 			'label' => __( 'Title & Description', 'bgseo' ),
-			'icon'  => 'dashicons-edit'
+			'icon'  => 'dashicons-edit',
+			'type' => 'bgseo'
 		),
 		'bgseo_visibility' => array(
 			'label' => __( 'Search Visibility', 'bgseo' ),
-			'icon'  => 'dashicons-visibility'
+			'icon'  => 'dashicons-visibility',
+			'type' => 'bgseo'
 		),
 		'bgseo_keywords' => array(
 			'label' => __( 'Keywords', 'bgseo' ),
-			'icon'  => 'dashicons-search'
+			'icon'  => 'dashicons-search',
+			'type' => 'bgseo'
 		),
 	),
 	'control' => array(
