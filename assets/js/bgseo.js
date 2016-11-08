@@ -643,7 +643,6 @@ BOLDGRID.SEO.Admin.init();
 					}
 				}
 
-				console.log( report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
