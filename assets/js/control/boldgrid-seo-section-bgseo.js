@@ -47,15 +47,29 @@
 			// Set the section's report in the model's attributes.
 			this.model.set( 'analysis', this.sectionReport );
 		},
-
-		/**
-		 * This is ran after the bgseo section has rendered.
-		 *
-		 * @since 1.3.1
-		 */
-		ready : function() {
+		// Initializes the view.
+		initialize : function() {
+			// Binds to bgseo-report event.
 			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
+
+			// Add an event for when the model changes.
+			this.model.on( 'change', this.onchange, this );
+
+			// Get the section type.
+			var type = this.model.get( 'type' );
+
+			// If there's no template for this section type, create it.
+			if ( ! butterbean.templates.section_exists( type ) )
+				butterbean.templates.register_section( type );
+
+			// Gets the section template.
+			this.template = butterbean.templates.get_section( type );
+
+			// Bind changes so that the view is re-rendered when the model changes.
+			_.bindAll( this, 'render' );
+			this.model.bind( 'change', this.render );
 		},
+
 	});
 
 })( jQuery );
