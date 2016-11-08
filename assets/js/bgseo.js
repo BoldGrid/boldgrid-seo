@@ -95,29 +95,58 @@
 	'use strict';
 
 	/**
-	 * Registers the keywords display as a control.
+	 * Registers the custom BoldGrid SEO Sections to include analysis results in
+	 * each section's template.
 	 *
 	 * @since 1.4
 	 */
 	butterbean.views.register_section( 'bgseo', {
-		// Executed when the model changes.
-		onchange : function() {
-			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
-			// Set the view's `aria-hidden` attribute based on whether the model is selected.
-			this.el.setAttribute( 'aria-hidden', ! this.model.get( 'selected' ) );
-		},
-		getAnalysis: function( e, report ) {
-			// Only send report to selected section that's active.
-			if ( this.model.get( 'selected' ) ) {
-				this.model.set( report );
-			}
+
+		/**
+		 * Get the results report for a given section.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} section The section name to get report for.
+		 *
+		 * @returns {Object} report The report for the section to display.
+		 */
+		results : function( section ) {
+			var report = {};
+			_.each( section, function( key ) {
+				_.extend( report, key );
+			});
+			return report;
 		},
 
+		/**
+		 * Gets the analysis for the section from the reporter.
+		 *
+		 * This is bound to the bgseo-report event, and will process
+		 * the report and add only the analysis for the current section displayed.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} report The full report as it's updated by reporter.
+		 */
+		getAnalysis: function( e, report ) {
+			var name = this.model.get( 'name' ),
+			    section = _.pick( report, name );
+
+			// Get each of the analysis results to pass for template rendering.
+			this.sectionReport = this.results( section );
+
+			// Set the section's report in the model's attributes.
+			this.model.set( 'analysis', this.sectionReport );
+		},
+
+		/**
+		 * This is ran after the bgseo section has rendered.
+		 *
+		 * @since 1.3.1
+		 */
 		ready : function() {
 			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
-			var data = this.model.attributes;
-			_.extend( data, this.getAnalysis() );
-			console.log( this.model );
 		},
 	});
 
@@ -246,7 +275,7 @@ BOLDGRID.SEO.Admin.init();
 	'use strict';
 
 	var self,
-	    report = { bgseo_dashboard : {}, bgseo_meta : {}, bgseo_visibility : {}, bgseo_keywords : {} };
+	    report = { bgseo_dashboard : {}, bgseo_meta : {}, bgseo_visibility : {}, bgseo_keywords : {}, textstatistics : {}, rawstatistics : {} };
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -508,15 +537,19 @@ BOLDGRID.SEO.Admin.init();
 					if ( eventInfo.raw ) {
 						var headings = {},
 						    raw = eventInfo.raw,
+							rawstats = {},
 						    imgLength = $( raw ).find( 'img' ).length;
 
 						// Set the heading counts and image count found in new content update.
-						report.rawstatistics = {
+						rawstats = {
 							'h1Count': $( raw ).find( 'h1' ).length,
 							'h2Count': $( raw ).find( 'h2' ).length,
 							'h3Count': $( raw ).find( 'h3' ).length,
 							imageCount: imgLength,
 						};
+
+						// Update raw statistics data.
+						_.extend( report.rawstatistics, rawstats );
 
 						// Set the image use count and analysis found in new content update.
 						report.image = {

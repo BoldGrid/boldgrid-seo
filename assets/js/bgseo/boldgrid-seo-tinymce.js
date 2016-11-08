@@ -3,7 +3,7 @@
 	'use strict';
 
 	var self,
-	    report = { bgseo_dashboard : {}, bgseo_meta : {}, bgseo_visibility : {}, bgseo_keywords : {} };
+	    report = { bgseo_dashboard : {}, bgseo_meta : {}, bgseo_visibility : {}, bgseo_keywords : {}, textstatistics : {}, rawstatistics : {} };
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -265,15 +265,19 @@
 					if ( eventInfo.raw ) {
 						var headings = {},
 						    raw = eventInfo.raw,
+							rawstats = {},
 						    imgLength = $( raw ).find( 'img' ).length;
 
 						// Set the heading counts and image count found in new content update.
-						report.rawstatistics = {
+						rawstats = {
 							'h1Count': $( raw ).find( 'h1' ).length,
 							'h2Count': $( raw ).find( 'h2' ).length,
 							'h3Count': $( raw ).find( 'h3' ).length,
 							imageCount: imgLength,
 						};
+
+						// Update raw statistics data.
+						_.extend( report.rawstatistics, rawstats );
 
 						// Set the image use count and analysis found in new content update.
 						report.image = {
@@ -367,7 +371,6 @@
 					}
 				}
 
-				console.log( report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
