@@ -18,28 +18,28 @@ return array(
 		'bgseo_dashboard' => array(
 			'label' => __( 'SEO Dashboard', 'bgseo' ),
 			'icon'  => 'dashicons-chart-area',
-			'type' => 'bgseo'
 		),
 		'bgseo_meta' => array(
 			'label' => __( 'Title & Description', 'bgseo' ),
 			'icon'  => 'dashicons-edit',
-			'type' => 'bgseo'
 		),
 		'bgseo_visibility' => array(
 			'label' => __( 'Search Visibility', 'bgseo' ),
 			'icon'  => 'dashicons-visibility',
-			'type' => 'bgseo'
 		),
 		'bgseo_keywords' => array(
 			'label' => __( 'Keywords', 'bgseo' ),
 			'icon'  => 'dashicons-search',
-			'type' => 'bgseo'
 		),
 	),
 	'control' => array(
 		'bgseo_dash_html' => array(
 			'type'        => 'dashboard',
 			'section'     => 'bgseo_dashboard',
+		),
+		'bgseo_meta_analaysis' => array(
+			'type'        => 'dashboard',
+			'section'     => 'bgseo_meta',
 		),
 		'bgseo_title' => array(
 			'type'        => 'text',
@@ -64,6 +64,10 @@ return array(
 			),
 			'label'       => __( 'SEO Description', 'bgseo' ),
 			'description' => __( 'Typically what will show in a Search Engine Results Page (SERP).  This is important, but secondary to your SEO Title.', 'bgseo' ),
+		),
+		'bgseo_visibility_analaysis' => array(
+			'type'        => 'dashboard',
+			'section'     => 'bgseo_visibility',
 		),
 		'bgseo_robots_index' => array(
 			'type'        => 'radio',
@@ -91,6 +95,10 @@ return array(
 			),
 			'label'       => __( 'Canonical Link', 'bgseo' ),
 			'description' => __( 'The canonical URL that this page should point to, leave it empty to default to the permalink.', 'bgseo' ),
+		),
+		'bgseo_keyword_analaysis' => array(
+			'type'        => 'dashboard',
+			'section'     => 'bgseo_keywords',
 		),
 		'bgseo_keywords_html' => array(
 			'type'        => 'keywords',

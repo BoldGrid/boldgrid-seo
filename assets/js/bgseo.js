@@ -29,8 +29,44 @@
 			_.bindAll( this, 'render' );
 			this.model.bind( 'change', this.render );
 		},
+
+		/**
+		 * Get the results report for a given section.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} section The section name to get report for.
+		 *
+		 * @returns {Object} report The report for the section to display.
+		 */
+		results : function( data ) {
+			var report = {};
+			_.each( data, function( key ) {
+				_.extend( report, key );
+			});
+
+			return report;
+		},
+
+		/**
+		 * Gets the analysis for the section from the reporter.
+		 *
+		 * This is bound to the bgseo-report event, and will process
+		 * the report and add only the analysis for the current section displayed.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} report The full report as it's updated by reporter.
+		 */
 		getAnalysis: function( e, report ) {
-			this.model.set( report );
+			var section = this.model.get( 'section' ),
+			    data = _.pick( report, section );
+
+			// Get each of the analysis results to pass for template rendering.
+			this.sectionReport = this.results( data );
+
+			// Set the section's report in the model's attributes.
+			this.model.set( 'analysis', this.sectionReport );
 		},
 
 		// Renders the control template.
@@ -86,82 +122,6 @@
 				this.el.innerHTML = this.bgseo_template( this.model.toJSON() );
 			return this;
 		},
-	});
-
-})( jQuery );
-
-( function ( $ ) {
-
-	'use strict';
-
-	/**
-	 * Registers the custom BoldGrid SEO Sections to include analysis results in
-	 * each section's template.
-	 *
-	 * @since 1.4
-	 */
-	butterbean.views.register_section( 'bgseo', {
-
-		/**
-		 * Get the results report for a given section.
-		 *
-		 * @since 1.3.1
-		 *
-		 * @param {Object} section The section name to get report for.
-		 *
-		 * @returns {Object} report The report for the section to display.
-		 */
-		results : function( section ) {
-			var report = {};
-			_.each( section, function( key ) {
-				_.extend( report, key );
-			});
-			return report;
-		},
-
-		/**
-		 * Gets the analysis for the section from the reporter.
-		 *
-		 * This is bound to the bgseo-report event, and will process
-		 * the report and add only the analysis for the current section displayed.
-		 *
-		 * @since 1.3.1
-		 *
-		 * @param {Object} report The full report as it's updated by reporter.
-		 */
-		getAnalysis: function( e, report ) {
-			var name = this.model.get( 'name' ),
-			    section = _.pick( report, name );
-
-			// Get each of the analysis results to pass for template rendering.
-			this.sectionReport = this.results( section );
-
-			// Set the section's report in the model's attributes.
-			this.model.set( 'analysis', this.sectionReport );
-		},
-		// Initializes the view.
-		initialize : function() {
-			// Binds to bgseo-report event.
-			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
-
-			// Add an event for when the model changes.
-			this.model.on( 'change', this.onchange, this );
-
-			// Get the section type.
-			var type = this.model.get( 'type' );
-
-			// If there's no template for this section type, create it.
-			if ( ! butterbean.templates.section_exists( type ) )
-				butterbean.templates.register_section( type );
-
-			// Gets the section template.
-			this.template = butterbean.templates.get_section( type );
-
-			// Bind changes so that the view is re-rendered when the model changes.
-			_.bindAll( this, 'render' );
-			this.model.bind( 'change', this.render );
-		},
-
 	});
 
 })( jQuery );
@@ -382,7 +342,7 @@ BOLDGRID.SEO.Admin.init();
 						_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
 
 						// Set initial headings count.
-						_.extend( report, headings );
+						_.extend( report.bgseo_dashboard, headings );
 
 						// The rendered content stats.
 						var renderedContent = {
@@ -536,12 +496,12 @@ BOLDGRID.SEO.Admin.init();
 					// Get WordPress' more acurate word counts.
 					if ( ! _.isUndefined( eventInfo.count ) ) {
 						report.wordCount = eventInfo.count;
-						report.content = {
+						report.bgseo_dashboard.content = {
 							length : eventInfo.count,
 							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
 						};
 					} else if ( eventInfo.count === 0 ) {
-						report.content = {
+						report.bgseo_dashboard.content = {
 							length : 0,
 							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
 						};
@@ -566,7 +526,7 @@ BOLDGRID.SEO.Admin.init();
 						_.extend( report.rawstatistics, rawstats );
 
 						// Set the image use count and analysis found in new content update.
-						report.image = {
+						report.bgseo_dashboard.image = {
 							length : imgLength,
 							lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( imgLength ),
 						};
@@ -596,7 +556,7 @@ BOLDGRID.SEO.Admin.init();
 							_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
 
 							// Adds and updates the true heading count as the user modifies content.
-							_.extend( report, headings );
+							_.extend( report.bgseo_dashboard, headings );
 						}
 					}
 
@@ -657,6 +617,7 @@ BOLDGRID.SEO.Admin.init();
 					}
 				}
 
+				console.log( report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});

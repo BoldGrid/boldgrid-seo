@@ -29,8 +29,44 @@
 			_.bindAll( this, 'render' );
 			this.model.bind( 'change', this.render );
 		},
+
+		/**
+		 * Get the results report for a given section.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} section The section name to get report for.
+		 *
+		 * @returns {Object} report The report for the section to display.
+		 */
+		results : function( data ) {
+			var report = {};
+			_.each( data, function( key ) {
+				_.extend( report, key );
+			});
+
+			return report;
+		},
+
+		/**
+		 * Gets the analysis for the section from the reporter.
+		 *
+		 * This is bound to the bgseo-report event, and will process
+		 * the report and add only the analysis for the current section displayed.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} report The full report as it's updated by reporter.
+		 */
 		getAnalysis: function( e, report ) {
-			this.model.set( report );
+			var section = this.model.get( 'section' ),
+			    data = _.pick( report, section );
+
+			// Get each of the analysis results to pass for template rendering.
+			this.sectionReport = this.results( data );
+
+			// Set the section's report in the model's attributes.
+			this.model.set( 'analysis', this.sectionReport );
 		},
 
 		// Renders the control template.

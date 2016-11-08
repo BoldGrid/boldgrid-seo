@@ -96,7 +96,7 @@
 						_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
 
 						// Set initial headings count.
-						_.extend( report, headings );
+						_.extend( report.bgseo_dashboard, headings );
 
 						// The rendered content stats.
 						var renderedContent = {
@@ -250,12 +250,12 @@
 					// Get WordPress' more acurate word counts.
 					if ( ! _.isUndefined( eventInfo.count ) ) {
 						report.wordCount = eventInfo.count;
-						report.content = {
+						report.bgseo_dashboard.content = {
 							length : eventInfo.count,
 							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
 						};
 					} else if ( eventInfo.count === 0 ) {
-						report.content = {
+						report.bgseo_dashboard.content = {
 							length : 0,
 							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
 						};
@@ -280,7 +280,7 @@
 						_.extend( report.rawstatistics, rawstats );
 
 						// Set the image use count and analysis found in new content update.
-						report.image = {
+						report.bgseo_dashboard.image = {
 							length : imgLength,
 							lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( imgLength ),
 						};
@@ -310,7 +310,7 @@
 							_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
 
 							// Adds and updates the true heading count as the user modifies content.
-							_.extend( report, headings );
+							_.extend( report.bgseo_dashboard, headings );
 						}
 					}
 
@@ -371,6 +371,7 @@
 					}
 				}
 
+				console.log( report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
