@@ -94,7 +94,32 @@
 
 	'use strict';
 
+	/**
+	 * Registers the keywords display as a control.
+	 *
+	 * @since 1.4
+	 */
+	butterbean.views.register_section( 'bgseo', {
+		// Executed when the model changes.
+		onchange : function() {
+			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
+			// Set the view's `aria-hidden` attribute based on whether the model is selected.
+			this.el.setAttribute( 'aria-hidden', ! this.model.get( 'selected' ) );
+		},
+		getAnalysis: function( e, report ) {
+			// Only send report to selected section that's active.
+			if ( this.model.get( 'selected' ) ) {
+				this.model.set( report );
+			}
+		},
 
+		ready : function() {
+			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
+			var data = this.model.attributes;
+			_.extend( data, this.getAnalysis() );
+			console.log( this.model );
+		},
+	});
 
 })( jQuery );
 
@@ -220,7 +245,8 @@ BOLDGRID.SEO.Admin.init();
 
 	'use strict';
 
-	var self, report = {};
+	var self,
+	    report = { bgseo_dashboard : {}, bgseo_meta : {}, bgseo_visibility : {}, bgseo_keywords : {} };
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -429,14 +455,14 @@ BOLDGRID.SEO.Admin.init();
 				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
 				// Sets default for SEO title analysis.
-				report.title = {
+				report.bgseo_meta.title = {
 					length : titleLength,
 					lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
 					keywordUsage : BOLDGRID.SEO.Title.keywords(),
 				};
 
 				// Sets default for SEO Description analysis.
-				report.description = {
+				report.bgseo_meta.description = {
 					length : descriptionLength,
 					lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
 					keywordUsage : BOLDGRID.SEO.Description.keywords(),
@@ -448,17 +474,17 @@ BOLDGRID.SEO.Admin.init();
 				};
 
 				// Sets default for keyword usage in description analysis.
-				report.descriptionTitle = {
+				report.bgseo_meta.descriptionTitle = {
 					lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 				};
 
 				// Sets default for index/noindex analysis.
-				report.robotIndex = {
+				report.bgseo_visibility.robotIndex = {
 					lengthScore: BOLDGRID.SEO.Robots.indexScore(),
 				};
 
 				// Sets default for follow/nofollow analysis.
-				report.robotFollow = {
+				report.bgseo_visibility.robotFollow = {
 					lengthScore: BOLDGRID.SEO.Robots.followScore(),
 				};
 
@@ -561,31 +587,30 @@ BOLDGRID.SEO.Admin.init();
 
 					// Listen to changes to the SEO Title and update report.
 					if ( eventInfo.titleLength ) {
-						report.title.length = eventInfo.titleLength;
+						report.bgseo_meta.title.length = eventInfo.titleLength;
 					}
 
 					// Listen to changes to the SEO Description and update report.
 					if ( eventInfo.descLength ) {
-						report.description.length = eventInfo.descLength;
+						report.bgseo_meta.description.length = eventInfo.descLength;
 					}
 
 					// Listen for changes to noindex/index and update report.
 					if ( eventInfo.robotIndex ) {
-						report.robotIndex = {
+						report.bgseo_visibility.robotIndex = {
 							lengthScore : eventInfo.robotIndex,
 						};
 					}
 
 					// Listen for changes to nofollow/follow and update report.
 					if ( eventInfo.robotFollow ) {
-						report.robotFollow = {
+						report.bgseo_visibility.robotFollow = {
 							lengthScore : eventInfo.robotFollow,
 						};
 					}
 				}
 
-				var bgseo_dashboard = report;
-				_.extend( report, bgseo_dashboard );
+				console.log( report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});

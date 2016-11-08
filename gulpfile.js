@@ -87,5 +87,11 @@ gulp.task( 'clone', function() {
   });
 });
 
+gulp.task( 'checkout', ['clone'], function() {
+  git.checkout( 'dev', { cwd: config.src + '/includes/lib/butterbean' }, function ( err ) {
+    // silent.  if ( err ) throw err;
+  });
+});
+
 // Build.
-gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone'] );
+gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone', 'checkout'] );
