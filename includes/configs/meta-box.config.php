@@ -76,7 +76,8 @@ return array(
 			'choices'     => array(
 				'index' => 'index',
 				'noindex' => 'noindex',
-			)
+			),
+			'description' => __( 'Setting this to index means that search engines are encouraged to show your website in their search results.', 'bgseo' ),
 		),
 		'bgseo_robots_follow' => array(
 			'type'        => 'radio',
@@ -85,7 +86,8 @@ return array(
 			'choices'     => array(
 				'follow' => 'follow',
 				'nofollow' => 'nofollow',
-			)
+			),
+			'description' => __( 'Having this set to follow means that search engines are able to count and follow where your links go to.', 'bgseo' ),
 		),
 		'bgseo_canonical' => array(
 			'type'        => 'text',
