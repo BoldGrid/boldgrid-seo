@@ -15,11 +15,17 @@ class Boldgrid_Seo_Butterbean {
 	 * @since 1.2.1
 	 */
 	public function get_html_template( $located, $slug ) {
+		// Get the analysis control template.
 		if ( $slug === 'dashboard' ) {
 			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-dashboard.php";
 		}
+		// Get the keywords control template.
 		if ( $slug === 'keywords' ) {
 			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-keywords.php";
+		}
+		// Override the default textarea template.
+		if ( $slug === 'textarea' ) {
+			$located = plugin_dir_path( dirname( __FILE__ ) ) . "/assets/partials/control-bgseo-textarea.php";
 		}
 
 		return $located;
@@ -32,11 +38,13 @@ class Boldgrid_Seo_Butterbean {
 		$butterbean->register_manager( 'boldgrid_seo', $this->configs['meta-box']['manager'] );
 		$manager  = $butterbean->get_manager( 'boldgrid_seo' );
 
+		// Custom Analysis Control.
 		if ( ! class_exists( 'Boldgrid_Seo_Control_Dashboard' ) ) {
 			include_once plugin_dir_path( __FILE__ ) . "/class-boldgrid-seo-control-dashboard.php";
 		}
 		$butterbean->register_control_type( 'dashboard', 'Boldgrid_Seo_Control_Dashboard' );
 
+		// Custom Keywords Control.
 		if ( ! class_exists( 'Boldgrid_Seo_Control_Keywords' ) ) {
 			include_once plugin_dir_path( __FILE__ ) . "/class-boldgrid-seo-control-keywords.php";
 		}
