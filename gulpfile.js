@@ -88,7 +88,7 @@ gulp.task( 'clone', function() {
 });
 
 gulp.task( 'checkout', ['clone'], function() {
-  git.checkout( 'dev', { cwd: config.src + '/includes/lib/butterbean' }, function ( err ) {
+  git.checkout( 'tags/1.0.0', { cwd: config.src + '/includes/lib/butterbean' }, function ( err ) {
     // silent.  if ( err ) throw err;
   });
 });
