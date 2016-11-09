@@ -59,7 +59,8 @@
 		 * @param {Object} report The full report as it's updated by reporter.
 		 */
 		getAnalysis: function( e, report ) {
-			var section = this.model.get( 'section' ),
+			var sectionScore,
+			    section = this.model.get( 'section' ),
 			    data = _.pick( report, section );
 
 			// Get each of the analysis results to pass for template rendering.
@@ -67,6 +68,15 @@
 
 			// Set the section's report in the model's attributes.
 			this.model.set( 'analysis', this.sectionReport );
+
+			// Get score for each section, and set a status for sections.
+			_( report ).each( function( section ) {
+				// sectionScore should be set.
+				if ( ! _.isUndefined ( section.sectionScore ) ) {
+					sectionScore = BOLDGRID.SEO.Sections.score( section );
+					_( section ).extend( sectionScore );
+				}
+			});
 		},
 
 		// Renders the control template.

@@ -3,7 +3,14 @@
 	'use strict';
 
 	var self,
-	    report = { bgseo_dashboard : {}, bgseo_meta : {}, bgseo_visibility : {}, bgseo_keywords : {}, textstatistics : {}, rawstatistics : {} };
+	    report = {
+			bgseo_dashboard : { sectionScore: {} },
+			bgseo_meta : { sectionScore: {} },
+			bgseo_visibility : { sectionScore: {} },
+			bgseo_keywords: { sectionScore: {} },
+			textstatistics : {},
+			rawstatistics : {}
+		};
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -370,8 +377,8 @@
 						};
 					}
 				}
-
-				console.log( report );
+				BOLDGRID.SEO.Sections.score( report );
+				console.log(report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
