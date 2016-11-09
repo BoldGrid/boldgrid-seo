@@ -489,7 +489,7 @@ BOLDGRID.SEO.Admin.init();
 				};
 
 				// Sets default for keyword usage in title analysis.
-				report.keywordTitle = {
+				report.bgseo_keywords.keywordTitle = {
 					lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 				};
 
