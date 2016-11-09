@@ -38,6 +38,26 @@
 				return this > min && this < max;
 			};
 
+			/**
+			 * Usage: ( n ).rounded( digits )
+			 *
+			 * Gives you bool response if number is within the minimum
+			 * and maximum numbers specified for the range.
+			 *
+			 * @since 1.3.1
+			 *
+			 * @param {Number} number Number to round.
+			 * @param {Number} digits how many decimal places to round to.
+			 *
+			 * @returns {Number} rounded The number rounded to specified digits.
+			 */
+			Number.prototype.rounded = function( digits ) {
+				var multiple = Math.pow( 10, digits );
+				var rounded = Math.round( this * multiple ) / multiple;
+
+				return rounded;
+			};
+
 			/** Function that count occurrences of a substring in a string;
 			 * @param {String} string               The string
 			 * @param {String} subString            The sub string to search for

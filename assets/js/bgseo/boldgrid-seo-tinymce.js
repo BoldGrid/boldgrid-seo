@@ -4,10 +4,10 @@
 
 	var self,
 	    report = {
-			bgseo_dashboard : { sectionScore: {} },
-			bgseo_meta : { sectionScore: {} },
-			bgseo_visibility : { sectionScore: {} },
-			bgseo_keywords: { sectionScore: {} },
+			bgseo_dashboard : { sectionScore: {}, sectionStatus: {} },
+			bgseo_meta : { sectionScore: {}, sectionStatus: {} },
+			bgseo_visibility : { sectionScore: {}, sectionStatus: {} },
+			bgseo_keywords: { sectionScore: {}, sectionStatus: {} },
 			textstatistics : {},
 			rawstatistics : {}
 		};
@@ -378,8 +378,11 @@
 					}
 				}
 
+				console.log( report );
+
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
+				BOLDGRID.SEO.Dashboard.overviewStatus(report);
 			});
 		},
 

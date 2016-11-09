@@ -264,10 +264,10 @@ BOLDGRID.SEO.Admin.init();
 
 	var self,
 	    report = {
-			bgseo_dashboard : { sectionScore: {} },
-			bgseo_meta : { sectionScore: {} },
-			bgseo_visibility : { sectionScore: {} },
-			bgseo_keywords: { sectionScore: {} },
+			bgseo_dashboard : { sectionScore: {}, sectionStatus: {} },
+			bgseo_meta : { sectionScore: {}, sectionStatus: {} },
+			bgseo_visibility : { sectionScore: {}, sectionStatus: {} },
+			bgseo_keywords: { sectionScore: {}, sectionStatus: {} },
 			textstatistics : {},
 			rawstatistics : {}
 		};
@@ -638,8 +638,11 @@ BOLDGRID.SEO.Admin.init();
 					}
 				}
 
+				console.log( report );
+
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
+				BOLDGRID.SEO.Dashboard.overviewStatus(report);
 			});
 		},
 
@@ -752,6 +755,107 @@ BOLDGRID.SEO.TinyMCE.init();
 	};
 
 	self = BOLDGRID.SEO.ContentAnalysis;
+
+})( jQuery );
+
+( function ( $ ) {
+
+	'use strict';
+
+	var self;
+
+	/**
+	 * BoldGrid SEO Description.
+	 *
+	 * This is responsible for the SEO Description Grading.
+	 *
+	 * @since 1.3.1
+	 */
+	BOLDGRID.SEO.Dashboard = {
+
+		/**
+		 * Sets up event listener for changes made to the SEO Description.
+		 *
+		 * Listens for changes being made to the SEO Description, and then
+		 * triggers the reporter to be updated with new status/score.
+		 *
+		 * @since 1.3.1
+		 */
+		overviewScore : function( report ) {
+			var max,
+			    total = self.totalScore( report ),
+			    sections = _.size( butterbean.models.sections );
+
+				max = sections * 3;
+
+			return ( total / max  * 100 ).rounded( 2 );
+		},
+
+		/**
+		 * Get the combined statuses for each section in BoldGrid SEO metabox.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} report The BoldGrid SEO Analysis report.
+		 *
+		 * @returns {Object} status The combined statuses for all sections.
+		 */
+		getStatuses : function( report ) {
+			var status = {};
+
+			_.each( butterbean.models.sections, function( section ) {
+				var score, name = section.get( 'name' );
+				score = report[name].sectionStatus;
+				status[name] = score;
+				_( status[name] ).extend( score );
+			});
+
+			return status;
+		},
+
+		/**
+		 * Assigns numbers to represent the statuses.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} report The BoldGrid SEO Analysis report.
+		 *
+		 * @returns {Object} score The numerical values based on status rank.
+		 */
+		assignNumbers : function( report ) {
+			var statuses = self.getStatuses( report ),
+				score = _.mapObject( statuses, function( status ) {
+				var score;
+				if ( status === 'red' ) score = 1;
+				if ( status === 'yellow' ) score = 2;
+				if ( status === 'green' ) score = 3;
+				return score;
+			});
+
+			return score;
+		},
+
+		/**
+		 * Combines all the status scores into a final sum.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Object} report The BoldGrid SEO Analysis report.
+		 *
+		 * @returns {Object} total The total overall numerical value for statuses.
+		 */
+		totalScore : function( report ) {
+			var total, statuses = self.assignNumbers( report );
+
+			total = _( statuses ).reduce( function( initial, number ) {
+				return initial + number;
+			}, 0 );
+
+			return total;
+		}
+	};
+
+	self = BOLDGRID.SEO.Dashboard;
 
 })( jQuery );
 
@@ -1721,6 +1825,26 @@ BOLDGRID.SEO.Tooltips.init();
 			 */
 			Number.prototype.isBetween = function( min, max ) {
 				return this > min && this < max;
+			};
+
+			/**
+			 * Usage: ( n ).rounded( digits )
+			 *
+			 * Gives you bool response if number is within the minimum
+			 * and maximum numbers specified for the range.
+			 *
+			 * @since 1.3.1
+			 *
+			 * @param {Number} number Number to round.
+			 * @param {Number} digits how many decimal places to round to.
+			 *
+			 * @returns {Number} rounded The number rounded to specified digits.
+			 */
+			Number.prototype.rounded = function( digits ) {
+				var multiple = Math.pow( 10, digits );
+				var rounded = Math.round( this * multiple ) / multiple;
+
+				return rounded;
 			};
 
 			/** Function that count occurrences of a substring in a string;
