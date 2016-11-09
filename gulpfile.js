@@ -60,9 +60,9 @@ gulp.task( 'translate', function (  ) {
   return gulp.src( config.src + '/**/*.php' )
     .pipe( sort() )
     .pipe( wpPot({
-      domain: 'boldgrid-seo',
-      destFile: 'boldgrid-seo.pot',
-      package: 'boldgrid_seo',
+      domain: 'bgseo',
+      destFile: 'bgseo.pot',
+      package: 'bgseo',
       bugReport: 'https://boldgrid.com',
       team: 'The BoldGrid Team <support@boldgrid.com>'
     }) )
