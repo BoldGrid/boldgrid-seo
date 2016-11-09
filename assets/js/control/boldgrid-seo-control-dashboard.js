@@ -78,6 +78,7 @@
 				}
 			});
 
+			_( report.bgseo_dashboard ).extend( { overviewScore : BOLDGRID.SEO.Dashboard.overviewScore( report ) });
 			// Set the nav highlight indicator for each section's tab.
 			BOLDGRID.SEO.Sections.navHighlight( report );
 		},

@@ -58,10 +58,14 @@
 				return rounded;
 			};
 
-			/** Function that count occurrences of a substring in a string;
+			/**
+			 * Function that counts occurrences of a substring in a string;
+			 *
 			 * @param {String} string               The string
 			 * @param {String} subString            The sub string to search for
 			 * @param {Boolean} [allowOverlapping]  Optional. (Default:false)
+			 *
+			 * @returns {Number} n The number of times a substring appears in a string.
 			 */
 			String.prototype.occurences = function( needle, allowOverlapping ) {
 

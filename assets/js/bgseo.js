@@ -78,6 +78,7 @@
 				}
 			});
 
+			_( report.bgseo_dashboard ).extend( { overviewScore : BOLDGRID.SEO.Dashboard.overviewScore( report ) });
 			// Set the nav highlight indicator for each section's tab.
 			BOLDGRID.SEO.Sections.navHighlight( report );
 		},
@@ -638,11 +639,8 @@ BOLDGRID.SEO.Admin.init();
 					}
 				}
 
-				console.log( report );
-
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
-				BOLDGRID.SEO.Dashboard.overviewStatus(report);
 			});
 		},
 
@@ -765,28 +763,31 @@ BOLDGRID.SEO.TinyMCE.init();
 	var self;
 
 	/**
-	 * BoldGrid SEO Description.
+	 * BoldGrid SEO Dashboard.
 	 *
-	 * This is responsible for the SEO Description Grading.
+	 * This is responsible for any Dashboard section specific functionality.
 	 *
 	 * @since 1.3.1
 	 */
 	BOLDGRID.SEO.Dashboard = {
 
 		/**
-		 * Sets up event listener for changes made to the SEO Description.
+		 * This gets the overview score.
 		 *
-		 * Listens for changes being made to the SEO Description, and then
-		 * triggers the reporter to be updated with new status/score.
+		 * Number is a percentage.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {Object} report The BoldGrid SEO Analysis report.
+		 *
+		 * @returns {Number} The rounded percentage value for overall score.
 		 */
 		overviewScore : function( report ) {
 			var max,
 			    total = self.totalScore( report ),
 			    sections = _.size( butterbean.models.sections );
 
-				max = sections * 3;
+				max = sections * 2;
 
 			return ( total / max  * 100 ).rounded( 2 );
 		},
@@ -826,9 +827,9 @@ BOLDGRID.SEO.TinyMCE.init();
 			var statuses = self.getStatuses( report ),
 				score = _.mapObject( statuses, function( status ) {
 				var score;
-				if ( status === 'red' ) score = 1;
-				if ( status === 'yellow' ) score = 2;
-				if ( status === 'green' ) score = 3;
+				if ( status === 'red' ) score = 0;
+				if ( status === 'yellow' ) score = 1;
+				if ( status === 'green' ) score = 2;
 				return score;
 			});
 
@@ -1847,10 +1848,14 @@ BOLDGRID.SEO.Tooltips.init();
 				return rounded;
 			};
 
-			/** Function that count occurrences of a substring in a string;
+			/**
+			 * Function that counts occurrences of a substring in a string;
+			 *
 			 * @param {String} string               The string
 			 * @param {String} subString            The sub string to search for
 			 * @param {Boolean} [allowOverlapping]  Optional. (Default:false)
+			 *
+			 * @returns {Number} n The number of times a substring appears in a string.
 			 */
 			String.prototype.occurences = function( needle, allowOverlapping ) {
 
