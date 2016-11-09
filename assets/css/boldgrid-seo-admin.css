@@ -40,3 +40,14 @@
 	font-size: 18px;
 	vertical-align: bottom;
 }
+
+/** Nav Styles **/
+.butterbean-manager-default .butterbean-nav.green li a {
+	border-right: 9px solid green;
+}
+.butterbean-manager-default .butterbean-nav.yellow li a {
+	border-right: 9px solid green;
+}
+.butterbean-manager-default .butterbean-nav.red li a {
+	border-right: 9px solid green;
+}
