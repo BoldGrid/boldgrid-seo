@@ -145,7 +145,8 @@ class Boldgrid_Seo {
 	 */
 	private function set_locale() {
 		$plugin_i18n = new Boldgrid_Seo_i18n();
-		$plugin_i18n->set_domain( $this->get_plugin_name() );
+		$plugin_file = plugin_dir_path( dirname(__FILE__) ) . $this->plugin_name . '.php';
+		$plugin_i18n->set_domain( implode( get_file_data( $plugin_file , array( 'Version' ), 'plugin' ) ) );
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
