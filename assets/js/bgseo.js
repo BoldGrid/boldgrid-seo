@@ -1356,7 +1356,7 @@ BOLDGRID.SEO.Description.init();
 
 			if ( $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_index][value=noindex]' ).is( ':checked' ) ) {
 				msg = {
-					status: 'yellow',
+					status: 'red',
 					msg: _bgseoContentAnalysis.noIndex.bad,
 				};
 			}
