@@ -42,12 +42,39 @@
 }
 
 /** Nav Styles **/
-.butterbean-manager-default .butterbean-nav.green li a {
-	border-right: 9px solid green;
+#butterbean-manager-boldgrid_seo.butterbean-manager-default .butterbean-nav {
+	background-color: #eee;
 }
-.butterbean-manager-default .butterbean-nav.yellow li a {
-	border-right: 9px solid green;
+.butterbean-nav li[aria-selected="false"] a {
+	background-color: #fafafa;
 }
-.butterbean-manager-default .butterbean-nav.red li a {
+#butterbean-manager-boldgrid_seo.butterbean-manager-default .butterbean-nav li.green a {
 	border-right: 9px solid green;
+	border-bottom: none;
+	margin-bottom: 1px;
+}
+#butterbean-manager-boldgrid_seo.butterbean-manager-default .butterbean-nav li.yellow a {
+	border-right: 9px solid goldenrod;
+	border-bottom: none;
+	margin-bottom: 1px;
+}
+#butterbean-manager-boldgrid_seo.butterbean-manager-default .butterbean-nav li.red a {
+	border-right: 9px solid red;
+	border-bottom: none;
+	margin-bottom: 1px;
+}
+#side-sortables #butterbean-manager-boldgrid_seo.butterbean-manager-default .butterbean-nav li.green a {
+	border-right: none;
+	border-bottom: 4px solid green;
+	margin-bottom: 0;
+}
+#side-sortables #butterbean-manager-boldgrid_seo.butterbean-manager-default .butterbean-nav li.yellow a {
+	border-right: none;
+	border-bottom: 4px solid goldenrod;
+	margin-bottom: 0;
+}
+#side-sortables #butterbean-manager-boldgrid_seo.butterbean-manager-default .butterbean-nav li.red a {
+	border-right: none;
+	border-bottom: 4px solid red;
+	margin-bottom: 0;
 }

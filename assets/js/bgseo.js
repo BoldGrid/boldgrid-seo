@@ -77,6 +77,7 @@
 					_( section ).extend( sectionScore );
 				}
 			});
+
 		},
 
 		// Renders the control template.
@@ -84,6 +85,10 @@
 			// Only render template if model is active.
 			if ( this.model.get( 'active' ) )
 				this.el.innerHTML = this.bgseo_template( this.model.toJSON() );
+
+			// Set the nav highlight indicator for each section's tab.
+			BOLDGRID.SEO.Sections.navHighlight();
+
 			return this;
 		},
 	});
@@ -1488,6 +1493,19 @@ BOLDGRID.SEO.Robots.init();
 			};
 
 			return data;
+		},
+
+		navHighlight : function() {
+			_.each( butterbean.models.sections, function( item ) {
+				var selector,
+				    report = BOLDGRID.SEO.TinyMCE.getReport(),
+				    manager = item.get( 'manager' ),
+				    name = item.get( 'name' );
+
+				selector = $( '[href="#butterbean-' + manager + '-section-' + name + '"]' ).closest( 'li' );
+				selector.removeClass( 'red yellow green' );
+				selector.addClass( report[name].sectionStatus );
+			});
 		},
 	};
 
