@@ -313,8 +313,7 @@ BOLDGRID.SEO.Admin.init();
 				editor = $( '#content.wp-editor-area[aria-hidden=false]' );
 
 			$( window ).on( 'load bgseo-media-inserted', function() {
-				var content,
-				    preview = $( '#preview-action > .preview.button' ).attr( 'href' );
+				var content;
 
 				// Get the content of the visual editor or text editor that's present.
 				if ( tinymce.ActiveEditor ) {
@@ -335,54 +334,65 @@ BOLDGRID.SEO.Admin.init();
 					$( '#content' ).trigger( 'bgseo-analysis', [content] );
 				});
 
-				/**
-				 * Only ajax for preview if permalink is available. This only
-				 * impacts "New" page and posts.  To counter
-				 * this we will disable the checks made until the content has had
-				 * a chance to be updated. We will store the found headings minus
-				 * the initial found headings in the content, so we know what the
-				 * template has in use on the actual rendered page.
-				 */
-				if ( $( '#sample-permalink' ).length ) {
-					// Only run this once after the initial iframe has loaded to get current template stats.
-					$.get( preview, function( renderedTemplate ) {
-						var $rendered = $( renderedTemplate ),
-							// Inital heading stats stored for later.
-							headings = {
-								h1 : {
-									length : $rendered.find( 'h1' ).length,
-								},
-								h2 : {
-									length : $rendered.find( 'h2' ).length,
-								},
-								h3 : {
-									length : $rendered.find( 'h3' ).length,
-								},
-							};
+				// Get rendered page content from frontend site.
+				self.getRenderedContent();
 
-						// Add the scoring for the h1 to report on.
-						_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
-
-						// Set initial headings count.
-						_.extend( report.bgseo_dashboard, headings );
-
-						// The rendered content stats.
-						var renderedContent = {
-							h1Count : $rendered.find( 'h1' ).length - report.rawstatistics.h1Count,
-							h2Count : $rendered.find( 'h2' ).length - report.rawstatistics.h2Count,
-							h3Count : $rendered.find( 'h3' ).length - report.rawstatistics.h3Count,
-						};
-
-						// Add the rendered stats to our report for use later.
-						_.extend( report, { rendered : renderedContent } );
-
-						// Trigger the SEO report to rebuild in the template after initial stats are created.
-						$( '#content' ).trigger( 'bgseo-report', [BOLDGRID.SEO.TinyMCE.getReport()] );
-					}, 'html' );
-				}
+				// Trigger the SEO report to rebuild in the template after initial stats are created.
+				$( '#content' ).trigger( 'bgseo-report', [BOLDGRID.SEO.TinyMCE.getReport()] );
 			});
 		},
 
+		/**
+		 * Only ajax for preview if permalink is available. This only
+		 * impacts "New" page and posts.  To counter
+		 * this we will disable the checks made until the content has had
+		 * a chance to be updated. We will store the found headings minus
+		 * the initial found headings in the content, so we know what the
+		 * template has in use on the actual rendered page.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns null No return.
+		 */
+		getRenderedContent : function() {
+			var renderedContent, preview = $( '#preview-action > .preview.button' ).attr( 'href' );
+
+			if ( $( '#sample-permalink' ).length ) {
+				// Only run this once after the initial iframe has loaded to get current template stats.
+				$.get( preview, function( renderedTemplate ) {
+					var $rendered = $( renderedTemplate ),
+						// Inital heading stats stored for later.
+						headings = {
+							h1 : {
+								length : $rendered.find( 'h1' ).length,
+							},
+							h2 : {
+								length : $rendered.find( 'h2' ).length,
+							},
+							h3 : {
+								length : $rendered.find( 'h3' ).length,
+							},
+						};
+
+					// Add the scoring for the h1 to report on.
+					_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
+
+					// Set initial headings count.
+					_.extend( report.bgseo_dashboard, headings );
+
+					// The rendered content stats.
+					renderedContent = {
+						h1Count : $rendered.find( 'h1' ).length - report.rawstatistics.h1Count,
+						h2Count : $rendered.find( 'h2' ).length - report.rawstatistics.h2Count,
+						h3Count : $rendered.find( 'h3' ).length - report.rawstatistics.h3Count,
+					};
+
+					// Add the rendered stats to our report for use later.
+					_.extend( report, { rendered : renderedContent } );
+
+				}, 'html' );
+			}
+		},
 		/**
 		 * Listens for changes made in the text editor mode.
 		 *
@@ -479,39 +489,39 @@ BOLDGRID.SEO.Admin.init();
 				var titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
 				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
-				// Sets default for SEO title analysis.
-				report.bgseo_meta.title = {
-					length : titleLength,
-					lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
-					keywordUsage : BOLDGRID.SEO.Title.keywords(),
-				};
-
-				// Sets default for SEO Description analysis.
-				report.bgseo_meta.description = {
-					length : descriptionLength,
-					lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
-					keywordUsage : BOLDGRID.SEO.Description.keywords(),
-				};
-
-				// Sets default for keyword usage in title analysis.
-				report.bgseo_keywords.keywordTitle = {
-					lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
-				};
-
-				// Sets default for keyword usage in description analysis.
-				report.bgseo_meta.descriptionTitle = {
-					lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
-				};
-
-				// Sets default for index/noindex analysis.
-				report.bgseo_visibility.robotIndex = {
-					lengthScore: BOLDGRID.SEO.Robots.indexScore(),
-				};
-
-				// Sets default for follow/nofollow analysis.
-				report.bgseo_visibility.robotFollow = {
-					lengthScore: BOLDGRID.SEO.Robots.followScore(),
-				};
+				// Set the default report items.
+				_( report ).extend({
+					bgseo_meta : {
+						title : {
+							length : titleLength,
+							lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
+						},
+						description : {
+							length : descriptionLength,
+							lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
+							keywordUsage : BOLDGRID.SEO.Description.keywords(),
+						},
+						descriptionTitle : {
+							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+						},
+						titleKeywordUsage : {
+							lengthScore : BOLDGRID.SEO.Title.keywords(),
+						},
+					},
+					bgseo_visibility : {
+						robotIndex : {
+							lengthScore: BOLDGRID.SEO.Robots.indexScore(),
+						},
+						robotFollow : {
+							lengthScore: BOLDGRID.SEO.Robots.followScore(),
+						},
+					},
+					bgseo_keywords : {
+						keywordTitle : {
+							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+						},
+					},
+				});
 
 				// Listen for event changes being triggered.
 				if ( eventInfo ) {
@@ -616,7 +626,12 @@ BOLDGRID.SEO.Admin.init();
 
 					// Listen to changes to the SEO Title and update report.
 					if ( eventInfo.titleLength ) {
+						var keyword = BOLDGRID.SEO.Keywords.getKeyword();
 						report.bgseo_meta.title.length = eventInfo.titleLength;
+						report.bgseo_meta.titleKeywordUsage = { lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ) };
+						_( report.bgseo_keywords.keywordTitle ).extend({
+							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() )
+						});
 					}
 
 					// Listen to changes to the SEO Description and update report.
