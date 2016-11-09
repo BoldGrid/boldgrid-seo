@@ -80,10 +80,9 @@
 			return data;
 		},
 
-		navHighlight : function() {
+		navHighlight : function( report ) {
 			_.each( butterbean.models.sections, function( item ) {
 				var selector,
-				    report = BOLDGRID.SEO.TinyMCE.getReport(),
 				    manager = item.get( 'manager' ),
 				    name = item.get( 'name' );
 

@@ -78,6 +78,8 @@
 				}
 			});
 
+			// Set the nav highlight indicator for each section's tab.
+			BOLDGRID.SEO.Sections.navHighlight( report );
 		},
 
 		// Renders the control template.
@@ -85,9 +87,6 @@
 			// Only render template if model is active.
 			if ( this.model.get( 'active' ) )
 				this.el.innerHTML = this.bgseo_template( this.model.toJSON() );
-
-			// Set the nav highlight indicator for each section's tab.
-			BOLDGRID.SEO.Sections.navHighlight();
 
 			return this;
 		},
