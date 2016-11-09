@@ -27,6 +27,16 @@
 	background: goldenrod;
 }
 
+/** Analysis suggestions in metabox sidebar **/
+#side-sortables .bgseo-recommendations {
+	display: flex;
+	margin-left: -12px;
+	margin-bottom: 8px;
+}
+#side-sortables .bgseo-recommendations:last-of-type {
+	margin-bottom : 0;
+}
+
 /** Nofollow/Noindex styles **/
 #butterbean-control-bgseo_robots_index .butterbean-radio-list li,
 #butterbean-control-bgseo_robots_follow .butterbean-radio-list li {
@@ -63,6 +73,8 @@
 	border-bottom: none;
 	margin-bottom: 1px;
 }
+
+/** Nav in metabox sidebar **/
 #side-sortables .butterbean-manager-default .butterbean-nav li.green a {
 	border-right: none;
 	border-bottom: 4px solid green;
