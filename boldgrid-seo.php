@@ -52,14 +52,14 @@ $boldgrid_seo_wp_version = version_compare( get_bloginfo( 'version' ), '4.0', '>
 if ( ! $boldgrid_seo_php_version or ! $boldgrid_seo_wp_version ) :
 	function boldgrid_php_error() {
 		printf( '<div class="error"><p>%s</p></div>',
-			esc_html__( 'BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+', 'boldgrid_seo' )
+			esc_html__( 'BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+', 'bgseo' )
 		);
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 	}
 
 	if ( defined( 'WP_CLI' ) ) :
 		deactivate_plugins( plugin_basename( __FILE__ ) );
-		WP_CLI::warning( __( 'BoldGrid Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin.', 'boldgrid_seo' ) );
+		WP_CLI::warning( __( 'BoldGrid Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin.', 'bgseo' ) );
 	else :
 		add_action( 'admin_notices', 'boldgrid_php_error' );
 	endif;
