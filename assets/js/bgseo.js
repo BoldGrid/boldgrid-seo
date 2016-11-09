@@ -77,7 +77,7 @@
 					_( section ).extend( sectionScore );
 				}
 			});
-			
+
 			// Set the nav highlight indicator for each section's tab.
 			BOLDGRID.SEO.Sections.navHighlight( report );
 		},
