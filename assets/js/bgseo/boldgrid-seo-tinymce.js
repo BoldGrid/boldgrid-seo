@@ -2,15 +2,7 @@
 
 	'use strict';
 
-	var self,
-	    report = {
-			bgseo_dashboard : { sectionScore: {}, sectionStatus: {} },
-			bgseo_meta : { sectionScore: {}, sectionStatus: {} },
-			bgseo_visibility : { sectionScore: {}, sectionStatus: {} },
-			bgseo_keywords: { sectionScore: {}, sectionStatus: {} },
-			textstatistics : {},
-			rawstatistics : {}
-		};
+	var self, report = { bgseo_visibility : {}, bgseo_dashboard : {}, bgseo_keywords : {}, bgseo_meta : {} };
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -75,9 +67,6 @@
 
 				// Get rendered page content from frontend site.
 				self.getRenderedContent();
-
-				// Trigger the SEO report to rebuild in the template after initial stats are created.
-				$( '#content' ).trigger( 'bgseo-report', [BOLDGRID.SEO.TinyMCE.getReport()] );
 			});
 		},
 
@@ -128,6 +117,9 @@
 
 					// Add the rendered stats to our report for use later.
 					_.extend( report, { rendered : renderedContent } );
+
+					// Trigger the SEO report to rebuild in the template after initial stats are created.
+					$( '#content' ).trigger( 'bgseo-report', [BOLDGRID.SEO.TinyMCE.getReport()] );
 
 				}, 'html' );
 			}
@@ -225,59 +217,73 @@
 				count;
 
 			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
-				var titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
+				var words, titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
 				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
-				// Set the default report items.
-				_( report ).extend({
-					bgseo_meta : {
-						title : {
-							length : titleLength,
-							lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
-						},
-						description : {
-							length : descriptionLength,
-							lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
-							keywordUsage : BOLDGRID.SEO.Description.keywords(),
-						},
-						descriptionTitle : {
-							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
-						},
-						titleKeywordUsage : {
-							lengthScore : BOLDGRID.SEO.Title.keywords(),
-						},
-					},
-					bgseo_visibility : {
-						robotIndex : {
-							lengthScore: BOLDGRID.SEO.Robots.indexScore(),
-						},
-						robotFollow : {
-							lengthScore: BOLDGRID.SEO.Robots.followScore(),
-						},
-					},
-					bgseo_keywords : {
-						keywordTitle : {
-							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
-						},
-					},
-				});
-
-				// Listen for event changes being triggered.
-				if ( eventInfo ) {
-					// Get WordPress' more acurate word counts.
-					if ( ! _.isUndefined( eventInfo.count ) ) {
-						report.wordCount = eventInfo.count;
-						report.bgseo_dashboard.content = {
-							length : eventInfo.count,
-							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
-						};
-					} else if ( eventInfo.count === 0 ) {
-						report.bgseo_dashboard.content = {
+				if ( eventInfo.count ) {
+					words = {
+						length : eventInfo.count,
+						lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
+					};
+					if ( eventInfo.count === 0 ) {
+						words = {
 							length : 0,
 							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
 						};
 					}
+					// Set the default report items.
+					_( report ).extend({
+						bgseo_dashboard : {
+							sectionScore: {},
+							sectionStatus: {},
+							content : {
 
+							},
+							wordCount : words,
+						},
+						bgseo_meta : {
+							title : {
+								length : titleLength,
+								lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
+							},
+							description : {
+								length : descriptionLength,
+								lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
+								keywordUsage : BOLDGRID.SEO.Description.keywords(),
+							},
+							descriptionTitle : {
+								lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+							},
+							titleKeywordUsage : {
+								lengthScore : BOLDGRID.SEO.Title.keywords(),
+							},
+							sectionScore: {},
+							sectionStatus: {},
+						},
+						bgseo_visibility : {
+							robotIndex : {
+								lengthScore: BOLDGRID.SEO.Robots.indexScore(),
+							},
+							robotFollow : {
+								lengthScore: BOLDGRID.SEO.Robots.followScore(),
+							},
+							sectionScore: {},
+							sectionStatus: {},
+						},
+						bgseo_keywords : {
+							keywordTitle : {
+								lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+							},
+							sectionScore: {},
+							sectionStatus: {},
+						},
+						textstatistics : {},
+						rawstatistics : {},
+					});
+				}
+
+				// Listen for event changes being triggered.
+				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
 						var headings = {},
@@ -336,9 +342,9 @@
 						var customKeyword, content = eventInfo.text;
 
 						// Add the text statistic recommended keywords.
-						report.textstatistics = {
+						_( report.textstatistics ).extend({
 							recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
-						};
+						});
 
 						/**
 						 * Only do this analysis if the Word Count is over 99
@@ -346,12 +352,12 @@
 						 * to be invalid or skewed by not having much usable
 						 * content available.
 						 */
-						if ( report.wordCount > 99 ) {
-							report.textstatistics = {
+						if ( report.bgseo_dashboard.wordCount.length > 99 ) {
+							_( report.textstatistics ).extend({
 								gradeLevel  : BOLDGRID.SEO.Readability.gradeLevel( content ),
 								keywordDensity : BOLDGRID.SEO.Keywords.keywordDensity( content, 'gads' ),
 								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
-							};
+							});
 
 							/**
 							 * Adds the customKeyword that's obtained to the report.
@@ -392,7 +398,7 @@
 						};
 					}
 				}
-
+				console.log( report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
