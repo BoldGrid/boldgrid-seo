@@ -610,6 +610,9 @@ BOLDGRID.SEO.Admin.init();
 								keywordTitle : {
 									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 								},
+								keywordDescription : {
+									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+								},
 								sectionScore: {},
 								sectionStatus: {},
 							},
@@ -675,8 +678,8 @@ BOLDGRID.SEO.Admin.init();
 						_( report.bgseo_meta.descKeywordUsage ).extend({
 							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
-						_( report.bgseo_keywords.keywordTitle ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+						_( report.bgseo_keywords.keywordDescription ).extend({
+							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
 					}
 
@@ -694,7 +697,7 @@ BOLDGRID.SEO.Admin.init();
 						});
 					}
 				}
-				console.log( report );
+
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
