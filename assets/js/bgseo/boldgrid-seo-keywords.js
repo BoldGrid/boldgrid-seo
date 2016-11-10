@@ -40,13 +40,26 @@
 				    length = $( this ).val().length;
 
 				msg = {
-					title : self.keywordsInTitle(),
-					description : self.keywordsInDescription(),
+					keywords : {
+						title : {
+							length : BOLDGRID.SEO.Title.keywords(),
+							lengthScore : 0,
+						},
+						description : {
+							length : BOLDGRID.SEO.Description.keywords(),
+							lengthScore : 0,
+						},
+						keyword : $.trim( $( this ).val() ),
+					},
 				};
 
-				$( this ).trigger( 'bgseo-analysis', [{'keywords': msg}] );
+				$( this ).trigger( 'bgseo-analysis', [msg] );
 
 			}, 1000 ) );
+		},
+
+		isKeywordSet : function() {
+			return $( '#bgseo-custom-keyword' ).isFieldSet();
 		},
 
 		/**
@@ -73,18 +86,20 @@
 		 * @since 1.3.1
 		 *
 		 * @param {string} content The content to calculate density for.
-		 * @param {string} keyword The keyword to base density measurement on.
 		 *
 		 * @returns {Number} result Calculated density of keyword in content passed.
 		 */
-		keywordDensity : function( content, keyword ) {
-			var result, keywordCount, wordCount;
+		keywordDensity : function( content ) {
+			var report, result, keywordCount, wordCount, keyword;
+
+			report = BOLDGRID.SEO.TinyMCE.getReport();
+			keyword = self.getKeyword();
 
 			// Normalize.
 			keyword = keyword.toLowerCase();
 
 			keywordCount = self.keywordCount( content, keyword );
-			wordCount = textstatistics( content ).wordCount();
+			wordCount = report.bgseo_dashboard.wordCount.length;
 			// Get the density.
 			result = ( ( keywordCount / wordCount ) * 100 );
 			// Round it off.
@@ -150,6 +165,7 @@
 		getCustomKeyword : function() {
 			var keyword = $( '#bgseo-custom-keyword' ).val();
 			// Trim the input since it's user input to be sure there's no spaces.
+
 			keyword = $.trim( keyword );
 
 			return keyword;
@@ -169,7 +185,7 @@
 		getKeyword : function() {
 			var customKeyword,
 			    report = BOLDGRID.SEO.TinyMCE.getReport();
-			if ( report.wordCount > 99 ) {
+			if ( report.bgseo_dashboard.wordCount.length > 99 ) {
 				if ( self.getCustomKeyword().length ) {
 					customKeyword = self.getCustomKeyword();
 				} else {
@@ -271,3 +287,5 @@
 	self = BOLDGRID.SEO.Keywords;
 
 })( jQuery );
+
+BOLDGRID.SEO.Keywords.init();

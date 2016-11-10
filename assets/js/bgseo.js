@@ -263,7 +263,14 @@ BOLDGRID.SEO.Admin.init();
 
 	'use strict';
 
-	var self, report = { bgseo_visibility : {}, bgseo_dashboard : {}, bgseo_keywords : {}, bgseo_meta : {} };
+	var self, report = {
+		bgseo_visibility : {},
+		bgseo_dashboard : {},
+		bgseo_keywords : {},
+		bgseo_meta : {},
+		rawstatistics : {},
+		textstatistics : {},
+	};
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -305,30 +312,35 @@ BOLDGRID.SEO.Admin.init();
 				editor = $( '#content.wp-editor-area[aria-hidden=false]' );
 
 			$( window ).on( 'load bgseo-media-inserted', function() {
-				var content;
+				var content = self.getContent();
 
-				// Get the content of the visual editor or text editor that's present.
-				if ( tinymce.ActiveEditor ) {
-					content = tinyMCE.get( wpActiveEditor ).getContent();
-				} else {
-					content = $( '#content' ).val();
-					content = content.replace( /\r?\n|\r/g, '' );
-				}
-
-				// Stores raw and stripped down versions of the content for analysis.
-				content = {
-					'raw': content,
-					'text': self.stripper( content.toLowerCase() ),
-				};
+				// Get rendered page content from frontend site.
+				self.getRenderedContent();
 
 				// Trigger the content analysis for the tinyMCE content.
 				_.defer( function() {
 					$( '#content' ).trigger( 'bgseo-analysis', [content] );
 				});
-
-				// Get rendered page content from frontend site.
-				self.getRenderedContent();
 			});
+		},
+
+		getContent : function() {
+			var content;
+			// Get the content of the visual editor or text editor that's present.
+			if ( tinymce.ActiveEditor ) {
+				content = tinyMCE.get( wpActiveEditor ).getContent();
+			} else {
+				content = $( '#content' ).val();
+				content = content.replace( /\r?\n|\r/g, '' );
+			}
+
+			// Stores raw and stripped down versions of the content for analysis.
+			content = {
+				'raw': content,
+				'text': self.stripper( content.toLowerCase() ),
+			};
+
+			return content;
 		},
 
 		/**
@@ -481,6 +493,7 @@ BOLDGRID.SEO.Admin.init();
 				var words, titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
 				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
+				// Sets wordCount values.
 				if ( eventInfo.count ) {
 					words = {
 						length : eventInfo.count,
@@ -492,54 +505,11 @@ BOLDGRID.SEO.Admin.init();
 							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
 						};
 					}
-					// Set the default report items.
-					_( report ).extend({
-						bgseo_dashboard : {
-							sectionScore: {},
-							sectionStatus: {},
-							content : {
-
-							},
-							wordCount : words,
-						},
-						bgseo_meta : {
-							title : {
-								length : titleLength,
-								lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
-							},
-							description : {
-								length : descriptionLength,
-								lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
-								keywordUsage : BOLDGRID.SEO.Description.keywords(),
-							},
-							descriptionTitle : {
-								lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
-							},
-							titleKeywordUsage : {
-								lengthScore : BOLDGRID.SEO.Title.keywords(),
-							},
-							sectionScore: {},
-							sectionStatus: {},
-						},
-						bgseo_visibility : {
-							robotIndex : {
-								lengthScore: BOLDGRID.SEO.Robots.indexScore(),
-							},
-							robotFollow : {
-								lengthScore: BOLDGRID.SEO.Robots.followScore(),
-							},
-							sectionScore: {},
-							sectionStatus: {},
-						},
-						bgseo_keywords : {
-							keywordTitle : {
-								lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
-							},
-							sectionScore: {},
-							sectionStatus: {},
-						},
-						textstatistics : {},
-						rawstatistics : {},
+					_( report.bgseo_dashboard ).extend({
+						content : words
+					});
+					_( report.bgseo_dashboard ).extend({
+						wordCount : words,
 					});
 				}
 
@@ -548,26 +518,15 @@ BOLDGRID.SEO.Admin.init();
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
 						var headings = {},
-						    raw = eventInfo.raw,
-							rawstats = {},
-						    imgLength = $( raw ).find( 'img' ).length;
+						    raw = eventInfo.raw;
 
 						// Set the heading counts and image count found in new content update.
-						rawstats = {
+						_( report.rawstatistics ).extend({
 							'h1Count': $( raw ).find( 'h1' ).length,
 							'h2Count': $( raw ).find( 'h2' ).length,
 							'h3Count': $( raw ).find( 'h3' ).length,
-							imageCount: imgLength,
-						};
-
-						// Update raw statistics data.
-						_.extend( report.rawstatistics, rawstats );
-
-						// Set the image use count and analysis found in new content update.
-						report.bgseo_dashboard.image = {
-							length : imgLength,
-							lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( imgLength ),
-						};
+							imageCount: $( raw ).find( 'img' ).length,
+						});
 
 						/**
 						 * This only needs to be fired if the rendered report
@@ -591,10 +550,12 @@ BOLDGRID.SEO.Admin.init();
 							};
 
 							// Generates the scoring for h1 usage with status indicator and message.
-							_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
+							_( headings.h1 ).extend({
+								lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ),
+							});
 
 							// Adds and updates the true heading count as the user modifies content.
-							_.extend( report.bgseo_dashboard, headings );
+							_( report.bgseo_dashboard ).extend( headings );
 						}
 					}
 
@@ -602,9 +563,59 @@ BOLDGRID.SEO.Admin.init();
 					if ( eventInfo.text ) {
 						var customKeyword, content = eventInfo.text;
 
-						// Add the text statistic recommended keywords.
-						_( report.textstatistics ).extend({
-							recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
+						// Set the default report items.
+						_( report ).extend({
+							bgseo_dashboard : {
+								sectionScore: {},
+								sectionStatus: {},
+								wordCount : {
+									length : Number( $( '#wp-word-count .word-count' ).text() ),
+									lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
+								},
+								image : {
+									length : report.rawstatistics.imageCount,
+									lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
+								},
+							},
+							bgseo_meta : {
+								title : {
+									length : titleLength,
+									lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
+								},
+								description : {
+									length : descriptionLength,
+									lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
+									keywordUsage : BOLDGRID.SEO.Description.keywords(),
+								},
+								titleKeywordUsage : {
+									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+								},
+								descKeywordUsage : {
+									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+								},
+								sectionScore: {},
+								sectionStatus: {},
+							},
+							bgseo_visibility : {
+								robotIndex : {
+									lengthScore: BOLDGRID.SEO.Robots.indexScore(),
+								},
+								robotFollow : {
+									lengthScore: BOLDGRID.SEO.Robots.followScore(),
+								},
+								sectionScore: {},
+								sectionStatus: {},
+							},
+							bgseo_keywords : {
+								keywordTitle : {
+									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+								},
+								sectionScore: {},
+								sectionStatus: {},
+							},
+							textstatistics : {
+								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
+							},
 						});
 
 						/**
@@ -615,9 +626,10 @@ BOLDGRID.SEO.Admin.init();
 						 */
 						if ( report.bgseo_dashboard.wordCount.length > 99 ) {
 							_( report.textstatistics ).extend({
-								gradeLevel  : BOLDGRID.SEO.Readability.gradeLevel( content ),
-								keywordDensity : BOLDGRID.SEO.Keywords.keywordDensity( content, 'gads' ),
 								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
+							});
+							_( report.bgseo_dashboard ).extend({
+								gradeLevel  : BOLDGRID.SEO.Readability.gradeLevel( content ),
 							});
 
 							/**
@@ -626,37 +638,60 @@ BOLDGRID.SEO.Admin.init();
 							 * or it can contain the autogenerated recommended keyword
 							 * that was found based on the user's content.
 							 */
-							_.extend( report.textstatistics, { customKeyword : BOLDGRID.SEO.Keywords.getKeyword() } );
+							_( report.textstatistics ).extend({
+								customKeyword : BOLDGRID.SEO.Keywords.getKeyword(),
+							});
+							_( report.bgseo_keywords ).extend({
+								customKeyword : BOLDGRID.SEO.Keywords.getKeyword(),
+								keywordDensity : BOLDGRID.SEO.Keywords.keywordDensity( content, BOLDGRID.SEO.Keywords.getKeyword() ),
+							});
 						}
 					}
 
 					// Listen to changes to the SEO Title and update report.
 					if ( eventInfo.titleLength ) {
-						var keyword = BOLDGRID.SEO.Keywords.getKeyword();
 						report.bgseo_meta.title.length = eventInfo.titleLength;
-						report.bgseo_meta.titleKeywordUsage = { lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ) };
-						_( report.bgseo_keywords.keywordTitle ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() )
+
+						_( report.bgseo_meta.titleKeywordUsage ).extend({
+							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 						});
+
+						_( report.bgseo_keywords.keywordTitle ).extend({
+							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+						});
+					}
+
+					if ( eventInfo.keywords ) {
+						_( report.bgseo_keywords ).extend({
+							customKeyword : eventInfo.keywords.keyword,
+						});
+
+						$( '#content' ).trigger( 'bgseo-analysis', [ self.getContent() ] );
 					}
 
 					// Listen to changes to the SEO Description and update report.
 					if ( eventInfo.descLength ) {
 						report.bgseo_meta.description.length = eventInfo.descLength;
+						_( report.bgseo_meta.descKeywordUsage ).extend({
+							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+						});
+						_( report.bgseo_keywords.keywordTitle ).extend({
+							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+						});
 					}
 
 					// Listen for changes to noindex/index and update report.
 					if ( eventInfo.robotIndex ) {
-						report.bgseo_visibility.robotIndex = {
+						_( report.bgseo_visibility.robotIndex ).extend({
 							lengthScore : eventInfo.robotIndex,
-						};
+						});
 					}
 
 					// Listen for changes to nofollow/follow and update report.
 					if ( eventInfo.robotFollow ) {
-						report.bgseo_visibility.robotFollow = {
+						_( report.bgseo_visibility.robotFollow ).extend({
 							lengthScore : eventInfo.robotFollow,
-						};
+						});
 					}
 				}
 				console.log( report );
@@ -675,8 +710,15 @@ BOLDGRID.SEO.Admin.init();
 		 *
 		 * @returns {Object} report The report data that's currently displayed.
 		 */
-		getReport : function() {
-			return report;
+		getReport : function( key ) {
+			var data = {};
+			if ( _.isUndefined( key ) ) {
+				data = report;
+			} else {
+				data = report[key];
+			}
+
+			return data;
 		},
 	};
 
@@ -1064,13 +1106,26 @@ BOLDGRID.SEO.Description.init();
 				    length = $( this ).val().length;
 
 				msg = {
-					title : self.keywordsInTitle(),
-					description : self.keywordsInDescription(),
+					keywords : {
+						title : {
+							length : BOLDGRID.SEO.Title.keywords(),
+							lengthScore : 0,
+						},
+						description : {
+							length : BOLDGRID.SEO.Description.keywords(),
+							lengthScore : 0,
+						},
+						keyword : $.trim( $( this ).val() ),
+					},
 				};
 
-				$( this ).trigger( 'bgseo-analysis', [{'keywords': msg}] );
+				$( this ).trigger( 'bgseo-analysis', [msg] );
 
 			}, 1000 ) );
+		},
+
+		isKeywordSet : function() {
+			return $( '#bgseo-custom-keyword' ).isFieldSet();
 		},
 
 		/**
@@ -1097,18 +1152,20 @@ BOLDGRID.SEO.Description.init();
 		 * @since 1.3.1
 		 *
 		 * @param {string} content The content to calculate density for.
-		 * @param {string} keyword The keyword to base density measurement on.
 		 *
 		 * @returns {Number} result Calculated density of keyword in content passed.
 		 */
-		keywordDensity : function( content, keyword ) {
-			var result, keywordCount, wordCount;
+		keywordDensity : function( content ) {
+			var report, result, keywordCount, wordCount, keyword;
+
+			report = BOLDGRID.SEO.TinyMCE.getReport();
+			keyword = self.getKeyword();
 
 			// Normalize.
 			keyword = keyword.toLowerCase();
 
 			keywordCount = self.keywordCount( content, keyword );
-			wordCount = textstatistics( content ).wordCount();
+			wordCount = report.bgseo_dashboard.wordCount.length;
 			// Get the density.
 			result = ( ( keywordCount / wordCount ) * 100 );
 			// Round it off.
@@ -1174,6 +1231,7 @@ BOLDGRID.SEO.Description.init();
 		getCustomKeyword : function() {
 			var keyword = $( '#bgseo-custom-keyword' ).val();
 			// Trim the input since it's user input to be sure there's no spaces.
+
 			keyword = $.trim( keyword );
 
 			return keyword;
@@ -1193,7 +1251,7 @@ BOLDGRID.SEO.Description.init();
 		getKeyword : function() {
 			var customKeyword,
 			    report = BOLDGRID.SEO.TinyMCE.getReport();
-			if ( report.wordCount > 99 ) {
+			if ( report.bgseo_dashboard.wordCount.length > 99 ) {
 				if ( self.getCustomKeyword().length ) {
 					customKeyword = self.getCustomKeyword();
 				} else {
@@ -1296,6 +1354,8 @@ BOLDGRID.SEO.Description.init();
 
 })( jQuery );
 
+BOLDGRID.SEO.Keywords.init();
+
 ( function ( $ ) {
 
 	'use strict';
@@ -1345,11 +1405,13 @@ BOLDGRID.SEO.Description.init();
 			// Grade is higher than 90.
 			if ( grade > 90 ) {
 				description = {
-					'lengthScore' : grade,
+					'score' : grade,
 					'gradeLevel' : '5th grade',
 					'explanation': 'Very easy to read. Easily understood by an average 11-year-old student.',
-					'status' : 'green',
-					'msg' : _bgseoContentAnalysis.readingEase.goodHigh,
+					lengthScore : {
+						'status' : 'green',
+						'msg' : _bgseoContentAnalysis.readingEase.goodHigh,
+					},
 				};
 			}
 			// Grade is 80-90.
@@ -1358,8 +1420,10 @@ BOLDGRID.SEO.Description.init();
 					'score'      : grade,
 					'gradeLevel' : '6th grade',
 					'explanation': 'Easy to read. Conversational English for consumers.',
-					'status' : 'green',
-					'msg' : _bgseoContentAnalysis.readingEase.goodMedHigh,
+					lengthScore : {
+						'status' : 'green',
+						'msg' : _bgseoContentAnalysis.readingEase.goodMedHigh,
+					},
 				};
 			}
 			// Grade is 70-90.
@@ -1368,8 +1432,10 @@ BOLDGRID.SEO.Description.init();
 					'score'      : grade,
 					'gradeLevel' : '7th grade',
 					'explanation': 'Fairly easy to read.',
-					'status' : 'green',
-					'msg' : _bgseoContentAnalysis.readingEase.goodMedLow,
+					lengthScore : {
+						'status' : 'green',
+						'msg' : _bgseoContentAnalysis.readingEase.goodMedLow,
+					}
 				};
 			}
 			// Grade is 60-70.
@@ -1378,8 +1444,10 @@ BOLDGRID.SEO.Description.init();
 					'score'      : grade,
 					'gradeLevel' : '8th & 9th',
 					'explanation': 'Plain English. Easily understood by 13- to 15-year-old students.',
-					'status' : 'green',
-					'msg' : _bgseoContentAnalysis.readingEase.goodLow,
+					lengthScore : {
+						'status' : 'green',
+						'msg' : _bgseoContentAnalysis.readingEase.goodLow,
+					},
 				};
 			}
 			// Grade is 50-60.
@@ -1388,8 +1456,10 @@ BOLDGRID.SEO.Description.init();
 					'score'      : grade,
 					'gradeLevel' : '10th to 12th',
 					'explanation': 'Fairly difficult to read.',
-					'status' : 'yellow',
-					'msg' : _bgseoContentAnalysis.readingEase.ok,
+					lengthScore : {
+						'status' : 'yellow',
+						'msg' : _bgseoContentAnalysis.readingEase.ok,
+					},
 				};
 			}
 			// Grade is 30-50.
@@ -1398,8 +1468,10 @@ BOLDGRID.SEO.Description.init();
 					'score'      : grade,
 					'gradeLevel' : 'College Student',
 					'explanation': 'Difficult to read.',
-					'status' : 'red',
-					'msg' : _bgseoContentAnalysis.readingEase.badHigh,
+					lengthScore : {
+						'status' : 'red',
+						'msg' : _bgseoContentAnalysis.readingEase.badHigh,
+					},
 				};
 			}
 			// Grade is less than 30.
@@ -1408,8 +1480,10 @@ BOLDGRID.SEO.Description.init();
 					'score'      : grade,
 					'gradeLevel' : 'College Graduate',
 					'explanation': 'Difficult to read.',
-					'status' : 'red',
-					'msg' : _bgseoContentAnalysis.readingEase.badLow,
+					lengthScore : {
+						'status' : 'red',
+						'msg' : _bgseoContentAnalysis.readingEase.badLow,
+					},
 				};
 			}
 
@@ -1831,6 +1905,24 @@ BOLDGRID.SEO.Tooltips.init();
 		 * @since 1.3.1
 		 */
 		init : function () {
+
+			/**
+			 * Function that checks if a field is set.
+			 *
+			 * @returns {Bool} Is field set.
+			 */
+			$.fn.extend({
+				isFieldSet : function() {
+					return Boolean( $.trim( $( this ).val() ).length );
+				},
+				triggerAll : function ( events, params ) {
+					var el = this, i, evts = events.split( ' ' );
+					for ( i = 0; i < evts.length; i += 1 ) {
+						el.trigger( evts[i], params );
+					}
+					return el;
+				},
+			});
 
 			/**
 			 * Usage: ( n ).isBetween( min, max )

@@ -47,11 +47,13 @@
 			// Grade is higher than 90.
 			if ( grade > 90 ) {
 				description = {
-					'lengthScore' : grade,
+					'score' : grade,
 					'gradeLevel' : '5th grade',
 					'explanation': 'Very easy to read. Easily understood by an average 11-year-old student.',
-					'status' : 'green',
-					'msg' : _bgseoContentAnalysis.readingEase.goodHigh,
+					lengthScore : {
+						'status' : 'green',
+						'msg' : _bgseoContentAnalysis.readingEase.goodHigh,
+					},
 				};
 			}
 			// Grade is 80-90.
@@ -60,8 +62,10 @@
 					'score'      : grade,
 					'gradeLevel' : '6th grade',
 					'explanation': 'Easy to read. Conversational English for consumers.',
-					'status' : 'green',
-					'msg' : _bgseoContentAnalysis.readingEase.goodMedHigh,
+					lengthScore : {
+						'status' : 'green',
+						'msg' : _bgseoContentAnalysis.readingEase.goodMedHigh,
+					},
 				};
 			}
 			// Grade is 70-90.
@@ -70,8 +74,10 @@
 					'score'      : grade,
 					'gradeLevel' : '7th grade',
 					'explanation': 'Fairly easy to read.',
-					'status' : 'green',
-					'msg' : _bgseoContentAnalysis.readingEase.goodMedLow,
+					lengthScore : {
+						'status' : 'green',
+						'msg' : _bgseoContentAnalysis.readingEase.goodMedLow,
+					}
 				};
 			}
 			// Grade is 60-70.
@@ -80,8 +86,10 @@
 					'score'      : grade,
 					'gradeLevel' : '8th & 9th',
 					'explanation': 'Plain English. Easily understood by 13- to 15-year-old students.',
-					'status' : 'green',
-					'msg' : _bgseoContentAnalysis.readingEase.goodLow,
+					lengthScore : {
+						'status' : 'green',
+						'msg' : _bgseoContentAnalysis.readingEase.goodLow,
+					},
 				};
 			}
 			// Grade is 50-60.
@@ -90,8 +98,10 @@
 					'score'      : grade,
 					'gradeLevel' : '10th to 12th',
 					'explanation': 'Fairly difficult to read.',
-					'status' : 'yellow',
-					'msg' : _bgseoContentAnalysis.readingEase.ok,
+					lengthScore : {
+						'status' : 'yellow',
+						'msg' : _bgseoContentAnalysis.readingEase.ok,
+					},
 				};
 			}
 			// Grade is 30-50.
@@ -100,8 +110,10 @@
 					'score'      : grade,
 					'gradeLevel' : 'College Student',
 					'explanation': 'Difficult to read.',
-					'status' : 'red',
-					'msg' : _bgseoContentAnalysis.readingEase.badHigh,
+					lengthScore : {
+						'status' : 'red',
+						'msg' : _bgseoContentAnalysis.readingEase.badHigh,
+					},
 				};
 			}
 			// Grade is less than 30.
@@ -110,8 +122,10 @@
 					'score'      : grade,
 					'gradeLevel' : 'College Graduate',
 					'explanation': 'Difficult to read.',
-					'status' : 'red',
-					'msg' : _bgseoContentAnalysis.readingEase.badLow,
+					lengthScore : {
+						'status' : 'red',
+						'msg' : _bgseoContentAnalysis.readingEase.badLow,
+					},
 				};
 			}
 
