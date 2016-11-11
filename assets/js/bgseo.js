@@ -78,7 +78,18 @@
 				}
 			});
 
-			_( report.bgseo_dashboard ).extend( { overviewScore : BOLDGRID.SEO.Dashboard.overviewScore( report ) });
+			// Add the overview score to report.
+			_( report.bgseo_dashboard ).extend({
+				overview : {
+					score : BOLDGRID.SEO.Dashboard.overviewScore( report ),
+				},
+			});
+
+			// Get the status based on the overview score, and add to report.
+			_( report.bgseo_dashboard.overview ).extend({
+				status : BOLDGRID.SEO.Dashboard.overviewStatus( report.bgseo_dashboard.overview.score ),
+			});
+
 			// Set the nav highlight indicator for each section's tab.
 			BOLDGRID.SEO.Sections.navHighlight( report );
 		},
@@ -898,7 +909,7 @@ BOLDGRID.SEO.TinyMCE.init();
 			}
 
 			// Status is 40% - 75%.
-			if ( status.isBetween( 39, 76 ) ) {
+			if ( score.isBetween( 39, 76 ) ) {
 				status = 'yellow';
 			}
 

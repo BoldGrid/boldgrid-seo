@@ -55,7 +55,7 @@
 			}
 
 			// Status is 40% - 75%.
-			if ( status.isBetween( 39, 76 ) ) {
+			if ( score.isBetween( 39, 76 ) ) {
 				status = 'yellow';
 			}
 
