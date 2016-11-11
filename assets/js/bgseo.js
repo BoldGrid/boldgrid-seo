@@ -877,6 +877,15 @@ BOLDGRID.SEO.TinyMCE.init();
 			return ( total / max  * 100 ).rounded( 2 );
 		},
 
+		/**
+		 * This gets the overview status.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} score The BoldGrid SEO overview status score.
+		 *
+		 * @returns {string} The status indicator color of the overall scoring.
+		 */
 		overviewStatus : function( score ) {
 			var status;
 
