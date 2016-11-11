@@ -877,6 +877,25 @@ BOLDGRID.SEO.TinyMCE.init();
 			return ( total / max  * 100 ).rounded( 2 );
 		},
 
+		overviewStatus : function( score ) {
+			var status;
+
+			// Default overview status.
+			status = 'green';
+
+			// If status is below 40%.
+			if ( score < 40 ) {
+				status = 'red';
+			}
+
+			// Status is 40% - 75%.
+			if ( status.isBetween( 39, 76 ) ) {
+				status = 'yellow';
+			}
+
+			return status;
+		},
+
 		/**
 		 * Get the combined statuses for each section in BoldGrid SEO metabox.
 		 *
