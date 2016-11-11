@@ -2030,9 +2030,11 @@ BOLDGRID.SEO.Tooltips.init();
 			 *
 			 * @returns {bool} Number is/isn't within range passed in params.
 			 */
-			Number.prototype.isBetween = function( min, max ) {
-				return this > min && this < max;
-			};
+			if ( ! Number.prototype.isBetween ) {
+				Number.prototype.isBetween = function( min, max ) {
+					return this > min && this < max;
+				};
+			}
 
 			/**
 			 * Usage: ( n ).rounded( digits )
@@ -2047,12 +2049,25 @@ BOLDGRID.SEO.Tooltips.init();
 			 *
 			 * @returns {Number} rounded The number rounded to specified digits.
 			 */
-			Number.prototype.rounded = function( digits ) {
-				var multiple = Math.pow( 10, digits );
-				var rounded = Math.round( this * multiple ) / multiple;
+			if ( ! Number.prototype.rounded ) {
+				Number.prototype.rounded = function( digits ) {
+					var multiple = Math.pow( 10, digits );
+					var rounded = Math.round( this * multiple ) / multiple;
 
-				return rounded;
-			};
+					return rounded;
+				};
+			}
+
+			if ( ! String.prototype.printf ) {
+				String.prototype.printf = function() {
+					var newStr = this, i = 0;
+					while ( /%s/.test( newStr ) ){
+						newStr = newStr.replace( "%s", arguments[i++] );
+					}
+
+					return newStr;
+				};
+			}
 
 			/**
 			 * Function that counts occurrences of a substring in a string;
@@ -2063,25 +2078,27 @@ BOLDGRID.SEO.Tooltips.init();
 			 *
 			 * @returns {Number} n The number of times a substring appears in a string.
 			 */
-			String.prototype.occurences = function( needle, allowOverlapping ) {
+			if ( ! String.prototype.occurences ) {
+				String.prototype.occurences = function( needle, allowOverlapping ) {
 
-				needle += "";
-				if ( needle.length <= 0 ) return ( this.length + 1 );
+					needle += "";
+					if ( needle.length <= 0 ) return ( this.length + 1 );
 
-				var n = 0,
-					pos = 0,
-					step = allowOverlapping ? 1 : needle.length;
+					var n = 0,
+						pos = 0,
+						step = allowOverlapping ? 1 : needle.length;
 
-				while ( true ) {
-					pos = this.indexOf( needle, pos );
-					if ( pos >= 0 ) {
-						++n;
-						pos += step;
-					} else break;
-				}
+					while ( true ) {
+						pos = this.indexOf( needle, pos );
+						if ( pos >= 0 ) {
+							++n;
+							pos += step;
+						} else break;
+					}
 
-				return n;
-			};
+					return n;
+				};
+			}
 		},
 	};
 
