@@ -937,12 +937,18 @@ BOLDGRID.SEO.TinyMCE.init();
 		 * @returns {Object} score The numerical values based on status rank.
 		 */
 		assignNumbers : function( report ) {
-			var statuses = self.getStatuses( report ),
-				score = _.mapObject( statuses, function( status ) {
+			var score, statuses;
+
+			statuses = self.getStatuses( report );
+
+			// Map strings into score values.
+			score = _.mapObject( statuses, function( status ) {
 				var score;
+
 				if ( status === 'red' ) score = 0;
 				if ( status === 'yellow' ) score = 1;
 				if ( status === 'green' ) score = 2;
+
 				return score;
 			});
 
