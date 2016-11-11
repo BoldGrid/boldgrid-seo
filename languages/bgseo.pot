@@ -956,5 +956,9 @@ msgid "The canonical URL that this page should point to, leave it empty to defau
 msgstr ""
 
 #: includes/configs/meta-box.config.php:117
-msgid "Custom SEO Target Keyword"
+msgid "Target Keyword or Phrase"
+msgstr ""
+
+#: includes/configs/meta-box.config.php:118
+msgid "This should be what the main focus of this page or post is about."
 msgstr ""

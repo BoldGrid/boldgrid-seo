@@ -107,3 +107,38 @@
 	border-bottom: 4px solid red;
 	margin-bottom: 0;
 }
+/** General Control Style **/
+.bgseo-keywords:last-of-type {
+	margin-bottom: 10px;
+}
+
+/** In metabox sidebar **/
+#side-sortables .butterbean-manager-default .butterbean-control {
+	margin-bottom: 0;
+}
+#side-sortables .butterbean-manager-default #butterbean-control-bgseo_dash_html.butterbean-control {
+	margin-bottom: 20px;
+}
+#side-sortables .butterbean-manager-default #butterbean-control-bgseo_description.butterbean-control {
+	margin-bottom: 20px;
+}
+#side-sortables .butterbean-manager-default #butterbean-control-bgseo_canonical.butterbean-control {
+	margin-bottom: 20px;
+}
+#side-sortables .butterbean-manager-default #butterbean-control-bgseo_custom_keyword.butterbean-control {
+	margin-bottom: 20px;
+}
+#side-sortables .butterbean-manager-default #butterbean-control-bgseo_meta_analaysis.butterbean-control {
+	margin-bottom: 10px;
+}
+#side-sortables .bgseo-keywords {
+	margin-bottom: 10px;
+}
+
+/** Keywords Section Styles **/
+.butterbean-manager-default #butterbean-control-bgseo_keywords_html.butterbean-control {
+	margin-bottom: 0;
+}
+.butterbean-manager-default #butterbean-control-bgseo_keyword_analaysis.butterbean-control {
+	margin-bottom: 11px;
+}

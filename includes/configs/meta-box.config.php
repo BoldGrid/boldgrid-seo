@@ -98,12 +98,12 @@ return array(
 			'label'       => __( 'Canonical Link', 'bgseo' ),
 			'description' => __( 'The canonical URL that this page should point to, leave it empty to default to the permalink.', 'bgseo' ),
 		),
-		'bgseo_keyword_analaysis' => array(
-			'type'        => 'dashboard',
-			'section'     => 'bgseo_keywords',
-		),
 		'bgseo_keywords_html' => array(
 			'type'        => 'keywords',
+			'section'     => 'bgseo_keywords',
+		),
+		'bgseo_keyword_analaysis' => array(
+			'type'        => 'dashboard',
 			'section'     => 'bgseo_keywords',
 		),
 		'bgseo_custom_keyword' => array(
@@ -114,7 +114,8 @@ return array(
 				'maxlength' => '60',
 				'class' => 'widefat',
 			),
-			'label'       => __( 'Custom SEO Target Keyword', 'bgseo' ),
+			'label'       => __( 'Target Keyword or Phrase', 'bgseo' ),
+			'description' => __( 'This should be what the main focus of this page or post is about.', 'bgseo' ),
 		),
 	),
 );
