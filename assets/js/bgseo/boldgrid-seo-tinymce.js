@@ -352,6 +352,9 @@
 								keywordDescription : {
 									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 								},
+								keywordContent : {
+									lengthScore : BOLDGRID.SEO.ContentAnalysis.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords() ),
+								},
 								sectionScore: {},
 								sectionStatus: {},
 							},
