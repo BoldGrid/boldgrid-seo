@@ -1,11 +1,12 @@
 <?php
-$base_path = wp_normalize_path( plugin_dir_path ( __FILE__ ) );
+$plugin = 'boldgrid-seo';
+$base_path = wp_normalize_path( plugin_dir_path( dirname( dirname(__FILE__) ) ) );
 $base_url  = dirname( plugin_dir_url( __DIR__ ) );
 return array(
-	'version' => '1.2',
+	'version' => implode( get_file_data( $base_path . $plugin . '.php', array( 'Version' ), 'plugin' ) ),
 	'plugin_path' => $base_path,
 	'plugin_url' => $base_url,
-	'plugin_name' => 'boldgrid-seo',
+	'plugin_name' => $plugin,
 	'ajax_calls' => array (
 		'get_plugin_version' => '/api/open/get-plugin-version',
 		'get_asset' => '/api/open/get-asset',

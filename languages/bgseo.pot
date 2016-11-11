@@ -39,10 +39,6 @@ msgstr ""
 msgid "Your content is over the recommended minimum of 300 words, good job!"
 msgstr ""
 
-#: includes/configs/i18n/contentanalysis.config.php:3
-msgid "Based on your content and frequent use, search engines will likely think this article is about: %s."
-msgstr ""
-
 #: includes/configs/i18n/headings.config.php:4
 msgid "It looks like this post is using only one H1 tag! Good job!"
 msgstr ""
