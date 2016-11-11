@@ -98,6 +98,16 @@
 
 			return msg;
 		},
+
+		/**
+		 * Get count of keywords used in the title.
+		 *
+		 * This checks the title for keyword frequency.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Number} Count of times keyword appears in the SEO title.
+		 */
 		keywords : function() {
 			var keyword = BOLDGRID.SEO.Keywords.getKeyword(),
 			    title = BOLDGRID.SEO.Title.getTitle().val();

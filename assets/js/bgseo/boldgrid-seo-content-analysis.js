@@ -83,6 +83,7 @@
 
 			return msg;
 		},
+
 		/**
 		 * Get count of keywords used in content.
 		 *

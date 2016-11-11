@@ -353,7 +353,7 @@
 									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 								},
 								keywordContent : {
-									lengthScore : BOLDGRID.SEO.ContentAnalysis.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
+									lengthScore : BOLDGRID.SEO.Keywords.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
 								},
 								sectionScore: {},
 								sectionStatus: {},

@@ -281,7 +281,48 @@
 			}
 
 			return msg;
-		}
+		},
+
+		/**
+		 * Gets keyword score for content.
+		 *
+		 * Used to get the status and message for the content's keyword usage.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} count The number of times keyword is used in the content.
+		 *
+		 * @returns {Object} msg Contains the status indicator color and message for report.
+		 */
+		contentScore : function( count ) {
+			var msg = {
+				status: 'green',
+				msg : _bgseoContentAnalysis.content.keywordUsage.good,
+			};
+
+			if ( 0 === count ) {
+				msg = {
+					status: 'red',
+					msg : _bgseoContentAnalysis.content.keywordUsage.bad,
+				};
+			}
+
+			if ( count.isBetween( 0, 3 ) ) {
+				msg = {
+					status: 'yellow',
+					msg : _bgseoContentAnalysis.content.keywordUsage.okShort,
+				};
+			}
+
+			if ( count > 3 ) {
+				msg = {
+					status: 'yellow',
+					msg : _bgseoContentAnalysis.content.keywordUsage.okLong,
+				};
+			}
+
+			return msg;
+		},
 	};
 
 	self = BOLDGRID.SEO.Keywords;
