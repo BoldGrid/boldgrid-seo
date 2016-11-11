@@ -1,5 +1,6 @@
 <?php
 return array(
+	'score' => __( 'Score: %s%.', 'bgseo' ), // Score generated based on content's readability.
 	'goodHigh' => __( 'Your content\'s readability is looking great! It\'s very easy to understand by the majority of readers!', 'bgseo' ),
 	'goodMedHigh' => __( 'The readability of your content is easy to understand by most readers! Awesome!', 'bgseo' ),
 	'goodMedLow' => __( 'Your content is pretty easy to understand by most readers.', 'bgseo' ),

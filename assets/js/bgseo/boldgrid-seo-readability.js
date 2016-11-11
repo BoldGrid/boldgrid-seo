@@ -42,7 +42,7 @@
 		 * @returns {Object} description Contains status, explanation and associated grade level.
 		 */
 		gradeAnalysis : function( grade ) {
-			var description = {};
+			var scoreTranslated, description = {};
 
 			// Grade is higher than 90.
 			if ( grade > 90 ) {
@@ -128,6 +128,9 @@
 					},
 				};
 			}
+			// Add translated score string to message.
+			scoreTranslated = _bgseoContentAnalysis.readingEase.score.printf( grade ) + ' ';
+			description.lengthScore.msg = description.lengthScore.msg.replace( /^/, scoreTranslated );
 
 			return description;
 		},

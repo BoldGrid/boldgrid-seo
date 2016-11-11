@@ -92,30 +92,34 @@ msgid "Your page is being blocked from search engine indexing!"
 msgstr ""
 
 #: includes/configs/i18n/readingEase.config.php:3
-msgid "Your content's readability is looking great! It's very easy to understand by the majority of readers!"
+msgid "Score: %s%."
 msgstr ""
 
 #: includes/configs/i18n/readingEase.config.php:4
-msgid "The readability of your content is easy to understand by most readers! Awesome!"
+msgid "Your content's readability is looking great! It's very easy to understand by the majority of readers!"
 msgstr ""
 
 #: includes/configs/i18n/readingEase.config.php:5
-msgid "Your content is pretty easy to understand by most readers."
+msgid "The readability of your content is easy to understand by most readers! Awesome!"
 msgstr ""
 
 #: includes/configs/i18n/readingEase.config.php:6
-msgid "The readability of this content is okay, but could use some improvements to reach a wider audience."
+msgid "Your content is pretty easy to understand by most readers."
 msgstr ""
 
 #: includes/configs/i18n/readingEase.config.php:7
-msgid "Your content is pretty hard to read, so you should try to simplify it."
+msgid "The readability of this content is okay, but could use some improvements to reach a wider audience."
 msgstr ""
 
 #: includes/configs/i18n/readingEase.config.php:8
-msgid "The content is hard to read. Try shortening some sentences and using less complex wording to improve this score."
+msgid "Your content is pretty hard to read, so you should try to simplify it."
 msgstr ""
 
 #: includes/configs/i18n/readingEase.config.php:9
+msgid "The content is hard to read. Try shortening some sentences and using less complex wording to improve this score."
+msgstr ""
+
+#: includes/configs/i18n/readingEase.config.php:10
 msgid "The text here is very hard to read, and is best understood by university graduates.  You should consider making your sentences shorter and using easier words for people to understand."
 msgstr ""
 
