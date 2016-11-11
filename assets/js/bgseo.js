@@ -613,6 +613,9 @@ BOLDGRID.SEO.Admin.init();
 								keywordDescription : {
 									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 								},
+								keywordContent : {
+									lengthScore : BOLDGRID.SEO.ContentAnalysis.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
+								},
 								sectionScore: {},
 								sectionStatus: {},
 							},
@@ -815,6 +818,21 @@ BOLDGRID.SEO.TinyMCE.init();
 			}
 
 			return msg;
+		},
+		/**
+		 * Get count of keywords used in content.
+		 *
+		 * This checks the content for occurences of the keyword used throughout.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {string} content The content to search for the keyword in.
+		 *
+		 * @returns {Number} Count of times keyword appears in content.
+		 */
+		keywords : function( content ) {
+			var keyword = BOLDGRID.SEO.Keywords.getKeyword();
+			return content.occurences( keyword );
 		},
 	};
 
