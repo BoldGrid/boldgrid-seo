@@ -230,16 +230,23 @@
 		 * @returns {Object} msg Contains the status indicator color and message for report.
 		 */
 		titleScore : function( count ) {
-			var msg = {
+			var msg;
+
+			// Default status and message.
+			msg = {
 				status: 'green',
 				msg : _bgseoContentAnalysis.seoTitle.keywordUsage.good,
 			};
+
+			// Keyword not used in title.
 			if ( 0 === count ) {
 				msg = {
 					status: 'red',
 					msg : _bgseoContentAnalysis.seoTitle.keywordUsage.bad,
 				};
 			}
+
+			// Keyword used in title at least once.
 			if ( count > 1 ) {
 				msg = {
 					status: 'yellow',
@@ -263,16 +270,23 @@
 		 * @returns {Object} msg Contains the status indicator color and message for report.
 		 */
 		descriptionScore : function( count ) {
-			var msg = {
+			var msg;
+
+			// Default status and message.
+			msg = {
 				status: 'green',
 				msg : _bgseoContentAnalysis.seoDescription.keywordUsage.good,
 			};
+
+			// If not used at all in description.
 			if ( 0 === count ) {
 				msg = {
 					status: 'red',
 					msg : _bgseoContentAnalysis.seoDescription.keywordUsage.bad,
 				};
 			}
+
+			// If used at least one time in description.
 			if ( count > 1 ) {
 				msg = {
 					status: 'yellow',
@@ -295,11 +309,15 @@
 		 * @returns {Object} msg Contains the status indicator color and message for report.
 		 */
 		contentScore : function( count ) {
-			var msg = {
+			var msg;
+
+			// Default message.
+			msg = {
 				status: 'green',
 				msg : _bgseoContentAnalysis.content.keywordUsage.good,
 			};
 
+			// Keyword not used at all in content.
 			if ( 0 === count ) {
 				msg = {
 					status: 'red',
@@ -307,6 +325,7 @@
 				};
 			}
 
+			// Keyword used 1-2 times in the content.
 			if ( count.isBetween( 0, 3 ) ) {
 				msg = {
 					status: 'yellow',
@@ -314,6 +333,7 @@
 				};
 			}
 
+			// Key word used more than 3 times in the content.
 			if ( count > 3 ) {
 				msg = {
 					status: 'yellow',
