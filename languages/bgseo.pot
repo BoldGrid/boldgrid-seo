@@ -39,6 +39,22 @@ msgstr ""
 msgid "Your content is over the recommended minimum of 300 words, good job!"
 msgstr ""
 
+#: includes/configs/i18n/content.config.php:10
+msgid "You haven't used your keyword in your content at all.  Try adding it naturally by talking about the subject more."
+msgstr ""
+
+#: includes/configs/i18n/content.config.php:11
+msgid "Your keyword is being used in your content, but we recommend using it at least 3 times."
+msgstr ""
+
+#: includes/configs/i18n/content.config.php:12
+msgid "Your keyword appears excessively in your content.  Try to only use it 3 times and use other words and variations that are related to it."
+msgstr ""
+
+#: includes/configs/i18n/content.config.php:13
+msgid "Great, you have included your keyword at least 3 times in your content. This helps get you a better SEO score!"
+msgstr ""
+
 #: includes/configs/i18n/headings.config.php:4
 msgid "It looks like this post is using only one H1 tag! Good job!"
 msgstr ""
