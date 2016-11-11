@@ -75,6 +75,14 @@ msgstr ""
 msgid "Try adding at least one image that's relevant to your content's topic to further optimize your page."
 msgstr ""
 
+#: includes/configs/i18n/keywords.config.php:5
+msgid "Based on your content and frequency, search engines will likely think your content is about"
+msgstr ""
+
+#: includes/configs/i18n/keywords.config.php:6
+msgid "Set a new target keyword below, and the dashboard will be updated with new stats!"
+msgstr ""
+
 #: includes/configs/i18n/noFollow.config.php:3
 msgid "Great, your links are set to follow for search engines!"
 msgstr ""
