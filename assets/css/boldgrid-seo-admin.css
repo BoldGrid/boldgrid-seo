@@ -60,17 +60,17 @@
 	background-color: #fafafa;
 }
 .butterbean-manager-default .butterbean-nav li.green a {
-	border-right: 9px solid green;
+	border-right: 5px solid green;
 	border-bottom: none;
 	margin-bottom: 1px;
 }
 .butterbean-manager-default .butterbean-nav li.yellow a {
-	border-right: 9px solid goldenrod;
+	border-right: 5px solid goldenrod;
 	border-bottom: none;
 	margin-bottom: 1px;
 }
 .butterbean-manager-default .butterbean-nav li.red a {
-	border-right: 9px solid red;
+	border-right: 5px solid red;
 	border-bottom: none;
 	margin-bottom: 1px;
 }
