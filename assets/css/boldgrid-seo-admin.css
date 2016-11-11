@@ -17,15 +17,6 @@
 	float: left;
 	margin-left: 32px;
 }
-.analysis-suggestion.red::before {
-	background: red;
-}
-.analysis-suggestion.green::before {
-	background: green;
-}
-.analysis-suggestion.yellow::before {
-	background: goldenrod;
-}
 
 /** Analysis suggestions in metabox sidebar **/
 #side-sortables .bgseo-recommendations {
@@ -35,6 +26,31 @@
 }
 #side-sortables .bgseo-recommendations:last-of-type {
 	margin-bottom : 0;
+}
+
+/** Overview Status **/
+.overview-status::before {
+	display: inline-block;
+	margin: 3px 10px 3px 0;
+	width: 13px;
+	height: 13px;
+	content: '';
+	vertical-align: middle;
+	border-radius: 100%;
+}
+
+/** Status Indicator Colors **/
+.overview-status.red::before,
+.analysis-suggestion.red::before {
+	background: red;
+}
+.overview-status.green::before,
+.analysis-suggestion.green::before {
+	background: green;
+}
+.overview-status.yellow::before,
+.analysis-suggestion.yellow::before {
+	background: goldenrod;
 }
 
 /** Nofollow/Noindex styles **/

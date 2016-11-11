@@ -395,7 +395,11 @@
 
 					// Listen to changes to the SEO Title and update report.
 					if ( eventInfo.titleLength ) {
-						report.bgseo_meta.title.length = eventInfo.titleLength;
+
+						_( report.bgseo_meta.title ).extend({
+							length : eventInfo.titleLength,
+							lengthScore:  BOLDGRID.SEO.Title.titleScore( eventInfo.titleLength ),
+						});
 
 						_( report.bgseo_meta.titleKeywordUsage ).extend({
 							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
@@ -416,10 +420,16 @@
 
 					// Listen to changes to the SEO Description and update report.
 					if ( eventInfo.descLength ) {
-						report.bgseo_meta.description.length = eventInfo.descLength;
+
+						_( report.bgseo_meta.description ).extend({
+							length : eventInfo.descLength,
+							lengthScore:  BOLDGRID.SEO.Description.descriptionScore( eventInfo.descLength ),
+						});
+
 						_( report.bgseo_meta.descKeywordUsage ).extend({
 							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
+
 						_( report.bgseo_keywords.keywordDescription ).extend({
 							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});

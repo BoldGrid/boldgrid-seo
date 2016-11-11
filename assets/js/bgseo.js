@@ -92,6 +92,7 @@
 
 			// Set the nav highlight indicator for each section's tab.
 			BOLDGRID.SEO.Sections.navHighlight( report );
+			BOLDGRID.SEO.Sections.overviewStatus( report );
 		},
 
 		// Renders the control template.
@@ -667,7 +668,11 @@ BOLDGRID.SEO.Admin.init();
 
 					// Listen to changes to the SEO Title and update report.
 					if ( eventInfo.titleLength ) {
-						report.bgseo_meta.title.length = eventInfo.titleLength;
+
+						_( report.bgseo_meta.title ).extend({
+							length : eventInfo.titleLength,
+							lengthScore:  BOLDGRID.SEO.Title.titleScore( eventInfo.titleLength ),
+						});
 
 						_( report.bgseo_meta.titleKeywordUsage ).extend({
 							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
@@ -688,10 +693,16 @@ BOLDGRID.SEO.Admin.init();
 
 					// Listen to changes to the SEO Description and update report.
 					if ( eventInfo.descLength ) {
-						report.bgseo_meta.description.length = eventInfo.descLength;
+
+						_( report.bgseo_meta.description ).extend({
+							length : eventInfo.descLength,
+							lengthScore:  BOLDGRID.SEO.Description.descriptionScore( eventInfo.descLength ),
+						});
+
 						_( report.bgseo_meta.descKeywordUsage ).extend({
 							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
+
 						_( report.bgseo_keywords.keywordDescription ).extend({
 							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
@@ -1825,6 +1836,10 @@ BOLDGRID.SEO.Robots.init();
 			return data;
 		},
 
+		removeStatus : function( selector ) {
+			selector.removeClass( 'red yellow green' );
+		},
+
 		navHighlight : function( report ) {
 			_.each( butterbean.models.sections, function( item ) {
 				var selector,
@@ -1832,10 +1847,15 @@ BOLDGRID.SEO.Robots.init();
 				    name = item.get( 'name' );
 
 				selector = $( '[href="#butterbean-' + manager + '-section-' + name + '"]' ).closest( 'li' );
-				selector.removeClass( 'red yellow green' );
+				self.removeStatus( selector );
 				selector.addClass( report[name].sectionStatus );
 			});
 		},
+		overviewStatus : function( report ) {
+			var selector = $( "#butterbean-ui-boldgrid_seo.postbox > h2 > span:contains('BoldGrid SEO')" );
+			self.removeStatus( selector );
+			selector.addClass( 'overview-status ' + report.bgseo_dashboard.overview.status );
+		}
 	};
 
 	self = BOLDGRID.SEO.Sections;

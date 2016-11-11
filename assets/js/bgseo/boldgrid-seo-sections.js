@@ -80,6 +80,10 @@
 			return data;
 		},
 
+		removeStatus : function( selector ) {
+			selector.removeClass( 'red yellow green' );
+		},
+
 		navHighlight : function( report ) {
 			_.each( butterbean.models.sections, function( item ) {
 				var selector,
@@ -87,10 +91,15 @@
 				    name = item.get( 'name' );
 
 				selector = $( '[href="#butterbean-' + manager + '-section-' + name + '"]' ).closest( 'li' );
-				selector.removeClass( 'red yellow green' );
+				self.removeStatus( selector );
 				selector.addClass( report[name].sectionStatus );
 			});
 		},
+		overviewStatus : function( report ) {
+			var selector = $( "#butterbean-ui-boldgrid_seo.postbox > h2 > span:contains('BoldGrid SEO')" );
+			self.removeStatus( selector );
+			selector.addClass( 'overview-status ' + report.bgseo_dashboard.overview.status );
+		}
 	};
 
 	self = BOLDGRID.SEO.Sections;

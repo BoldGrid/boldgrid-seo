@@ -92,6 +92,7 @@
 
 			// Set the nav highlight indicator for each section's tab.
 			BOLDGRID.SEO.Sections.navHighlight( report );
+			BOLDGRID.SEO.Sections.overviewStatus( report );
 		},
 
 		// Renders the control template.
