@@ -82,6 +82,17 @@
 			return content;
 		},
 
+		getHeadingText : function( selectors ) {
+			var headingText = [];
+
+			$( selectors ).each( function() {
+				var text = $.trim( $( this ).text() );
+				headingText.push( text );
+			});
+
+			return headingText;
+		},
+
 		/**
 		 * Only ajax for preview if permalink is available. This only
 		 * impacts "New" page and posts.  To counter
@@ -100,18 +111,19 @@
 			if ( $( '#sample-permalink' ).length ) {
 				// Only run this once after the initial iframe has loaded to get current template stats.
 				$.get( preview, function( renderedTemplate ) {
-					var $rendered = $( renderedTemplate ),
+					var headings, h1, h2, $rendered = $( renderedTemplate );
 
-					// Inital heading stats stored for later.
+					h1 = $rendered.find( 'h1' );
+					h2 = $rendered.find( 'h2' );
+
 					headings = {
 						h1 : {
-							length : $rendered.find( 'h1' ).length,
+							length : h1.length,
+							text : self.getHeadingText( h1 ),
 						},
 						h2 : {
-							length : $rendered.find( 'h2' ).length,
-						},
-						h3 : {
-							length : $rendered.find( 'h3' ).length,
+							length : h2.length,
+							text : self.getHeadingText( h2 ),
 						},
 					};
 
@@ -125,9 +137,10 @@
 
 					// The rendered content stats.
 					renderedContent = {
-						h1Count : $rendered.find( 'h1' ).length - report.rawstatistics.h1Count,
-						h2Count : $rendered.find( 'h2' ).length - report.rawstatistics.h2Count,
-						h3Count : $rendered.find( 'h3' ).length - report.rawstatistics.h3Count,
+						h1Count : h1.length - report.rawstatistics.h1Count,
+						h1text : _( self.getHeadingText( h1 ) ).difference( report.rawstatistics.h1text ),
+						h2Count : h2.length - report.rawstatistics.h2Count,
+						h2text : _( self.getHeadingText( h2 ) ).difference( report.rawstatistics.h2text ),
 					};
 
 					// Add the rendered stats to our report for use later.
@@ -241,12 +254,11 @@
 					count: {
 						h1 : {
 							length : report.rendered.h1Count + report.rawstatistics.h1Count,
+							text : _( report.rendered.h1text ).union( report.rawstatistics.h1text ),
 						},
 						h2 : {
 							length : report.rendered.h2Count + report.rawstatistics.h2Count,
-						},
-						h3 : {
-							length : report.rendered.h3Count + report.rawstatistics.h3Count,
+							text : _( report.rendered.h2text ).union( report.rawstatistics.h2text ),
 						},
 					},
 				};
@@ -300,16 +312,19 @@
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
-						var headings = {},
-						    raw = eventInfo.raw;
+						var h1 = $( eventInfo.raw ).find( 'h1' ),
+						    h2 = $( eventInfo.raw).find( 'h2' ),
+						    headings = {};
 
+						headings = {
+							h1Count : h1.length,
+							h1text : self.getHeadingText( h1 ),
+							h2Count : h2.length,
+							h2text : self.getHeadingText( h2 ),
+							imageCount: $( eventInfo.raw ).find( 'img' ).length,
+						};
 						// Set the heading counts and image count found in new content update.
-						_( report.rawstatistics ).extend({
-							'h1Count': $( raw ).find( 'h1' ).length,
-							'h2Count': $( raw ).find( 'h2' ).length,
-							'h3Count': $( raw ).find( 'h3' ).length,
-							imageCount: $( raw ).find( 'img' ).length,
-						});
+						_( report.rawstatistics ).extend(headings);
 					}
 
 					// Listen for changes to the actual text entered by user.
