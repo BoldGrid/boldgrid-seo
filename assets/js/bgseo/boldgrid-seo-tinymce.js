@@ -101,24 +101,27 @@
 				// Only run this once after the initial iframe has loaded to get current template stats.
 				$.get( preview, function( renderedTemplate ) {
 					var $rendered = $( renderedTemplate ),
-						// Inital heading stats stored for later.
-						headings = {
-							h1 : {
-								length : $rendered.find( 'h1' ).length,
-							},
-							h2 : {
-								length : $rendered.find( 'h2' ).length,
-							},
-							h3 : {
-								length : $rendered.find( 'h3' ).length,
-							},
-						};
 
-					// Add the scoring for the h1 to report on.
-					_.extend( headings.h1, { lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ) } );
+					// Inital heading stats stored for later.
+					headings = {
+						h1 : {
+							length : $rendered.find( 'h1' ).length,
+						},
+						h2 : {
+							length : $rendered.find( 'h2' ).length,
+						},
+						h3 : {
+							length : $rendered.find( 'h3' ).length,
+						},
+					};
 
 					// Set initial headings count.
-					_.extend( report.bgseo_dashboard, headings );
+					_( report.bgseo_dashboard ).extend({
+						headings : {
+							count : headings,
+							lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ),
+						},
+					});
 
 					// The rendered content stats.
 					renderedContent = {
@@ -216,6 +219,48 @@
 		},
 
 		/**
+		 * Gets the actual headings count based on the rendered page and the content.
+		 *
+		 * This only needs to be fired if the rendered report
+		 * data is available for analysis.  The calculations take
+		 * into account the template in use for the page/post and
+		 * are stored earlier on in the load process when the user
+		 * first enters the editor.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} headings Count of H1, H2, and H3 tags used for page/post.
+		 */
+		getRealHeadingCount : function() {
+			var headings = {};
+
+			// Only get this score if rendered content score has been provided.
+			if ( ! _.isUndefined( report.rendered ) ) {
+				// Stores the heading coutns for h1-h3 for later analysis.
+				headings = {
+					count: {
+						h1 : {
+							length : report.rendered.h1Count + report.rawstatistics.h1Count,
+						},
+						h2 : {
+							length : report.rendered.h2Count + report.rawstatistics.h2Count,
+						},
+						h3 : {
+							length : report.rendered.h3Count + report.rawstatistics.h3Count,
+						},
+					},
+				};
+
+				// Add the score of H1 presence to the headings object.
+				_( headings ).extend({
+					lengthScore : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
+				});
+			}
+
+			return headings;
+		},
+
+		/**
 		 * Generate the Report based on analysis done.
 		 *
 		 * This will generate a report object and then trigger the
@@ -232,7 +277,7 @@
 				var words, titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
 				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
-				// Sets wordCount values.
+				// Sets wordCount values in report object.
 				if ( eventInfo.count ) {
 					words = {
 						length : eventInfo.count,
@@ -244,9 +289,8 @@
 							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
 						};
 					}
-					_( report.bgseo_dashboard ).extend({
-						content : words
-					});
+
+					// Update the word count in the report.
 					_( report.bgseo_dashboard ).extend({
 						wordCount : words,
 					});
@@ -266,41 +310,12 @@
 							'h3Count': $( raw ).find( 'h3' ).length,
 							imageCount: $( raw ).find( 'img' ).length,
 						});
-
-						/**
-						 * This only needs to be fired if the rendered report
-						 * data is available for analysis.  The calculations take
-						 * into account the template in use for the page/post and
-						 * are stored earlier on in the load process when the user
-						 * first enters the editor.
-						 */
-						if ( ! _.isUndefined( report.rendered ) ) {
-							// Stores the heading coutns for h1-h3 for later analysis.
-							headings = {
-								h1 : {
-									length : report.rendered.h1Count + report.rawstatistics.h1Count,
-								},
-								h2 : {
-									length : report.rendered.h2Count + report.rawstatistics.h2Count,
-								},
-								h3 : {
-									length : report.rendered.h3Count + report.rawstatistics.h3Count,
-								},
-							};
-
-							// Generates the scoring for h1 usage with status indicator and message.
-							_( headings.h1 ).extend({
-								lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ),
-							});
-
-							// Adds and updates the true heading count as the user modifies content.
-							_( report.bgseo_dashboard ).extend( headings );
-						}
 					}
 
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
-						var customKeyword, content = eventInfo.text;
+						var customKeyword,
+						    content = eventInfo.text;
 
 						// Set the default report items.
 						_( report ).extend({
@@ -315,6 +330,8 @@
 									length : report.rawstatistics.imageCount,
 									lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
 								},
+								headings : self.getRealHeadingCount(),
+
 							},
 							bgseo_meta : {
 								title : {
