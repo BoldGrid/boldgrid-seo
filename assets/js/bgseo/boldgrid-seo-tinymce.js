@@ -134,7 +134,13 @@
 							lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ),
 						},
 					});
-
+					// Update the keywordHeadings object.
+					_( report.bgseo_keywords ).extend({
+						keywordHeadings : {
+							length : BOLDGRID.SEO.Headings.keywords({ count: headings }),
+							lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords({ count: headings }) ),
+						},
+					});
 					// The rendered content stats.
 					renderedContent = {
 						h1Count : h1.length - report.rawstatistics.h1Count,
@@ -262,7 +268,6 @@
 						},
 					},
 				};
-
 				// Add the score of H1 presence to the headings object.
 				_( headings ).extend({
 					lengthScore : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
@@ -324,12 +329,13 @@
 							imageCount: $( eventInfo.raw ).find( 'img' ).length,
 						};
 						// Set the heading counts and image count found in new content update.
-						_( report.rawstatistics ).extend(headings);
+						_( report.rawstatistics ).extend( headings );
 					}
 
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
 						var customKeyword,
+						    headingCount = self.getRealHeadingCount(),
 						    content = eventInfo.text;
 
 						// Set the default report items.
@@ -345,8 +351,7 @@
 									length : report.rawstatistics.imageCount,
 									lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
 								},
-								headings : self.getRealHeadingCount(),
-
+								headings : headingCount,
 							},
 							bgseo_meta : {
 								title : {
@@ -386,6 +391,10 @@
 								},
 								keywordContent : {
 									lengthScore : BOLDGRID.SEO.Keywords.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
+								},
+								keywordHeadings : {
+									length : BOLDGRID.SEO.Headings.keywords( headingCount ),
+									lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords( headingCount ) ),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -481,6 +490,7 @@
 						});
 					}
 				}
+				console.log( report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});

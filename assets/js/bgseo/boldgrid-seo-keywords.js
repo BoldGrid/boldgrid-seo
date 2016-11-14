@@ -343,6 +343,44 @@
 
 			return msg;
 		},
+
+		/**
+		 * Gets keyword score for headings.
+		 *
+		 * Used to get the status and message for the heading's keyword usage.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} count The number of times keyword is used in the headings.
+		 *
+		 * @returns {Object} msg Contains the status indicator color and message for report.
+		 */
+		headingScore : function( count ) {
+			var msg;
+
+			// Default message.
+			msg = {
+				status: 'green',
+				msg : _bgseoContentAnalysis.headings.keywordUsage.good,
+			};
+
+			// Keyword not used at all in content.
+			if ( 0 === count ) {
+				msg = {
+					status: 'red',
+					msg : _bgseoContentAnalysis.headings.keywordUsage.bad,
+				};
+			}
+			// Key word used more than 3 times in the content.
+			if ( count > 3 ) {
+				msg = {
+					status: 'yellow',
+					msg : _bgseoContentAnalysis.headings.keywordUsage.ok,
+				};
+			}
+
+			return msg;
+		},
 	};
 
 	self = BOLDGRID.SEO.Keywords;

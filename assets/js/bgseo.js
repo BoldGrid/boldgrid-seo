@@ -407,7 +407,13 @@ BOLDGRID.SEO.Admin.init();
 							lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ),
 						},
 					});
-
+					// Update the keywordHeadings object.
+					_( report.bgseo_keywords ).extend({
+						keywordHeadings : {
+							length : BOLDGRID.SEO.Headings.keywords({ count: headings }),
+							lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords({ count: headings }) ),
+						},
+					});
 					// The rendered content stats.
 					renderedContent = {
 						h1Count : h1.length - report.rawstatistics.h1Count,
@@ -535,7 +541,6 @@ BOLDGRID.SEO.Admin.init();
 						},
 					},
 				};
-
 				// Add the score of H1 presence to the headings object.
 				_( headings ).extend({
 					lengthScore : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
@@ -597,12 +602,13 @@ BOLDGRID.SEO.Admin.init();
 							imageCount: $( eventInfo.raw ).find( 'img' ).length,
 						};
 						// Set the heading counts and image count found in new content update.
-						_( report.rawstatistics ).extend(headings);
+						_( report.rawstatistics ).extend( headings );
 					}
 
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
 						var customKeyword,
+						    headingCount = self.getRealHeadingCount(),
 						    content = eventInfo.text;
 
 						// Set the default report items.
@@ -618,8 +624,7 @@ BOLDGRID.SEO.Admin.init();
 									length : report.rawstatistics.imageCount,
 									lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
 								},
-								headings : self.getRealHeadingCount(),
-
+								headings : headingCount,
 							},
 							bgseo_meta : {
 								title : {
@@ -659,6 +664,10 @@ BOLDGRID.SEO.Admin.init();
 								},
 								keywordContent : {
 									lengthScore : BOLDGRID.SEO.Keywords.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
+								},
+								keywordHeadings : {
+									length : BOLDGRID.SEO.Headings.keywords( headingCount ),
+									lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords( headingCount ) ),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -754,6 +763,7 @@ BOLDGRID.SEO.Admin.init();
 						});
 					}
 				}
+				console.log( report );
 				// Send the final analysis to display the report.
 				$( '#content' ).trigger( 'bgseo-report', [report] );
 			});
@@ -1167,6 +1177,31 @@ BOLDGRID.SEO.Description.init();
 			}
 			return msg;
 		},
+		/**
+		 * Gets count of how many times keywords appear in headings.
+		 *
+		 * @since 1.3.1
+		 */
+		keywords : function( headings ) {
+			var found = { length : 0 },
+			    keyword = BOLDGRID.SEO.Keywords.getKeyword(),
+			    report = BOLDGRID.SEO.TinyMCE.getReport();
+
+				if ( _.isUndefined( headings ) ) {
+					headings = report.bgseo_dashboard.headings.count;
+				}
+
+				_( headings.count ).each( function( value, key ) {
+					var text = value.text;
+					_( text ).each( function( item ) {
+
+						_( found ).extend({ length : Number( found.length ) + Number( item.occurences( keyword ) ) });
+					});
+				});
+
+
+			return found.length;
+		},
 	};
 
 	self = BOLDGRID.SEO.Headings;
@@ -1513,6 +1548,44 @@ BOLDGRID.SEO.Description.init();
 				msg = {
 					status: 'yellow',
 					msg : _bgseoContentAnalysis.content.keywordUsage.okLong,
+				};
+			}
+
+			return msg;
+		},
+
+		/**
+		 * Gets keyword score for headings.
+		 *
+		 * Used to get the status and message for the heading's keyword usage.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} count The number of times keyword is used in the headings.
+		 *
+		 * @returns {Object} msg Contains the status indicator color and message for report.
+		 */
+		headingScore : function( count ) {
+			var msg;
+
+			// Default message.
+			msg = {
+				status: 'green',
+				msg : _bgseoContentAnalysis.headings.keywordUsage.good,
+			};
+
+			// Keyword not used at all in content.
+			if ( 0 === count ) {
+				msg = {
+					status: 'red',
+					msg : _bgseoContentAnalysis.headings.keywordUsage.bad,
+				};
+			}
+			// Key word used more than 3 times in the content.
+			if ( count > 3 ) {
+				msg = {
+					status: 'yellow',
+					msg : _bgseoContentAnalysis.headings.keywordUsage.ok,
 				};
 			}
 
