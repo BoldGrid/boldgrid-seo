@@ -80,14 +80,14 @@ gulp.task('readme', function() {
 
 // Clone remote repo to sub folder ($CWD/sub/folder/git-test)
 gulp.task( 'clone', function() {
-  git.clone( 'https://github.com/justintadlock/butterbean', { args: '-b dev --single-branch ' + config.src + '/includes/lib/butterbean' }, function( err ) {
+  git.clone( 'https://github.com/justintadlock/butterbean', { args: '-b dev --single-branch ' + config.src + config.bowerDir + '/butterbean' }, function( err ) {
     // silent
   });
   git.clone( 'https://github.com/cgiffard/TextStatistics.js', { args: config.src + '/assets/js/text-statistics' }, function( err ) {
     // silent
   });
   var files = [
-      config.src + '/includes/lib/butterbean/.git',
+      config.src + config.bowerDir + '/butterbean/.git',
       config.src + '/assets/js/text-statistics/.git',
       config.src + '/assets/js/text-statistics/test',
       config.src + '/assets/js/text-statistics/.gitignore',
@@ -97,5 +97,10 @@ gulp.task( 'clone', function() {
   });
 });
 
+gulp.task( 'copyLibs', ['clone'], function() {
+	gulp.src( config.src + config.bowerDir + '/butterbean/**/*' )
+	.pipe( gulp.dest( config.dist + '/includes/lib/butterbean' ) );
+});
+
 // Build.
-gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone' ] );
+gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone', 'copyLibs' ] );
