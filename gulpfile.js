@@ -7,7 +7,8 @@ var gulp     = require( 'gulp' ),
     sort     = require( 'gulp-sort' ),
     git      = require( 'gulp-git' ),
     concat   = require( 'gulp-concat' ),
-	pump     = require( 'pump' ),
+    pump     = require( 'pump' ),
+    del      = require( 'del' ),
     readme   = require( 'gulp-readme-to-markdown' );
 
 // Configs.
@@ -79,19 +80,22 @@ gulp.task('readme', function() {
 
 // Clone remote repo to sub folder ($CWD/sub/folder/git-test)
 gulp.task( 'clone', function() {
-  git.clone( 'https://github.com/justintadlock/butterbean', { args: config.src + '/includes/lib/butterbean' }, function( err ) {
+  git.clone( 'https://github.com/justintadlock/butterbean', { args: '-b dev --single-branch ' + config.src + '/includes/lib/butterbean' }, function( err ) {
     // silent
   });
   git.clone( 'https://github.com/cgiffard/TextStatistics.js', { args: config.src + '/assets/js/text-statistics' }, function( err ) {
     // silent
   });
-});
-
-gulp.task( 'checkout', ['clone'], function() {
-  git.checkout( 'dev', { cwd: config.src + '/includes/lib/butterbean' }, function ( err ) {
-    // silent.  if ( err ) throw err;
+  var files = [
+      config.src + '/includes/lib/butterbean/.git',
+      config.src + '/assets/js/text-statistics/.git',
+      config.src + '/assets/js/text-statistics/test',
+      config.src + '/assets/js/text-statistics/.gitignore',
+  ];
+  files.forEach( function( file ) {
+    del( file );
   });
 });
 
 // Build.
-gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone', 'checkout'] );
+gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone' ] );

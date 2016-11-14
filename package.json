@@ -23,9 +23,11 @@
   },
   "homepage": "https://github.com/BoldGrid/boldgrid-seo#readme",
   "devDependencies": {
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-cssnano": "^2.1.1",
+    "gulp-git": "^1.12.0",
     "gulp-jshint": "^2.0.0",
     "gulp-readme-to-markdown": "^0.1.1-1",
     "gulp-rename": "^1.2.2",
@@ -36,7 +38,4 @@
     "jshint-stylish": "^2.1.0",
     "pump": "^1.0.1"
   },
-  "dependencies": {
-    "gulp-git": "^1.11.0"
-  }
 }
