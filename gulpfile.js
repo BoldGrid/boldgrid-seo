@@ -80,26 +80,30 @@ gulp.task('readme', function() {
 
 // Clone remote repo to sub folder ($CWD/sub/folder/git-test)
 gulp.task( 'clone', function() {
+    // Files to remove.
+    var files = [
+        config.src + config.bowerDir + '/butterbean/.git',
+        config.src + config.bowerDir + '/text-statistics/.git',
+        config.src + config.bowerDir + '/text-statistics/test',
+        config.src + config.bowerDir + '/text-statistics/.gitignore',
+    ];
   git.clone( 'https://github.com/justintadlock/butterbean', { args: '-b dev --single-branch ' + config.src + config.bowerDir + '/butterbean' }, function( err ) {
     // silent
   });
-  git.clone( 'https://github.com/cgiffard/TextStatistics.js', { args: config.src + '/assets/js/text-statistics' }, function( err ) {
+  git.clone( 'https://github.com/cgiffard/TextStatistics.js', { args: config.src + config.bowerDir + '/text-statistics' }, function( err ) {
     // silent
   });
-  var files = [
-      config.src + config.bowerDir + '/butterbean/.git',
-      config.src + '/assets/js/text-statistics/.git',
-      config.src + '/assets/js/text-statistics/test',
-      config.src + '/assets/js/text-statistics/.gitignore',
-  ];
   files.forEach( function( file ) {
     del( file );
   });
 });
 
+// Copy lib files into repo.
 gulp.task( 'copyLibs', ['clone'], function() {
-	gulp.src( config.src + config.bowerDir + '/butterbean/**/*' )
-	.pipe( gulp.dest( config.dist + '/includes/lib/butterbean' ) );
+  gulp.src( config.src + config.bowerDir + '/butterbean/**/*' )
+    .pipe( gulp.dest( config.dist + '/includes/lib/butterbean' ) );
+  gulp.src( config.src + config.bowerDir + '/text-statistics/**/*.{js,md}' )
+      .pipe( gulp.dest( config.dist + '/assets/js/text-statistics' ) );
 });
 
 // Build.
