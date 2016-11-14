@@ -76,6 +76,9 @@ class Boldgrid_Seo_Util {
 		// Check how many setences we have left and prepare the string for output.
 		$string = $this->construct_sentences( $sentences );
 
+		// Remove whitespace from string.
+		$string = trim( $string );
+
 		return $string;
 	}
 
@@ -143,7 +146,11 @@ class Boldgrid_Seo_Util {
 		$description = '';
 		if ( isset( $_GET['action'] ) && 'edit' === $_GET['action'] &&
 			isset( $_GET['post'] ) && $meta = get_post_field( 'post_content', $_GET['post'] ) ) {
+				// Get the first words of the page or post.
 				$description = wp_trim_words( strip_shortcodes( $meta ), '30', '' );
+				// Trim leading/trailing whitespace and html entities.
+				$description = trim( html_entity_decode( $description ), " \t\n\r\0\x0B\xC2\xA0" );
+				// Clean up description.
 				$description = $this->get_sentences( $description );
 		}
 
