@@ -35,28 +35,35 @@
 			}
 			return msg;
 		},
+
 		/**
 		 * Gets count of how many times keywords appear in headings.
 		 *
 		 * @since 1.3.1
+		 *
+		 * @param {Object} headings The headings count object to check against.
+		 *
+		 * @returns {Number} How many times the keyword appears in the headings.
 		 */
 		keywords : function( headings ) {
 			var found = { length : 0 },
 			    keyword = BOLDGRID.SEO.Keywords.getKeyword(),
 			    report = BOLDGRID.SEO.TinyMCE.getReport();
 
-				if ( _.isUndefined( headings ) ) {
-					headings = report.bgseo_dashboard.headings.count;
-				}
+			// If not passing in headings, get the headings count from the reporter.
+			if ( _.isUndefined( headings ) ) {
+				headings = report.bgseo_dashboard.headings.count;
+			}
 
-				_( headings.count ).each( function( value, key ) {
-					var text = value.text;
-					_( text ).each( function( item ) {
-
-						_( found ).extend({ length : Number( found.length ) + Number( item.occurences( keyword ) ) });
+			_( headings.count ).each( function( value, key ) {
+				var text = value.text;
+				// Add to the found object for total occurences found for keyword in headings.
+				_( text ).each( function( item ) {
+					_( found ).extend({
+						length : Number( found.length ) + Number( item.occurences( keyword ) ),
 					});
 				});
-
+			});
 
 			return found.length;
 		},
