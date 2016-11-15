@@ -1,9 +1,9 @@
 <div class="bgseo-analysis">
 	<# _.each( data.analysis, function( recommendation ) { #>
-		<# if ( ! _.isUndefined( recommendation.lengthScore ) ) { #>
+		<# if ( ! _.isUndefined( recommendation.score ) ) { #>
 		<div class="bgseo-recommendations">
-			<span class="analysis-suggestion {{{ recommendation.lengthScore.status }}}">
-				{{{ recommendation.lengthScore.msg }}}
+			<span class="analysis-suggestion {{{ recommendation.score.status }}}">
+				{{{ recommendation.score.msg }}}
 			</span>
 		</div>
 		<# } #>
@@ -13,7 +13,7 @@
 	<# if ( ! _.isUndefined( data.textstatistics.gradeLevel ) ) { #>
 		<div class="bgseo-recommendations">
 			<span class="analysis-suggestion {{{ data.textstatistics.gradeLevel.status }}}">
-				Score: {{{ data.textstatistics.gradeLevel.score }}}%. {{{ data.textstatistics.gradeLevel.msg }}}
+				Score: {{{ data.textstatistics.gradeLevel.grade }}}%. {{{ data.textstatistics.gradeLevel.msg }}}
 			</span>
 		</div>
 	<# } #>

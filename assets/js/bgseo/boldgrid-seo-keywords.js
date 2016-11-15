@@ -43,11 +43,11 @@
 					keywords : {
 						title : {
 							length : BOLDGRID.SEO.Title.keywords(),
-							lengthScore : 0,
+							score : 0,
 						},
 						description : {
 							length : BOLDGRID.SEO.Description.keywords(),
-							lengthScore : 0,
+							score : 0,
 						},
 						keyword : $.trim( $( this ).val() ),
 					},

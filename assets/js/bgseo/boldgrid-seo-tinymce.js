@@ -128,14 +128,14 @@
 					_( report.bgseo_dashboard ).extend({
 						headings : {
 							count : headings,
-							lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ),
+							score : BOLDGRID.SEO.Headings.score( headings.h1.length ),
 						},
 					});
 					// Update the keywordHeadings object.
 					_( report.bgseo_keywords ).extend({
 						keywordHeadings : {
 							length : BOLDGRID.SEO.Headings.keywords({ count: headings }),
-							lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords({ count: headings }) ),
+							score : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords({ count: headings }) ),
 						},
 					});
 					// The rendered content stats.
@@ -257,12 +257,12 @@
 				if ( eventInfo.count ) {
 					words = {
 						length : eventInfo.count,
-						lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
+						score : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
 					};
 					if ( eventInfo.count === 0 ) {
 						words = {
 							length : 0,
-							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
+							score : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
 						};
 					}
 
@@ -310,29 +310,29 @@
 								sectionStatus: {},
 								image : {
 									length : report.rawstatistics.imageCount,
-									lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
+									score: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
 								},
 								headings : headingCount,
 								wordCount: {
-									lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
+									score : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
 								}
 							},
 
 							bgseo_meta : {
 								title : {
 									length : titleLength,
-									lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
+									score:  BOLDGRID.SEO.Title.titleScore( titleLength ),
 								},
 								description : {
 									length : descriptionLength,
-									lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
+									score:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
 									keywordUsage : BOLDGRID.SEO.Description.keywords(),
 								},
 								titleKeywordUsage : {
-									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+									score : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 								},
 								descKeywordUsage : {
-									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+									score : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -340,10 +340,10 @@
 
 							bgseo_visibility : {
 								robotIndex : {
-									lengthScore: BOLDGRID.SEO.Robots.indexScore(),
+									score: BOLDGRID.SEO.Robots.indexScore(),
 								},
 								robotFollow : {
-									lengthScore: BOLDGRID.SEO.Robots.followScore(),
+									score: BOLDGRID.SEO.Robots.followScore(),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -351,17 +351,17 @@
 
 							bgseo_keywords : {
 								keywordTitle : {
-									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+									score : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 								},
 								keywordDescription : {
-									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+									score : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 								},
 								keywordContent : {
-									lengthScore : BOLDGRID.SEO.Keywords.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
+									score : BOLDGRID.SEO.Keywords.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
 								},
 								keywordHeadings : {
 									length : BOLDGRID.SEO.Headings.keywords( headingCount ),
-									lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords( headingCount ) ),
+									score : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords( headingCount ) ),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -408,15 +408,15 @@
 
 						_( report.bgseo_meta.title ).extend({
 							length : eventInfo.titleLength,
-							lengthScore:  BOLDGRID.SEO.Title.titleScore( eventInfo.titleLength ),
+							score :  BOLDGRID.SEO.Title.titleScore( eventInfo.titleLength ),
 						});
 
 						_( report.bgseo_meta.titleKeywordUsage ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+							score : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 						});
 
 						_( report.bgseo_keywords.keywordTitle ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+							score : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 						});
 					}
 
@@ -433,29 +433,29 @@
 
 						_( report.bgseo_meta.description ).extend({
 							length : eventInfo.descLength,
-							lengthScore:  BOLDGRID.SEO.Description.descriptionScore( eventInfo.descLength ),
+							score:  BOLDGRID.SEO.Description.descriptionScore( eventInfo.descLength ),
 						});
 
 						_( report.bgseo_meta.descKeywordUsage ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+							score : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
 
 						_( report.bgseo_keywords.keywordDescription ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+							score : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
 					}
 
 					// Listen for changes to noindex/index and update report.
 					if ( eventInfo.robotIndex ) {
 						_( report.bgseo_visibility.robotIndex ).extend({
-							lengthScore : eventInfo.robotIndex,
+							score : eventInfo.robotIndex,
 						});
 					}
 
 					// Listen for changes to nofollow/follow and update report.
 					if ( eventInfo.robotFollow ) {
 						_( report.bgseo_visibility.robotFollow ).extend({
-							lengthScore : eventInfo.robotFollow,
+							score : eventInfo.robotFollow,
 						});
 					}
 				}
