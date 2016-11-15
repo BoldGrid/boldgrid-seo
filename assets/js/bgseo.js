@@ -585,7 +585,12 @@ BOLDGRID.SEO.Admin.init();
 						wordCount : words,
 					});
 				}
-
+				// Set default wordCount first.
+				_( report.bgseo_dashboard ).extend({
+					wordCount: {
+						length : Number( $( '#wp-word-count .word-count' ).text() ),
+					},
+				});
 				// Listen for event changes being triggered.
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
@@ -616,15 +621,14 @@ BOLDGRID.SEO.Admin.init();
 							bgseo_dashboard : {
 								sectionScore: {},
 								sectionStatus: {},
-								wordCount : {
-									length : Number( $( '#wp-word-count .word-count' ).text() ),
-									lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
-								},
 								image : {
 									length : report.rawstatistics.imageCount,
 									lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
 								},
 								headings : headingCount,
+								wordCount: {
+									lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
+								}
 							},
 							bgseo_meta : {
 								title : {
