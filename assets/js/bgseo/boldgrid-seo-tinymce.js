@@ -82,17 +82,6 @@
 			return content;
 		},
 
-		getHeadingText : function( selectors ) {
-			var headingText = [];
-
-			$( selectors ).each( function() {
-				var text = $.trim( $( this ).text() );
-				headingText.push( text );
-			});
-
-			return headingText;
-		},
-
 		/**
 		 * Only ajax for preview if permalink is available. This only
 		 * impacts "New" page and posts.  To counter
@@ -106,24 +95,32 @@
 		 * @returns null No return.
 		 */
 		getRenderedContent : function() {
-			var renderedContent, preview = $( '#preview-action > .preview.button' ).attr( 'href' );
+			var renderedContent, preview;
+
+			// Get the preview url from WordPress.
+			preview = $( '#preview-action > .preview.button' ).attr( 'href' );
 
 			if ( $( '#sample-permalink' ).length ) {
 				// Only run this once after the initial iframe has loaded to get current template stats.
 				$.get( preview, function( renderedTemplate ) {
-					var headings, h1, h2, $rendered = $( renderedTemplate );
+					var headings, h1, h2, $rendered;
 
+					// The rendered page content.
+					$rendered = $( renderedTemplate );
+
+					// H1's that appear in rendered content.
 					h1 = $rendered.find( 'h1' );
+					// HS's that appear in rendered content.
 					h2 = $rendered.find( 'h2' );
 
 					headings = {
 						h1 : {
 							length : h1.length,
-							text : self.getHeadingText( h1 ),
+							text : BOLDGRID.SEO.Headings.getHeadingText( h1 ),
 						},
 						h2 : {
 							length : h2.length,
-							text : self.getHeadingText( h2 ),
+							text : BOLDGRID.SEO.Headings.getHeadingText( h2 ),
 						},
 					};
 
@@ -144,9 +141,9 @@
 					// The rendered content stats.
 					renderedContent = {
 						h1Count : h1.length - report.rawstatistics.h1Count,
-						h1text : _( self.getHeadingText( h1 ) ).difference( report.rawstatistics.h1text ),
+						h1text : _( BOLDGRID.SEO.Headings.getHeadingText( h1 ) ).difference( report.rawstatistics.h1text ),
 						h2Count : h2.length - report.rawstatistics.h2Count,
-						h2text : _( self.getHeadingText( h2 ) ).difference( report.rawstatistics.h2text ),
+						h2text : _( BOLDGRID.SEO.Headings.getHeadingText( h2 ) ).difference( report.rawstatistics.h2text ),
 					};
 
 					// Add the rendered stats to our report for use later.
@@ -238,46 +235,6 @@
 		},
 
 		/**
-		 * Gets the actual headings count based on the rendered page and the content.
-		 *
-		 * This only needs to be fired if the rendered report
-		 * data is available for analysis.  The calculations take
-		 * into account the template in use for the page/post and
-		 * are stored earlier on in the load process when the user
-		 * first enters the editor.
-		 *
-		 * @since 1.3.1
-		 *
-		 * @returns {Object} headings Count of H1, H2, and H3 tags used for page/post.
-		 */
-		getRealHeadingCount : function() {
-			var headings = {};
-
-			// Only get this score if rendered content score has been provided.
-			if ( ! _.isUndefined( report.rendered ) ) {
-				// Stores the heading coutns for h1-h3 for later analysis.
-				headings = {
-					count: {
-						h1 : {
-							length : report.rendered.h1Count + report.rawstatistics.h1Count,
-							text : _( report.rendered.h1text ).union( report.rawstatistics.h1text ),
-						},
-						h2 : {
-							length : report.rendered.h2Count + report.rawstatistics.h2Count,
-							text : _( report.rendered.h2text ).union( report.rawstatistics.h2text ),
-						},
-					},
-				};
-				// Add the score of H1 presence to the headings object.
-				_( headings ).extend({
-					lengthScore : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
-				});
-			}
-
-			return headings;
-		},
-
-		/**
 		 * Generate the Report based on analysis done.
 		 *
 		 * This will generate a report object and then trigger the
@@ -287,12 +244,14 @@
 		 * @since 1.3.1
 		 */
 		generateReport : function() {
-			var words,
-				count;
-
 			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
-				var words, titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length,
-				    descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
+				var words, titleLength, descriptionLength;
+
+				// Get length of title field.
+				titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length;
+
+				// Get length of description field.
+				descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
 				// Sets wordCount values in report object.
 				if ( eventInfo.count ) {
@@ -328,9 +287,9 @@
 
 						headings = {
 							h1Count : h1.length,
-							h1text : self.getHeadingText( h1 ),
+							h1text : BOLDGRID.SEO.Headings.getHeadingText( h1 ),
 							h2Count : h2.length,
-							h2text : self.getHeadingText( h2 ),
+							h2text : BOLDGRID.SEO.Headings.getHeadingText( h2 ),
 							imageCount: $( eventInfo.raw ).find( 'img' ).length,
 						};
 						// Set the heading counts and image count found in new content update.
@@ -340,11 +299,12 @@
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
 						var customKeyword,
-						    headingCount = self.getRealHeadingCount(),
+						    headingCount = BOLDGRID.SEO.Headings.getRealHeadingCount(),
 						    content = eventInfo.text;
 
 						// Set the default report items.
 						_( report ).extend({
+
 							bgseo_dashboard : {
 								sectionScore: {},
 								sectionStatus: {},
@@ -357,6 +317,7 @@
 									lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
 								}
 							},
+
 							bgseo_meta : {
 								title : {
 									length : titleLength,
@@ -376,6 +337,7 @@
 								sectionScore: {},
 								sectionStatus: {},
 							},
+
 							bgseo_visibility : {
 								robotIndex : {
 									lengthScore: BOLDGRID.SEO.Robots.indexScore(),
@@ -386,6 +348,7 @@
 								sectionScore: {},
 								sectionStatus: {},
 							},
+
 							bgseo_keywords : {
 								keywordTitle : {
 									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
@@ -403,9 +366,11 @@
 								sectionScore: {},
 								sectionStatus: {},
 							},
+
 							textstatistics : {
 								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
 							},
+
 						});
 
 						/**
