@@ -1406,7 +1406,7 @@ BOLDGRID.SEO = {
 			var customKeyword,
 			    content = api.TinyMCE.getContent();
 				content = $.trim( content.text );
-				console.log( _.isEmpty( content.text ) );
+
 			if ( self.getCustomKeyword().length ) {
 				customKeyword = self.getCustomKeyword();
 			} else if ( ! _.isUndefined( report.textstatistics.recommendedKeywords ) &&
