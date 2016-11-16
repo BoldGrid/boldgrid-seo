@@ -412,6 +412,7 @@ BOLDGRID.SEO = {
 				']'
 			].join( '' ), 'g' ),
 			astralRegExp: /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
+			// regex tested : https://regex101.com/r/vHAwas/1
 			wordsRegExp: /.+?\S\s+/g,
 			characters_excluding_spacesRegExp: /\S/g,
 			characters_including_spacesRegExp: /[^\f\n\r\t\v\u00AD\u2028\u2029]/g,
@@ -1532,17 +1533,19 @@ BOLDGRID.SEO = {
 
 			if ( _.isEmpty( words ) ) return;
 
-			for ( var i=0; i < words.length; i++ ) {
+			for ( var i = 0; i < words.length; i++ ) {
 				var word = $.trim( words[i] ).toLowerCase();
+
+				// Make sure word isn't in our stop words and is longer than 3 characters.
 				if ( ! word || word.length < 3 || _bgseoContentAnalysis.stopWords.indexOf( word ) > -1 ) {
 					continue;
 				}
 
-				if ( typeof positions[word] == 'undefined' ) {
-					positions[word] = wordCounts.length;
-					wordCounts.push( [word, 1] );
+				if ( _.isUndefined( positions[ word ] ) ) {
+					positions[ word ] = wordCounts.length;
+					wordCounts.push( [ word, 1 ] );
 				} else {
-					wordCounts[positions[word]][1]++;
+					wordCounts[ positions[ word ] ][1]++;
 				}
 			}
 			// Put most frequent words at the beginning.
