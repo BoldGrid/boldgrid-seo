@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function( $ ) {
 
 	'use strict';
 
@@ -121,20 +121,20 @@
 		 *
 		 * @since 1.3.1
 		 *
-		 * @param {string} text The text to search through.
+		 * @param {Array} words The words to search through.
 		 * @param {Number} n How many keywords to return back.
 		 *
 		 * @returns {Array} result An array of n* most frequent keywords.
 		 */
-		recommendedKeywords: function( text, n ) {
-			// Split text on non word characters
-			var words = text.toLowerCase().split( /\W+/ ),
-			    positions = {},
+		recommendedKeywords: function( words, n ) {
+			var positions = {},
 			    wordCounts = [],
 			    result;
 
+			if ( _.isEmpty( words ) ) return;
+
 			for ( var i=0; i < words.length; i++ ) {
-				var word = words[i];
+				var word = $.trim( words[i] );
 				if ( ! word || word.length < 3 || _bgseoContentAnalysis.stopWords.indexOf( word ) > -1 ) {
 					continue;
 				}
@@ -190,7 +190,6 @@
 		getKeyword : function() {
 			var customKeyword,
 			    content = api.TinyMCE.getContent();
-				content = $.trim( content.text );
 
 			if ( self.getCustomKeyword().length ) {
 				customKeyword = self.getCustomKeyword();
@@ -198,10 +197,10 @@
 				! _.isUndefined( report.textstatistics.recommendedKeywords[0] ) ) {
 					// Set customKeyword to recommended keyword search.
 					customKeyword = report.textstatistics.recommendedKeywords[0][0];
-			} else if ( _.isEmpty( content.text ) ) {
+			} else if ( _.isEmpty( $.trim( content.text ) ) ) {
 				customKeyword = undefined;
 			} else {
-				self.recommendedKeywords( content, 1 );
+				self.recommendedKeywords( api.Words.words( content.raw ), 1 );
 			}
 
 			return customKeyword;

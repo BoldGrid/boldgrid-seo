@@ -341,6 +341,174 @@ BOLDGRID.SEO = {
 
 })( jQuery );
 
+( function() {
+
+	'use strict';
+
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+
+	api.Words = {
+
+		init : function( settings ) {
+			var key,
+				shortcodes;
+
+			if ( settings ) {
+				for ( key in settings ) {
+					if ( settings.hasOwnProperty( key ) ) {
+						self.settings[ key ] = settings[ key ];
+					}
+				}
+			}
+
+			shortcodes = self.settings.l10n.shortcodes;
+
+			if ( shortcodes && shortcodes.length ) {
+				self.settings.shortcodesRegExp = new RegExp( '\\[\\/?(?:' + shortcodes.join( '|' ) + ')[^\\]]*?\\]', 'g' );
+			}
+		},
+
+		settings : {
+			HTMLRegExp: /<\/?[a-z][^>]*?>/gi,
+			HTMLcommentRegExp: /<!--[\s\S]*?-->/g,
+			spaceRegExp: /&nbsp;|&#160;/gi,
+			HTMLEntityRegExp: /&\S+?;/g,
+			connectorRegExp: /--|\u2014/g,
+			removeRegExp: new RegExp( [
+				'[',
+					// Basic Latin (extract)
+					'\u0021-\u0040\u005B-\u0060\u007B-\u007E',
+					// Latin-1 Supplement (extract)
+					'\u0080-\u00BF\u00D7\u00F7',
+					// General Punctuation
+					// Superscripts and Subscripts
+					// Currency Symbols
+					// Combining Diacritical Marks for Symbols
+					// Letterlike Symbols
+					// Number Forms
+					// Arrows
+					// Mathematical Operators
+					// Miscellaneous Technical
+					// Control Pictures
+					// Optical Character Recognition
+					// Enclosed Alphanumerics
+					// Box Drawing
+					// Block Elements
+					// Geometric Shapes
+					// Miscellaneous Symbols
+					// Dingbats
+					// Miscellaneous Mathematical Symbols-A
+					// Supplemental Arrows-A
+					// Braille Patterns
+					// Supplemental Arrows-B
+					// Miscellaneous Mathematical Symbols-B
+					// Supplemental Mathematical Operators
+					// Miscellaneous Symbols and Arrows
+					'\u2000-\u2BFF',
+					// Supplemental Punctuation
+					'\u2E00-\u2E7F',
+				']'
+			].join( '' ), 'g' ),
+			astralRegExp: /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
+			wordsRegExp: /.+?\S\s+/g,
+			characters_excluding_spacesRegExp: /\S/g,
+			characters_including_spacesRegExp: /[^\f\n\r\t\v\u00AD\u2028\u2029]/g,
+			l10n: window.wordCountL10n || {}
+		},
+
+		words : function( text, type ) {
+			var count = 0;
+
+			type = type || self.settings.l10n.type;
+
+			if ( type !== 'characters_excluding_spaces' && type !== 'characters_including_spaces' ) {
+				type = 'words';
+			}
+
+			if ( text ) {
+				text = text + '\n';
+
+				text = text.replace( self.settings.HTMLRegExp, '\n' );
+				text = text.replace( self.settings.HTMLcommentRegExp, '' );
+
+				if ( self.settings.shortcodesRegExp ) {
+					text = text.replace( self.settings.shortcodesRegExp, '\n' );
+				}
+
+				text = text.replace( self.settings.spaceRegExp, ' ' );
+
+				if ( type === 'words' ) {
+					text = text.replace( self.settings.HTMLEntityRegExp, '' );
+					text = text.replace( self.settings.connectorRegExp, ' ' );
+					text = text.replace( self.settings.removeRegExp, '' );
+				} else {
+					text = text.replace( self.settings.HTMLEntityRegExp, 'a' );
+					text = text.replace( self.settings.astralRegExp, 'a' );
+				}
+				text = text.match( self.settings[ type + 'RegExp' ] );
+
+				if ( text ) {
+					count = text;
+				}
+			}
+
+			return count;
+		},
+	};
+
+	self = api.Words;
+
+} )();
+
+( function( $, counter ) {
+
+	$( function() {
+
+		var $content = $( '#content' ),
+			$count = $( '#wp-word-count' ).find( '.word-count' ),
+			prevCount = 0,
+			contentEditor,
+			words;
+
+		function update() {
+			var text, count;
+
+			if ( ! contentEditor || contentEditor.isHidden() ) {
+				text = $content.val();
+			} else {
+				text = contentEditor.getContent( { format: 'raw' } );
+			}
+
+			count = counter.count( text );
+			words = BOLDGRID.SEO.Words.words( text );
+
+			if ( count !== prevCount ) {
+				$content.triggerAll( 'bgseo-analysis', [{ words : words, count : count }] );
+			}
+
+			prevCount = count;
+		}
+
+		$( document ).on( 'tinymce-editor-init', function( event, editor ) {
+			if ( editor.id !== 'content' ) {
+				return;
+			}
+
+			contentEditor = editor;
+
+			editor.on( 'nodechange keyup', _.debounce( update, 1000 ) );
+		} );
+
+		$content.on( 'input keyup', _.debounce( update, 1000 ) );
+
+		update();
+
+	} );
+
+} )( jQuery, new wp.utils.WordCounter() );
+
 ( function ( $ ) {
 
 	'use strict';
@@ -514,6 +682,13 @@ BOLDGRID.SEO = {
 			});
 		},
 
+		/**
+		 * Gets the content from TinyMCE or the text editor for analysis.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} content Contains content in raw and text formats.
+		 */
 		getContent : function() {
 			var content;
 			// Get the content of the visual editor or text editor that's present.
@@ -521,6 +696,7 @@ BOLDGRID.SEO = {
 				content = tinyMCE.get( wpActiveEditor ).getContent();
 			} else {
 				content = $( '#content' ).val();
+				// Remove newlines and carriage returns.
 				content = content.replace( /\r?\n|\r/g, '' );
 			}
 
@@ -598,6 +774,7 @@ BOLDGRID.SEO = {
 				targetId = $( this ).attr( 'id' );
 				text = self.wpContent( targetId );
 			});
+
 			return text;
 		},
 
@@ -609,8 +786,11 @@ BOLDGRID.SEO = {
 		 * @returns {string} text
 		 */
 		tmceChange: function( e ) {
-			var text, targetId = e.target.id;
+			var text, targetId;
+
+			targetId = e.target.id;
 			text = self.wpContent( targetId );
+
 			return text;
 		},
 
@@ -624,6 +804,7 @@ BOLDGRID.SEO = {
 		 */
 		wpContent : function( targetId ) {
 			var text = {};
+
 			switch ( targetId ) {
 				// Grab text from TinyMCE Editor.
 				case 'tinymce' :
@@ -637,13 +818,14 @@ BOLDGRID.SEO = {
 					text = text.replace( /\r?\n|\r/g, '' );
 					break;
 			}
+
 			text = {
 				'raw': text,
 				'text': self.stripper( text.toLowerCase() ),
 			};
 
+			// Trigger the text analysis for report.
 			$( '#content' ).trigger( 'bgseo-analysis', [text] );
-
 		},
 
 		/**
@@ -659,8 +841,10 @@ BOLDGRID.SEO = {
 		 */
 		stripper: function( html ) {
 			var tmp;
+
 			tmp = document.implementation.createHTMLDocument( 'New' ).body;
 			tmp.innerHTML = html;
+
 			return tmp.textContent || tmp.innerText || " ";
 		},
 	};
@@ -1213,7 +1397,7 @@ BOLDGRID.SEO = {
 
 })( jQuery );
 
-( function ( $ ) {
+( function( $ ) {
 
 	'use strict';
 
@@ -1336,20 +1520,20 @@ BOLDGRID.SEO = {
 		 *
 		 * @since 1.3.1
 		 *
-		 * @param {string} text The text to search through.
+		 * @param {Array} words The words to search through.
 		 * @param {Number} n How many keywords to return back.
 		 *
 		 * @returns {Array} result An array of n* most frequent keywords.
 		 */
-		recommendedKeywords: function( text, n ) {
-			// Split text on non word characters
-			var words = text.toLowerCase().split( /\W+/ ),
-			    positions = {},
+		recommendedKeywords: function( words, n ) {
+			var positions = {},
 			    wordCounts = [],
 			    result;
 
+			if ( _.isEmpty( words ) ) return;
+
 			for ( var i=0; i < words.length; i++ ) {
-				var word = words[i];
+				var word = $.trim( words[i] );
 				if ( ! word || word.length < 3 || _bgseoContentAnalysis.stopWords.indexOf( word ) > -1 ) {
 					continue;
 				}
@@ -1405,7 +1589,6 @@ BOLDGRID.SEO = {
 		getKeyword : function() {
 			var customKeyword,
 			    content = api.TinyMCE.getContent();
-				content = $.trim( content.text );
 
 			if ( self.getCustomKeyword().length ) {
 				customKeyword = self.getCustomKeyword();
@@ -1413,10 +1596,10 @@ BOLDGRID.SEO = {
 				! _.isUndefined( report.textstatistics.recommendedKeywords[0] ) ) {
 					// Set customKeyword to recommended keyword search.
 					customKeyword = report.textstatistics.recommendedKeywords[0][0];
-			} else if ( _.isEmpty( content.text ) ) {
+			} else if ( _.isEmpty( $.trim( content.text ) ) ) {
 				customKeyword = undefined;
 			} else {
-				self.recommendedKeywords( content, 1 );
+				self.recommendedKeywords( api.Words.words( content.raw ), 1 );
 			}
 
 			return customKeyword;
@@ -1804,6 +1987,13 @@ BOLDGRID.SEO = {
 				// Get length of description field.
 				descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
+				if ( eventInfo.words ) {
+					_( report.textstatistics ).extend({
+						recommendedKeywords : api.Keywords.recommendedKeywords( eventInfo.words, 1 ),
+						customKeyword : api.Keywords.getKeyword(),
+					});
+				}
+
 				// Sets wordCount values in report object.
 				if ( eventInfo.count ) {
 					words = {
@@ -1857,9 +2047,9 @@ BOLDGRID.SEO = {
 
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
-						var customKeyword,
-						    headingCount = api.Headings.getRealHeadingCount(),
-						    content = eventInfo.text;
+						var headingCount = api.Headings.getRealHeadingCount(),
+						    content = eventInfo.text,
+							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( $content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
 
 						// Set the default report items.
 						_( report ).extend({
@@ -1927,8 +2117,7 @@ BOLDGRID.SEO = {
 							},
 
 							textstatistics : {
-								recommendedKeywords : api.Keywords.recommendedKeywords( content, 1 ),
-								customKeyword : api.Keywords.getKeyword(),
+								recommendedKeywords : api.Keywords.recommendedKeywords( raw, 1 ),
 								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
 							},
 
@@ -1988,7 +2177,7 @@ BOLDGRID.SEO = {
 				}
 
 				// Send the final analysis to display the report.
-				$( '#content' ).trigger( 'bgseo-report', [report] );
+				$( '#content' ).trigger( 'bgseo-report', [ report ] );
 			});
 		},
 
@@ -2430,51 +2619,6 @@ BOLDGRID.SEO = {
 	self = api.Tooltips;
 
 })( jQuery );
-
-( function( $, counter ) {
-
-	$( function() {
-
-		var $content = $( '#content' ),
-			$count = $( '#wp-word-count' ).find( '.word-count' ),
-			prevCount = 0,
-			contentEditor;
-
-		function update() {
-			var text, count;
-
-			if ( ! contentEditor || contentEditor.isHidden() ) {
-				text = $content.val();
-			} else {
-				text = contentEditor.getContent( { format: 'raw' } );
-			}
-
-			count = counter.count( text );
-
-			if ( count !== prevCount ) {
-				$content.trigger( 'bgseo-analysis', [{'count': count}]);
-			}
-
-			prevCount = count;
-		}
-
-		$( document ).on( 'tinymce-editor-init', function( event, editor ) {
-			if ( editor.id !== 'content' ) {
-				return;
-			}
-
-			contentEditor = editor;
-
-			editor.on( 'nodechange keyup', _.debounce( update, 1000 ) );
-		} );
-
-		$content.on( 'input keyup', _.debounce( update, 1000 ) );
-
-		update();
-
-	} );
-
-} )( jQuery, new wp.utils.WordCounter() );
 
 ( function ( $ ) {
 

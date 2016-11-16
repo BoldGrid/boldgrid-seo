@@ -58,6 +58,13 @@
 			});
 		},
 
+		/**
+		 * Gets the content from TinyMCE or the text editor for analysis.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} content Contains content in raw and text formats.
+		 */
 		getContent : function() {
 			var content;
 			// Get the content of the visual editor or text editor that's present.
@@ -65,6 +72,7 @@
 				content = tinyMCE.get( wpActiveEditor ).getContent();
 			} else {
 				content = $( '#content' ).val();
+				// Remove newlines and carriage returns.
 				content = content.replace( /\r?\n|\r/g, '' );
 			}
 
@@ -142,6 +150,7 @@
 				targetId = $( this ).attr( 'id' );
 				text = self.wpContent( targetId );
 			});
+
 			return text;
 		},
 
@@ -153,8 +162,11 @@
 		 * @returns {string} text
 		 */
 		tmceChange: function( e ) {
-			var text, targetId = e.target.id;
+			var text, targetId;
+
+			targetId = e.target.id;
 			text = self.wpContent( targetId );
+
 			return text;
 		},
 
@@ -168,6 +180,7 @@
 		 */
 		wpContent : function( targetId ) {
 			var text = {};
+
 			switch ( targetId ) {
 				// Grab text from TinyMCE Editor.
 				case 'tinymce' :
@@ -181,13 +194,14 @@
 					text = text.replace( /\r?\n|\r/g, '' );
 					break;
 			}
+
 			text = {
 				'raw': text,
 				'text': self.stripper( text.toLowerCase() ),
 			};
 
+			// Trigger the text analysis for report.
 			$( '#content' ).trigger( 'bgseo-analysis', [text] );
-
 		},
 
 		/**
@@ -203,8 +217,10 @@
 		 */
 		stripper: function( html ) {
 			var tmp;
+
 			tmp = document.implementation.createHTMLDocument( 'New' ).body;
 			tmp.innerHTML = html;
+
 			return tmp.textContent || tmp.innerText || " ";
 		},
 	};

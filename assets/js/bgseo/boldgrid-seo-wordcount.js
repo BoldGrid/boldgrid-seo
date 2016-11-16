@@ -5,7 +5,8 @@
 		var $content = $( '#content' ),
 			$count = $( '#wp-word-count' ).find( '.word-count' ),
 			prevCount = 0,
-			contentEditor;
+			contentEditor,
+			words;
 
 		function update() {
 			var text, count;
@@ -17,9 +18,10 @@
 			}
 
 			count = counter.count( text );
+			words = BOLDGRID.SEO.Words.words( text );
 
 			if ( count !== prevCount ) {
-				$content.trigger( 'bgseo-analysis', [{'count': count}]);
+				$content.triggerAll( 'bgseo-analysis', [{ words : words, count : count }] );
 			}
 
 			prevCount = count;

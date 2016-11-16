@@ -46,6 +46,13 @@
 				// Get length of description field.
 				descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
 
+				if ( eventInfo.words ) {
+					_( report.textstatistics ).extend({
+						recommendedKeywords : api.Keywords.recommendedKeywords( eventInfo.words, 1 ),
+						customKeyword : api.Keywords.getKeyword(),
+					});
+				}
+
 				// Sets wordCount values in report object.
 				if ( eventInfo.count ) {
 					words = {
@@ -99,9 +106,9 @@
 
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
-						var customKeyword,
-						    headingCount = api.Headings.getRealHeadingCount(),
-						    content = eventInfo.text;
+						var headingCount = api.Headings.getRealHeadingCount(),
+						    content = eventInfo.text,
+							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( $content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
 
 						// Set the default report items.
 						_( report ).extend({
@@ -169,8 +176,7 @@
 							},
 
 							textstatistics : {
-								recommendedKeywords : api.Keywords.recommendedKeywords( content, 1 ),
-								customKeyword : api.Keywords.getKeyword(),
+								recommendedKeywords : api.Keywords.recommendedKeywords( raw, 1 ),
 								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
 							},
 
@@ -230,7 +236,7 @@
 				}
 
 				// Send the final analysis to display the report.
-				$( '#content' ).trigger( 'bgseo-report', [report] );
+				$( '#content' ).trigger( 'bgseo-report', [ report ] );
 			});
 		},
 
