@@ -15,6 +15,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: boldgrid-seo.php:55
 msgid "BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+"
 msgstr ""

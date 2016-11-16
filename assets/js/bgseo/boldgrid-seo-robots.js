@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Robots.
@@ -12,7 +15,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Robots = {
+	api.Robots = {
 
 		/**
 		 * Initialize BoldGrid SEO Robots.
@@ -109,8 +112,6 @@
 		},
 	};
 
-	self = BOLDGRID.SEO.Robots;
+	self = api.Robots;
 
 })( jQuery );
-
-BOLDGRID.SEO.Robots.init();

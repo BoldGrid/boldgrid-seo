@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Dashboard.
@@ -11,7 +14,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Dashboard = {
+	api.Dashboard = {
 
 		/**
 		 * This gets the overview score.
@@ -132,6 +135,6 @@
 		}
 	};
 
-	self = BOLDGRID.SEO.Dashboard;
+	self = api.Dashboard;
 
 })( jQuery );

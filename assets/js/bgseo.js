@@ -1,3 +1,18 @@
+// Setup the BOLDGRID Object if it doesn't exist already.
+var BOLDGRID = BOLDGRID || {};
+// Create the BOLDGRID.SEO object.
+BOLDGRID.SEO = {
+	// Add the analysis report to the BOLDGRID.SEO object.
+	report : {
+		bgseo_visibility : {},
+		bgseo_dashboard : {},
+		bgseo_keywords : {},
+		bgseo_meta : {},
+		rawstatistics : {},
+		textstatistics : {},
+	},
+};
+
 ( function ( $ ) {
 
 	'use strict';
@@ -153,17 +168,182 @@
 
 })( jQuery );
 
-var BOLDGRID = BOLDGRID || {};
-BOLDGRID.SEO = BOLDGRID.SEO || {
-	report : {
-		bgseo_visibility : {},
-		bgseo_dashboard : {},
-		bgseo_keywords : {},
-		bgseo_meta : {},
-		rawstatistics : {},
-		textstatistics : {},
-	},
-};
+( function ( $ ) {
+
+	'use strict';
+
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
+
+	/**
+	 * BoldGrid SEO Util.
+	 *
+	 * This will contain any utility functions needed across
+	 * all classes.
+	 *
+	 * @since 1.3.1
+	 */
+	api.Util = {
+
+		/**
+		 * Initialize Utilities.
+		 *
+		 * @since 1.3.1
+		 */
+		init : function () {
+
+			/**
+			 * Return a copy of the object only containing the whitelisted properties.
+			 * Nested properties are concatenated with dots notation.
+			 *
+			 * Example:
+			 * a = {a:'a', b:{c:'c', d:'d', e:'e'}};
+			 * _.pickDeep(a, 'b.c','b.d')
+			 *
+			 * Returns:
+			 * {b:{c:'c',d:'d'}}
+			 *
+			 * @param obj
+			 * @returns {Object} copy Object containing only properties requested.
+			 */
+			_.mixin({
+				pickDeep : function( obj ) {
+					var copy = {},
+						keys = Array.prototype.concat.apply( Array.prototype, Array.prototype.slice.call( arguments, 1 ) );
+
+					this.each( keys, function( key ) {
+						var subKeys = key.split( '.' );
+						key = subKeys.shift();
+
+						if ( key in obj ) {
+							// pick nested properties
+							if( subKeys.length > 0 ) {
+								// extend property (if defined before)
+								if( copy[ key ] ) {
+									_.extend( copy[ key ], _.pickDeep( obj[ key ], subKeys.join( '.' ) ) );
+								}
+								else {
+									copy[ key ] = _.pickDeep( obj[ key ], subKeys.join( '.' ) );
+								}
+							}
+							else {
+								copy[ key ] = obj[ key ];
+							}
+						}
+					});
+
+					return copy;
+				}
+			});
+
+			/**
+			 * Function that checks if a field is set.
+			 *
+			 * @returns {Bool} Is field set.
+			 */
+			$.fn.extend({
+				isFieldSet : function() {
+					return Boolean( $.trim( $( this ).val() ).length );
+				},
+				triggerAll : function ( events, params ) {
+					var el = this, i, evts = events.split( ' ' );
+					for ( i = 0; i < evts.length; i += 1 ) {
+						el.trigger( evts[i], params );
+					}
+					return el;
+				},
+			});
+
+			/**
+			 * Usage: ( n ).isBetween( min, max )
+			 *
+			 * Gives you bool response if number is within the minimum
+			 * and maximum numbers specified for the range.
+			 *
+			 * @since 1.3.1
+			 *
+			 * @param {Number} min Minimum number in range to check.
+			 * @param {Number} max Maximum number in range to check.
+			 *
+			 * @returns {bool} Number is/isn't within range passed in params.
+			 */
+			if ( ! Number.prototype.isBetween ) {
+				Number.prototype.isBetween = function( min, max ) {
+					return this > min && this < max;
+				};
+			}
+
+			/**
+			 * Usage: ( n ).rounded( digits )
+			 *
+			 * Gives you bool response if number is within the minimum
+			 * and maximum numbers specified for the range.
+			 *
+			 * @since 1.3.1
+			 *
+			 * @param {Number} number Number to round.
+			 * @param {Number} digits how many decimal places to round to.
+			 *
+			 * @returns {Number} rounded The number rounded to specified digits.
+			 */
+			if ( ! Number.prototype.rounded ) {
+				Number.prototype.rounded = function( digits ) {
+					var multiple = Math.pow( 10, digits );
+					var rounded = Math.round( this * multiple ) / multiple;
+
+					return rounded;
+				};
+			}
+
+			if ( ! String.prototype.printf ) {
+				String.prototype.printf = function() {
+					var newStr = this, i = 0;
+					while ( /%s/.test( newStr ) ){
+						newStr = newStr.replace( "%s", arguments[i++] );
+					}
+
+					return newStr;
+				};
+			}
+
+			/**
+			 * Function that counts occurrences of a substring in a string;
+			 *
+			 * @param {String} string               The string
+			 * @param {String} subString            The sub string to search for
+			 * @param {Boolean} [allowOverlapping]  Optional. (Default:false)
+			 *
+			 * @returns {Number} n The number of times a substring appears in a string.
+			 */
+			if ( ! String.prototype.occurences ) {
+				String.prototype.occurences = function( needle, allowOverlapping ) {
+
+					needle += "";
+					if ( needle.length <= 0 ) return ( this.length + 1 );
+
+					var n = 0,
+						pos = 0,
+						step = allowOverlapping ? 1 : needle.length;
+
+					while ( true ) {
+						pos = this.indexOf( needle, pos );
+						if ( pos >= 0 ) {
+							++n;
+							pos += step;
+						} else break;
+					}
+
+					return n;
+				};
+			}
+		},
+	};
+
+	self = api.Util;
+
+})( jQuery );
 
 ( function ( $ ) {
 
@@ -278,20 +458,14 @@ BOLDGRID.SEO = BOLDGRID.SEO || {
 
 })( jQuery );
 
-BOLDGRID.SEO.Admin.init();
-
 ( function ( $ ) {
 
 	'use strict';
 
-	var self, report = {
-		bgseo_visibility : {},
-		bgseo_dashboard : {},
-		bgseo_keywords : {},
-		bgseo_meta : {},
-		rawstatistics : {},
-		textstatistics : {},
-	};
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -302,7 +476,7 @@ BOLDGRID.SEO.Admin.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.TinyMCE = {
+	api.TinyMCE = {
 
 		/**
 		 * Initialize TinyMCE Content.
@@ -311,7 +485,6 @@ BOLDGRID.SEO.Admin.init();
 		 */
 		init : function () {
 			self.onloadContent();
-			self.generateReport();
 			$( document ).ready( function() {
 				self.editorChange();
 			});
@@ -398,11 +571,11 @@ BOLDGRID.SEO.Admin.init();
 					headings = {
 						h1 : {
 							length : h1.length,
-							text : BOLDGRID.SEO.Headings.getHeadingText( h1 ),
+							text : api.Headings.getHeadingText( h1 ),
 						},
 						h2 : {
 							length : h2.length,
-							text : BOLDGRID.SEO.Headings.getHeadingText( h2 ),
+							text : api.Headings.getHeadingText( h2 ),
 						},
 					};
 
@@ -410,29 +583,29 @@ BOLDGRID.SEO.Admin.init();
 					_( report.bgseo_dashboard ).extend({
 						headings : {
 							count : headings,
-							lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ),
+							lengthScore : api.Headings.score( headings.h1.length ),
 						},
 					});
 					// Update the keywordHeadings object.
 					_( report.bgseo_keywords ).extend({
 						keywordHeadings : {
-							length : BOLDGRID.SEO.Headings.keywords({ count: headings }),
-							lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords({ count: headings }) ),
+							length : api.Headings.keywords({ count: headings }),
+							lengthScore : api.Keywords.headingScore( api.Headings.keywords({ count: headings }) ),
 						},
 					});
 					// The rendered content stats.
 					renderedContent = {
 						h1Count : h1.length - report.rawstatistics.h1Count,
-						h1text : _( BOLDGRID.SEO.Headings.getHeadingText( h1 ) ).difference( report.rawstatistics.h1text ),
+						h1text : _( api.Headings.getHeadingText( h1 ) ).difference( report.rawstatistics.h1text ),
 						h2Count : h2.length - report.rawstatistics.h2Count,
-						h2text : _( BOLDGRID.SEO.Headings.getHeadingText( h2 ) ).difference( report.rawstatistics.h2text ),
+						h2text : _( api.Headings.getHeadingText( h2 ) ).difference( report.rawstatistics.h2text ),
 					};
 
 					// Add the rendered stats to our report for use later.
 					_.extend( report, { rendered : renderedContent } );
 
 					// Trigger the SEO report to rebuild in the template after initial stats are created.
-					$( '#content' ).trigger( 'bgseo-report', [BOLDGRID.SEO.TinyMCE.getReport()] );
+					$( '#content' ).trigger( 'bgseo-report', [ report ] );
 
 				}, 'html' );
 			}
@@ -515,271 +688,20 @@ BOLDGRID.SEO.Admin.init();
 			tmp.innerHTML = html;
 			return tmp.textContent || tmp.innerText || " ";
 		},
-
-		/**
-		 * Generate the Report based on analysis done.
-		 *
-		 * This will generate a report object and then trigger the
-		 * reporter event, so that the model is updated and changes
-		 * are reflected live for the user in their SEO Dashboard.
-		 *
-		 * @since 1.3.1
-		 */
-		generateReport : function() {
-			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
-				var words, titleLength, descriptionLength;
-
-				// Get length of title field.
-				titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length;
-
-				// Get length of description field.
-				descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
-
-				// Sets wordCount values in report object.
-				if ( eventInfo.count ) {
-					words = {
-						length : eventInfo.count,
-						lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
-					};
-					if ( eventInfo.count === 0 ) {
-						words = {
-							length : 0,
-							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
-						};
-					}
-
-					// Update the word count in the report.
-					_( report.bgseo_dashboard ).extend({
-						wordCount : words,
-					});
-				}
-				// Set default wordCount first.
-				_( report.bgseo_dashboard ).extend({
-					wordCount: {
-						length : Number( $( '#wp-word-count .word-count' ).text() ),
-					},
-				});
-				// Listen for event changes being triggered.
-				if ( eventInfo ) {
-					// Listen for changes to raw HTML in editor.
-					if ( eventInfo.raw ) {
-						var h1 = $( eventInfo.raw ).find( 'h1' ),
-						    h2 = $( eventInfo.raw).find( 'h2' ),
-						    headings = {};
-
-						headings = {
-							h1Count : h1.length,
-							h1text : BOLDGRID.SEO.Headings.getHeadingText( h1 ),
-							h2Count : h2.length,
-							h2text : BOLDGRID.SEO.Headings.getHeadingText( h2 ),
-							imageCount: $( eventInfo.raw ).find( 'img' ).length,
-						};
-						// Set the heading counts and image count found in new content update.
-						_( report.rawstatistics ).extend( headings );
-					}
-
-					// Listen for changes to the actual text entered by user.
-					if ( eventInfo.text ) {
-						var customKeyword,
-						    headingCount = BOLDGRID.SEO.Headings.getRealHeadingCount(),
-						    content = eventInfo.text;
-
-						// Set the default report items.
-						_( report ).extend({
-
-							bgseo_dashboard : {
-								sectionScore: {},
-								sectionStatus: {},
-								image : {
-									length : report.rawstatistics.imageCount,
-									lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
-								},
-								headings : headingCount,
-								wordCount: {
-									lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
-								}
-							},
-
-							bgseo_meta : {
-								title : {
-									length : titleLength,
-									lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
-								},
-								description : {
-									length : descriptionLength,
-									lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
-									keywordUsage : BOLDGRID.SEO.Description.keywords(),
-								},
-								titleKeywordUsage : {
-									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
-								},
-								descKeywordUsage : {
-									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
-								},
-								sectionScore: {},
-								sectionStatus: {},
-							},
-
-							bgseo_visibility : {
-								robotIndex : {
-									lengthScore: BOLDGRID.SEO.Robots.indexScore(),
-								},
-								robotFollow : {
-									lengthScore: BOLDGRID.SEO.Robots.followScore(),
-								},
-								sectionScore: {},
-								sectionStatus: {},
-							},
-
-							bgseo_keywords : {
-								keywordTitle : {
-									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
-								},
-								keywordDescription : {
-									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
-								},
-								keywordContent : {
-									lengthScore : BOLDGRID.SEO.Keywords.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
-								},
-								keywordHeadings : {
-									length : BOLDGRID.SEO.Headings.keywords( headingCount ),
-									lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords( headingCount ) ),
-								},
-								sectionScore: {},
-								sectionStatus: {},
-							},
-
-							textstatistics : {
-								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
-							},
-
-						});
-
-						/**
-						 * Only do this analysis if the Word Count is over 99
-						 * words since most of the analysis results are going
-						 * to be invalid or skewed by not having much usable
-						 * content available.
-						 */
-						if ( report.bgseo_dashboard.wordCount.length > 99 ) {
-							_( report.textstatistics ).extend({
-								recommendedKeywords : BOLDGRID.SEO.Keywords.recommendedKeywords( content, 1 ),
-							});
-							_( report.bgseo_dashboard ).extend({
-								gradeLevel  : BOLDGRID.SEO.Readability.gradeLevel( content ),
-							});
-
-							/**
-							 * Adds the customKeyword that's obtained to the report.
-							 * Note: This can contain the user inputted custom keyword,
-							 * or it can contain the autogenerated recommended keyword
-							 * that was found based on the user's content.
-							 */
-							_( report.textstatistics ).extend({
-								customKeyword : BOLDGRID.SEO.Keywords.getKeyword(),
-							});
-							_( report.bgseo_keywords ).extend({
-								customKeyword : BOLDGRID.SEO.Keywords.getKeyword(),
-								keywordDensity : BOLDGRID.SEO.Keywords.keywordDensity( content, BOLDGRID.SEO.Keywords.getKeyword() ),
-							});
-						}
-					}
-
-					// Listen to changes to the SEO Title and update report.
-					if ( eventInfo.titleLength ) {
-
-						_( report.bgseo_meta.title ).extend({
-							length : eventInfo.titleLength,
-							lengthScore:  BOLDGRID.SEO.Title.titleScore( eventInfo.titleLength ),
-						});
-
-						_( report.bgseo_meta.titleKeywordUsage ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
-						});
-
-						_( report.bgseo_keywords.keywordTitle ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
-						});
-					}
-
-					if ( eventInfo.keywords ) {
-						_( report.bgseo_keywords ).extend({
-							customKeyword : eventInfo.keywords.keyword,
-						});
-
-						$( '#content' ).trigger( 'bgseo-analysis', [ self.getContent() ] );
-					}
-
-					// Listen to changes to the SEO Description and update report.
-					if ( eventInfo.descLength ) {
-
-						_( report.bgseo_meta.description ).extend({
-							length : eventInfo.descLength,
-							lengthScore:  BOLDGRID.SEO.Description.descriptionScore( eventInfo.descLength ),
-						});
-
-						_( report.bgseo_meta.descKeywordUsage ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
-						});
-
-						_( report.bgseo_keywords.keywordDescription ).extend({
-							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
-						});
-					}
-
-					// Listen for changes to noindex/index and update report.
-					if ( eventInfo.robotIndex ) {
-						_( report.bgseo_visibility.robotIndex ).extend({
-							lengthScore : eventInfo.robotIndex,
-						});
-					}
-
-					// Listen for changes to nofollow/follow and update report.
-					if ( eventInfo.robotFollow ) {
-						_( report.bgseo_visibility.robotFollow ).extend({
-							lengthScore : eventInfo.robotFollow,
-						});
-					}
-				}
-
-				// Send the final analysis to display the report.
-				$( '#content' ).trigger( 'bgseo-report', [report] );
-			});
-		},
-
-		/**
-		 * Get's the current report that's generated for output.
-		 *
-		 * This is used for debugging, and to also obtain the current report in
-		 * other classes to perform scoring, analysis, and status indicator updates.
-		 *
-		 * @since 1.3.1
-		 *
-		 * @returns {Object} report The report data that's currently displayed.
-		 */
-		getReport : function( key ) {
-			var data = {};
-			if ( _.isUndefined( key ) ) {
-				data = report;
-			} else {
-				data = report[key];
-			}
-
-			return data;
-		},
 	};
 
-	self = BOLDGRID.SEO.TinyMCE;
+	self = api.TinyMCE;
 
 })( jQuery );
-
-BOLDGRID.SEO.TinyMCE.init();
 
 ( function ( $ ) {
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Content Analysis.
@@ -788,7 +710,7 @@ BOLDGRID.SEO.TinyMCE.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.ContentAnalysis = {
+	api.ContentAnalysis = {
 
 		/**
 		 * Content Length Score.
@@ -873,12 +795,12 @@ BOLDGRID.SEO.TinyMCE.init();
 		 * @returns {Number} Count of times keyword appears in content.
 		 */
 		keywords : function( content ) {
-			var keyword = BOLDGRID.SEO.Keywords.getKeyword();
+			var keyword = api.Keywords.getKeyword();
 			return content.occurences( keyword );
 		},
 	};
 
-	self = BOLDGRID.SEO.ContentAnalysis;
+	self = api.ContentAnalysis;
 
 })( jQuery );
 
@@ -886,7 +808,10 @@ BOLDGRID.SEO.TinyMCE.init();
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Dashboard.
@@ -895,7 +820,7 @@ BOLDGRID.SEO.TinyMCE.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Dashboard = {
+	api.Dashboard = {
 
 		/**
 		 * This gets the overview score.
@@ -1016,7 +941,7 @@ BOLDGRID.SEO.TinyMCE.init();
 		}
 	};
 
-	self = BOLDGRID.SEO.Dashboard;
+	self = api.Dashboard;
 
 })( jQuery );
 
@@ -1024,7 +949,10 @@ BOLDGRID.SEO.TinyMCE.init();
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Description.
@@ -1033,7 +961,7 @@ BOLDGRID.SEO.TinyMCE.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Description = {
+	api.Description = {
 
 		/**
 		 * Initialize SEO Description Analysis.
@@ -1106,34 +1034,32 @@ BOLDGRID.SEO.TinyMCE.init();
 			return msg;
 		},
 		keywords : function() {
-			var keyword = BOLDGRID.SEO.Keywords.getKeyword(),
+			var keyword = api.Keywords.getKeyword(),
 				description = $( '#boldgrid-seo-field-meta_description' ).val();
 			return description.occurences( keyword );
 		},
 	};
 
-	self = BOLDGRID.SEO.Description;
+	self = api.Description;
 
 })( jQuery );
-
-BOLDGRID.SEO.Description.init();
 
 ( function ( $ ) {
 
 	'use strict';
 
-	var self;
+	var self, report, api;
 
-	BOLDGRID.SEO.Headings = {
+	api = BOLDGRID.SEO;
+	report = api.report;
+
+	api.Headings = {
 
 		/**
 		 * Initialize BoldGrid SEO Headings Analysis.
 		 *
 		 * @since 1.3.1
 		 */
-		init : function () {
-
-		},
 		score : function( count ) {
 			var msg = {
 					status : 'green',
@@ -1167,12 +1093,11 @@ BOLDGRID.SEO.Description.init();
 		 */
 		keywords : function( headings ) {
 			var found = { length : 0 },
-			    keyword = BOLDGRID.SEO.Keywords.getKeyword(),
-			    report = BOLDGRID.SEO.TinyMCE.getReport();
+			    keyword = api.Keywords.getKeyword();
 
 			// If not passing in headings, get the headings count from the reporter.
 			if ( _.isUndefined( headings ) ) {
-				headings = report.bgseo_dashboard.headings.count;
+				headings = report.bgseo_dashboard.headings;
 			}
 
 			_( headings.count ).each( function( value, key ) {
@@ -1221,10 +1146,8 @@ BOLDGRID.SEO.Description.init();
 		 *
 		 * @returns {Object} headings Count of H1, H2, and H3 tags used for page/post.
 		 */
-		getRealHeadingCount : function( report ) {
+		getRealHeadingCount : function() {
 			var headings = {};
-
-			if ( _.isUndefined( report ) ) report = BOLDGRID.SEO.TinyMCE.getReport();
 
 			// Only get this score if rendered content score has been provided.
 			if ( ! _.isUndefined( report.rendered ) ) {
@@ -1243,7 +1166,7 @@ BOLDGRID.SEO.Description.init();
 				};
 				// Add the score of H1 presence to the headings object.
 				_( headings ).extend({
-					lengthScore : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
+					lengthScore : api.Headings.score( headings.count.h1.length ),
 				});
 			}
 
@@ -1251,7 +1174,7 @@ BOLDGRID.SEO.Description.init();
 		},
 	};
 
-	self = BOLDGRID.SEO.Headings;
+	self = api.Headings;
 
 })( jQuery );
 
@@ -1259,7 +1182,10 @@ BOLDGRID.SEO.Description.init();
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Keywords.
@@ -1268,7 +1194,7 @@ BOLDGRID.SEO.Description.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Keywords = {
+	api.Keywords = {
 		/**
 		 * Initialize BoldGrid SEO Keyword Analysis.
 		 *
@@ -1299,11 +1225,11 @@ BOLDGRID.SEO.Description.init();
 				msg = {
 					keywords : {
 						title : {
-							length : BOLDGRID.SEO.Title.keywords(),
+							length : api.Title.keywords(),
 							lengthScore : 0,
 						},
 						description : {
-							length : BOLDGRID.SEO.Description.keywords(),
+							length : api.Description.keywords(),
 							lengthScore : 0,
 						},
 						keyword : $.trim( $( this ).val() ),
@@ -1347,9 +1273,8 @@ BOLDGRID.SEO.Description.init();
 		 * @returns {Number} result Calculated density of keyword in content passed.
 		 */
 		keywordDensity : function( content ) {
-			var report, result, keywordCount, wordCount, keyword;
+			var result, keywordCount, wordCount, keyword;
 
-			report = BOLDGRID.SEO.TinyMCE.getReport();
 			keyword = self.getKeyword();
 
 			// Normalize.
@@ -1441,13 +1366,18 @@ BOLDGRID.SEO.Description.init();
 		 */
 		getKeyword : function() {
 			var customKeyword,
-			    report = BOLDGRID.SEO.TinyMCE.getReport();
+			    content;
+
 			if ( report.bgseo_dashboard.wordCount.length > 99 ) {
 				if ( self.getCustomKeyword().length ) {
 					customKeyword = self.getCustomKeyword();
-				} else {
+				} else if ( ! _.isUndefined( report.textstatistics.recommendedKeywords ) ) {
 					// Set customKeyword to recommended keyword search.
 					customKeyword = report.textstatistics.recommendedKeywords[0][0];
+				} else {
+					content = api.TinyMCE.getContent();
+					content = $.trim( content.text );
+					self.recommendedKeywords( content, 1 );
 				}
 			}
 
@@ -1640,17 +1570,18 @@ BOLDGRID.SEO.Description.init();
 		},
 	};
 
-	self = BOLDGRID.SEO.Keywords;
+	self = api.Keywords;
 
 })( jQuery );
-
-BOLDGRID.SEO.Keywords.init();
 
 ( function ( $ ) {
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Readability.
@@ -1659,7 +1590,7 @@ BOLDGRID.SEO.Keywords.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Readability = {
+	api.Readability = {
 
 		/**
 		 * Gets the Flesch Kincaid Grade based on the content.
@@ -1784,7 +1715,7 @@ BOLDGRID.SEO.Keywords.init();
 		},
 	};
 
-	self = BOLDGRID.SEO.Readability;
+	self = api.Readability;
 
 })( jQuery );
 
@@ -1792,7 +1723,296 @@ BOLDGRID.SEO.Keywords.init();
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
+
+	/**
+	 * BoldGrid TinyMCE Analysis.
+	 *
+	 * This is responsible for generating the actual reports
+	 * displayed within the BoldGrid SEO Dashboard when the user
+	 * is on a page or a post.
+	 *
+	 * @since 1.3.1
+	 */
+	api.Report = {
+
+		/**
+		 * Initialize TinyMCE Content.
+		 *
+		 * @since 1.3.1
+		 */
+		init : function () {
+			self.generateReport();
+		},
+
+		/**
+		 * Generate the Report based on analysis done.
+		 *
+		 * This will generate a report object and then trigger the
+		 * reporter event, so that the model is updated and changes
+		 * are reflected live for the user in their SEO Dashboard.
+		 *
+		 * @since 1.3.1
+		 */
+		generateReport : function() {
+			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
+				var words, titleLength, descriptionLength;
+
+				// Get length of title field.
+				titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length;
+
+				// Get length of description field.
+				descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
+
+				// Sets wordCount values in report object.
+				if ( eventInfo.count ) {
+					words = {
+						length : eventInfo.count,
+						lengthScore : api.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
+					};
+					if ( eventInfo.count === 0 ) {
+						words = {
+							length : 0,
+							lengthScore : api.ContentAnalysis.seoContentLengthScore( 0 ),
+						};
+					}
+
+					// Update the word count in the report.
+					_( report.bgseo_dashboard ).extend({
+						wordCount : words,
+					});
+				}
+				// Set default wordCount first.
+				_( report.bgseo_dashboard ).extend({
+					wordCount: {
+						length : Number( $( '#wp-word-count .word-count' ).text() ),
+					},
+				});
+				// Listen for event changes being triggered.
+				if ( eventInfo ) {
+					// Listen for changes to raw HTML in editor.
+					if ( eventInfo.raw ) {
+						var h1 = $( eventInfo.raw ).find( 'h1' ),
+						    h2 = $( eventInfo.raw).find( 'h2' ),
+						    headings = {};
+
+						headings = {
+							h1Count : h1.length,
+							h1text : api.Headings.getHeadingText( h1 ),
+							h2Count : h2.length,
+							h2text : api.Headings.getHeadingText( h2 ),
+							imageCount: $( eventInfo.raw ).find( 'img' ).length,
+						};
+						// Set the heading counts and image count found in new content update.
+						_( report.rawstatistics ).extend( headings );
+					}
+
+					// Listen for changes to the actual text entered by user.
+					if ( eventInfo.text ) {
+						var customKeyword,
+						    headingCount = api.Headings.getRealHeadingCount(),
+						    content = eventInfo.text;
+
+						// Set the default report items.
+						_( report ).extend({
+
+							bgseo_dashboard : {
+								sectionScore : {},
+								sectionStatus : {},
+								image : {
+									length : report.rawstatistics.imageCount,
+									lengthScore : api.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
+								},
+								headings : headingCount,
+								wordCount : {
+									lengthScore : api.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
+								}
+							},
+
+							bgseo_meta : {
+								title : {
+									length : titleLength,
+									lengthScore :  api.Title.titleScore( titleLength ),
+								},
+								description : {
+									length : descriptionLength,
+									lengthScore :  api.Description.descriptionScore( descriptionLength ),
+									keywordUsage : api.Description.keywords(),
+								},
+								titleKeywordUsage : {
+									lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
+								},
+								descKeywordUsage : {
+									lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
+								},
+								sectionScore : {},
+								sectionStatus : {},
+							},
+
+							bgseo_visibility : {
+								robotIndex : {
+									lengthScore: api.Robots.indexScore(),
+								},
+								robotFollow : {
+									lengthScore: api.Robots.followScore(),
+								},
+								sectionScore : {},
+								sectionStatus : {},
+							},
+
+							bgseo_keywords : {
+								keywordTitle : {
+									lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
+								},
+								keywordDescription : {
+									lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
+								},
+								keywordContent : {
+									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( content ) ),
+								},
+								keywordHeadings : {
+									length : api.Headings.keywords( headingCount ),
+									lengthScore : api.Keywords.headingScore( api.Headings.keywords( headingCount ) ),
+								},
+								sectionScore: {},
+								sectionStatus: {},
+							},
+
+							textstatistics : {
+								recommendedKeywords : api.Keywords.recommendedKeywords( content, 1 ),
+							},
+
+						});
+
+						/**
+						 * Only do this analysis if the Word Count is over 99
+						 * words since most of the analysis results are going
+						 * to be invalid or skewed by not having much usable
+						 * content available.
+						 */
+						if ( report.bgseo_dashboard.wordCount.length > 99 ) {
+							_( report.textstatistics ).extend({
+								recommendedKeywords : api.Keywords.recommendedKeywords( content, 1 ),
+							});
+							_( report.bgseo_dashboard ).extend({
+								gradeLevel  : api.Readability.gradeLevel( content ),
+							});
+
+							/**
+							 * Adds the customKeyword that's obtained to the report.
+							 * Note: This can contain the user inputted custom keyword,
+							 * or it can contain the autogenerated recommended keyword
+							 * that was found based on the user's content.
+							 */
+							_( report.textstatistics ).extend({
+								customKeyword : api.Keywords.getKeyword(),
+							});
+							_( report.bgseo_keywords ).extend({
+								customKeyword : api.Keywords.getKeyword(),
+								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
+							});
+						}
+					}
+
+					// Listen to changes to the SEO Title and update report.
+					if ( eventInfo.titleLength ) {
+
+						_( report.bgseo_meta.title ).extend({
+							length : eventInfo.titleLength,
+							lengthScore :  api.Title.titleScore( eventInfo.titleLength ),
+						});
+
+						_( report.bgseo_meta.titleKeywordUsage ).extend({
+							lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
+						});
+
+						_( report.bgseo_keywords.keywordTitle ).extend({
+							lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
+						});
+					}
+
+					if ( eventInfo.keywords ) {
+						_( report.bgseo_keywords ).extend({
+							customKeyword : eventInfo.keywords.keyword,
+						});
+
+						$( '#content' ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+					}
+
+					// Listen to changes to the SEO Description and update report.
+					if ( eventInfo.descLength ) {
+
+						_( report.bgseo_meta.description ).extend({
+							length : eventInfo.descLength,
+							lengthScore:  api.Description.descriptionScore( eventInfo.descLength ),
+						});
+
+						_( report.bgseo_meta.descKeywordUsage ).extend({
+							lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
+						});
+
+						_( report.bgseo_keywords.keywordDescription ).extend({
+							lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
+						});
+					}
+
+					// Listen for changes to noindex/index and update report.
+					if ( eventInfo.robotIndex ) {
+						_( report.bgseo_visibility.robotIndex ).extend({
+							lengthScore : eventInfo.robotIndex,
+						});
+					}
+
+					// Listen for changes to nofollow/follow and update report.
+					if ( eventInfo.robotFollow ) {
+						_( report.bgseo_visibility.robotFollow ).extend({
+							lengthScore : eventInfo.robotFollow,
+						});
+					}
+				}
+
+				// Send the final analysis to display the report.
+				$( '#content' ).trigger( 'bgseo-report', [report] );
+			});
+		},
+
+		/**
+		 * Get's the current report that's generated for output.
+		 *
+		 * This is used for debugging, and to also obtain the current report in
+		 * other classes to perform scoring, analysis, and status indicator updates.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} report The report data that's currently displayed.
+		 */
+		get : function( key ) {
+			var data = {};
+			if ( _.isUndefined( key ) ) {
+				data = report;
+			} else {
+				data = _.pickDeep( report, key );
+			}
+
+			return data;
+		},
+	};
+
+	self = api.Report;
+
+})( jQuery );
+
+( function ( $ ) {
+
+	'use strict';
+
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Robots.
@@ -1802,7 +2022,7 @@ BOLDGRID.SEO.Keywords.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Robots = {
+	api.Robots = {
 
 		/**
 		 * Initialize BoldGrid SEO Robots.
@@ -1899,17 +2119,18 @@ BOLDGRID.SEO.Keywords.init();
 		},
 	};
 
-	self = BOLDGRID.SEO.Robots;
+	self = api.Robots;
 
 })( jQuery );
-
-BOLDGRID.SEO.Robots.init();
 
 ( function ( $ ) {
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Sections.
@@ -1918,7 +2139,7 @@ BOLDGRID.SEO.Robots.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Sections = {
+	api.Sections = {
 
 		/**
 		 * Gets the status for a section.
@@ -2009,7 +2230,7 @@ BOLDGRID.SEO.Robots.init();
 		}
 	};
 
-	self = BOLDGRID.SEO.Sections;
+	self = api.Sections;
 
 })( jQuery );
 
@@ -2017,7 +2238,10 @@ BOLDGRID.SEO.Robots.init();
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Title.
@@ -2026,7 +2250,7 @@ BOLDGRID.SEO.Robots.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Title = {
+	api.Title = {
 
 		/**
 		 * Initialize SEO Title Analysis.
@@ -2124,23 +2348,24 @@ BOLDGRID.SEO.Robots.init();
 		 * @returns {Number} Count of times keyword appears in the SEO title.
 		 */
 		keywords : function() {
-			var keyword = BOLDGRID.SEO.Keywords.getKeyword(),
-			    title = BOLDGRID.SEO.Title.getTitle().val();
+			var keyword = api.Keywords.getKeyword(),
+			    title = api.Title.getTitle().val();
 			return title.occurences( keyword );
 		},
 	};
 
-	self = BOLDGRID.SEO.Title;
+	self = api.Title;
 
 })( jQuery );
-
-BOLDGRID.SEO.Title.init();
 
 ( function ( $ ) {
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Tooltips.
@@ -2150,7 +2375,7 @@ BOLDGRID.SEO.Title.init();
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Tooltips = {
+	api.Tooltips = {
 
 		/**
 		 * Initializes BoldGrid SEO Tooltips.
@@ -2189,187 +2414,9 @@ BOLDGRID.SEO.Title.init();
 		},
 	};
 
-	self = BOLDGRID.SEO.Tooltips;
+	self = api.Tooltips;
 
 })( jQuery );
-
-BOLDGRID.SEO.Tooltips.init();
-
-( function ( $ ) {
-
-	'use strict';
-
-	var self;
-
-	/**
-	 * BoldGrid SEO Util.
-	 *
-	 * This will contain any utility functions needed across
-	 * all classes.
-	 *
-	 * @since 1.3.1
-	 */
-	BOLDGRID.SEO.Util = {
-
-		/**
-		 * Initialize Utilities.
-		 *
-		 * @since 1.3.1
-		 */
-		init : function () {
-
-			/**
-			 * Return a copy of the object only containing the whitelisted properties.
-			 * Nested properties are concatenated with dots notation.
-			 *
-			 * Example:
-			 * a = {a:'a', b:{c:'c', d:'d', e:'e'}};
-			 * _.pickDeep(a, 'b.c','b.d')
-			 *
-			 * Returns:
-			 * {b:{c:'c',d:'d'}}
-			 *
-			 * @param obj
-			 * @returns {Object} copy Object containing only properties requested.
-			 */
-			_.mixin({
-				pickDeep : function( obj ) {
-					var copy = {},
-						keys = Array.prototype.concat.apply( Array.prototype, Array.prototype.slice.call( arguments, 1 ) );
-
-					this.each( keys, function( key ) {
-						var subKeys = key.split( '.' );
-						key = subKeys.shift();
-
-						if ( key in obj ) {
-							// pick nested properties
-							if( subKeys.length > 0 ) {
-								// extend property (if defined before)
-								if( copy[ key ] ) {
-									_.extend( copy[ key ], _.pickDeep( obj[ key ], subKeys.join( '.' ) ) );
-								}
-								else {
-									copy[ key ] = _.pickDeep( obj[ key ], subKeys.join( '.' ) );
-								}
-							}
-							else {
-								copy[ key ] = obj[ key ];
-							}
-						}
-					});
-
-					return copy;
-				}
-			});
-
-			/**
-			 * Function that checks if a field is set.
-			 *
-			 * @returns {Bool} Is field set.
-			 */
-			$.fn.extend({
-				isFieldSet : function() {
-					return Boolean( $.trim( $( this ).val() ).length );
-				},
-				triggerAll : function ( events, params ) {
-					var el = this, i, evts = events.split( ' ' );
-					for ( i = 0; i < evts.length; i += 1 ) {
-						el.trigger( evts[i], params );
-					}
-					return el;
-				},
-			});
-
-			/**
-			 * Usage: ( n ).isBetween( min, max )
-			 *
-			 * Gives you bool response if number is within the minimum
-			 * and maximum numbers specified for the range.
-			 *
-			 * @since 1.3.1
-			 *
-			 * @param {Number} min Minimum number in range to check.
-			 * @param {Number} max Maximum number in range to check.
-			 *
-			 * @returns {bool} Number is/isn't within range passed in params.
-			 */
-			if ( ! Number.prototype.isBetween ) {
-				Number.prototype.isBetween = function( min, max ) {
-					return this > min && this < max;
-				};
-			}
-
-			/**
-			 * Usage: ( n ).rounded( digits )
-			 *
-			 * Gives you bool response if number is within the minimum
-			 * and maximum numbers specified for the range.
-			 *
-			 * @since 1.3.1
-			 *
-			 * @param {Number} number Number to round.
-			 * @param {Number} digits how many decimal places to round to.
-			 *
-			 * @returns {Number} rounded The number rounded to specified digits.
-			 */
-			if ( ! Number.prototype.rounded ) {
-				Number.prototype.rounded = function( digits ) {
-					var multiple = Math.pow( 10, digits );
-					var rounded = Math.round( this * multiple ) / multiple;
-
-					return rounded;
-				};
-			}
-
-			if ( ! String.prototype.printf ) {
-				String.prototype.printf = function() {
-					var newStr = this, i = 0;
-					while ( /%s/.test( newStr ) ){
-						newStr = newStr.replace( "%s", arguments[i++] );
-					}
-
-					return newStr;
-				};
-			}
-
-			/**
-			 * Function that counts occurrences of a substring in a string;
-			 *
-			 * @param {String} string               The string
-			 * @param {String} subString            The sub string to search for
-			 * @param {Boolean} [allowOverlapping]  Optional. (Default:false)
-			 *
-			 * @returns {Number} n The number of times a substring appears in a string.
-			 */
-			if ( ! String.prototype.occurences ) {
-				String.prototype.occurences = function( needle, allowOverlapping ) {
-
-					needle += "";
-					if ( needle.length <= 0 ) return ( this.length + 1 );
-
-					var n = 0,
-						pos = 0,
-						step = allowOverlapping ? 1 : needle.length;
-
-					while ( true ) {
-						pos = this.indexOf( needle, pos );
-						if ( pos >= 0 ) {
-							++n;
-							pos += step;
-						} else break;
-					}
-
-					return n;
-				};
-			}
-		},
-	};
-
-	self = BOLDGRID.SEO.Util;
-
-})( jQuery );
-
-BOLDGRID.SEO.Util.init();
 
 ( function( $, counter ) {
 
@@ -2415,3 +2462,34 @@ BOLDGRID.SEO.Util.init();
 	} );
 
 } )( jQuery, new wp.utils.WordCounter() );
+
+( function ( $ ) {
+
+	'use strict';
+
+	var api;
+
+	api = BOLDGRID.SEO;
+
+	/**
+	 * BoldGrid SEO Initialize.
+	 *
+	 * This initializes BoldGrid SEO.
+	 *
+	 * @since 1.3.1
+	 */
+	api.Init = {
+
+		/**
+		 * Initialize Utilities.
+		 *
+		 * @since 1.3.1
+		 */
+		init : function () {
+			_.each( api, function( obj ) {
+				return obj.init && obj.init();
+			});
+		},
+	}.init();
+
+})( jQuery );

@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Title.
@@ -11,7 +14,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Title = {
+	api.Title = {
 
 		/**
 		 * Initialize SEO Title Analysis.
@@ -109,14 +112,12 @@
 		 * @returns {Number} Count of times keyword appears in the SEO title.
 		 */
 		keywords : function() {
-			var keyword = BOLDGRID.SEO.Keywords.getKeyword(),
-			    title = BOLDGRID.SEO.Title.getTitle().val();
+			var keyword = api.Keywords.getKeyword(),
+			    title = api.Title.getTitle().val();
 			return title.occurences( keyword );
 		},
 	};
 
-	self = BOLDGRID.SEO.Title;
+	self = api.Title;
 
 })( jQuery );
-
-BOLDGRID.SEO.Title.init();

@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Sections.
@@ -11,7 +14,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Sections = {
+	api.Sections = {
 
 		/**
 		 * Gets the status for a section.
@@ -102,6 +105,6 @@
 		}
 	};
 
-	self = BOLDGRID.SEO.Sections;
+	self = api.Sections;
 
 })( jQuery );

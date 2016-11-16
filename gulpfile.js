@@ -24,11 +24,14 @@ var config = {
 gulp.task( 'js', function ( cb ) {
 	pump( [
 		gulp.src( [
+			config.src + config.jsDir + '/bgseo/boldgrid-seo.js',
 			config.src + config.jsDir + '/control/*.js',
+			config.src + config.jsDir + '/bgseo/boldgrid-seo-util.js',
 			config.src + config.jsDir + '/bgseo/boldgrid-seo-admin.js',
 			config.src + config.jsDir + '/bgseo/boldgrid-seo-tinymce.js',
 			config.src + config.jsDir + '/bgseo/boldgrid-seo-content-analysis.js',
-			config.src + config.jsDir + '/bgseo/*!(admin|tinymce|content-analysis).js'
+			config.src + config.jsDir + '/bgseo/boldgrid-seo-!(util|admin|tinymce|content-analysis|init).js',
+			config.src + config.jsDir + '/bgseo/boldgrid-seo-init.js',
 		] ),
 		//jshint.reporter( 'fail' ),
 		concat( 'bgseo.js' ),

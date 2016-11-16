@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Util.
@@ -12,7 +15,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Util = {
+	api.Util = {
 
 		/**
 		 * Initialize Utilities.
@@ -168,8 +171,6 @@
 		},
 	};
 
-	self = BOLDGRID.SEO.Util;
+	self = api.Util;
 
 })( jQuery );
-
-BOLDGRID.SEO.Util.init();

@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Keywords.
@@ -11,7 +14,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Keywords = {
+	api.Keywords = {
 		/**
 		 * Initialize BoldGrid SEO Keyword Analysis.
 		 *
@@ -42,11 +45,11 @@
 				msg = {
 					keywords : {
 						title : {
-							length : BOLDGRID.SEO.Title.keywords(),
+							length : api.Title.keywords(),
 							lengthScore : 0,
 						},
 						description : {
-							length : BOLDGRID.SEO.Description.keywords(),
+							length : api.Description.keywords(),
 							lengthScore : 0,
 						},
 						keyword : $.trim( $( this ).val() ),
@@ -90,9 +93,8 @@
 		 * @returns {Number} result Calculated density of keyword in content passed.
 		 */
 		keywordDensity : function( content ) {
-			var report, result, keywordCount, wordCount, keyword;
+			var result, keywordCount, wordCount, keyword;
 
-			report = BOLDGRID.SEO.TinyMCE.getReport();
 			keyword = self.getKeyword();
 
 			// Normalize.
@@ -184,13 +186,18 @@
 		 */
 		getKeyword : function() {
 			var customKeyword,
-			    report = BOLDGRID.SEO.TinyMCE.getReport();
+			    content;
+
 			if ( report.bgseo_dashboard.wordCount.length > 99 ) {
 				if ( self.getCustomKeyword().length ) {
 					customKeyword = self.getCustomKeyword();
-				} else {
+				} else if ( ! _.isUndefined( report.textstatistics.recommendedKeywords ) ) {
 					// Set customKeyword to recommended keyword search.
 					customKeyword = report.textstatistics.recommendedKeywords[0][0];
+				} else {
+					content = api.TinyMCE.getContent();
+					content = $.trim( content.text );
+					self.recommendedKeywords( content, 1 );
 				}
 			}
 
@@ -383,8 +390,6 @@
 		},
 	};
 
-	self = BOLDGRID.SEO.Keywords;
+	self = api.Keywords;
 
 })( jQuery );
-
-BOLDGRID.SEO.Keywords.init();

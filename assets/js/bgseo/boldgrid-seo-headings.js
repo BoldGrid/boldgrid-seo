@@ -2,18 +2,18 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
 
-	BOLDGRID.SEO.Headings = {
+	api = BOLDGRID.SEO;
+	report = api.report;
+
+	api.Headings = {
 
 		/**
 		 * Initialize BoldGrid SEO Headings Analysis.
 		 *
 		 * @since 1.3.1
 		 */
-		init : function () {
-
-		},
 		score : function( count ) {
 			var msg = {
 					status : 'green',
@@ -47,12 +47,11 @@
 		 */
 		keywords : function( headings ) {
 			var found = { length : 0 },
-			    keyword = BOLDGRID.SEO.Keywords.getKeyword(),
-			    report = BOLDGRID.SEO.TinyMCE.getReport();
+			    keyword = api.Keywords.getKeyword();
 
 			// If not passing in headings, get the headings count from the reporter.
 			if ( _.isUndefined( headings ) ) {
-				headings = report.bgseo_dashboard.headings.count;
+				headings = report.bgseo_dashboard.headings;
 			}
 
 			_( headings.count ).each( function( value, key ) {
@@ -101,10 +100,8 @@
 		 *
 		 * @returns {Object} headings Count of H1, H2, and H3 tags used for page/post.
 		 */
-		getRealHeadingCount : function( report ) {
+		getRealHeadingCount : function() {
 			var headings = {};
-
-			if ( _.isUndefined( report ) ) report = BOLDGRID.SEO.TinyMCE.getReport();
 
 			// Only get this score if rendered content score has been provided.
 			if ( ! _.isUndefined( report.rendered ) ) {
@@ -123,7 +120,7 @@
 				};
 				// Add the score of H1 presence to the headings object.
 				_( headings ).extend({
-					lengthScore : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
+					lengthScore : api.Headings.score( headings.count.h1.length ),
 				});
 			}
 
@@ -131,6 +128,6 @@
 		},
 	};
 
-	self = BOLDGRID.SEO.Headings;
+	self = api.Headings;
 
 })( jQuery );

@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Description.
@@ -11,7 +14,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Description = {
+	api.Description = {
 
 		/**
 		 * Initialize SEO Description Analysis.
@@ -84,14 +87,12 @@
 			return msg;
 		},
 		keywords : function() {
-			var keyword = BOLDGRID.SEO.Keywords.getKeyword(),
+			var keyword = api.Keywords.getKeyword(),
 				description = $( '#boldgrid-seo-field-meta_description' ).val();
 			return description.occurences( keyword );
 		},
 	};
 
-	self = BOLDGRID.SEO.Description;
+	self = api.Description;
 
 })( jQuery );
-
-BOLDGRID.SEO.Description.init();

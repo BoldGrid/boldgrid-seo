@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Readability.
@@ -11,7 +14,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Readability = {
+	api.Readability = {
 
 		/**
 		 * Gets the Flesch Kincaid Grade based on the content.
@@ -136,6 +139,6 @@
 		},
 	};
 
-	self = BOLDGRID.SEO.Readability;
+	self = api.Readability;
 
 })( jQuery );

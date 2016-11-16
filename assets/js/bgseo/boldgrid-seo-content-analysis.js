@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Content Analysis.
@@ -11,7 +14,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.ContentAnalysis = {
+	api.ContentAnalysis = {
 
 		/**
 		 * Content Length Score.
@@ -96,11 +99,11 @@
 		 * @returns {Number} Count of times keyword appears in content.
 		 */
 		keywords : function( content ) {
-			var keyword = BOLDGRID.SEO.Keywords.getKeyword();
+			var keyword = api.Keywords.getKeyword();
 			return content.occurences( keyword );
 		},
 	};
 
-	self = BOLDGRID.SEO.ContentAnalysis;
+	self = api.ContentAnalysis;
 
 })( jQuery );

@@ -2,7 +2,10 @@
 
 	'use strict';
 
-	var self;
+	var self, report, api;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
 
 	/**
 	 * BoldGrid SEO Tooltips.
@@ -12,7 +15,7 @@
 	 *
 	 * @since 1.3.1
 	 */
-	BOLDGRID.SEO.Tooltips = {
+	api.Tooltips = {
 
 		/**
 		 * Initializes BoldGrid SEO Tooltips.
@@ -51,8 +54,6 @@
 		},
 	};
 
-	self = BOLDGRID.SEO.Tooltips;
+	self = api.Tooltips;
 
 })( jQuery );
-
-BOLDGRID.SEO.Tooltips.init();
