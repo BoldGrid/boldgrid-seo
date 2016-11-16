@@ -19,7 +19,7 @@
 			};
 		},
 		initialize : function() {
-			$( window ).bind( 'bgseo-report', _.bind( this.setAnalysis, this ) );
+			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
 
 			var type = this.model.get( 'type' );
 
@@ -58,7 +58,7 @@
 		 *
 		 * @param {Object} report The full report as it's updated by reporter.
 		 */
-		setAnalysis: function( e, report ) {
+		getAnalysis: function( e, report ) {
 			var sectionScore,
 			    section = this.model.get( 'section' ),
 			    data = _.pick( report, section );
