@@ -21,7 +21,7 @@
 
 		initialize : function() {
 			// Listen for the bgseo-report event in the window.
-			$( window ).bind( 'bgseo-report', _.bind( this.setAnalysis, this ) );
+			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
 
 			this.bgseo_template = wp.template( 'butterbean-control-keywords' );
 
@@ -31,7 +31,7 @@
 		},
 
 		// Sets analysis in model.
-		setAnalysis: function( e, report ) {
+		getAnalysis: function( e, report ) {
 			this.model.set( report );
 		},
 
