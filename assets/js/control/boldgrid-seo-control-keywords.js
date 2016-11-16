@@ -19,9 +19,7 @@
 			};
 		},
 		initialize : function() {
-			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
-
-			var type = this.model.get( 'type' );
+			$( window ).bind( 'bgseo-report', _.bind( this.setAnalysis, this ) );
 
 			this.bgseo_template = wp.template( 'butterbean-control-keywords' );
 
@@ -29,7 +27,7 @@
 			_.bindAll( this, 'render' );
 			this.model.bind( 'change', this.render );
 		},
-		getAnalysis: function( e, report ) {
+		setAnalysis: function( e, report ) {
 			this.model.set( report );
 		},
 

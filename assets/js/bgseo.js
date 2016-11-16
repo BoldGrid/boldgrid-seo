@@ -34,9 +34,7 @@ BOLDGRID.SEO = {
 			};
 		},
 		initialize : function() {
-			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
-
-			var type = this.model.get( 'type' );
+			$( window ).bind( 'bgseo-report', _.bind( this.setAnalysis, this ) );
 
 			this.bgseo_template = wp.template( 'butterbean-control-dashboard' );
 
@@ -73,7 +71,7 @@ BOLDGRID.SEO = {
 		 *
 		 * @param {Object} report The full report as it's updated by reporter.
 		 */
-		getAnalysis: function( e, report ) {
+		setAnalysis: function( e, report ) {
 			var sectionScore,
 			    section = this.model.get( 'section' ),
 			    data = _.pick( report, section );
@@ -143,9 +141,7 @@ BOLDGRID.SEO = {
 			};
 		},
 		initialize : function() {
-			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
-
-			var type = this.model.get( 'type' );
+			$( window ).bind( 'bgseo-report', _.bind( this.setAnalysis, this ) );
 
 			this.bgseo_template = wp.template( 'butterbean-control-keywords' );
 
@@ -153,7 +149,7 @@ BOLDGRID.SEO = {
 			_.bindAll( this, 'render' );
 			this.model.bind( 'change', this.render );
 		},
-		getAnalysis: function( e, report ) {
+		setAnalysis: function( e, report ) {
 			this.model.set( report );
 		},
 
