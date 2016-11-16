@@ -114,7 +114,7 @@
 	/**
 	 * Registers the keywords display as a control.
 	 *
-	 * @since 1.3.1
+	 * @since 1.4
 	 */
 	butterbean.views.register_control( 'keywords', {
 		// Wrapper element for the control.
@@ -127,10 +127,10 @@
 				'class' : 'butterbean-control butterbean-control-' + this.model.get( 'type' )
 			};
 		},
-
 		initialize : function() {
-			// Listen for the bgseo-report event in the window.
 			$( window ).bind( 'bgseo-report', _.bind( this.getAnalysis, this ) );
+
+			var type = this.model.get( 'type' );
 
 			this.bgseo_template = wp.template( 'butterbean-control-keywords' );
 
@@ -138,8 +138,6 @@
 			_.bindAll( this, 'render' );
 			this.model.bind( 'change', this.render );
 		},
-
-		// Sets analysis in model.
 		getAnalysis: function( e, report ) {
 			this.model.set( report );
 		},
