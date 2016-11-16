@@ -22,6 +22,50 @@
 		init : function () {
 
 			/**
+			 * Return a copy of the object only containing the whitelisted properties.
+			 * Nested properties are concatenated with dots notation.
+			 *
+			 * Example:
+			 * a = {a:'a', b:{c:'c', d:'d', e:'e'}};
+			 * _.pickDeep(a, 'b.c','b.d')
+			 *
+			 * Returns:
+			 * {b:{c:'c',d:'d'}}
+			 *
+			 * @param obj
+			 * @returns {Object} copy Object containing only properties requested.
+			 */
+			_.mixin({
+				pickDeep : function( obj ) {
+					var copy = {},
+						keys = Array.prototype.concat.apply( Array.prototype, Array.prototype.slice.call( arguments, 1 ) );
+
+					this.each( keys, function( key ) {
+						var subKeys = key.split( '.' );
+						key = subKeys.shift();
+
+						if ( key in obj ) {
+							// pick nested properties
+							if( subKeys.length > 0 ) {
+								// extend property (if defined before)
+								if( copy[ key ] ) {
+									_.extend( copy[ key ], _.pickDeep( obj[ key ], subKeys.join( '.' ) ) );
+								}
+								else {
+									copy[ key ] = _.pickDeep( obj[ key ], subKeys.join( '.' ) );
+								}
+							}
+							else {
+								copy[ key ] = obj[ key ];
+							}
+						}
+					});
+
+					return copy;
+				}
+			});
+
+			/**
 			 * Function that checks if a field is set.
 			 *
 			 * @returns {Bool} Is field set.
