@@ -61,7 +61,7 @@
 
 			// Get the count of scores in object by status.
 			score = _( section ).countBy( function( items ) {
-				return  ! _.isUndefined( items.score ) && 'sectionScore' !== _.property( 'sectionScore' )( section ) ? items.score.status : '';
+				return  ! _.isUndefined( items.lengthScore ) && 'sectionScore' !== _.property( 'sectionScore' )( section ) ? items.lengthScore.status : '';
 			});
 
 			// Update the object with the new count.

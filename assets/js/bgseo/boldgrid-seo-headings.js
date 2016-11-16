@@ -123,7 +123,7 @@
 				};
 				// Add the score of H1 presence to the headings object.
 				_( headings ).extend({
-					score : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
+					lengthScore : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
 				});
 			}
 

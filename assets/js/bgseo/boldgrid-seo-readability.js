@@ -50,7 +50,7 @@
 					'score' : grade,
 					'gradeLevel' : '5th grade',
 					'explanation': 'Very easy to read. Easily understood by an average 11-year-old student.',
-					score : {
+					lengthScore : {
 						'status' : 'green',
 						'msg' : _bgseoContentAnalysis.readingEase.goodHigh,
 					},
@@ -59,10 +59,10 @@
 			// Grade is 80-90.
 			if ( grade.isBetween( 79, 91 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : '6th grade',
 					'explanation': 'Easy to read. Conversational English for consumers.',
-					score : {
+					lengthScore : {
 						'status' : 'green',
 						'msg' : _bgseoContentAnalysis.readingEase.goodMedHigh,
 					},
@@ -71,10 +71,10 @@
 			// Grade is 70-90.
 			if ( grade.isBetween( 69, 81 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : '7th grade',
 					'explanation': 'Fairly easy to read.',
-					score : {
+					lengthScore : {
 						'status' : 'green',
 						'msg' : _bgseoContentAnalysis.readingEase.goodMedLow,
 					}
@@ -83,10 +83,10 @@
 			// Grade is 60-70.
 			if ( grade.isBetween( 59, 71 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : '8th & 9th',
 					'explanation': 'Plain English. Easily understood by 13- to 15-year-old students.',
-					score : {
+					lengthScore : {
 						'status' : 'green',
 						'msg' : _bgseoContentAnalysis.readingEase.goodLow,
 					},
@@ -95,10 +95,10 @@
 			// Grade is 50-60.
 			if ( grade.isBetween( 49, 61 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : '10th to 12th',
 					'explanation': 'Fairly difficult to read.',
-					score : {
+					lengthScore : {
 						'status' : 'yellow',
 						'msg' : _bgseoContentAnalysis.readingEase.ok,
 					},
@@ -107,10 +107,10 @@
 			// Grade is 30-50.
 			if ( grade.isBetween( 29, 51 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : 'College Student',
 					'explanation': 'Difficult to read.',
-					score : {
+					lengthScore : {
 						'status' : 'red',
 						'msg' : _bgseoContentAnalysis.readingEase.badHigh,
 					},
@@ -119,18 +119,18 @@
 			// Grade is less than 30.
 			if ( grade < 30 ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : 'College Graduate',
 					'explanation': 'Difficult to read.',
-					score : {
+					lengthScore : {
 						'status' : 'red',
 						'msg' : _bgseoContentAnalysis.readingEase.badLow,
 					},
 				};
 			}
 			// Add translated score string to message.
-			scoreTranslated = _bgseoContentAnalysis.readingEase.grade.printf( grade ) + ' ';
-			description.score.msg = description.score.msg.replace( /^/, scoreTranslated );
+			scoreTranslated = _bgseoContentAnalysis.readingEase.score.printf( grade ) + ' ';
+			description.lengthScore.msg = description.lengthScore.msg.replace( /^/, scoreTranslated );
 
 			return description;
 		},

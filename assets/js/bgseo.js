@@ -401,14 +401,14 @@ BOLDGRID.SEO.Admin.init();
 					_( report.bgseo_dashboard ).extend({
 						headings : {
 							count : headings,
-							score : BOLDGRID.SEO.Headings.score( headings.h1.length ),
+							lengthScore : BOLDGRID.SEO.Headings.score( headings.h1.length ),
 						},
 					});
 					// Update the keywordHeadings object.
 					_( report.bgseo_keywords ).extend({
 						keywordHeadings : {
 							length : BOLDGRID.SEO.Headings.keywords({ count: headings }),
-							score : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords({ count: headings }) ),
+							lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords({ count: headings }) ),
 						},
 					});
 					// The rendered content stats.
@@ -530,12 +530,12 @@ BOLDGRID.SEO.Admin.init();
 				if ( eventInfo.count ) {
 					words = {
 						length : eventInfo.count,
-						score : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
+						lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
 					};
 					if ( eventInfo.count === 0 ) {
 						words = {
 							length : 0,
-							score : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
+							lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( 0 ),
 						};
 					}
 
@@ -583,29 +583,29 @@ BOLDGRID.SEO.Admin.init();
 								sectionStatus: {},
 								image : {
 									length : report.rawstatistics.imageCount,
-									score: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
+									lengthScore: BOLDGRID.SEO.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
 								},
 								headings : headingCount,
 								wordCount: {
-									score : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
+									lengthScore : BOLDGRID.SEO.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
 								}
 							},
 
 							bgseo_meta : {
 								title : {
 									length : titleLength,
-									score:  BOLDGRID.SEO.Title.titleScore( titleLength ),
+									lengthScore:  BOLDGRID.SEO.Title.titleScore( titleLength ),
 								},
 								description : {
 									length : descriptionLength,
-									score:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
+									lengthScore:  BOLDGRID.SEO.Description.descriptionScore( descriptionLength ),
 									keywordUsage : BOLDGRID.SEO.Description.keywords(),
 								},
 								titleKeywordUsage : {
-									score : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 								},
 								descKeywordUsage : {
-									score : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -613,10 +613,10 @@ BOLDGRID.SEO.Admin.init();
 
 							bgseo_visibility : {
 								robotIndex : {
-									score: BOLDGRID.SEO.Robots.indexScore(),
+									lengthScore: BOLDGRID.SEO.Robots.indexScore(),
 								},
 								robotFollow : {
-									score: BOLDGRID.SEO.Robots.followScore(),
+									lengthScore: BOLDGRID.SEO.Robots.followScore(),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -624,17 +624,17 @@ BOLDGRID.SEO.Admin.init();
 
 							bgseo_keywords : {
 								keywordTitle : {
-									score : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+									lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 								},
 								keywordDescription : {
-									score : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+									lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 								},
 								keywordContent : {
-									score : BOLDGRID.SEO.Keywords.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
+									lengthScore : BOLDGRID.SEO.Keywords.contentScore( BOLDGRID.SEO.ContentAnalysis.keywords( content ) ),
 								},
 								keywordHeadings : {
 									length : BOLDGRID.SEO.Headings.keywords( headingCount ),
-									score : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords( headingCount ) ),
+									lengthScore : BOLDGRID.SEO.Keywords.headingScore( BOLDGRID.SEO.Headings.keywords( headingCount ) ),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -681,15 +681,15 @@ BOLDGRID.SEO.Admin.init();
 
 						_( report.bgseo_meta.title ).extend({
 							length : eventInfo.titleLength,
-							score :  BOLDGRID.SEO.Title.titleScore( eventInfo.titleLength ),
+							lengthScore:  BOLDGRID.SEO.Title.titleScore( eventInfo.titleLength ),
 						});
 
 						_( report.bgseo_meta.titleKeywordUsage ).extend({
-							score : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 						});
 
 						_( report.bgseo_keywords.keywordTitle ).extend({
-							score : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
+							lengthScore : BOLDGRID.SEO.Keywords.titleScore( BOLDGRID.SEO.Title.keywords() ),
 						});
 					}
 
@@ -706,29 +706,29 @@ BOLDGRID.SEO.Admin.init();
 
 						_( report.bgseo_meta.description ).extend({
 							length : eventInfo.descLength,
-							score:  BOLDGRID.SEO.Description.descriptionScore( eventInfo.descLength ),
+							lengthScore:  BOLDGRID.SEO.Description.descriptionScore( eventInfo.descLength ),
 						});
 
 						_( report.bgseo_meta.descKeywordUsage ).extend({
-							score : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
 
 						_( report.bgseo_keywords.keywordDescription ).extend({
-							score : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
+							lengthScore : BOLDGRID.SEO.Keywords.descriptionScore( BOLDGRID.SEO.Description.keywords() ),
 						});
 					}
 
 					// Listen for changes to noindex/index and update report.
 					if ( eventInfo.robotIndex ) {
 						_( report.bgseo_visibility.robotIndex ).extend({
-							score : eventInfo.robotIndex,
+							lengthScore : eventInfo.robotIndex,
 						});
 					}
 
 					// Listen for changes to nofollow/follow and update report.
 					if ( eventInfo.robotFollow ) {
 						_( report.bgseo_visibility.robotFollow ).extend({
-							score : eventInfo.robotFollow,
+							lengthScore : eventInfo.robotFollow,
 						});
 					}
 				}
@@ -1234,7 +1234,7 @@ BOLDGRID.SEO.Description.init();
 				};
 				// Add the score of H1 presence to the headings object.
 				_( headings ).extend({
-					score : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
+					lengthScore : BOLDGRID.SEO.Headings.score( headings.count.h1.length ),
 				});
 			}
 
@@ -1291,11 +1291,11 @@ BOLDGRID.SEO.Description.init();
 					keywords : {
 						title : {
 							length : BOLDGRID.SEO.Title.keywords(),
-							score : 0,
+							lengthScore : 0,
 						},
 						description : {
 							length : BOLDGRID.SEO.Description.keywords(),
-							score : 0,
+							lengthScore : 0,
 						},
 						keyword : $.trim( $( this ).val() ),
 					},
@@ -1689,7 +1689,7 @@ BOLDGRID.SEO.Keywords.init();
 					'score' : grade,
 					'gradeLevel' : '5th grade',
 					'explanation': 'Very easy to read. Easily understood by an average 11-year-old student.',
-					score : {
+					lengthScore : {
 						'status' : 'green',
 						'msg' : _bgseoContentAnalysis.readingEase.goodHigh,
 					},
@@ -1698,10 +1698,10 @@ BOLDGRID.SEO.Keywords.init();
 			// Grade is 80-90.
 			if ( grade.isBetween( 79, 91 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : '6th grade',
 					'explanation': 'Easy to read. Conversational English for consumers.',
-					score : {
+					lengthScore : {
 						'status' : 'green',
 						'msg' : _bgseoContentAnalysis.readingEase.goodMedHigh,
 					},
@@ -1710,10 +1710,10 @@ BOLDGRID.SEO.Keywords.init();
 			// Grade is 70-90.
 			if ( grade.isBetween( 69, 81 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : '7th grade',
 					'explanation': 'Fairly easy to read.',
-					score : {
+					lengthScore : {
 						'status' : 'green',
 						'msg' : _bgseoContentAnalysis.readingEase.goodMedLow,
 					}
@@ -1722,10 +1722,10 @@ BOLDGRID.SEO.Keywords.init();
 			// Grade is 60-70.
 			if ( grade.isBetween( 59, 71 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : '8th & 9th',
 					'explanation': 'Plain English. Easily understood by 13- to 15-year-old students.',
-					score : {
+					lengthScore : {
 						'status' : 'green',
 						'msg' : _bgseoContentAnalysis.readingEase.goodLow,
 					},
@@ -1734,10 +1734,10 @@ BOLDGRID.SEO.Keywords.init();
 			// Grade is 50-60.
 			if ( grade.isBetween( 49, 61 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : '10th to 12th',
 					'explanation': 'Fairly difficult to read.',
-					score : {
+					lengthScore : {
 						'status' : 'yellow',
 						'msg' : _bgseoContentAnalysis.readingEase.ok,
 					},
@@ -1746,10 +1746,10 @@ BOLDGRID.SEO.Keywords.init();
 			// Grade is 30-50.
 			if ( grade.isBetween( 29, 51 ) ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : 'College Student',
 					'explanation': 'Difficult to read.',
-					score : {
+					lengthScore : {
 						'status' : 'red',
 						'msg' : _bgseoContentAnalysis.readingEase.badHigh,
 					},
@@ -1758,18 +1758,18 @@ BOLDGRID.SEO.Keywords.init();
 			// Grade is less than 30.
 			if ( grade < 30 ) {
 				description = {
-					grade      : grade,
+					'score'      : grade,
 					'gradeLevel' : 'College Graduate',
 					'explanation': 'Difficult to read.',
-					score : {
+					lengthScore : {
 						'status' : 'red',
 						'msg' : _bgseoContentAnalysis.readingEase.badLow,
 					},
 				};
 			}
 			// Add translated score string to message.
-			scoreTranslated = _bgseoContentAnalysis.readingEase.grade.printf( grade ) + ' ';
-			description.score.msg = description.score.msg.replace( /^/, scoreTranslated );
+			scoreTranslated = _bgseoContentAnalysis.readingEase.score.printf( grade ) + ' ';
+			description.lengthScore.msg = description.lengthScore.msg.replace( /^/, scoreTranslated );
 
 			return description;
 		},
@@ -1959,7 +1959,7 @@ BOLDGRID.SEO.Robots.init();
 
 			// Get the count of scores in object by status.
 			score = _( section ).countBy( function( items ) {
-				return  ! _.isUndefined( items.score ) && 'sectionScore' !== _.property( 'sectionScore' )( section ) ? items.score.status : '';
+				return  ! _.isUndefined( items.lengthScore ) && 'sectionScore' !== _.property( 'sectionScore' )( section ) ? items.lengthScore.status : '';
 			});
 
 			// Update the object with the new count.
