@@ -134,7 +134,7 @@
 			if ( _.isEmpty( words ) ) return;
 
 			for ( var i=0; i < words.length; i++ ) {
-				var word = $.trim( words[i] );
+				var word = $.trim( words[i] ).toLowerCase();
 				if ( ! word || word.length < 3 || _bgseoContentAnalysis.stopWords.indexOf( word ) > -1 ) {
 					continue;
 				}
@@ -150,6 +150,7 @@
 			wordCounts.sort( function ( a, b ) {
 				return b[1] - a[1];
 			});
+
 			// Return the first n items
 			result = wordCounts.slice( 0, n );
 
