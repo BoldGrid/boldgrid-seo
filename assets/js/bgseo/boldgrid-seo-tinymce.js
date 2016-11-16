@@ -108,44 +108,23 @@
 					// HS's that appear in rendered content.
 					h2 = $rendered.find( 'h2' );
 
-					headings = {
-						h1 : {
-							length : h1.length,
-							text : api.Headings.getHeadingText( h1 ),
-						},
-						h2 : {
-							length : h2.length,
-							text : api.Headings.getHeadingText( h2 ),
-						},
-					};
-
-					// Set initial headings count.
-					_( report.bgseo_dashboard ).extend({
-						headings : {
-							count : headings,
-							lengthScore : api.Headings.score( headings.h1.length ),
-						},
-					});
-					// Update the keywordHeadings object.
-					_( report.bgseo_keywords ).extend({
-						keywordHeadings : {
-							length : api.Headings.keywords({ count: headings }),
-							lengthScore : api.Keywords.headingScore( api.Headings.keywords({ count: headings }) ),
-						},
-					});
 					// The rendered content stats.
 					renderedContent = {
 						h1Count : h1.length - report.rawstatistics.h1Count,
-						h1text : _( api.Headings.getHeadingText( h1 ) ).difference( report.rawstatistics.h1text ),
+						h1text : _.filter( api.Headings.getHeadingText( h1 ), function( obj ){
+							return ! _.findWhere( report.rawstatistics.h1text, obj );
+						}),
 						h2Count : h2.length - report.rawstatistics.h2Count,
-						h2text : _( api.Headings.getHeadingText( h2 ) ).difference( report.rawstatistics.h2text ),
+						h2text : _.filter( api.Headings.getHeadingText( h2 ), function( obj ){
+							return ! _.findWhere( report.rawstatistics.h2text, obj );
+						}),
 					};
 
 					// Add the rendered stats to our report for use later.
 					_.extend( report, { rendered : renderedContent } );
 
 					// Trigger the SEO report to rebuild in the template after initial stats are created.
-					$( '#content' ).trigger( 'bgseo-report', [ report ] );
+					$( '#content' ).trigger( 'bgseo-analysis', [ self.getContent() ] );
 
 				}, 'html' );
 			}

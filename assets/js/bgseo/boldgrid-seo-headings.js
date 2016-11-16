@@ -49,18 +49,19 @@
 			var found = { length : 0 },
 			    keyword = api.Keywords.getKeyword();
 
-			// If not passing in headings, get the headings count from the reporter.
+			// If not passing in headings, attempt to find default headings.
 			if ( _.isUndefined( headings ) ) {
-				headings = report.bgseo_dashboard.headings;
+				headings = { count : self.getRealHeadingCount() };
 			}
 
+			// Don't process report item if headings are empty.
+			if ( _.isEmpty( headings ) ) return;
+			// Get the count.
 			_( headings.count ).each( function( value, key ) {
 				var text = value.text;
 				// Add to the found object for total occurences found for keyword in headings.
 				_( text ).each( function( item ) {
-					_( found ).extend({
-						length : Number( found.length ) + Number( item.occurences( keyword ) ),
-					});
+					found.length =  Number( found.length ) + Number( item.heading.occurences( keyword ) * item.count );
 				});
 			});
 
@@ -77,11 +78,16 @@
 		 * @returns {Array} headingText Contains each selectors' text.
 		 */
 		getHeadingText : function( selectors ) {
-			var headingText = [];
+			var headingText = {};
 
-			$( selectors ).each( function() {
-				var text = $.trim( $( this ).text() );
-				headingText.push( text );
+			headingText = _.countBy( selectors, function( value, key ) {
+				return $.trim( $( value ).text().toLowerCase() );
+			});
+			headingText = _.map( headingText, function( value, key ) {
+				return _( headingText ).has({ heading : key, count : value }) ? false : {
+					heading : key,
+					count : value,
+				};
 			});
 
 			return headingText;
@@ -120,9 +126,63 @@
 				};
 				// Add the score of H1 presence to the headings object.
 				_( headings ).extend({
-					lengthScore : api.Headings.score( headings.count.h1.length ),
+					lengthScore : self.score( headings.count.h1.length ),
 				});
+			} else {
+				headings = self.getContentHeadings();
 			}
+
+			return headings;
+		},
+
+		/**
+		 * Get the headings that exist in the raw content.
+		 *
+		 * This will get the content and check if any h1s or
+		 * h2s exist in the raw markup.  If they are present, it will
+		 * update the report with new count information and text.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} headings Counts of h1 and h2 tags in content.
+		 */
+		getContentHeadings : function() {
+			var headings, h1s, h2s, content;
+
+			// Set default counts.
+			headings = {
+				count: {
+					h1 : {
+						length : 0,
+						text : {},
+					},
+					h2 : {
+						length : 0,
+						text : {},
+					},
+				},
+			};
+
+			content = api.TinyMCE.getContent();
+
+			h1s = $( content.raw ).find( 'h1' );
+			h2s = $( content.raw ).find( 'h2' );
+
+			// If no h1s or h2s are found return the defaults.
+			if ( ! h1s.length && ! h2s.length ) return headings;
+
+			headings = {
+				count: {
+					h1 : {
+						length : h1s.length,
+						text : self.getHeadingText( h1s ),
+					},
+					h2 : {
+						length : h2s.length,
+						text : self.getHeadingText( h2s ),
+					},
+				},
+			};
 
 			return headings;
 		},

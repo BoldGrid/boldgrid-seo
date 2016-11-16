@@ -97,6 +97,9 @@
 
 			keyword = self.getKeyword();
 
+			// Return 0 without calculation if no custom keyword is found.
+			if ( _.isUndefined( keyword ) ) return 0;
+
 			// Normalize.
 			keyword = keyword.toLowerCase();
 
@@ -186,19 +189,19 @@
 		 */
 		getKeyword : function() {
 			var customKeyword,
-			    content;
-
-			if ( report.bgseo_dashboard.wordCount.length > 99 ) {
-				if ( self.getCustomKeyword().length ) {
-					customKeyword = self.getCustomKeyword();
-				} else if ( ! _.isUndefined( report.textstatistics.recommendedKeywords ) ) {
+			    content = api.TinyMCE.getContent();
+				content = $.trim( content.text );
+				console.log( _.isEmpty( content.text ) );
+			if ( self.getCustomKeyword().length ) {
+				customKeyword = self.getCustomKeyword();
+			} else if ( ! _.isUndefined( report.textstatistics.recommendedKeywords ) &&
+				! _.isUndefined( report.textstatistics.recommendedKeywords[0] ) ) {
 					// Set customKeyword to recommended keyword search.
 					customKeyword = report.textstatistics.recommendedKeywords[0][0];
-				} else {
-					content = api.TinyMCE.getContent();
-					content = $.trim( content.text );
-					self.recommendedKeywords( content, 1 );
-				}
+			} else if ( _.isEmpty( content.text ) ) {
+				customKeyword = undefined;
+			} else {
+				self.recommendedKeywords( content, 1 );
 			}
 
 			return customKeyword;
@@ -219,7 +222,6 @@
 			msg = {
 				title : self.titleScore(),
 				description : self.descriptionScore(),
-				//content : self.contentScore(),
 			};
 			return msg;
 		},

@@ -564,44 +564,23 @@ BOLDGRID.SEO = {
 					// HS's that appear in rendered content.
 					h2 = $rendered.find( 'h2' );
 
-					headings = {
-						h1 : {
-							length : h1.length,
-							text : api.Headings.getHeadingText( h1 ),
-						},
-						h2 : {
-							length : h2.length,
-							text : api.Headings.getHeadingText( h2 ),
-						},
-					};
-
-					// Set initial headings count.
-					_( report.bgseo_dashboard ).extend({
-						headings : {
-							count : headings,
-							lengthScore : api.Headings.score( headings.h1.length ),
-						},
-					});
-					// Update the keywordHeadings object.
-					_( report.bgseo_keywords ).extend({
-						keywordHeadings : {
-							length : api.Headings.keywords({ count: headings }),
-							lengthScore : api.Keywords.headingScore( api.Headings.keywords({ count: headings }) ),
-						},
-					});
 					// The rendered content stats.
 					renderedContent = {
 						h1Count : h1.length - report.rawstatistics.h1Count,
-						h1text : _( api.Headings.getHeadingText( h1 ) ).difference( report.rawstatistics.h1text ),
+						h1text : _.filter( api.Headings.getHeadingText( h1 ), function( obj ){
+							return ! _.findWhere( report.rawstatistics.h1text, obj );
+						}),
 						h2Count : h2.length - report.rawstatistics.h2Count,
-						h2text : _( api.Headings.getHeadingText( h2 ) ).difference( report.rawstatistics.h2text ),
+						h2text : _.filter( api.Headings.getHeadingText( h2 ), function( obj ){
+							return ! _.findWhere( report.rawstatistics.h2text, obj );
+						}),
 					};
 
 					// Add the rendered stats to our report for use later.
 					_.extend( report, { rendered : renderedContent } );
 
 					// Trigger the SEO report to rebuild in the template after initial stats are created.
-					$( '#content' ).trigger( 'bgseo-report', [ report ] );
+					$( '#content' ).trigger( 'bgseo-analysis', [ self.getContent() ] );
 
 				}, 'html' );
 			}
@@ -1091,18 +1070,19 @@ BOLDGRID.SEO = {
 			var found = { length : 0 },
 			    keyword = api.Keywords.getKeyword();
 
-			// If not passing in headings, get the headings count from the reporter.
+			// If not passing in headings, attempt to find default headings.
 			if ( _.isUndefined( headings ) ) {
-				headings = report.bgseo_dashboard.headings;
+				headings = { count : self.getRealHeadingCount() };
 			}
 
+			// Don't process report item if headings are empty.
+			if ( _.isEmpty( headings ) ) return;
+			// Get the count.
 			_( headings.count ).each( function( value, key ) {
 				var text = value.text;
 				// Add to the found object for total occurences found for keyword in headings.
 				_( text ).each( function( item ) {
-					_( found ).extend({
-						length : Number( found.length ) + Number( item.occurences( keyword ) ),
-					});
+					found.length =  Number( found.length ) + Number( item.heading.occurences( keyword ) * item.count );
 				});
 			});
 
@@ -1119,11 +1099,16 @@ BOLDGRID.SEO = {
 		 * @returns {Array} headingText Contains each selectors' text.
 		 */
 		getHeadingText : function( selectors ) {
-			var headingText = [];
+			var headingText = {};
 
-			$( selectors ).each( function() {
-				var text = $.trim( $( this ).text() );
-				headingText.push( text );
+			headingText = _.countBy( selectors, function( value, key ) {
+				return $.trim( $( value ).text().toLowerCase() );
+			});
+			headingText = _.map( headingText, function( value, key ) {
+				return _( headingText ).has({ heading : key, count : value }) ? false : {
+					heading : key,
+					count : value,
+				};
 			});
 
 			return headingText;
@@ -1162,9 +1147,63 @@ BOLDGRID.SEO = {
 				};
 				// Add the score of H1 presence to the headings object.
 				_( headings ).extend({
-					lengthScore : api.Headings.score( headings.count.h1.length ),
+					lengthScore : self.score( headings.count.h1.length ),
 				});
+			} else {
+				headings = self.getContentHeadings();
 			}
+
+			return headings;
+		},
+
+		/**
+		 * Get the headings that exist in the raw content.
+		 *
+		 * This will get the content and check if any h1s or
+		 * h2s exist in the raw markup.  If they are present, it will
+		 * update the report with new count information and text.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} headings Counts of h1 and h2 tags in content.
+		 */
+		getContentHeadings : function() {
+			var headings, h1s, h2s, content;
+
+			// Set default counts.
+			headings = {
+				count: {
+					h1 : {
+						length : 0,
+						text : {},
+					},
+					h2 : {
+						length : 0,
+						text : {},
+					},
+				},
+			};
+
+			content = api.TinyMCE.getContent();
+
+			h1s = $( content.raw ).find( 'h1' );
+			h2s = $( content.raw ).find( 'h2' );
+
+			// If no h1s or h2s are found return the defaults.
+			if ( ! h1s.length && ! h2s.length ) return headings;
+
+			headings = {
+				count: {
+					h1 : {
+						length : h1s.length,
+						text : self.getHeadingText( h1s ),
+					},
+					h2 : {
+						length : h2s.length,
+						text : self.getHeadingText( h2s ),
+					},
+				},
+			};
 
 			return headings;
 		},
@@ -1273,6 +1312,9 @@ BOLDGRID.SEO = {
 
 			keyword = self.getKeyword();
 
+			// Return 0 without calculation if no custom keyword is found.
+			if ( _.isUndefined( keyword ) ) return 0;
+
 			// Normalize.
 			keyword = keyword.toLowerCase();
 
@@ -1362,19 +1404,19 @@ BOLDGRID.SEO = {
 		 */
 		getKeyword : function() {
 			var customKeyword,
-			    content;
-
-			if ( report.bgseo_dashboard.wordCount.length > 99 ) {
-				if ( self.getCustomKeyword().length ) {
-					customKeyword = self.getCustomKeyword();
-				} else if ( ! _.isUndefined( report.textstatistics.recommendedKeywords ) ) {
+			    content = api.TinyMCE.getContent();
+				content = $.trim( content.text );
+				console.log( _.isEmpty( content.text ) );
+			if ( self.getCustomKeyword().length ) {
+				customKeyword = self.getCustomKeyword();
+			} else if ( ! _.isUndefined( report.textstatistics.recommendedKeywords ) &&
+				! _.isUndefined( report.textstatistics.recommendedKeywords[0] ) ) {
 					// Set customKeyword to recommended keyword search.
 					customKeyword = report.textstatistics.recommendedKeywords[0][0];
-				} else {
-					content = api.TinyMCE.getContent();
-					content = $.trim( content.text );
-					self.recommendedKeywords( content, 1 );
-				}
+			} else if ( _.isEmpty( content.text ) ) {
+				customKeyword = undefined;
+			} else {
+				self.recommendedKeywords( content, 1 );
 			}
 
 			return customKeyword;
@@ -1395,7 +1437,6 @@ BOLDGRID.SEO = {
 			msg = {
 				title : self.titleScore(),
 				description : self.descriptionScore(),
-				//content : self.contentScore(),
 			};
 			return msg;
 		},
@@ -1806,6 +1847,14 @@ BOLDGRID.SEO = {
 						_( report.rawstatistics ).extend( headings );
 					}
 
+					if ( eventInfo.keywords ) {
+						_( report.bgseo_keywords ).extend({
+							customKeyword : eventInfo.keywords.keyword,
+						});
+
+						$( '#content' ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+					}
+
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
 						var customKeyword,
@@ -1879,38 +1928,14 @@ BOLDGRID.SEO = {
 
 							textstatistics : {
 								recommendedKeywords : api.Keywords.recommendedKeywords( content, 1 ),
+								customKeyword : api.Keywords.getKeyword(),
+								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
 							},
 
 						});
 
-						/**
-						 * Only do this analysis if the Word Count is over 99
-						 * words since most of the analysis results are going
-						 * to be invalid or skewed by not having much usable
-						 * content available.
-						 */
-						if ( report.bgseo_dashboard.wordCount.length > 99 ) {
-							_( report.textstatistics ).extend({
-								recommendedKeywords : api.Keywords.recommendedKeywords( content, 1 ),
-							});
-							_( report.bgseo_dashboard ).extend({
-								gradeLevel  : api.Readability.gradeLevel( content ),
-							});
+						// Removing readability score for now. _( report.bgseo_dashboard ).extend({ gradeLevel  : api.Readability.gradeLevel( content ), });
 
-							/**
-							 * Adds the customKeyword that's obtained to the report.
-							 * Note: This can contain the user inputted custom keyword,
-							 * or it can contain the autogenerated recommended keyword
-							 * that was found based on the user's content.
-							 */
-							_( report.textstatistics ).extend({
-								customKeyword : api.Keywords.getKeyword(),
-							});
-							_( report.bgseo_keywords ).extend({
-								customKeyword : api.Keywords.getKeyword(),
-								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
-							});
-						}
 					}
 
 					// Listen to changes to the SEO Title and update report.
@@ -1928,14 +1953,6 @@ BOLDGRID.SEO = {
 						_( report.bgseo_keywords.keywordTitle ).extend({
 							lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
 						});
-					}
-
-					if ( eventInfo.keywords ) {
-						_( report.bgseo_keywords ).extend({
-							customKeyword : eventInfo.keywords.keyword,
-						});
-
-						$( '#content' ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 
 					// Listen to changes to the SEO Description and update report.
