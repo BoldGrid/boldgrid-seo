@@ -1,5 +1,14 @@
 var BOLDGRID = BOLDGRID || {};
-BOLDGRID.SEO = BOLDGRID.SEO || {};
+BOLDGRID.SEO = BOLDGRID.SEO || {
+	report : {
+		bgseo_visibility : {},
+		bgseo_dashboard : {},
+		bgseo_keywords : {},
+		bgseo_meta : {},
+		rawstatistics : {},
+		textstatistics : {},
+	},
+};
 
 ( function ( $ ) {
 
