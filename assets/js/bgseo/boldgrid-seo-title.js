@@ -116,19 +116,17 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 *
 		 * @since 1.3.1
 		 *
-		 * @param {String} keyword  (Optional)  The keyword to search for.
 		 * @param {String} text     (Optional)  The text to search for keyword in.
+		 * @param {String} keyword  (Optional)  The keyword to search for.
 		 *
 		 * @returns {Number} Count of times keyword appears in text.
 		 */
-		keywords : function( keyword, text ) {
-			// Optional param gets keyword from api if not provided.
-			if ( _.isUndefined( keyword ) ) {
+		keywords : function( text, keyword ) {
+			if ( 0 === arguments.length ) {
 				keyword = api.Keywords.getKeyword();
-			}
-			// Optional param gets SEO title if text not provided.
-			if ( _.isUndefined( text ) ) {
 				text = self.getTitle().val();
+			} else if ( 1 === arguments.length ) {
+				keyword = api.Keywords.getKeyword();
 			}
 
 			return text.occurences( keyword );
