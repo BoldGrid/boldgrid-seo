@@ -2201,6 +2201,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 						_( report.bgseo_keywords.keywordTitle ).extend({
 							lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
 						});
+						$( '#content' ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 
 					// Listen to changes to the SEO Description and update report.
@@ -2218,6 +2219,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 						_( report.bgseo_keywords.keywordDescription ).extend({
 							lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 						});
+						$( '#content' ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 
 					// Listen for changes to noindex/index and update report.
