@@ -1,17 +1,18 @@
 var gulp     = require( 'gulp' ),
+    del      = require( 'del' ),
+    bower    = require( 'gulp-bower' ),
+    rename   = require( 'gulp-rename' ),
+    sort     = require( 'gulp-sort' ),
     uglify   = require( 'gulp-uglify' ),
     cssnano  = require( 'gulp-cssnano' ),
     wpPot    = require( 'gulp-wp-pot' ),
     jshint   = require( 'gulp-jshint' ),
-    rename   = require( 'gulp-rename' ),
-    sort     = require( 'gulp-sort' ),
-    git      = require( 'gulp-git' ),
     concat   = require( 'gulp-concat' ),
     pump     = require( 'pump' ),
-    del      = require( 'del' ),
+    sequence = require( 'run-sequence' ),
     readme   = require( 'gulp-readme-to-markdown' ),
-    jasmine = require('gulp-jasmine'),
-    server = require('karma').Server;
+    jasmine  = require( 'gulp-jasmine' ),
+    server   = require( 'karma' ).Server;
 
 // Configs.
 var config = {
@@ -45,72 +46,62 @@ gulp.task( 'js', function ( cb ) {
 			suffix: '.min'
 		} ),
 		gulp.dest(  config.dist + config.jsDir )
-    ],
-    cb
-  );
+	], cb );
 });
 
 // Minify CSS Assets.
-gulp.task( 'css', function(  ) {
-  return gulp.src([
-    '!' + config.src + config.cssDir + '/**/*.min.css',
-    config.src + config.cssDir + '/**/*.css' ])
-    .pipe( gulp.dest( config.dist + config.cssDir ) )
-    .pipe( cssnano({
-    discardComments: { removeAll: true }
-    }) )
-    .pipe( rename({ suffix: '.min' }) )
-    .pipe( gulp.dest( config.dist + config.cssDir ) );
+gulp.task( 'css', function() {
+	return gulp.src([
+	'!' + config.src + config.cssDir + '/**/*.min.css',
+	config.src + config.cssDir + '/**/*.css' ])
+		.pipe( gulp.dest( config.dist + config.cssDir ) )
+		.pipe( cssnano({
+			discardComments: { removeAll: true }
+		}) )
+		.pipe( rename({ suffix: '.min' }) )
+		.pipe( gulp.dest( config.dist + config.cssDir ) );
 });
 
 // Setup Translations.
-gulp.task( 'translate', function (  ) {
-  return gulp.src( config.src + '/**/*.php' )
-    .pipe( sort() )
-    .pipe( wpPot({
-      domain: 'bgseo',
-      destFile: 'bgseo.pot',
-      package: 'bgseo',
-      bugReport: 'https://boldgrid.com',
-      team: 'The BoldGrid Team <support@boldgrid.com>'
-    }) )
-    .pipe( gulp.dest( config.dist + '/languages' ) );
-} );
+gulp.task( 'translate', function () {
+	return gulp.src( config.src + '/**/*.php' )
+		.pipe( sort() )
+		.pipe( wpPot({
+			domain: 'bgseo',
+			destFile: 'bgseo.pot',
+			package: 'bgseo',
+			bugReport: 'https://boldgrid.com',
+			team: 'The BoldGrid Team <support@boldgrid.com>'
+		}) )
+		.pipe( gulp.dest( config.dist + '/languages' ) );
+});
 
 
 //Convert readme.txt to Markdown for Github
 gulp.task('readme', function() {
-  gulp.src( config.src + '/readme.txt' )
-    .pipe( readme() )
-    .pipe( gulp.dest( config.dist ) );
+	return gulp.src( config.src + '/readme.txt' )
+		.pipe( readme() )
+		.pipe( gulp.dest( config.dist ) );
 });
 
-// Clone remote repo to sub folder ($CWD/sub/folder/git-test)
-gulp.task( 'clone', function() {
-    // Files to remove.
-    var files = [
-        config.src + config.bowerDir + '/butterbean/.git',
-        config.src + config.bowerDir + '/text-statistics/.git',
-        config.src + config.bowerDir + '/text-statistics/test',
-        config.src + config.bowerDir + '/text-statistics/.gitignore',
-    ];
-  git.clone( 'https://github.com/justintadlock/butterbean', { args: '-b dev --single-branch ' + config.src + config.bowerDir + '/butterbean' }, function( err ) {
-    // silent
-  });
-  git.clone( 'https://github.com/cgiffard/TextStatistics.js', { args: config.src + config.bowerDir + '/text-statistics' }, function( err ) {
-    // silent
-  });
-  files.forEach( function( file ) {
-    del( file );
-  });
+// Copy Butterbean dep.
+gulp.task( 'copyButterbean', function() {
+	return gulp.src([
+		'!' + config.src + config.bowerDir + '/butterbean/.git',
+		config.src + config.bowerDir + '/butterbean/**/*',
+		])
+		.pipe( gulp.dest( config.dist + '/includes/lib/butterbean' ) );
+
+
 });
 
-// Copy lib files into repo.
-gulp.task( 'copyLibs', ['clone'], function() {
-  gulp.src( config.src + config.bowerDir + '/butterbean/**/*' )
-    .pipe( gulp.dest( config.dist + '/includes/lib/butterbean' ) );
-  gulp.src( config.src + config.bowerDir + '/text-statistics/**/*.{js,md}' )
-      .pipe( gulp.dest( config.dist + '/assets/js/text-statistics' ) );
+// Copy TextStatistics dep.
+gulp.task( 'copyTextStatistics', function() {
+	return gulp.src([
+		'!' + config.src + config.bowerDir + '/TextStatistics.js/test/**/*',
+		config.src + config.bowerDir + '/TextStatistics.js/**/*.{js,md}',
+		])
+		.pipe( gulp.dest( config.dist + '/assets/js/text-statistics' ) );
 });
 
 // JS Unit testing
@@ -122,4 +113,26 @@ gulp.task( 'jsTest', function (done) {
 });
 
 // Build.
-gulp.task( 'default', [ 'jsTest', 'translate', 'js', 'css', 'readme', 'clone', 'copyLibs' ] );
+gulp.task( 'cleanDeps', function() {
+	return del([
+		config.src + config.bowerDir + '/butterbean',
+		config.src + config.bowerDir + '/text-statistics',
+		config.dist + '/includes/lib/butterbean',
+		config.dist + '/assets/js/text-statistics',
+	]);
+});
+
+// Create a bower task to retrieve bower_components on build
+gulp.task( 'bower', function(  ) {
+	return bower().pipe( gulp.dest( config.src + config.bowerDir ) );
+} );
+
+// Build.
+gulp.task( 'default', function( cb ) {
+	sequence(
+		'cleanDeps',
+		'bower',
+		[ 'jsTest', 'translate', 'js', 'css', 'readme', 'copyButterbean', 'copyTextStatistics' ],
+		cb
+	);
+});

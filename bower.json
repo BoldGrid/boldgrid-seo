@@ -1,0 +1,26 @@
+{
+  "name": "boldgrid-seo",
+  "description": "BoldGrid SEO provides website search engine optimization.",
+  "main": "gulpfile.js",
+  "authors": [
+    "The BoldGrid Team"
+  ],
+  "license": "GPL-2.0",
+  "keywords": [
+    "SEO",
+    "Search",
+    "Engine",
+    "Optimization"
+  ],
+  "homepage": "https://github.com/BoldGrid/boldgrid-seo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "butterbean": "https://github.com/justintadlock/butterbean.git#c64587395071742f99352d5ead03dc0050de8c78"
+  }
+}
