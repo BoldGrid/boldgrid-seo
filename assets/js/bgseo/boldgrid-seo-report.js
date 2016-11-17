@@ -177,6 +177,7 @@
 
 							textstatistics : {
 								recommendedKeywords : api.Keywords.recommendedKeywords( raw, 1 ),
+								recommendedCount : api.Keywords.getRecommendedCount( raw ),
 								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
 							},
 

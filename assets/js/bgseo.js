@@ -1634,6 +1634,34 @@ BOLDGRID.SEO = {
 
 			return customKeyword;
 		},
+
+		/**
+		 * Used to get the recommended keyword count.
+		 *
+		 * Gets the percentages provided for minimum and maximum keyword
+		 * densities from the configs.  The number is based on the amount of words
+		 * that make up the current page/post.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} count Range for count of keywords based on content length.
+		 */
+		getRecommendedCount : function( markup ) {
+			var count;
+
+			if ( _.isUndefined( markup ) ) {
+				markup = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ?
+					api.Words.words( $content.val() ) :
+					api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+			}
+
+			count = _.modifyObject( _bgseoContentAnalysis.keywords.recommendedCount, function( item ) {
+				return Number( ( item / 100 ) * api.Words.words( markup ).length ).rounded( 0 );
+			});
+
+			return count;
+		},
+
 		/**
 		 * Used to get the keyword for the report.
 		 *
@@ -2148,6 +2176,7 @@ BOLDGRID.SEO = {
 
 							textstatistics : {
 								recommendedKeywords : api.Keywords.recommendedKeywords( raw, 1 ),
+								recommendedCount : api.Keywords.getRecommendedCount( raw ),
 								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
 							},
 
