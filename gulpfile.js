@@ -122,4 +122,4 @@ gulp.task( 'jsTest', function (done) {
 });
 
 // Build.
-gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone', 'copyLibs' ] );
+gulp.task( 'default', ['translate', 'js', 'css', 'readme', 'clone', 'copyLibs', 'jsTest' ] );
