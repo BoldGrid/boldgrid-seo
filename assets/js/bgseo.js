@@ -1195,24 +1195,31 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		descriptionScore : function( descriptionLength ) {
 			var msg = {};
 
+			// No description has been entered.
 			if ( descriptionLength === 0 ) {
 				msg = {
 					status: 'red',
 					msg: _bgseoContentAnalysis.seoDescription.length.badEmpty,
 				};
 			}
-			if ( descriptionLength.isBetween( 0, 126 ) ) {
+
+			// Character count is 1-124.
+			if ( descriptionLength.isBetween( 0, 125 ) ) {
 				msg = {
 					status: 'yellow',
 					msg: _bgseoContentAnalysis.seoDescription.length.ok,
 				};
 			}
-			if ( descriptionLength.isBetween( 125, 156 ) ) {
+
+			// Character count is 125-156.
+			if ( descriptionLength.isBetween( 124, 157 ) ) {
 				msg = {
 					status: 'green',
 					msg: _bgseoContentAnalysis.seoDescription.length.good,
 				};
 			}
+
+			// Character coutn is over 156.
 			if ( descriptionLength > 156 ) {
 				msg = {
 					status: 'red',
