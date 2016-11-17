@@ -2635,11 +2635,21 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 *
 		 * @since 1.3.1
 		 *
-		 * @returns {Number} Count of times keyword appears in the SEO title.
+		 * @param {String} keyword  (Optional)  The keyword to search for.
+		 * @param {String} text     (Optional)  The text to search for keyword in.
+		 *
+		 * @returns {Number} Count of times keyword appears in text.
 		 */
-		keywords : function() {
-			var keyword = api.Keywords.getKeyword(),
-			    title = self.getTitle().val();
+		keywords : function( keyword, text ) {
+			// Optional param gets keyword from api if not provided.
+			if ( _.isUndefined( keyword ) ) {
+				keyword = api.Keywords.getKeyword();
+			}
+			// Optional param gets SEO title if text not provided.
+			if ( _.isUndefined( text ) ) {
+				title = self.getTitle().val();
+			}
+
 			return title.occurences( keyword );
 		},
 	};
