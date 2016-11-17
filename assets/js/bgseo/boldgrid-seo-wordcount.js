@@ -21,7 +21,7 @@
 			words = BOLDGRID.SEO.Words.words( text );
 
 			if ( count !== prevCount ) {
-				$content.triggerAll( 'bgseo-analysis', [{ words : words, count : count }] );
+				$content.trigger( 'bgseo-analysis', [{ words : words, count : count }] );
 			}
 
 			prevCount = count;

@@ -264,24 +264,6 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			});
 
 			/**
-			 * Function that checks if a field is set.
-			 *
-			 * @returns {Bool} Is field set.
-			 */
-			$.fn.extend({
-				isFieldSet : function() {
-					return Boolean( $.trim( $( this ).val() ).length );
-				},
-				triggerAll : function ( events, params ) {
-					var el = this, i, evts = events.split( ' ' );
-					for ( i = 0; i < evts.length; i += 1 ) {
-						el.trigger( evts[i], params );
-					}
-					return el;
-				},
-			});
-
-			/**
 			 * Usage: ( n ).isBetween( min, max )
 			 *
 			 * Gives you bool response if number is within the minimum
@@ -521,7 +503,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			words = BOLDGRID.SEO.Words.words( text );
 
 			if ( count !== prevCount ) {
-				$content.triggerAll( 'bgseo-analysis', [{ words : words, count : count }] );
+				$content.trigger( 'bgseo-analysis', [{ words : words, count : count }] );
 			}
 
 			prevCount = count;
