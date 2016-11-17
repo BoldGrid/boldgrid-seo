@@ -113,7 +113,7 @@
 		 */
 		keywords : function() {
 			var keyword = api.Keywords.getKeyword(),
-			    title = api.Title.getTitle().val();
+			    title = self.getTitle().val();
 			return title.occurences( keyword );
 		},
 	};
