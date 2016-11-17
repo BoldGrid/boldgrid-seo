@@ -190,21 +190,47 @@ BOLDGRID.SEO = {
 		 */
 		init : function () {
 
-			/**
-			 * Return a copy of the object only containing the whitelisted properties.
-			 * Nested properties are concatenated with dots notation.
-			 *
-			 * Example:
-			 * a = {a:'a', b:{c:'c', d:'d', e:'e'}};
-			 * _.pickDeep(a, 'b.c','b.d')
-			 *
-			 * Returns:
-			 * {b:{c:'c',d:'d'}}
-			 *
-			 * @param obj
-			 * @returns {Object} copy Object containing only properties requested.
-			 */
 			_.mixin({
+
+				/**
+				 * Return a copy of the object only containing the whitelisted properties.
+				 * Nested properties are concatenated with dots notation.
+				 *
+				 * Example:
+				 * a = { min: 0.5, max : 2.5 };
+				 * _.modifyObject( a, function( item ){ return item * item; });
+				 *
+				 * Returns:
+				 * { min: 0.25, max : 6.25 };
+				 *
+				 * @since 1.3.1
+				 *
+				 * @param obj
+				 *
+				 * @returns {Object} Modified object.
+				 */
+				modifyObject: function( object, iteratee ) {
+					return _.object( _.map( object, function( value, key ) {
+						return [ key, iteratee( value ) ];
+					}));
+				},
+				/**
+				 * Return a copy of the object only containing the whitelisted properties.
+				 * Nested properties are concatenated with dots notation.
+				 *
+				 * Example:
+				 * a = {a:'a', b:{c:'c', d:'d', e:'e'}};
+				 * _.pickDeep(a, 'b.c','b.d')
+				 *
+				 * Returns:
+				 * {b:{c:'c',d:'d'}}
+				 *
+				 * @since 1.3.1
+				 *
+				 * @param obj
+				 *
+				 * @returns {Object} copy Object containing only properties requested.
+				 */
 				pickDeep : function( obj ) {
 					var copy = {},
 						keys = Array.prototype.concat.apply( Array.prototype, Array.prototype.slice.call( arguments, 1 ) );
@@ -231,7 +257,7 @@ BOLDGRID.SEO = {
 					});
 
 					return copy;
-				}
+				},
 			});
 
 			/**
