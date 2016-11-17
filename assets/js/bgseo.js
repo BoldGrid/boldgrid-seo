@@ -164,6 +164,9 @@ BOLDGRID.SEO = {
 
 })( jQuery );
 
+var BOLDGRID = BOLDGRID || {};
+BOLDGRID.SEO = BOLDGRID.SEO || {};
+
 ( function ( $ ) {
 
 	'use strict';
@@ -191,7 +194,6 @@ BOLDGRID.SEO = {
 		init : function () {
 
 			_.mixin({
-
 				/**
 				 * Return a copy of the object only containing the whitelisted properties.
 				 * Nested properties are concatenated with dots notation.
@@ -209,11 +211,12 @@ BOLDGRID.SEO = {
 				 *
 				 * @returns {Object} Modified object.
 				 */
-				modifyObject: function( object, iteratee ) {
+				modifyObject : function( object, iteratee ) {
 					return _.object( _.map( object, function( value, key ) {
 						return [ key, iteratee( value ) ];
 					}));
 				},
+
 				/**
 				 * Return a copy of the object only containing the whitelisted properties.
 				 * Nested properties are concatenated with dots notation.
@@ -293,15 +296,18 @@ BOLDGRID.SEO = {
 			 */
 			if ( ! Number.prototype.isBetween ) {
 				Number.prototype.isBetween = function( min, max ) {
-					return this > min && this < max;
+					if ( _.isUndefined( min ) ) min = 0;
+					if ( _.isUndefined( max ) ) max = 0;
+					var newMax = Math.max( min, max );
+					var newMin = Math.min( min, max );
+					return this > newMin && this < newMax;
 				};
 			}
 
 			/**
 			 * Usage: ( n ).rounded( digits )
 			 *
-			 * Gives you bool response if number is within the minimum
-			 * and maximum numbers specified for the range.
+			 * Rounds a number to the closest decimal you specify.
 			 *
 			 * @since 1.3.1
 			 *
@@ -312,6 +318,9 @@ BOLDGRID.SEO = {
 			 */
 			if ( ! Number.prototype.rounded ) {
 				Number.prototype.rounded = function( digits ) {
+
+					if ( _.isUndefined( digits ) ) digits = 0;
+
 					var multiple = Math.pow( 10, digits );
 					var rounded = Math.round( this * multiple ) / multiple;
 
@@ -1247,10 +1256,14 @@ BOLDGRID.SEO = {
 		 * @since 1.3.1
 		 */
 		score : function( count ) {
-			var msg = {
+			var msg;
+
+			// Set default message for h1 headings score.
+			msg = {
 					status : 'green',
 					msg : _bgseoContentAnalysis.headings.h1.good,
 				};
+
 			// If we have more than one H1 tag rendered.
 			if ( count > 1 ) {
 				msg = {
@@ -1258,6 +1271,7 @@ BOLDGRID.SEO = {
 					msg : _bgseoContentAnalysis.headings.h1.badMultiple,
 				};
 			}
+
 			// If no H1 tag is present.
 			if ( 0 === count ) {
 				msg = {
@@ -1265,6 +1279,7 @@ BOLDGRID.SEO = {
 					msg : _bgseoContentAnalysis.headings.h1.badEmpty,
 				};
 			}
+
 			return msg;
 		},
 
@@ -2681,6 +2696,9 @@ BOLDGRID.SEO = {
 	self = api.Tooltips;
 
 })( jQuery );
+
+var BOLDGRID = BOLDGRID || {};
+BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 ( function ( $ ) {
 

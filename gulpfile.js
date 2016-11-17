@@ -9,7 +9,9 @@ var gulp     = require( 'gulp' ),
     concat   = require( 'gulp-concat' ),
     pump     = require( 'pump' ),
     del      = require( 'del' ),
-    readme   = require( 'gulp-readme-to-markdown' );
+    readme   = require( 'gulp-readme-to-markdown' ),
+    jasmine = require('gulp-jasmine'),
+    server = require('karma').Server;
 
 // Configs.
 var config = {
@@ -17,7 +19,7 @@ var config = {
     dist: '.',
     jsDir: '/assets/js',
     cssDir: '/assets/css',
-	bowerDir: '/bower_components',
+    bowerDir: '/bower_components',
 };
 
 // Run JSHint & Minify Assets.
@@ -109,6 +111,14 @@ gulp.task( 'copyLibs', ['clone'], function() {
     .pipe( gulp.dest( config.dist + '/includes/lib/butterbean' ) );
   gulp.src( config.src + config.bowerDir + '/text-statistics/**/*.{js,md}' )
       .pipe( gulp.dest( config.dist + '/assets/js/text-statistics' ) );
+});
+
+// JS Unit testing
+gulp.task( 'jsTest', function (done) {
+	return new server({
+		configFile: __dirname + '/karma.conf.js',
+		singleRun: true
+	}, done ).start();
 });
 
 // Build.

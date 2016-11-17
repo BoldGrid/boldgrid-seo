@@ -15,10 +15,14 @@
 		 * @since 1.3.1
 		 */
 		score : function( count ) {
-			var msg = {
+			var msg;
+
+			// Set default message for h1 headings score.
+			msg = {
 					status : 'green',
 					msg : _bgseoContentAnalysis.headings.h1.good,
 				};
+
 			// If we have more than one H1 tag rendered.
 			if ( count > 1 ) {
 				msg = {
@@ -26,6 +30,7 @@
 					msg : _bgseoContentAnalysis.headings.h1.badMultiple,
 				};
 			}
+
 			// If no H1 tag is present.
 			if ( 0 === count ) {
 				msg = {
@@ -33,6 +38,7 @@
 					msg : _bgseoContentAnalysis.headings.h1.badEmpty,
 				};
 			}
+
 			return msg;
 		},
 
