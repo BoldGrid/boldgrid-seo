@@ -35,7 +35,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 *
 		 * @since 1.3.1
 		 *
-		 * @returns {Object} title Contains wrapped set with BoldGrid SEO Title..
+		 * @returns {Object} title Contains wrapped set with BoldGrid SEO Title.
 		 */
 		getTitle : function() {
 			var title = $( '#boldgrid-seo-field-meta_title' );

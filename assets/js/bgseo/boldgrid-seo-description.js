@@ -36,12 +36,24 @@
 		 * @since 1.3.1
 		 */
 		_description : function() {
-			var desc = $( '#boldgrid-seo-field-meta_description' );
+			var desc = self.getDescription();
 			// Listen for changes to input value.
 			desc.on( 'input propertychange paste', _.debounce( function() {
 				var descLength = $( this ).val().length;
 				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
 			}, 1000 ) );
+		},
+
+		/**
+		 * Gets the SEO Description.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Object} description Contains wrapped set with BoldGrid SEO Description.
+		 */
+		getDescription : function() {
+			var description = $( '#boldgrid-seo-field-meta_description' );
+			return description;
 		},
 
 		/**
@@ -88,7 +100,7 @@
 		},
 		keywords : function() {
 			var keyword = api.Keywords.getKeyword(),
-				description = $( '#boldgrid-seo-field-meta_description' ).val();
+				description = self.getDescription().val();
 			return description.occurences( keyword );
 		},
 	};
