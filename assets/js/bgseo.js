@@ -2497,6 +2497,9 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 })( jQuery );
 
+var BOLDGRID = BOLDGRID || {};
+BOLDGRID.SEO = BOLDGRID.SEO || {};
+
 ( function ( $ ) {
 
 	'use strict';
@@ -2569,6 +2572,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 */
 		titleScore: function( titleLength ) {
 			var msg = {};
+
 			// No title entered.
 			if ( titleLength === 0 ) {
 				msg = {
@@ -2576,13 +2580,15 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					msg: _bgseoContentAnalysis.seoTitle.length.badEmpty,
 				};
 			}
-			// Title is 0-30 characters.
+
+			// Title is 1-30 characters.
 			if ( titleLength.isBetween( 0, 31 ) ) {
 				msg = {
 					status: 'yellow',
 					msg: _bgseoContentAnalysis.seoTitle.length.ok,
 				};
 			}
+
 			// Title is 30-70 characters.
 			if ( titleLength.isBetween( 29, 71 ) ) {
 				msg = {
@@ -2590,6 +2596,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					msg: _bgseoContentAnalysis.seoTitle.length.good,
 				};
 			}
+
 			// Title is grater than 70 characters.
 			if ( titleLength > 70 ) {
 				msg = {
@@ -2612,7 +2619,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 */
 		keywords : function() {
 			var keyword = api.Keywords.getKeyword(),
-			    title = api.Title.getTitle().val();
+			    title = self.getTitle().val();
 			return title.occurences( keyword );
 		},
 	};

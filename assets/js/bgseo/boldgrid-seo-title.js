@@ -1,3 +1,6 @@
+var BOLDGRID = BOLDGRID || {};
+BOLDGRID.SEO = BOLDGRID.SEO || {};
+
 ( function ( $ ) {
 
 	'use strict';
@@ -70,6 +73,7 @@
 		 */
 		titleScore: function( titleLength ) {
 			var msg = {};
+
 			// No title entered.
 			if ( titleLength === 0 ) {
 				msg = {
@@ -77,13 +81,15 @@
 					msg: _bgseoContentAnalysis.seoTitle.length.badEmpty,
 				};
 			}
-			// Title is 0-30 characters.
+
+			// Title is 1-30 characters.
 			if ( titleLength.isBetween( 0, 31 ) ) {
 				msg = {
 					status: 'yellow',
 					msg: _bgseoContentAnalysis.seoTitle.length.ok,
 				};
 			}
+
 			// Title is 30-70 characters.
 			if ( titleLength.isBetween( 29, 71 ) ) {
 				msg = {
@@ -91,6 +97,7 @@
 					msg: _bgseoContentAnalysis.seoTitle.length.good,
 				};
 			}
+
 			// Title is grater than 70 characters.
 			if ( titleLength > 70 ) {
 				msg = {

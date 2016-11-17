@@ -8,7 +8,8 @@ module.exports = function(config) {
       'https://code.jquery.com/jquery-1.12.4.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js',
       'assets/js/bgseo/boldgrid-seo-util.js',
-	  'assets/js/bgseo/boldgrid-seo-init.js',
+      'assets/js/bgseo/boldgrid-seo-title.js',
+      'assets/js/bgseo/boldgrid-seo-init.js',
       'tests/*.js'
     ]
   });
