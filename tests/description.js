@@ -1,9 +1,12 @@
 describe( 'Gets the description selector.', function() {
+
 	sandbox( '<textarea name="butterbean_boldgrid_seo_setting_bgseo_description" id="boldgrid-seo-field-meta_description" placeholder="The Write Stuff&nbsp;fdsfds&nbsp; A Better Copywriting Service &nbsp; The concept for my company was a team effort." class="widefat">testing</textarea>' );
+
 	it( 'Uses the description field\'s selector.', function() {
 		var description = BOLDGRID.SEO.Description.getDescription();
 		expect( description.selector ).toBe( '#boldgrid-seo-field-meta_description' );
 	});
+
 	it( 'Finds the SEO Description correctly.', function() {
 		var description = BOLDGRID.SEO.Description.getDescription();
 		expect( description.val() ).toBe( 'testing' );
@@ -11,7 +14,9 @@ describe( 'Gets the description selector.', function() {
 });
 
 describe( 'api.Description.descriptionScore() : Retrieves the description\'s status and message based on length.', function() {
+
 	sandbox( '<textarea name="butterbean_boldgrid_seo_setting_bgseo_description" id="boldgrid-seo-field-meta_description" placeholder="The Write Stuff&nbsp;fdsfds&nbsp; A Better Copywriting Service &nbsp; The concept for my company was a team effort." class="widefat">testing</textarea>' );
+
 	it( 'Returns a message object.', function() {
 		var descriptionLength, msg;
 
@@ -20,6 +25,7 @@ describe( 'api.Description.descriptionScore() : Retrieves the description\'s sta
 
 		expect( _.isObject( msg ) ).toBeTruthy();
 	});
+
 	it( 'Has a \'status\' property.', function() {
 		var descriptionLength, msg;
 
@@ -28,6 +34,7 @@ describe( 'api.Description.descriptionScore() : Retrieves the description\'s sta
 
 		expect( msg.status ).toBeTruthy();
 	});
+
 	it( 'Has a \'msg\' property.', function() {
 		var descriptionLength, msg;
 
@@ -131,4 +138,5 @@ describe( 'api.Description.descriptionScore() : Retrieves the description\'s sta
 		expect( msg.status ).not.toBe( 'yellow' );
 		expect( msg.status ).toBe( 'green' );
 	});
+
 });
