@@ -169,3 +169,21 @@ describe( 'Get boolean response if number is within a range.', function() {
 		expect( between ).toBeFalsy();
 	});
 });
+
+describe( 'Replaces %s occurences in string like printf.', function() {
+	it( "Handles single replacement.", function() {
+		var string = 'This is a string that %s be dynamic';
+		var printf = ( string ).printf( 'can' );
+		expect( printf ).toBe( 'This is a string that can be dynamic' );
+	});
+	it( "Handles multiple replacements.", function() {
+		var string = 'This is a string that %s be dynamic%s';
+		var printf = ( string ).printf( 'can', '!' );
+		expect( printf ).toBe( 'This is a string that can be dynamic!' );
+	});
+	it( "Handles calling function without anything to replace.", function() {
+		var string = 'This is a string that be dynamic';
+		var printf = ( string ).printf( 'can', '!' );
+		expect( printf ).toBe( 'This is a string that be dynamic' );
+	});
+});
