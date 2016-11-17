@@ -128,10 +128,10 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			}
 			// Optional param gets SEO title if text not provided.
 			if ( _.isUndefined( text ) ) {
-				title = self.getTitle().val();
+				text = self.getTitle().val();
 			}
 
-			return title.occurences( keyword );
+			return text.occurences( keyword );
 		},
 	};
 
