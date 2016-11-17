@@ -7,6 +7,8 @@
 	api = BOLDGRID.SEO;
 	report = api.report;
 
+
+
 	/**
 	 * BoldGrid SEO Robots.
 	 *
@@ -24,9 +26,24 @@
 		 */
 		init : function () {
 			$( document ).ready( function() {
+				self.getSettings();
 				self._index();
 				self._follow();
 			});
+		},
+
+		/**
+		 * Cache selectors
+		 *
+		 * @since 1.3.1
+		 */
+		getSettings : function() {
+			self.settings = {
+				indexInput : $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_index]' ),
+				noIndex : $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_index][value="noindex"]' ),
+				followInput : $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_follow]' ),
+				noFollow : $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_follow][value="nofollow"]' ),
+			} ;
 		},
 
 		/**
@@ -38,9 +55,8 @@
 		 * @since 1.3.1
 		 */
 		_index : function() {
-			var index = $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_index]' );
 			// Listen for changes to input value.
-			index.on( 'change', function() {
+			self.settings.indexInput.on( 'change', function() {
 				$( this ).trigger( 'bgseo-analysis', [{ 'robotIndex': self.indexScore() }] );
 			});
 		},
@@ -60,7 +76,7 @@
 				msg: _bgseoContentAnalysis.noIndex.good,
 			};
 
-			if ( $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_index][value=noindex]' ).is( ':checked' ) ) {
+			if ( self.settings.noIndex.is( ':checked' ) ) {
 				msg = {
 					status: 'red',
 					msg: _bgseoContentAnalysis.noIndex.bad,
@@ -79,9 +95,8 @@
 		 * @since 1.3.1
 		 */
 		_follow : function() {
-			var index = $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_follow]' );
 			// Listen for changes to input value.
-			index.on( 'change', function() {
+			self.settings.followInput.on( 'change', function() {
 				$( this ).trigger( 'bgseo-analysis', [{ 'robotFollow': self.followScore() }] );
 			});
 		},
@@ -101,7 +116,7 @@
 				msg: _bgseoContentAnalysis.noFollow.good,
 			};
 
-			if ( $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_follow][value=nofollow]' ).is( ':checked' ) ) {
+			if ( self.settings.noFollow.is( ':checked' ) ) {
 				msg = {
 					status: 'yellow',
 					msg: _bgseoContentAnalysis.noFollow.bad,
