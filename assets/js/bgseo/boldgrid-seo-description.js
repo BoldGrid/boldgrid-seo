@@ -98,6 +98,14 @@
 
 			return msg;
 		},
+
+		/**
+		 * Gets the number of occurences in the SEO Description.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {Number} Frequency that keyword appears in description.
+		 */
 		keywords : function() {
 			var keyword = api.Keywords.getKeyword(),
 				description = self.getDescription().val();
