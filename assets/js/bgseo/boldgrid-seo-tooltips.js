@@ -33,7 +33,7 @@
 		 */
 		onReady : function() {
 			self.getSettings();
-			self.hideToolTips();
+			self.hideTooltips();
 			self._enableTooltips();
 			self._toggleTooltip();
 		},
@@ -90,7 +90,7 @@
 		 *
 		 * @since 1.3.1
 		 */
-		hideToolTips : function() {
+		hideTooltips : function() {
 			self.settings.description.hide();
 		},
 	};

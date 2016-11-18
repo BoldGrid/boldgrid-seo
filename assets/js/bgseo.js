@@ -2755,7 +2755,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 */
 		onReady : function() {
 			self.getSettings();
-			self.hideToolTips();
+			self.hideTooltips();
 			self._enableTooltips();
 			self._toggleTooltip();
 		},
@@ -2812,7 +2812,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 *
 		 * @since 1.3.1
 		 */
-		hideToolTips : function() {
+		hideTooltips : function() {
 			self.settings.description.hide();
 		},
 	};
