@@ -114,7 +114,7 @@ describe( 'api.Robots.followScore() : Gets status/message for follow/nofollow.',
 
 });
 
-describe( 'api.Robots._follow() : Sets up event listener and triggers bgseo-analysis.', function() {
+describe( 'api.Robots._follow() : Sets up event listener for follow/nofollow and triggers analysis.', function() {
 
 	sandbox( '<div id="butterbean-boldgrid_seo-section-bgseo_visibility" class="butterbean-section butterbean-section-default" aria-hidden="false"><div id="butterbean-control-bgseo_robots_index" class="butterbean-control butterbean-control-radio"><span class="butterbean-label">Meta Robots Index<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">Setting this to index means that search engines are encouraged to show your website in their search results.</span><ul class="butterbean-radio-list"><li><label><input type="radio" value="index" name="butterbean_boldgrid_seo_setting_bgseo_robots_index" checked="checked">index</label></li><li><label><input type="radio" value="noindex" name="butterbean_boldgrid_seo_setting_bgseo_robots_index">noindex</label></li></ul></div><div id="butterbean-control-bgseo_robots_follow" class="butterbean-control butterbean-control-radio"><span class="butterbean-label">Meta Robots Follow<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">Having this set to follow means that search engines are able to count and follow where your links go to.</span><ul class="butterbean-radio-list"><li><label><input type="radio" value="follow" name="butterbean_boldgrid_seo_setting_bgseo_robots_follow" checked="checked">follow</label></li><li><label><input type="radio" value="nofollow" name="butterbean_boldgrid_seo_setting_bgseo_robots_follow">nofollow</label></li></ul></div><div id="butterbean-control-bgseo_canonical" class="butterbean-control butterbean-control-text"><label><span class="butterbean-label">Canonical Link<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">The canonical URL that this page should point to, leave it empty to default to the permalink.</span><input type="text" value="" name="butterbean_boldgrid_seo_setting_bgseo_canonical" class="widefat" placeholder="http://local.wordpress.dev/about-us-staging/"></label></div></div>' );
 
@@ -136,6 +136,35 @@ describe( 'api.Robots._follow() : Sets up event listener and triggers bgseo-anal
 		expect( triggered ).toBeFalsy();
 		// force change event on follow input to trigger analysis.
 		BOLDGRID.SEO.Robots.settings.followInput.change();
+		// triggered should be set to true now.
+		expect( triggered ).toBeTruthy();
+	});
+
+});
+
+describe( 'api.Robots._index() : Sets up event listener for index/noindex and triggers analysis.', function() {
+
+	sandbox( '<div id="butterbean-boldgrid_seo-section-bgseo_visibility" class="butterbean-section butterbean-section-default" aria-hidden="false"><div id="butterbean-control-bgseo_robots_index" class="butterbean-control butterbean-control-radio"><span class="butterbean-label">Meta Robots Index<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">Setting this to index means that search engines are encouraged to show your website in their search results.</span><ul class="butterbean-radio-list"><li><label><input type="radio" value="index" name="butterbean_boldgrid_seo_setting_bgseo_robots_index" checked="checked">index</label></li><li><label><input type="radio" value="noindex" name="butterbean_boldgrid_seo_setting_bgseo_robots_index">noindex</label></li></ul></div><div id="butterbean-control-bgseo_robots_follow" class="butterbean-control butterbean-control-radio"><span class="butterbean-label">Meta Robots Follow<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">Having this set to follow means that search engines are able to count and follow where your links go to.</span><ul class="butterbean-radio-list"><li><label><input type="radio" value="follow" name="butterbean_boldgrid_seo_setting_bgseo_robots_follow" checked="checked">follow</label></li><li><label><input type="radio" value="nofollow" name="butterbean_boldgrid_seo_setting_bgseo_robots_follow">nofollow</label></li></ul></div><div id="butterbean-control-bgseo_canonical" class="butterbean-control butterbean-control-text"><label><span class="butterbean-label">Canonical Link<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">The canonical URL that this page should point to, leave it empty to default to the permalink.</span><input type="text" value="" name="butterbean_boldgrid_seo_setting_bgseo_canonical" class="widefat" placeholder="http://local.wordpress.dev/about-us-staging/"></label></div></div>' );
+
+	it( '_index is triggered on document ready.', function() {
+		var _index = spyOn( BOLDGRID.SEO.Robots, '_index' );
+		// Set document ready.
+		BOLDGRID.SEO.Robots.onReady();
+		expect( _index ).toHaveBeenCalled();
+	});
+
+	it( 'Event listener triggers the seo analysis.', function() {
+		var triggered = false;
+		// Set up a listener for report.
+		$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
+			triggered = true;
+		});
+		// set onReady to trigger _follow.
+		BOLDGRID.SEO.Robots.onReady();
+		// triggered should be set to false.
+		expect( triggered ).toBeFalsy();
+		// force change event on follow input to trigger analysis.
+		BOLDGRID.SEO.Robots.settings.indexInput.change();
 		// triggered should be set to true now.
 		expect( triggered ).toBeTruthy();
 	});
