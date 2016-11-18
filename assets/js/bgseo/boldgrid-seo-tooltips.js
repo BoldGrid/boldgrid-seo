@@ -23,11 +23,20 @@
 		 * @since 1.3.1
 		 */
 		init : function () {
-			$( document ).ready( function() {
-				self.hideToolTips();
-				self._enableTooltips();
-				self._toggleTooltip();
-			});
+			$( document ).ready( self.onReady );
+		},
+
+		onReady : function() {
+			self.getSettings();
+			self.hideToolTips();
+			self._enableTooltips();
+			self._toggleTooltip();
+		},
+		getSettings : function() {
+			self.settings = {
+				description : $( '.butterbean-control .butterbean-description' ),
+				tooltip  : $( '<span />', { 'class' : 'bgseo-tooltip dashicons dashicons-editor-help', 'aria-expanded' : 'false' }),
+			};
 		},
 		_toggleTooltip : function() {
 			$( '.butterbean-label, .bgseo-tooltip' ).on( 'click', function( e ) {
@@ -35,22 +44,13 @@
 			});
 		},
 		_enableTooltips : function() {
-			var controls = $( '.butterbean-label' ).next( '.butterbean-description' ),
-			    $tooltip = $( '<span />', {
-					'class'         : 'bgseo-tooltip dashicons dashicons-editor-help',
-					'aria-expanded' : 'false'
-				});
-
-			// If a description exists for any of the controls, add the tooltip.
-			if ( controls.length ) {
-				controls.prev().append( $tooltip );
-			}
+			self.settings.description.prev().append( self.settings.tooltip );
 		},
 		toggleTooltip : function( e ) {
 			$( e.currentTarget ).next( '.butterbean-description' ).slideToggle();
 		},
 		hideToolTips : function() {
-			$( '.butterbean-control .butterbean-description' ).hide();
+			self.settings.description.hide();
 		},
 	};
 
