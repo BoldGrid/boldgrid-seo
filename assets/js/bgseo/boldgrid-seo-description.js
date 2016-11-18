@@ -22,9 +22,28 @@
 		 * @since 1.3.1
 		 */
 		init : function () {
-			$( document ).ready( function() {
-				self._description();
-			});
+			$( document ).ready( self.onReady );
+		},
+
+		/**
+		 * Sets up event listeners and selector cache in settings on document ready.
+		 *
+		 * @since 1.3.1
+		 */
+		onReady : function() {
+			self.getSettings();
+			self._description();
+		},
+
+		/**
+		 * Cache selectors
+		 *
+		 * @since 1.3.1
+		 */
+		getSettings : function() {
+			self.settings = {
+				description : $( '#boldgrid-seo-field-meta_title' ),
+			};
 		},
 
 		/**
@@ -38,9 +57,8 @@
 		_description : function() {
 			var desc = self.getDescription();
 			// Listen for changes to input value.
-			desc.on( 'input propertychange paste', _.debounce( function() {
-				var descLength = $( this ).val().length;
-				$( this ).trigger( 'bgseo-analysis', [{ 'descLength': descLength }] );
+			self.settings.description.on( 'input propertychange paste', _.debounce( function() {
+				self.settings.description.trigger( 'bgseo-analysis', [{ descLength : self.settings.description.val().length }] );
 			}, 1000 ) );
 		},
 
@@ -52,8 +70,7 @@
 		 * @returns {Object} description Contains wrapped set with BoldGrid SEO Description.
 		 */
 		getDescription : function() {
-			var description = $( '#boldgrid-seo-field-meta_description' );
-			return description;
+			return self.settings.description;
 		},
 
 		/**
