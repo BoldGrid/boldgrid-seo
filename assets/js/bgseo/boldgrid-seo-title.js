@@ -25,9 +25,28 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @since 1.3.1
 		 */
 		init : function () {
-			$( document ).ready( function() {
-				self._title();
-			});
+			$( document ).ready( self.onReady );
+		},
+
+		/**
+		 * Sets up event listeners and selector cache in settings on document ready.
+		 *
+		 * @since 1.3.1
+		 */
+		onReady : function() {
+			self.getSettings();
+			self._title();
+		},
+
+		/**
+		 * Cache selectors
+		 *
+		 * @since 1.3.1
+		 */
+		getSettings : function() {
+			self.settings = {
+				title : $( '#boldgrid-seo-field-meta_title' ),
+			};
 		},
 
 		/**
@@ -38,8 +57,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {Object} title Contains wrapped set with BoldGrid SEO Title.
 		 */
 		getTitle : function() {
-			var title = $( '#boldgrid-seo-field-meta_title' );
-			return title;
+			return self.settings.title;
 		},
 
 		/**
@@ -51,11 +69,9 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @since 1.3.1
 		 */
 		_title: function() {
-			var title = self.getTitle();
 			// Listen for changes to input value.
-			title.on( 'input propertychange paste', _.debounce( function() {
-				var titleLength = $( this ).val().length;
-				$( this ).trigger( 'bgseo-analysis', [{'titleLength': titleLength}] );
+			self.settings.title.on( 'input propertychange paste', _.debounce( function() {
+				self.settings.title.trigger( 'bgseo-analysis', [{ titleLength : self.settings.title.val().length }] );
 			}, 1000 ) );
 		},
 
