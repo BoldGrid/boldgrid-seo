@@ -1,3 +1,6 @@
+var BOLDGRID = BOLDGRID || {};
+BOLDGRID.SEO = BOLDGRID.SEO || {};
+
 ( function ( $ ) {
 
 	'use strict';
@@ -25,11 +28,18 @@
 		 * @since 1.3.1
 		 */
 		init : function () {
-			$( document ).ready( function() {
-				self.getSettings();
-				self._index();
-				self._follow();
-			});
+			$( document ).ready( self.onReady );
+		},
+
+		/**
+		 * Sets up event listeners and selector cache in settings on document ready.
+		 *
+		 * @since 1.3.1
+		 */
+		onReady : function() {
+			self.getSettings();
+			self._index();
+			self._follow();
 		},
 
 		/**
@@ -43,7 +53,7 @@
 				noIndex : $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_index][value="noindex"]' ),
 				followInput : $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_follow]' ),
 				noFollow : $( 'input[name=butterbean_boldgrid_seo_setting_bgseo_robots_follow][value="nofollow"]' ),
-			} ;
+			};
 		},
 
 		/**
@@ -55,7 +65,6 @@
 		 * @since 1.3.1
 		 */
 		_index : function() {
-			// Listen for changes to input value.
 			self.settings.indexInput.on( 'change', function() {
 				$( this ).trigger( 'bgseo-analysis', [{ 'robotIndex': self.indexScore() }] );
 			});
@@ -71,11 +80,15 @@
 		 * @returns {Object} Contains status indicator color and message to update.
 		 */
 		indexScore : function() {
-			var msg = {
+			var msg;
+
+			// Index radio is selected.
+			msg = {
 				status: 'green',
 				msg: _bgseoContentAnalysis.noIndex.good,
 			};
 
+			// Noindex radio is selected.
 			if ( self.settings.noIndex.is( ':checked' ) ) {
 				msg = {
 					status: 'red',
