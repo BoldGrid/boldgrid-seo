@@ -9,7 +9,7 @@ describe( 'api.Description.onReady() : Setup event listeners and get selector ca
 		expect( BOLDGRID.SEO.Description.settings ).toBeDefined();
 	});
 
-	it( 'Calls _index on document ready initialize.', function() {
+	it( 'Calls _description on document ready initialize.', function() {
 		var _description = spyOn( BOLDGRID.SEO.Description, '_description' );
 		// Set document ready.
 		BOLDGRID.SEO.Description.onReady();
