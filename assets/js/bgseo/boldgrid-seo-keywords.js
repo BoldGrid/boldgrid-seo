@@ -21,11 +21,29 @@
 		 * @since 1.3.1
 		 */
 		init : function () {
-			$( document ).ready( function() {
-				self._keywords();
-			});
+			$( document ).ready( self.onReady );
 		},
 
+		/**
+		 * Sets up event listeners and selector cache in settings on document ready.
+		 *
+		 * @since 1.3.1
+		 */
+		onReady : function() {
+			self.getSettings();
+			self._keywords();
+		},
+
+		/**
+		 * Cache selectors
+		 *
+		 * @since 1.3.1
+		 */
+		getSettings : function() {
+			self.settings = {
+				keyword : $( '#bgseo-custom-keyword' ),
+			};
+		},
 		/**
 		 * Sets up event listener for changes made to the custom keyword input.
 		 *
@@ -35,12 +53,9 @@
 		 * @since 1.3.1
 		 */
 		_keywords: function() {
-			var keyword = $( '#bgseo-custom-keyword' );
-
-			// Listen for changes to input value.
-			keyword.on( 'input propertychange paste', _.debounce( function() {
+			self.settings.keyword.on( 'input propertychange paste', _.debounce( function() {
 				var msg = {},
-				    length = $( this ).val().length;
+				    length = self.settings.keyword.val().length;
 
 				msg = {
 					keywords : {
@@ -52,17 +67,13 @@
 							length : api.Description.keywords(),
 							lengthScore : 0,
 						},
-						keyword : $.trim( $( this ).val() ),
+						keyword : self.getCustomKeyword(),
 					},
 				};
 
-				$( this ).trigger( 'bgseo-analysis', [msg] );
+				self.settings.keyword.trigger( 'bgseo-analysis', [msg] );
 
 			}, 1000 ) );
-		},
-
-		isKeywordSet : function() {
-			return $( '#bgseo-custom-keyword' ).isFieldSet();
 		},
 
 		/**
@@ -168,15 +179,10 @@
 		 *
 		 * @since 1.3.1
 		 *
-		 * @returns {string} keyword Trimmed output of user supplied custom keyword.
+		 * @returns {string} Trimmed output of user supplied custom keyword.
 		 */
 		getCustomKeyword : function() {
-			var keyword = $( '#bgseo-custom-keyword' ).val();
-			// Trim the input since it's user input to be sure there's no spaces.
-
-			keyword = $.trim( keyword );
-
-			return keyword;
+			return $.trim( self.settings.keyword.val() );
 		},
 
 		/**

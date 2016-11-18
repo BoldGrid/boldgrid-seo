@@ -27,11 +27,21 @@
 			$( document ).ready( self.onReady );
 		},
 
+		/**
+		 * Sets up event listeners and selector cache in settings on document ready.
+		 *
+		 * @since 1.3.1
+		 */
 		onReady : function() {
 			self.getSettings();
 			self.generateReport();
 		},
 
+		/**
+		 * Cache selectors
+		 *
+		 * @since 1.3.1
+		 */
 		getSettings : function() {
 			self.settings = {
 				title : $( '#boldgrid-seo-field-meta_title' ),
