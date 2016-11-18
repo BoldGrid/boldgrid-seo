@@ -101,3 +101,24 @@ describe( 'api.Tooltips.toggleTooltip() : Toggles a tooltip checks DOM for visib
 	});
 
 });
+
+describe( 'api.Tooltips.hideTooltips() : Hides all tooltips - test checks DOM for visibility.', function() {
+
+	sandbox( '<div id="butterbean-control-bgseo_robots_index" class="butterbean-control butterbean-control-radio"><span class="butterbean-label">Meta Robots Index<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">Setting this to index means that search engines are encouraged to show your website in their search results.</span><ul class="butterbean-radio-list"><li><label><input type="radio" value="index" name="butterbean_boldgrid_seo_setting_bgseo_robots_index" checked="checked">index</label></li><li><label><input type="radio" value="noindex" name="butterbean_boldgrid_seo_setting_bgseo_robots_index">noindex</label></li></ul></div>' );
+
+	it( 'Tooltips were successfully hidden by api.Tooltips.hideTooltips().', function() {
+		// Set document ready.
+		BOLDGRID.SEO.Tooltips.onReady();
+		// Tooltip should be hidden by default.
+		expect( $( '.butterbean-description' ).is( ':visible' ) ).toBeFalsy();
+		// Trigger a click.
+		BOLDGRID.SEO.Tooltips.settings.onClick.click();
+		// Tooltip should be visible after being clicked open.
+		expect( $( '.butterbean-description' ).is( ':visible' ) ).toBeTruthy();
+		// Trigger hiding all tooltips.
+		BOLDGRID.SEO.Tooltips.hideTooltips();
+		// Tooltips should now be hidden from view.
+		expect( $( '.butterbean-description' ).is( ':visible' ) ).toBeFalsy();
+	});
+
+});
