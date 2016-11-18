@@ -109,7 +109,7 @@ describe( 'api.Tooltips.hideTooltips() : Hides all tooltips - test checks DOM fo
 	it( 'Tooltips were successfully hidden by api.Tooltips.hideTooltips().', function() {
 		// Set document ready.
 		BOLDGRID.SEO.Tooltips.onReady();
-		// Tooltip should be hidden by default.
+		// Tooltip should be hidden by default done on initalization by hideTooltips().
 		expect( $( '.butterbean-description' ).is( ':visible' ) ).toBeFalsy();
 		// Trigger a click.
 		BOLDGRID.SEO.Tooltips.settings.onClick.click();
