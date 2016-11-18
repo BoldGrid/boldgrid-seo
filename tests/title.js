@@ -1,6 +1,8 @@
 describe( 'Gets the title selector.', function() {
 	sandbox( '<input type="text" value="testing" name="butterbean_boldgrid_seo_setting_bgseo_title" id="boldgrid-seo-field-meta_title" placeholder="About Us - Splatter" class="widefat">' );
 	it( 'Uses the title field\'s selector.', function() {
+		// Setup onReady.
+		BOLDGRID.SEO.Title.onReady();
 		var title = BOLDGRID.SEO.Title.getTitle();
 		expect( title.selector ).toBe( '#boldgrid-seo-field-meta_title' );
 	});
@@ -13,6 +15,8 @@ describe( 'Gets the title selector.', function() {
 describe( 'Retrieves the title\'s status and message based on length.', function() {
 	sandbox( '<input type="text" value="testing" name="butterbean_boldgrid_seo_setting_bgseo_title" id="boldgrid-seo-field-meta_title" placeholder="About Us - Splatter" class="widefat">' );
 	it( 'Returns a message object.', function() {
+		// Setup onReady.
+		BOLDGRID.SEO.Title.onReady();
 		var titleLength, msg;
 
 		titleLength = BOLDGRID.SEO.Title.getTitle().val().length;
@@ -111,6 +115,8 @@ describe( 'Retrieves the title\'s status and message based on length.', function
 describe( 'api.Title.keywords() Tests', function() {
 	sandbox( '<input type="text" value="testing xx" name="butterbean_boldgrid_seo_setting_bgseo_title" id="boldgrid-seo-field-meta_title" placeholder="About Us - Splatter" class="widefat">' );
 	it( 'Returns a number.', function() {
+		// Setup onReady.
+		BOLDGRID.SEO.Title.onReady();
 		var text, title, keywords, keyword;
 
 		title = BOLDGRID.SEO.Title.getTitle().val( makeStr( 50 ) );

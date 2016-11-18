@@ -42,7 +42,7 @@
 		 */
 		getSettings : function() {
 			self.settings = {
-				description : $( '#boldgrid-seo-field-meta_title' ),
+				description : $( '#boldgrid-seo-field-meta_description' ),
 			};
 		},
 
@@ -55,10 +55,9 @@
 		 * @since 1.3.1
 		 */
 		_description : function() {
-			var desc = self.getDescription();
 			// Listen for changes to input value.
 			self.settings.description.on( 'input propertychange paste', _.debounce( function() {
-				self.settings.description.trigger( 'bgseo-analysis', [{ descLength : self.settings.description.val().length }] );
+				$( this ).trigger( 'bgseo-analysis', [{ descLength : self.settings.description.val().length }] );
 			}, 1000 ) );
 		},
 
