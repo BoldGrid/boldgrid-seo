@@ -46,7 +46,8 @@
 		getSettings : function() {
 			self.settings = {
 				description : $( '.butterbean-control .butterbean-description' ),
-				tooltip  : $( '<span />', { 'class' : 'bgseo-tooltip dashicons dashicons-editor-help', 'aria-expanded' : 'false' }),
+				tooltip : $( '<span />', { 'class' : 'bgseo-tooltip dashicons dashicons-editor-help', 'aria-expanded' : 'false' }),
+				onClick : $( '.butterbean-label, .bgseo-tooltip' ),
 			};
 		},
 
@@ -59,7 +60,7 @@
 		 * @since 1.3.1
 		 */
 		_toggleTooltip : function() {
-			$( '.butterbean-label, .bgseo-tooltip' ).on( 'click', function( e ) {
+			self.settings.onClick.on( 'click', function( e ) {
 				self.toggleTooltip( e );
 			});
 		},
@@ -75,6 +76,8 @@
 
 		/**
 		 * This handles the toggle of the tooltip open/close.
+		 *
+		 * @param {Object} e Selector passed from click event.
 		 *
 		 * @since 1.3.1
 		 */
