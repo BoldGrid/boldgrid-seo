@@ -24,7 +24,21 @@
 		 * @since 1.3.1
 		 */
 		init : function () {
+			$( document ).ready( self.onReady );
+		},
+
+		onReady : function() {
+			self.getSettings();
 			self.generateReport();
+		},
+
+		getSettings : function() {
+			self.settings = {
+				title : $( '#boldgrid-seo-field-meta_title' ),
+				description : $( '#boldgrid-seo-field-meta_description' ),
+				wordCounter : $( '#wp-word-count .word-count' ),
+				content : $( '#content' ),
+			};
 		},
 
 		/**
@@ -37,14 +51,15 @@
 		 * @since 1.3.1
 		 */
 		generateReport : function() {
+			if ( _.isUndefined( self.settings ) ) return;
 			$( document ).on( 'bgseo-analysis', function( e, eventInfo ) {
 				var words, titleLength, descriptionLength;
 
 				// Get length of title field.
-				titleLength = $( '#boldgrid-seo-field-meta_title' ).val().length;
+				titleLength = self.settings.title.val().length;
 
 				// Get length of description field.
-				descriptionLength = $( '#boldgrid-seo-field-meta_description' ).val().length;
+				descriptionLength = self.settings.description.val().length;
 
 				if ( eventInfo.words ) {
 					_( report.textstatistics ).extend({
@@ -74,7 +89,7 @@
 				// Set default wordCount first.
 				_( report.bgseo_dashboard ).extend({
 					wordCount: {
-						length : Number( $( '#wp-word-count .word-count' ).text() ),
+						length : Number( self.settings.wordCounter.text() ),
 					},
 				});
 				// Listen for event changes being triggered.
@@ -101,7 +116,7 @@
 							customKeyword : eventInfo.keywords.keyword,
 						});
 
-						$( '#content' ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 
 					// Listen for changes to the actual text entered by user.
@@ -202,7 +217,7 @@
 						_( report.bgseo_keywords.keywordTitle ).extend({
 							lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
 						});
-						$( '#content' ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 
 					// Listen to changes to the SEO Description and update report.
@@ -220,7 +235,7 @@
 						_( report.bgseo_keywords.keywordDescription ).extend({
 							lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 						});
-						$( '#content' ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 
 					// Listen for changes to noindex/index and update report.
@@ -228,6 +243,7 @@
 						_( report.bgseo_visibility.robotIndex ).extend({
 							lengthScore : eventInfo.robotIndex,
 						});
+						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 
 					// Listen for changes to nofollow/follow and update report.
@@ -235,11 +251,12 @@
 						_( report.bgseo_visibility.robotFollow ).extend({
 							lengthScore : eventInfo.robotFollow,
 						});
+						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 				}
 
 				// Send the final analysis to display the report.
-				$( '#content' ).trigger( 'bgseo-report', [ report ] );
+				self.settings.content.trigger( 'bgseo-report', [ report ] );
 			});
 		},
 
