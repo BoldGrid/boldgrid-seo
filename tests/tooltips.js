@@ -44,13 +44,31 @@ describe( 'api.Tooltips.onReady() : Setup event listeners and get selector cache
 
 });
 
+describe( 'api.Tooltips._enableTooltips() : Adds the tooltips to all controls that have a description field.', function() {
 
+	sandbox( '<div id="butterbean-control-bgseo_robots_index" class="butterbean-control butterbean-control-radio"><span class="butterbean-label">Meta Robots Index<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">Setting this to index means that search engines are encouraged to show your website in their search results.</span><ul class="butterbean-radio-list"><li><label><input type="radio" value="index" name="butterbean_boldgrid_seo_setting_bgseo_robots_index" checked="checked">index</label></li><li><label><input type="radio" value="noindex" name="butterbean_boldgrid_seo_setting_bgseo_robots_index">noindex</label></li></ul></div>' );
 
+	it( '_enableTooltips() was called and initalized.', function() {
+		var _enableTooltips = spyOn( BOLDGRID.SEO.Tooltips, '_enableTooltips' );
+		// Set document ready.
+		BOLDGRID.SEO.Tooltips.onReady();
+		// Method exists as a function.
+		expect( typeof BOLDGRID.SEO.Tooltips._enableTooltips ).toBe( 'function' );
+		// Method was called on initialization.
+		expect( _enableTooltips ).toHaveBeenCalled();
+	});
 
+	it( 'Tooltips are enabled and added to DOM.', function() {
+		// Set document ready.
+		BOLDGRID.SEO.Tooltips.onReady();
+		expect( $( '.bgseo-tooltip' ) ).toBeTruthy();
+	});
+
+});
 
 describe( 'api.Tooltips.toggleTooltip() : Toggles a tooltip checks DOM for visibility.', function() {
 
-	sandbox( '<div id="butterbean-control-bgseo_robots_index" class="butterbean-control butterbean-control-radio"><span class="butterbean-label">Meta Robots Index<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description">Setting this to index means that search engines are encouraged to show your website in their search results.</span><ul class="butterbean-radio-list"><li><label><input type="radio" value="index" name="butterbean_boldgrid_seo_setting_bgseo_robots_index" checked="checked">index</label></li><li><label><input type="radio" value="noindex" name="butterbean_boldgrid_seo_setting_bgseo_robots_index">noindex</label></li></ul></div>' );
+	sandbox( '<div id="butterbean-control-bgseo_robots_index" class="butterbean-control butterbean-control-radio"><span class="butterbean-label">Meta Robots Index<span class="bgseo-tooltip dashicons dashicons-editor-help" aria-expanded="false"></span></span><span class="butterbean-description" style="display: none;">Setting this to index means that search engines are encouraged to show your website in their search results.</span><ul class="butterbean-radio-list"><li><label><input type="radio" value="index" name="butterbean_boldgrid_seo_setting_bgseo_robots_index" checked="checked">index</label></li><li><label><input type="radio" value="noindex" name="butterbean_boldgrid_seo_setting_bgseo_robots_index">noindex</label></li></ul></div>' );
 
 	it( 'toggleTooltip should be called when api.Tooltips.settings.onClick items are clicked.', function() {
 		var toggleTooltip = spyOn( BOLDGRID.SEO.Tooltips, 'toggleTooltip' );
