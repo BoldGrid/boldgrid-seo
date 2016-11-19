@@ -14,7 +14,7 @@ module.exports = function(config) {
       'assets/js/bgseo/boldgrid-seo-tooltips.js',
       'assets/js/bgseo/boldgrid-seo-init.js',
       'tests/test-helpers.js',
-      'tests/*.js'
+      'tests/bgseo/*.js'
     ]
   });
 };
