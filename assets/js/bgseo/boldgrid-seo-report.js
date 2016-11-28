@@ -123,10 +123,21 @@
 
 					if ( eventInfo.keywords ) {
 						_( report.bgseo_keywords ).extend({
+							keywordTitle : {
+								lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
+							},
+							keywordDescription : {
+								lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
+							},
+							keywordContent : {
+								lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.TinyMCE.getContent().text ) ),
+							},
+							keywordHeadings : {
+								length : api.Headings.keywords( api.Headings.getRealHeadingCount() ),
+								lengthScore : api.Keywords.headingScore( api.Headings.keywords( api.Headings.getRealHeadingCount() ) ),
+							},
 							customKeyword : eventInfo.keywords.keyword,
 						});
-
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
 					}
 
 					// Listen for changes to the actual text entered by user.
