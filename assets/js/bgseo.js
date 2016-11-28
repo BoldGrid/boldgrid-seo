@@ -602,9 +602,9 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			if ( $target.context.id === 'boldgrid-seo-field-meta_description' ) {
 				if ( chars > limit ) {
 					$counter.css( { 'color' : 'red' } );
-				} else if ( chars.isBetween( 0, 126 ) ) {
+				} else if ( chars.isBetween( 0, 125 ) ) {
 					$counter.css( { 'color' : 'goldenrod' } );
-				} else if ( chars > 125 ) {
+				} else if ( chars.isBetween( 124, 157 ) ) {
 					$counter.css( { 'color' : 'limegreen' } );
 				} else {
 					$counter.css( { 'color' : 'black' } );
