@@ -104,7 +104,7 @@
 			}
 
 			// Title is 30-70 characters.
-			if ( titleLength.isBetween( 30, 71 ) ) {
+			if ( titleLength.isBetween( 29, 71 ) ) {
 				msg = {
 					status: 'green',
 					msg: _bgseoContentAnalysis.seoTitle.length.good,
