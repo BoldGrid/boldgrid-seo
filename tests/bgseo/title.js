@@ -90,18 +90,18 @@
 		it( 'Returns green status for titles that are 31-70 characters', function() {
 			var title, titleLength, msg;
 
-			title = BOLDGRID.SEO.Title.getTitle().val( makeStr( 31 ) );
-			titleLength = BOLDGRID.SEO.Title.getTitle().val().length;
-			msg = BOLDGRID.SEO.Title.titleScore( titleLength );
-
-			expect( titleLength ).toBe( 31 );
-			expect( msg.status ).toBe( 'green' );
-
 			title = BOLDGRID.SEO.Title.getTitle().val( makeStr( 30 ) );
 			titleLength = BOLDGRID.SEO.Title.getTitle().val().length;
 			msg = BOLDGRID.SEO.Title.titleScore( titleLength );
 
 			expect( titleLength ).toBe( 30 );
+			expect( msg.status ).toBe( 'green' );
+
+			title = BOLDGRID.SEO.Title.getTitle().val( makeStr( 29 ) );
+			titleLength = BOLDGRID.SEO.Title.getTitle().val().length;
+			msg = BOLDGRID.SEO.Title.titleScore( titleLength );
+
+			expect( titleLength ).toBe( 29 );
 			expect( msg.status ).not.toBe( 'green' );
 
 			title = BOLDGRID.SEO.Title.getTitle().val( makeStr( 70 ) );
@@ -136,18 +136,18 @@
 			expect( titleLength ).toBe( 0 );
 			expect( msg.status ).not.toBe( 'yellow' );
 
+			title = BOLDGRID.SEO.Title.getTitle().val( makeStr( 29 ) );
+			titleLength = BOLDGRID.SEO.Title.getTitle().val().length;
+			msg = BOLDGRID.SEO.Title.titleScore( titleLength );
+
+			expect( titleLength ).toBe( 29 );
+			expect( msg.status ).toBe( 'yellow' );
+
 			title = BOLDGRID.SEO.Title.getTitle().val( makeStr( 30 ) );
 			titleLength = BOLDGRID.SEO.Title.getTitle().val().length;
 			msg = BOLDGRID.SEO.Title.titleScore( titleLength );
 
 			expect( titleLength ).toBe( 30 );
-			expect( msg.status ).toBe( 'yellow' );
-
-			title = BOLDGRID.SEO.Title.getTitle().val( makeStr( 31 ) );
-			titleLength = BOLDGRID.SEO.Title.getTitle().val().length;
-			msg = BOLDGRID.SEO.Title.titleScore( titleLength );
-
-			expect( titleLength ).toBe( 31 );
 			expect( msg.status ).not.toBe( 'yellow' );
 		});
 	});
