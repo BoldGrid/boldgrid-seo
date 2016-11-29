@@ -32,6 +32,7 @@
 		onReady : function() {
 			self.getSettings();
 			self._keywords();
+			self.setPlaceholder();
 		},
 
 		/**
@@ -45,6 +46,7 @@
 				content : $( '#content' ),
 			};
 		},
+
 		/**
 		 * Sets up event listener for changes made to the custom keyword input.
 		 *
@@ -75,6 +77,10 @@
 				self.settings.keyword.trigger( 'bgseo-analysis', [msg] );
 
 			}, 1000 ) );
+		},
+
+		setPlaceholder : function( keyword ) {
+			self.settings.keyword.attr( 'placeholder', keyword );
 		},
 
 		/**

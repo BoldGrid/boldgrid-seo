@@ -1504,6 +1504,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		onReady : function() {
 			self.getSettings();
 			self._keywords();
+			self.setPlaceholder();
 		},
 
 		/**
@@ -1517,6 +1518,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				content : $( '#content' ),
 			};
 		},
+
 		/**
 		 * Sets up event listener for changes made to the custom keyword input.
 		 *
@@ -1547,6 +1549,10 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				self.settings.keyword.trigger( 'bgseo-analysis', [msg] );
 
 			}, 1000 ) );
+		},
+
+		setPlaceholder : function( keyword ) {
+			self.settings.keyword.attr( 'placeholder', keyword );
 		},
 
 		/**
@@ -2183,7 +2189,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
-						var headingCount = api.Headings.getRealHeadingCount(),
+						var kw, headingCount = api.Headings.getRealHeadingCount(),
 							content = eventInfo.text,
 							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( self.settings.content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
 
@@ -2192,6 +2198,10 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 							// Get length of description field.
 							descriptionLength = self.settings.description.val().length;
+
+							// Set the placeholder attribute once the keyword has been obtained.
+							kw =  api.Keywords.recommendedKeywords( raw, 1 );
+							api.Keywords.setPlaceholder( kw[0][0] );
 
 						// Set the default report items.
 						_( report ).extend({
@@ -2260,7 +2270,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 							},
 
 							textstatistics : {
-								recommendedKeywords : api.Keywords.recommendedKeywords( raw, 1 ),
+								recommendedKeywords : kw,
 								recommendedCount : api.Keywords.getRecommendedCount( raw ),
 								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
 							},

@@ -128,7 +128,7 @@
 
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
-						var headingCount = api.Headings.getRealHeadingCount(),
+						var kw, headingCount = api.Headings.getRealHeadingCount(),
 							content = eventInfo.text,
 							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( self.settings.content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
 
@@ -137,6 +137,10 @@
 
 							// Get length of description field.
 							descriptionLength = self.settings.description.val().length;
+
+							// Set the placeholder attribute once the keyword has been obtained.
+							kw =  api.Keywords.recommendedKeywords( raw, 1 );
+							api.Keywords.setPlaceholder( kw[0][0] );
 
 						// Set the default report items.
 						_( report ).extend({
@@ -205,7 +209,7 @@
 							},
 
 							textstatistics : {
-								recommendedKeywords : api.Keywords.recommendedKeywords( raw, 1 ),
+								recommendedKeywords : kw,
 								recommendedCount : api.Keywords.getRecommendedCount( raw ),
 								keywordDensity : api.Keywords.keywordDensity( content, api.Keywords.getKeyword() ),
 							},
