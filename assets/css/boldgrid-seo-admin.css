@@ -142,3 +142,12 @@
 .butterbean-manager-default #butterbean-control-bgseo_keyword_analaysis.butterbean-control {
 	margin-bottom: 11px;
 }
+
+#butterbean-ui-boldgrid_seo .butterbean-manager-default .butterbean-content {
+	width: calc( 100% - 181px );
+}
+@media only screen and ( max-width: 782px ), ( max-width: 980px ) and ( min-width: 851px ) {
+	#butterbean-ui-boldgrid_seo .butterbean-manager-default .butterbean-content {
+		width: calc( 100% - 48px );
+	}
+}
