@@ -7,9 +7,13 @@ return array(
 		'good' => __( 'Your content is over the recommended minimum of 300 words, good job!', 'bgseo' ),
 	),
 	'keywordUsage' => array(
+		// Since there's no _n() in the js implementation, I'll just add a singular and plural translation for now.
 		'bad'  => __( 'You haven\'t used your keyword in your content at all.  Try adding it naturally by talking about the subject more.', 'bgseo' ),
-		'okShort'   => __( 'Your keyword is being used in your content, but we recommend using it at least 3 times.', 'bgseo' ),
-		'okLong'   => __( 'Your keyword appears excessively in your content.  Try to only use it 3 times and use other words and variations that are related to it.', 'bgseo' ),
-		'good' => __( 'Great, you have included your keyword at least 3 times in your content. This helps get you a better SEO score!', 'bgseo' ),
+		'okShortSingular'   => __( 'Your keyword is being used in your content, but we recommend using it at least 1 time.', 'bgseo' ),
+		'okShort'   => __( 'Your keyword is being used in your content, but we recommend using it at least %s times.', 'bgseo' ),
+		'okLongSingular'   => __( 'Your keyword appears excessively in your content.  Try to only use it 1 time and use other words and variations that are related to it.', 'bgseo' ),
+		'okLong'   => __( 'Your keyword appears excessively in your content.  Try to only use it %s times and use other words and variations that are related to it.', 'bgseo' ),
+		'goodSingular' => __( 'Great, you have included your keyword at least 1 time in your content. This helps get you a better SEO score!', 'bgseo' ),
+		'good' => __( 'Great, you have included your keyword at least %s times in your content. This helps get you a better SEO score!', 'bgseo' ),
 	),
 );

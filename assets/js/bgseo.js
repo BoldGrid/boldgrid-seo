@@ -1833,7 +1833,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {Object} msg Contains the status indicator color and message for report.
 		 */
 		contentScore : function( count ) {
-			var msg, range;
+			var msg, range, description;
 
 			// Get the keyword range based on the content length.
 			range = self.getRecommendedCount();
@@ -1847,21 +1847,33 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			}
 			// Keyword used 1-2 times in the content.
 			if ( count.isBetween( range.min - 1, range.max + 1 ) ) {
+				description = 1 === range.min ?
+					_bgseoContentAnalysis.content.keywordUsage.goodSingular :
+					_bgseoContentAnalysis.content.keywordUsage.good.printf( count );
+
 				msg = {
 					status: 'green',
-					msg : _bgseoContentAnalysis.content.keywordUsage.good,
+					msg : description,
 				};
 			}
 			// Keyword used 1-2 times in the content.
 			if ( count < range.min && 0 !== count ) {
+				description = 1 === range.min ?
+					_bgseoContentAnalysis.content.keywordUsage.okShortSingular :
+					_bgseoContentAnalysis.content.keywordUsage.okShort.printf( count );
+
 				msg = {
 					status: 'yellow',
-					msg : _bgseoContentAnalysis.content.keywordUsage.okShort,
+					msg : description,
 				};
 			}
 
 			// Key word used more than 3 times in the content.
 			if ( count > range.max ) {
+				description = 1 === range.min ?
+					_bgseoContentAnalysis.content.keywordUsage.okLongSingular :
+					_bgseoContentAnalysis.content.keywordUsage.okLong.printf( count );
+
 				msg = {
 					status: 'red',
 					msg : _bgseoContentAnalysis.content.keywordUsage.okLong,
