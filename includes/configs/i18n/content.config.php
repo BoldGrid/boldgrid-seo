@@ -7,7 +7,8 @@ return array(
 		'good' => __( 'Your content is over the recommended minimum of 300 words, good job!', 'bgseo' ),
 	),
 	'keywordUsage' => array(
-		// Since there's no _n() in the js implementation, I'll just add a singular and plural translation for now.
+		// Since there's no _n() in the js implementation, I'll just add a singular and plural translation for now.  
+		/** Translators: %s is equal to the count that the keyword should appear. **/
 		'bad'  => __( 'You haven\'t used your keyword in your content at all.  Try adding it naturally by talking about the subject more.', 'bgseo' ),
 		'okShortSingular'   => __( 'Your keyword is being used in your content, but we recommend using it at least 1 time.', 'bgseo' ),
 		'okShort'   => __( 'Your keyword is being used in your content, but we recommend using it at least %s times.', 'bgseo' ),
