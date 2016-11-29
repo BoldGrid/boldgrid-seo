@@ -375,7 +375,7 @@
 				};
 			}
 			// Keyword used 1-2 times in the content.
-			if ( count < range.min ) {
+			if ( count < range.min && 0 !== count ) {
 				msg = {
 					status: 'yellow',
 					msg : _bgseoContentAnalysis.content.keywordUsage.okShort,
