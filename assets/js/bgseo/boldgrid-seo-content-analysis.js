@@ -30,9 +30,9 @@
 		 * @returns {Object} msg Contains the status indicator color and message.
 		 */
 		seoContentLengthScore: function( contentLength ) {
-			var msg = {};
+			var displayed, msg = {};
 			contentLength = Number( contentLength );
-
+			displayed = _bgseoContentAnalysis.content.length.contentLength.printf( contentLength ) + '  ';
 			if ( contentLength === 0 ) {
 				msg = {
 					status: 'red',
@@ -42,19 +42,19 @@
 			if ( contentLength.isBetween( 0, 199 ) ) {
 				msg = {
 					status: 'red',
-					msg: _bgseoContentAnalysis.content.length.badShort,
+					msg: displayed + _bgseoContentAnalysis.content.length.badShort,
 				};
 			}
 			if ( contentLength.isBetween( 198, 300 ) ) {
 				msg = {
 					status: 'yellow',
-					msg: _bgseoContentAnalysis.content.length.ok,
+					msg: displayed + _bgseoContentAnalysis.content.length.ok,
 				};
 			}
 			if ( contentLength > 299 ) {
 				msg = {
 					status: 'green',
-					msg: _bgseoContentAnalysis.content.length.good,
+					msg: displayed + _bgseoContentAnalysis.content.length.good,
 				};
 			}
 
