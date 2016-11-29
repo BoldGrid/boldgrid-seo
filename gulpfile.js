@@ -117,8 +117,7 @@ gulp.task( 'cleanDeps', function() {
 	return del([
 		config.src + config.bowerDir + '/butterbean',
 		config.src + config.bowerDir + '/text-statistics',
-		config.dist + '/includes/lib/butterbean',
-		config.dist + '/assets/js/text-statistics',
+
 	]);
 });
 
