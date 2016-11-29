@@ -42,15 +42,15 @@
 /** Status Indicator Colors **/
 .overview-status.red::before,
 .analysis-suggestion.red::before {
-	background: red;
+	background: #EA4335;
 }
 .overview-status.green::before,
 .analysis-suggestion.green::before {
-	background: green;
+	background: #34A853;
 }
 .overview-status.yellow::before,
 .analysis-suggestion.yellow::before {
-	background: goldenrod;
+	background: #FBBC05;
 }
 
 /** Nofollow/Noindex styles **/
@@ -76,17 +76,17 @@
 	background-color: #fafafa;
 }
 .butterbean-manager-default .butterbean-nav li.green a {
-	border-right: 5px solid green;
+	border-right: 5px solid #34A853;
 	border-bottom: none;
 	margin-bottom: 1px;
 }
 .butterbean-manager-default .butterbean-nav li.yellow a {
-	border-right: 5px solid goldenrod;
+	border-right: 5px solid #FBBC05;
 	border-bottom: none;
 	margin-bottom: 1px;
 }
 .butterbean-manager-default .butterbean-nav li.red a {
-	border-right: 5px solid red;
+	border-right: 5px solid #EA4335;
 	border-bottom: none;
 	margin-bottom: 1px;
 }
@@ -94,17 +94,17 @@
 /** Nav in metabox sidebar **/
 #side-sortables .butterbean-manager-default .butterbean-nav li.green a {
 	border-right: none;
-	border-bottom: 4px solid green;
+	border-bottom: 4px solid #34A853;
 	margin-bottom: 0;
 }
 #side-sortables .butterbean-manager-default .butterbean-nav li.yellow a {
 	border-right: none;
-	border-bottom: 4px solid goldenrod;
+	border-bottom: 4px solid #FBBC05;
 	margin-bottom: 0;
 }
 #side-sortables .butterbean-manager-default .butterbean-nav li.red a {
 	border-right: none;
-	border-bottom: 4px solid red;
+	border-bottom: 4px solid #EA4335;
 	margin-bottom: 0;
 }
 /** General Control Style **/
