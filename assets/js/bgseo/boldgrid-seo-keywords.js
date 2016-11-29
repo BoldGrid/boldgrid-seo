@@ -42,6 +42,7 @@
 		getSettings : function() {
 			self.settings = {
 				keyword : $( '#bgseo-custom-keyword' ),
+				content : $( '#content' ),
 			};
 		},
 		/**
@@ -231,7 +232,7 @@
 
 			if ( _.isUndefined( markup ) ) {
 				markup = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ?
-					api.Words.words( $content.val() ) :
+					api.Words.words( self.settings.content.val() ) :
 					api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
 			}
 

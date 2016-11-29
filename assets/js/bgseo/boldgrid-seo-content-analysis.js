@@ -31,6 +31,7 @@
 		 */
 		seoContentLengthScore: function( contentLength ) {
 			var msg = {};
+			contentLength = Number( contentLength );
 
 			if ( contentLength === 0 ) {
 				msg = {

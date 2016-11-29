@@ -76,9 +76,11 @@
 				content = content.replace( /\r?\n|\r/g, '' );
 			}
 
+			var rawContent = $.parseHTML( content );
+
 			// Stores raw and stripped down versions of the content for analysis.
 			content = {
-				'raw': content,
+				'raw': rawContent,
 				'text': self.stripper( content.toLowerCase() ),
 			};
 
@@ -195,8 +197,11 @@
 					break;
 			}
 
+			// Convert raw text to DOM nodes.
+			var rawText = $.parseHTML( text );
+
 			text = {
-				'raw': text,
+				'raw': rawText,
 				'text': self.stripper( text.toLowerCase() ),
 			};
 

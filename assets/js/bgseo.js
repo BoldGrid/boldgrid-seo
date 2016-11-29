@@ -700,6 +700,12 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			});
 		},
 
+
+		isValid : function( content ) {
+			var isValid = /<(br|basefont|hr|input|source|frame|param|area|meta|!--|col|link|option|base|img|wbr|!DOCTYPE).*?>|<(a|abbr|acronym|address|applet|article|aside|audio|b|bdi|bdo|big|blockquote|body|button|canvas|caption|center|cite|code|colgroup|command|datalist|dd|del|details|dfn|dialog|dir|div|dl|dt|em|embed|fieldset|figcaption|figure|font|footer|form|frameset|head|header|hgroup|h1|h2|h3|h4|h5|h6|html|i|iframe|ins|kbd|keygen|label|legend|li|map|mark|menu|meter|nav|noframes|noscript|object|ol|optgroup|output|p|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|small|span|strike|strong|style|sub|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video).*?<\/\2>/i.test( content );
+			return isValid;
+		},
+
 		/**
 		 * Gets the content from TinyMCE or the text editor for analysis.
 		 *
@@ -718,9 +724,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				content = content.replace( /\r?\n|\r/g, '' );
 			}
 
+			var rawContent = $.parseHTML( content );
+
 			// Stores raw and stripped down versions of the content for analysis.
 			content = {
-				'raw': content,
+				'raw': rawContent,
 				'text': self.stripper( content.toLowerCase() ),
 			};
 
@@ -837,8 +845,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					break;
 			}
 
+			// Convert raw text to DOM nodes.
+			var rawText = $.parseHTML( text );
+
 			text = {
-				'raw': text,
+				'raw': rawText,
 				'text': self.stripper( text.toLowerCase() ),
 			};
 
@@ -904,6 +915,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 */
 		seoContentLengthScore: function( contentLength ) {
 			var msg = {};
+			contentLength = Number( contentLength );
 
 			if ( contentLength === 0 ) {
 				msg = {
@@ -1508,6 +1520,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		getSettings : function() {
 			self.settings = {
 				keyword : $( '#bgseo-custom-keyword' ),
+				content : $( '#content' ),
 			};
 		},
 		/**
@@ -1697,7 +1710,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 			if ( _.isUndefined( markup ) ) {
 				markup = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ?
-					api.Words.words( $content.val() ) :
+					api.Words.words( self.settings.content.val() ) :
 					api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
 			}
 
@@ -2099,6 +2112,12 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			};
 		},
 
+		getWordCount : function() {
+
+
+			return Number( self.settings.wordCounter.text() );
+		},
+
 		/**
 		 * Generate the Report based on analysis done.
 		 *
@@ -2126,36 +2145,16 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					});
 				}
 
-				// Sets wordCount values in report object.
-				if ( eventInfo.count ) {
-					words = {
-						length : eventInfo.count,
-						lengthScore : api.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
-					};
-					if ( eventInfo.count === 0 ) {
-						words = {
-							length : 0,
-							lengthScore : api.ContentAnalysis.seoContentLengthScore( 0 ),
-						};
-					}
 
-					// Update the word count in the report.
-					_( report.bgseo_dashboard ).extend({
-						wordCount : words,
-					});
-				}
-				// Set default wordCount first.
-				_( report.bgseo_dashboard ).extend({
-					wordCount: {
-						length : Number( self.settings.wordCounter.text() ),
-					},
-				});
+
 				// Listen for event changes being triggered.
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
-						var h1 = $( eventInfo.raw ).find( 'h1' ),
-						    h2 = $( eventInfo.raw).find( 'h2' ),
+						var raws = eventInfo.raw;
+
+						var h1 = $( raws ).find( 'h1' ),
+						    h2 = $( raws ).find( 'h2' ),
 						    headings = {};
 
 						headings = {
@@ -2163,7 +2162,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 							h1text : api.Headings.getHeadingText( h1 ),
 							h2Count : h2.length,
 							h2text : api.Headings.getHeadingText( h2 ),
-							imageCount: $( eventInfo.raw ).find( 'img' ).length,
+							imageCount: $( raws ).find( 'img' ).length,
 						};
 						// Set the heading counts and image count found in new content update.
 						_( report.rawstatistics ).extend( headings );
@@ -2191,8 +2190,14 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
 						var headingCount = api.Headings.getRealHeadingCount(),
-						    content = eventInfo.text,
-							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( $content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+							content = eventInfo.text,
+							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( self.settings.content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+
+							// Get length of title field.
+							titleLength = self.settings.title.val().length;
+
+							// Get length of description field.
+							descriptionLength = self.settings.description.val().length;
 
 						// Set the default report items.
 						_( report ).extend({
@@ -2206,7 +2211,8 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 								},
 								headings : headingCount,
 								wordCount : {
-									lengthScore : api.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
+									length : self.getWordCount(),
+									lengthScore : api.ContentAnalysis.seoContentLengthScore( self.getWordCount() ),
 								}
 							},
 
@@ -2249,7 +2255,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 									lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 								},
 								keywordContent : {
-									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( content ) ),
+									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.TinyMCE.getContent().text ) ),
 								},
 								keywordHeadings : {
 									length : api.Headings.keywords( headingCount ),
@@ -2266,14 +2272,12 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 							},
 
 						});
-
 						// Removing readability score for now. _( report.bgseo_dashboard ).extend({ gradeLevel  : api.Readability.gradeLevel( content ), });
 
 					}
 
 					// Listen to changes to the SEO Title and update report.
 					if ( eventInfo.titleLength ) {
-
 						_( report.bgseo_meta.title ).extend({
 							length : eventInfo.titleLength,
 							lengthScore :  api.Title.titleScore( eventInfo.titleLength ),

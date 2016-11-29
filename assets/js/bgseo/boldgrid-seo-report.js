@@ -51,6 +51,12 @@
 			};
 		},
 
+		getWordCount : function() {
+
+
+			return Number( self.settings.wordCounter.text() );
+		},
+
 		/**
 		 * Generate the Report based on analysis done.
 		 *
@@ -78,36 +84,16 @@
 					});
 				}
 
-				// Sets wordCount values in report object.
-				if ( eventInfo.count ) {
-					words = {
-						length : eventInfo.count,
-						lengthScore : api.ContentAnalysis.seoContentLengthScore( eventInfo.count ),
-					};
-					if ( eventInfo.count === 0 ) {
-						words = {
-							length : 0,
-							lengthScore : api.ContentAnalysis.seoContentLengthScore( 0 ),
-						};
-					}
 
-					// Update the word count in the report.
-					_( report.bgseo_dashboard ).extend({
-						wordCount : words,
-					});
-				}
-				// Set default wordCount first.
-				_( report.bgseo_dashboard ).extend({
-					wordCount: {
-						length : Number( self.settings.wordCounter.text() ),
-					},
-				});
+
 				// Listen for event changes being triggered.
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
-						var h1 = $( eventInfo.raw ).find( 'h1' ),
-						    h2 = $( eventInfo.raw).find( 'h2' ),
+						var raws = eventInfo.raw;
+
+						var h1 = $( raws ).find( 'h1' ),
+						    h2 = $( raws ).find( 'h2' ),
 						    headings = {};
 
 						headings = {
@@ -115,7 +101,7 @@
 							h1text : api.Headings.getHeadingText( h1 ),
 							h2Count : h2.length,
 							h2text : api.Headings.getHeadingText( h2 ),
-							imageCount: $( eventInfo.raw ).find( 'img' ).length,
+							imageCount: $( raws ).find( 'img' ).length,
 						};
 						// Set the heading counts and image count found in new content update.
 						_( report.rawstatistics ).extend( headings );
@@ -143,8 +129,14 @@
 					// Listen for changes to the actual text entered by user.
 					if ( eventInfo.text ) {
 						var headingCount = api.Headings.getRealHeadingCount(),
-						    content = eventInfo.text,
-							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( $content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+							content = eventInfo.text,
+							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( self.settings.content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+
+							// Get length of title field.
+							titleLength = self.settings.title.val().length;
+
+							// Get length of description field.
+							descriptionLength = self.settings.description.val().length;
 
 						// Set the default report items.
 						_( report ).extend({
@@ -158,7 +150,8 @@
 								},
 								headings : headingCount,
 								wordCount : {
-									lengthScore : api.ContentAnalysis.seoContentLengthScore( report.bgseo_dashboard.wordCount.length ),
+									length : self.getWordCount(),
+									lengthScore : api.ContentAnalysis.seoContentLengthScore( self.getWordCount() ),
 								}
 							},
 
@@ -201,7 +194,7 @@
 									lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 								},
 								keywordContent : {
-									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( content ) ),
+									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.TinyMCE.getContent().text ) ),
 								},
 								keywordHeadings : {
 									length : api.Headings.keywords( headingCount ),
@@ -218,14 +211,12 @@
 							},
 
 						});
-
 						// Removing readability score for now. _( report.bgseo_dashboard ).extend({ gradeLevel  : api.Readability.gradeLevel( content ), });
 
 					}
 
 					// Listen to changes to the SEO Title and update report.
 					if ( eventInfo.titleLength ) {
-
 						_( report.bgseo_meta.title ).extend({
 							length : eventInfo.titleLength,
 							lengthScore :  api.Title.titleScore( eventInfo.titleLength ),
