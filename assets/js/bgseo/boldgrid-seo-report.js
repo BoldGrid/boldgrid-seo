@@ -140,7 +140,7 @@
 
 							// Set the placeholder attribute once the keyword has been obtained.
 							kw =  api.Keywords.recommendedKeywords( raw, 1 );
-							api.Keywords.setPlaceholder( kw[0][0] );
+							if ( ! _.isUndefined( kw ) && ! _.isUndefined( kw[0] ) ) api.Keywords.setPlaceholder( kw[0][0] );
 
 						// Set the default report items.
 						_( report ).extend({
