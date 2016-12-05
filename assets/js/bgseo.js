@@ -2730,37 +2730,39 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {Object} msg Contains status indicator color and message to update.
 		 */
 		titleScore: function( titleLength ) {
-			var msg = {};
+			var msg = {}, title;
+
+			title = _bgseoContentAnalysis.seoTitle.length;
 
 			// No title entered.
 			if ( titleLength === 0 ) {
 				msg = {
 					status: 'red',
-					msg: _bgseoContentAnalysis.seoTitle.length.badEmpty,
+					msg: title.badEmpty,
 				};
 			}
 
 			// Title is 1-30 characters.
-			if ( titleLength.isBetween( 0, 31 ) ) {
+			if ( titleLength.isBetween( 0, title.okScore + 1 ) ) {
 				msg = {
 					status: 'yellow',
-					msg: _bgseoContentAnalysis.seoTitle.length.ok,
+					msg: title.ok,
 				};
 			}
 
 			// Title is 30-70 characters.
-			if ( titleLength.isBetween( 29, 71 ) ) {
+			if ( titleLength.isBetween( title.okScore - 1, title.goodScore + 1 ) ) {
 				msg = {
 					status: 'green',
-					msg: _bgseoContentAnalysis.seoTitle.length.good,
+					msg: title.good,
 				};
 			}
 
 			// Title is grater than 70 characters.
-			if ( titleLength > 70 ) {
+			if ( titleLength > title.goodScore ) {
 				msg = {
 					status: 'red',
-					msg: _bgseoContentAnalysis.seoTitle.length.badLong,
+					msg: title.badLong,
 				};
 			}
 

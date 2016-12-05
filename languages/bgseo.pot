@@ -188,11 +188,11 @@ msgstr ""
 msgid "The custom SEO Description is properly optimized by using your focus keyword in it!  Good job!"
 msgstr ""
 
-#: includes/configs/i18n/seoDescription.config.php:19, includes/configs/i18n/seoTitle.config.php:15
+#: includes/configs/i18n/seoDescription.config.php:19, includes/configs/i18n/seoTitle.config.php:19
 msgid "Your title makes use of a stop word.  We don't recommend using these as they can negatively imapct your SEO efforts"
 msgstr ""
 
-#: includes/configs/i18n/seoDescription.config.php:20, includes/configs/i18n/seoTitle.config.php:16
+#: includes/configs/i18n/seoDescription.config.php:20, includes/configs/i18n/seoTitle.config.php:20
 msgid "Your title doesn't use any stop words that will negatively impact your SEO ranking! Good Job!"
 msgstr ""
 
@@ -208,19 +208,19 @@ msgstr ""
 msgid "We suggest making your SEO title at least 30 characters."
 msgstr ""
 
-#: includes/configs/i18n/seoTitle.config.php:7
+#: includes/configs/i18n/seoTitle.config.php:9
 msgid "Your SEO Title is a good length, and optimized for Search Engines!"
 msgstr ""
 
-#: includes/configs/i18n/seoTitle.config.php:10
+#: includes/configs/i18n/seoTitle.config.php:14
 msgid "You should try to use your focus keyword at least one time in your SEO title."
 msgstr ""
 
-#: includes/configs/i18n/seoTitle.config.php:11
+#: includes/configs/i18n/seoTitle.config.php:15
 msgid "It’s great you’ve used the focus keyword in your title, but you should try to only use that one time."
 msgstr ""
 
-#: includes/configs/i18n/seoTitle.config.php:12
+#: includes/configs/i18n/seoTitle.config.php:16
 msgid "Your SEO Title is optimized by using your focus keyword!"
 msgstr ""
 
