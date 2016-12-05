@@ -1215,37 +1215,39 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {Object} msg Contains status indicator color and message to update.
 		 */
 		descriptionScore : function( descriptionLength ) {
-			var msg = {};
+			var msg = {}, desc;
+
+			desc = _bgseoContentAnalysis.seoDescription.length;
 
 			// No description has been entered.
 			if ( descriptionLength === 0 ) {
 				msg = {
 					status: 'red',
-					msg: _bgseoContentAnalysis.seoDescription.length.badEmpty,
+					msg: desc.badEmpty,
 				};
 			}
 
 			// Character count is 1-124.
-			if ( descriptionLength.isBetween( 0, 125 ) ) {
+			if ( descriptionLength.isBetween( 0, desc.okScore ) ) {
 				msg = {
 					status: 'yellow',
-					msg: _bgseoContentAnalysis.seoDescription.length.ok,
+					msg: desc.ok,
 				};
 			}
 
 			// Character count is 125-156.
-			if ( descriptionLength.isBetween( 124, 157 ) ) {
+			if ( descriptionLength.isBetween( desc.okScore - 1, desc.goodScore + 1 ) ) {
 				msg = {
 					status: 'green',
-					msg: _bgseoContentAnalysis.seoDescription.length.good,
+					msg: desc.good,
 				};
 			}
 
 			// Character coutn is over 156.
-			if ( descriptionLength > 156 ) {
+			if ( descriptionLength > desc.goodScore ) {
 				msg = {
 					status: 'red',
-					msg: _bgseoContentAnalysis.seoDescription.length.badLong,
+					msg: desc.badLong,
 				};
 			}
 

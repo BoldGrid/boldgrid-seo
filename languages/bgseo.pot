@@ -172,27 +172,27 @@ msgstr ""
 msgid "You should make your SEO description longer!  We recommend 125-156 characters for the best results."
 msgstr ""
 
-#: includes/configs/i18n/seoDescription.config.php:7
+#: includes/configs/i18n/seoDescription.config.php:9
 msgid "Your SEO Description looks great, and is optimized for search engines!"
 msgstr ""
 
-#: includes/configs/i18n/seoDescription.config.php:10
+#: includes/configs/i18n/seoDescription.config.php:14
 msgid "Try incorporating your focus keyword to your custom SEO Description for better optimization!"
 msgstr ""
 
-#: includes/configs/i18n/seoDescription.config.php:11
+#: includes/configs/i18n/seoDescription.config.php:15
 msgid "Your focus keyword is used too frequently in your SEO Description.  You should try removing some of the references."
 msgstr ""
 
-#: includes/configs/i18n/seoDescription.config.php:12
+#: includes/configs/i18n/seoDescription.config.php:16
 msgid "The custom SEO Description is properly optimized by using your focus keyword in it!  Good job!"
 msgstr ""
 
-#: includes/configs/i18n/seoDescription.config.php:15, includes/configs/i18n/seoTitle.config.php:15
+#: includes/configs/i18n/seoDescription.config.php:19, includes/configs/i18n/seoTitle.config.php:15
 msgid "Your title makes use of a stop word.  We don't recommend using these as they can negatively imapct your SEO efforts"
 msgstr ""
 
-#: includes/configs/i18n/seoDescription.config.php:16, includes/configs/i18n/seoTitle.config.php:16
+#: includes/configs/i18n/seoDescription.config.php:20, includes/configs/i18n/seoTitle.config.php:16
 msgid "Your title doesn't use any stop words that will negatively impact your SEO ranking! Good Job!"
 msgstr ""
 
