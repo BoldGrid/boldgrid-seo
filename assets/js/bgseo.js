@@ -1856,11 +1856,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					msg : _bgseoContentAnalysis.content.keywordUsage.bad,
 				};
 			}
-			// Keyword used 1-2 times in the content.
+			// Keyword used within the range calculated based on content length.
 			if ( count.isBetween( range.min - 1, range.max + 1 ) ) {
 				description = 1 === range.min ?
 					_bgseoContentAnalysis.content.keywordUsage.goodSingular :
-					_bgseoContentAnalysis.content.keywordUsage.good.printf( count );
+					_bgseoContentAnalysis.content.keywordUsage.good.printf( range.min );
 
 				msg = {
 					status: 'green',
@@ -1868,10 +1868,10 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				};
 			}
 			// Keyword used 1-2 times in the content.
-			if ( count < range.min && 0 !== count ) {
+			if ( count < range.min && count !== 0 ) {
 				description = 1 === range.min ?
 					_bgseoContentAnalysis.content.keywordUsage.okShortSingular :
-					_bgseoContentAnalysis.content.keywordUsage.okShort.printf( count );
+					_bgseoContentAnalysis.content.keywordUsage.okShort.printf( range.min );
 
 				msg = {
 					status: 'yellow',
@@ -1883,7 +1883,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			if ( count > range.max ) {
 				description = 1 === range.min ?
 					_bgseoContentAnalysis.content.keywordUsage.okLongSingular :
-					_bgseoContentAnalysis.content.keywordUsage.okLong.printf( count );
+					_bgseoContentAnalysis.content.keywordUsage.okLong.printf( range.min );
 
 				msg = {
 					status: 'red',
