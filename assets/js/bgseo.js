@@ -1722,8 +1722,12 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			}
 
 			count = _.modifyObject( _bgseoContentAnalysis.keywords.recommendedCount, function( item ) {
-				return Number( ( item / 100 ) * api.Words.words( markup ).length ).rounded( 0 );
+				var numb = Number( ( item / 100 ) * api.Words.words( markup ).length ).rounded( 0 );
+				// Set minimum recommended count to at least once.
+				return numb > 0 ? numb : 1;
 			});
+
+			console.log( count );
 
 			return count;
 		},
