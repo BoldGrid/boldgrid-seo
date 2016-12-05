@@ -20,7 +20,18 @@ BoldGrid SEO provides website search engine optimization.
 
 ## Changelog ##
 
-### 1.1.2 In progress ###
+### 1.3.1 In Progress ###
+* Update:       Added SEO Analysis, and new features.
+
+### 1.3 ###
+* Misc:			JIRA WPB-2420	Added EOF line breaks.
+
+### 1.2.1 ###
+* Misc:			JIRA WPB-2344	Updated readme.txt for Tested up to 4.6.1.
+* Bug fix:		JIRA WPB-2336	Load BoldGrid settings from the correct WP option (site/blog).
+* Update:		JIRA WPB-2368	Setting version constant from plugin file.
+
+### 1.2 ###
 * Misc:			JIRA WPB-2256	Updated readme.txt for Tested up to: 4.6.
 * Rework:		JIRA WPB-1825	Formatting.
 * Bug Fix:		Fixing issue where HTML prints inside of title tags.
