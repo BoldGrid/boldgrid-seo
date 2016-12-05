@@ -52,8 +52,6 @@
 		},
 
 		getWordCount : function() {
-
-
 			return Number( self.settings.wordCounter.text() );
 		},
 

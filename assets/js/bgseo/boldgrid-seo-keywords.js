@@ -122,7 +122,7 @@
 			keyword = keyword.toLowerCase();
 
 			keywordCount = self.keywordCount( content, keyword );
-			wordCount = report.bgseo_dashboard.wordCount.length;
+			wordCount = api.Report.getWordCount();
 			// Get the density.
 			result = ( ( keywordCount / wordCount ) * 100 );
 			// Round it off.
