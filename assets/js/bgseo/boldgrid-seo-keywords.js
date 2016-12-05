@@ -248,8 +248,6 @@
 				return numb > 0 ? numb : 1;
 			});
 
-			console.log( count );
-
 			return count;
 		},
 
