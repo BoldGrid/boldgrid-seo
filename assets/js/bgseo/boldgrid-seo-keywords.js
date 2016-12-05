@@ -404,7 +404,7 @@
 
 				msg = {
 					status: 'red',
-					msg : _bgseoContentAnalysis.content.keywordUsage.okLong,
+					msg : description,
 				};
 			}
 
