@@ -602,9 +602,9 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			if ( $target.context.id === 'boldgrid-seo-field-meta_description' ) {
 				if ( chars > limit ) {
 					$counter.css( { 'color' : '#EA4335' } );
-				} else if ( chars.isBetween( 0, 125 ) ) {
+				} else if ( chars.isBetween( 0, _bgseoContentAnalysis.seoDescription.length.okScore ) ) {
 					$counter.css( { 'color' : '#FBBC05' } );
-				} else if ( chars.isBetween( 124, 157 ) ) {
+				} else if ( chars.isBetween( _bgseoContentAnalysis.seoDescription.length.okScore -1, _bgseoContentAnalysis.seoDescription.length.goodScore + 1 ) ) {
 					$counter.css( { 'color' : '#34A853' } );
 				} else {
 					$counter.css( { 'color' : 'black' } );
@@ -612,9 +612,9 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			} else {
 				if ( chars > limit ) {
 					$counter.css( { 'color' : '#EA4335' } );
-				} else if ( chars.isBetween( 0, 30 ) ) {
+				} else if ( chars.isBetween( 0, _bgseoContentAnalysis.seoTitle.length.okScore ) ) {
 					$counter.css( { 'color' : '#FBBC05' } );
-				} else if ( chars > 29 ) {
+				} else if ( chars > _bgseoContentAnalysis.seoTitle.length.okScore - 1 ) {
 					$counter.css( { 'color' : '#34A853' } );
 				} else {
 					$counter.css( { 'color' : 'black' } );
