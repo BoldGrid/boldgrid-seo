@@ -1260,8 +1260,15 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {Number} Frequency that keyword appears in description.
 		 */
 		keywords : function() {
-			var keyword = api.Keywords.getKeyword(),
-				description = self.getDescription().val();
+			var keyword, description;
+
+			// Get keyword.
+			keyword = api.Keywords.getKeyword();
+			// Get text from input.
+			description = self.getDescription().val();
+			// Normalize user input.
+			description = description.toLowerCase();
+
 			return description.occurences( keyword );
 		},
 	};
@@ -1661,7 +1668,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {string} Trimmed output of user supplied custom keyword.
 		 */
 		getCustomKeyword : function() {
-			return $.trim( self.settings.keyword.val() );
+			return $.trim( self.settings.keyword.val() ).toLowerCase();
 		},
 
 		/**
@@ -2775,6 +2782,9 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			} else if ( 1 === arguments.length ) {
 				keyword = api.Keywords.getKeyword();
 			}
+
+			// Normalize user input.
+			text = text.toLowerCase();
 
 			return text.occurences( keyword );
 		},

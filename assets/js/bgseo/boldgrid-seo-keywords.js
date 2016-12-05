@@ -189,7 +189,7 @@
 		 * @returns {string} Trimmed output of user supplied custom keyword.
 		 */
 		getCustomKeyword : function() {
-			return $.trim( self.settings.keyword.val() );
+			return $.trim( self.settings.keyword.val() ).toLowerCase();
 		},
 
 		/**

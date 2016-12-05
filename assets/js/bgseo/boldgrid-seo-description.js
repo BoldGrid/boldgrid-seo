@@ -130,8 +130,15 @@
 		 * @returns {Number} Frequency that keyword appears in description.
 		 */
 		keywords : function() {
-			var keyword = api.Keywords.getKeyword(),
-				description = self.getDescription().val();
+			var keyword, description;
+
+			// Get keyword.
+			keyword = api.Keywords.getKeyword();
+			// Get text from input.
+			description = self.getDescription().val();
+			// Normalize user input.
+			description = description.toLowerCase();
+
 			return description.occurences( keyword );
 		},
 	};

@@ -142,6 +142,9 @@
 				keyword = api.Keywords.getKeyword();
 			}
 
+			// Normalize user input.
+			text = text.toLowerCase();
+
 			return text.occurences( keyword );
 		},
 	};
