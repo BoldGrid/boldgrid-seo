@@ -908,31 +908,42 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {Object} msg Contains the status indicator color and message.
 		 */
 		seoContentLengthScore: function( contentLength ) {
-			var displayed, msg = {};
+			var content, displayed, msg = {};
+
+			// Cast to int to avoid errors in scoring.
 			contentLength = Number( contentLength );
-			displayed = _bgseoContentAnalysis.content.length.contentLength.printf( contentLength ) + '  ';
+
+			// Content var.
+			content = _bgseoContentAnalysis.content.length;
+
+			// Displayed Message.
+			displayed = content.contentLength.printf( contentLength ) + '  ';
+
 			if ( contentLength === 0 ) {
 				msg = {
 					status: 'red',
-					msg: _bgseoContentAnalysis.content.length.badEmpty,
+					msg: content.badEmpty,
 				};
 			}
-			if ( contentLength.isBetween( 0, 199 ) ) {
+
+			if ( contentLength.isBetween( 0, content.badShortScore ) ) {
 				msg = {
 					status: 'red',
-					msg: displayed + _bgseoContentAnalysis.content.length.badShort,
+					msg: displayed + content.badShort,
 				};
 			}
-			if ( contentLength.isBetween( 198, 300 ) ) {
+
+			if ( contentLength.isBetween( content.badShortScore -1, content.okScore ) ) {
 				msg = {
 					status: 'yellow',
-					msg: displayed + _bgseoContentAnalysis.content.length.ok,
+					msg: displayed + content.ok,
 				};
 			}
-			if ( contentLength > 299 ) {
+
+			if ( contentLength > content.okScore -1 ) {
 				msg = {
 					status: 'green',
-					msg: displayed + _bgseoContentAnalysis.content.length.good,
+					msg: displayed + content.good,
 				};
 			}
 
