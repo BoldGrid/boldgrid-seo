@@ -1867,7 +1867,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					msg : description,
 				};
 			}
-			// Keyword used 1-2 times in the content.
+			// Keyword used less than the minimum of the range specified, but not 0 times.
 			if ( count < range.min && count !== 0 ) {
 				description = 1 === range.min ?
 					_bgseoContentAnalysis.content.keywordUsage.okShortSingular :
