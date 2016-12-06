@@ -2,7 +2,7 @@
 **Contributors:** imh_brad, joemoto, rramo012, timph
 **Tags:** inspiration,customization,build,create,design,seo,search engine optimization
 **Requires at least:** 4.3
-**Tested up to:** 4.6
+**Tested up to:** 4.7
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ BoldGrid SEO provides website search engine optimization.
 
 ## Changelog ##
 
-### 1.3.1 In Progress ###
+### 1.3.1 ###
 * Update:       Added SEO Analysis, and new features.
 * Update:       Upgrade class has been added to handle upgrades from older version to newer ones.
 
