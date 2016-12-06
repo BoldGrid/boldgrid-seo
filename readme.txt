@@ -22,6 +22,7 @@ BoldGrid SEO provides website search engine optimization.
 
 = 1.3.1 In Progress =
 * Update:       Added SEO Analysis, and new features.
+* Update:       Upgrade class has been added to handle upgrades from older version to newer ones.
 
 = 1.3 =
 * Misc:			JIRA WPB-2420	Added EOF line breaks.
