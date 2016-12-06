@@ -15,12 +15,25 @@
 class Boldgrid_Seo_Upgrade {
 
 	/**
-	 * Configs.
+	 * BoldGrid SEO Configs array.
 	 *
 	 * @var array
+	 *
+	 * @access private
+	 *
+	 * @since 1.3.1
 	 */
 	protected $configs;
 
+	/**
+	 * Prefix string used in plugin.
+	 *
+	 * @var string
+	 *
+	 * @access private
+	 *
+	 * @since 1.3.1
+	 */
 	protected $prefix;
 
 	/**
@@ -43,9 +56,10 @@ class Boldgrid_Seo_Upgrade {
 	 * on.  All additional upgrade methods in the future should be added here in
 	 * the same format to be automatically managed and handled.
 	 *
-	 * @since 1.3.x
+	 * @since 1.3.1
 	 */
 	public function upgrade_db_check() {
+		 $this->set_option( '1.0.0' );
 		// Set the default version in db if no version is set.
 		if ( ! $this->get_option() ) $this->set_option( '1.0.0' );
 		// Get current version from configs.
@@ -97,24 +111,20 @@ class Boldgrid_Seo_Upgrade {
 	 * updates old postmeta meta_key naming to fit in with the new naming
 	 * convention used in the plugin.
 	 *
-	 * @since 1.3.x
+	 * @since 1.3.1
 	 */
 	public function upgrade_to_1_3_x() {
 		global $wpdb;
-		//var_dump( 'minor version upgrade only code runs here' ); die;
-		$wpdb->query(
-			"
-			UPDATE $wpdb->postmeta
-			SET meta_key = 'bgseo_description'
-			WHERE meta_key = 'meta_description'
-			"
-		);
-		$wpdb->query(
-			"
-			UPDATE $wpdb->postmeta
-			SET meta_key = 'bgseo_title'
-			WHERE meta_key = 'meta_title'
-			"
+		$wpdb->update(
+			$wpdb->postmeta,
+			array(
+				'meta_key' => 'bgseo_description',
+				'meta_key' => 'bgseo_title',
+			),
+			array(
+				'meta_key' => 'meta_description',
+				'meta_key' => 'meta_title',
+			)
 		);
 	}
 }
