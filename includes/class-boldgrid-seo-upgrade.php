@@ -11,6 +11,11 @@
 
 /**
  * Boldgrid Upgrade Class
+ *
+ * Responsible for performing any upgrade methods that
+ * are version specific needs.
+ *
+ * @since 1.3.1
  */
 class Boldgrid_Seo_Upgrade {
 
@@ -19,7 +24,7 @@ class Boldgrid_Seo_Upgrade {
 	 *
 	 * @var array
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @since 1.3.1
 	 */
@@ -30,7 +35,7 @@ class Boldgrid_Seo_Upgrade {
 	 *
 	 * @var string
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @since 1.3.1
 	 */
@@ -38,6 +43,10 @@ class Boldgrid_Seo_Upgrade {
 
 	/**
 	 * Constructor.
+	 *
+	 * @access public
+	 *
+	 * @since 1.3.1
 	 */
 	public function __construct( $configs ) {
 		$this->configs = $configs;
@@ -55,6 +64,8 @@ class Boldgrid_Seo_Upgrade {
 	 * version in the DB to 1.0.0 and run any upgrade methods required from then
 	 * on.  All additional upgrade methods in the future should be added here in
 	 * the same format to be automatically managed and handled.
+	 *
+	 * @access public
 	 *
 	 * @since 1.3.1
 	 */
@@ -87,6 +98,18 @@ class Boldgrid_Seo_Upgrade {
 		}
 	}
 
+	/**
+	 * Gets an array of upgrade methods.
+	 *
+	 * This checks __CLASS__ to see what methods are available
+	 * as class
+	 *
+	 * @access public
+	 *
+	 * @since 1.3.1
+	 *
+	 * @return array $methods List of available upgrade methods.
+	 */
 	public function get_upgrade_methods() {
 		$methods = get_class_methods( $this );
 		$methods = array_filter( $methods, function( $key ) {
@@ -96,10 +119,30 @@ class Boldgrid_Seo_Upgrade {
 		return $methods;
 	}
 
+	/**
+	 * Get option.
+	 *
+	 * This checks if option has been set in db.
+	 *
+	 * @access public
+	 *
+	 * @since 1.3.1
+	 *
+	 * @return mixed Version as a string or false.
+	 */
 	public function get_option() {
 		return get_site_option( "{$this->prefix}_version" );
 	}
 
+	/**
+	 * Set option for version.
+	 *
+	 * This sets the version option in the db.
+	 *
+	 * @access public
+	 *
+	 * @since 1.3.1
+	 */
 	public function set_option( $version ) {
 		update_site_option( "{$this->prefix}_version", $version );
 	}
@@ -110,6 +153,10 @@ class Boldgrid_Seo_Upgrade {
 	 * This will perform upgrade tasks for 1.3 as a minor version as a whole. This
 	 * updates old postmeta meta_key naming to fit in with the new naming
 	 * convention used in the plugin.
+	 *
+	 * @link https://codex.wordpress.org/Class_Reference/wpdb#UPDATE_rows
+	 *
+	 * @access public
 	 *
 	 * @since 1.3.1
 	 */
