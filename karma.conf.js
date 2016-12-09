@@ -7,6 +7,7 @@ module.exports = function(config) {
     files: [
       'https://code.jquery.com/jquery-1.12.4.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js',
+      'tests/test-helpers.js',
       'assets/js/bgseo/boldgrid-seo-util.js',
       'assets/js/bgseo/boldgrid-seo-title.js',
       'assets/js/bgseo/boldgrid-seo-description.js',
@@ -14,7 +15,6 @@ module.exports = function(config) {
       'assets/js/bgseo/boldgrid-seo-tooltips.js',
       'assets/js/bgseo/boldgrid-seo-keywords.js',
       'assets/js/bgseo/boldgrid-seo-init.js',
-      'tests/test-helpers.js',
       'tests/bgseo/*.js'
     ]
   });
