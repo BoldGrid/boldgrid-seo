@@ -12,6 +12,7 @@ module.exports = function(config) {
       'assets/js/bgseo/boldgrid-seo-description.js',
       'assets/js/bgseo/boldgrid-seo-robots.js',
       'assets/js/bgseo/boldgrid-seo-tooltips.js',
+      'assets/js/bgseo/boldgrid-seo-keywords.js',
       'assets/js/bgseo/boldgrid-seo-init.js',
       'tests/test-helpers.js',
       'tests/bgseo/*.js'
