@@ -132,6 +132,20 @@
 		},
 
 		/**
+		 * Normalizes the stop words to match the words returned by the WP
+		 * WordCount.
+		 *
+		 * @since 1.3.2
+		 *
+		 * @param {string} str Word to normalize.
+		 *
+		 * @returns {string} Normalized word.
+		 */
+		normalizeWords: function( str ) {
+			return str.replace( '\'', '' );
+		},
+
+		/**
 		 * Gets the recommended keywords from content.
 		 *
 		 * This is what gets suggested to a user that their content is about this
@@ -151,11 +165,13 @@
 
 			if ( _.isEmpty( words ) ) return;
 
+			var stopWords = _bgseoContentAnalysis.stopWords.map( self.normalizeWords );
+
 			for ( var i = 0; i < words.length; i++ ) {
 				var word = $.trim( words[i] ).toLowerCase();
 
 				// Make sure word isn't in our stop words and is longer than 3 characters.
-				if ( ! word || word.length < 3 || _bgseoContentAnalysis.stopWords.indexOf( word ) > -1 ) {
+				if ( ! word || word.length < 3 || stopWords.indexOf( word ) > -1 ) {
 					continue;
 				}
 
