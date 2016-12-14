@@ -13,7 +13,7 @@ return array(
 	'keywordUsage' => array(
 		'bad'  => __( 'Try incorporating your focus keyword to your custom SEO Description for better optimization!', 'bgseo' ),
 		'ok'   => __( 'Your focus keyword is used too frequently in your SEO Description.  You should try removing some of the references.', 'bgseo' ),
-		'good' => __( 'The custom SEO Description is properly optimized by using your focus keyword in it!  Good job!', 'bgseo' ),
+		'good' => __( 'The custom SEO Description is properly optimized by using your focus keyword!  Good job!', 'bgseo' ),
 	),
 	'stopWords' => array(
 		'ok' => __( 'Your title makes use of a stop word.  We don\'t recommend using these as they can negatively imapct your SEO efforts', 'bgseo' ),

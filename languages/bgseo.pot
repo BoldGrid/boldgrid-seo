@@ -185,7 +185,7 @@ msgid "Your focus keyword is used too frequently in your SEO Description.  You s
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:16
-msgid "The custom SEO Description is properly optimized by using your focus keyword in it!  Good job!"
+msgid "The custom SEO Description is properly optimized by using your focus keyword!  Good job!"
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:19, includes/configs/i18n/seoTitle.config.php:19
