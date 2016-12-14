@@ -205,7 +205,7 @@ msgid "Your custom SEO Title is longer than the recommended 70 characters, you s
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:6
-msgid "We suggest making your SEO title at least 30 characters."
+msgid "We suggest making your SEO Title at least 30 characters."
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:9
@@ -213,7 +213,7 @@ msgid "Your SEO Title is a good length, and optimized for Search Engines!"
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:14
-msgid "You should try to use your focus keyword at least one time in your SEO title."
+msgid "You should try to use your focus keyword at least one time in your SEO Title."
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:15
