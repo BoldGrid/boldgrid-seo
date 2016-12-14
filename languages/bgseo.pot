@@ -85,15 +85,15 @@ msgid "Your page doesn't have any H1 tags on it, you should considering adding o
 msgstr ""
 
 #: includes/configs/i18n/headings.config.php:9
-msgid "Your keyword appears in your heading tags, which is good for your search engine optimization!"
+msgid "Your keyword appears in your H1 and H2 tags, which is good for your search engine optimization!"
 msgstr ""
 
 #: includes/configs/i18n/headings.config.php:10
-msgid "You have not used your keyword in any of your heading tags.  You should try to include this at least once."
+msgid "You have not used your keyword in any of your H1 or H2 tags.  You should try to include this at least once."
 msgstr ""
 
 #: includes/configs/i18n/headings.config.php:11
-msgid "The keyword appears too much in your headings, you should try to use it more in your content as well."
+msgid "The keyword appears too much in your H1 and H2 tags."
 msgstr ""
 
 #: includes/configs/i18n/image.config.php:4

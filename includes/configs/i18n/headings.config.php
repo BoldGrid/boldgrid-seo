@@ -6,8 +6,8 @@ return array(
 		'badEmpty' => __( 'Your page doesn\'t have any H1 tags on it, you should considering adding one that includes your target keyword!', 'bgseo' ),
 	),
 	'keywordUsage' => array(
-		'good' => __( 'Your keyword appears in your heading tags, which is good for your search engine optimization!', 'bgseo' ),
-		'bad' => __( 'You have not used your keyword in any of your heading tags.  You should try to include this at least once.', 'bgseo' ),
-		'ok' => __( 'The keyword appears too much in your headings, you should try to use it more in your content as well.', 'bgseo' ),
+		'good' => __( 'Your keyword appears in your H1 and H2 tags, which is good for your search engine optimization!', 'bgseo' ),
+		'bad' => __( 'You have not used your keyword in any of your H1 or H2 tags.  You should try to include this at least once.', 'bgseo' ),
+		'ok' => __( 'The keyword appears too much in your H1 and H2 tags.', 'bgseo' ),
 	),
 );
