@@ -6,7 +6,7 @@ return array(
 		'ok'   => __( 'We suggest making your SEO Title at least 30 characters.', 'bgseo' ),
 		// Max value.
 		'okScore' => 30,
-		'good' => __( 'Your SEO Title is a good length, and optimized for Search Engines!', 'bgseo' ),
+		'good' => __( 'Your SEO Title is a good length, and optimized for search engines!', 'bgseo' ),
 		// Max value.
 		'goodScore' => 70,
 	),

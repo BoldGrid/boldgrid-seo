@@ -209,7 +209,7 @@ msgid "We suggest making your SEO Title at least 30 characters."
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:9
-msgid "Your SEO Title is a good length, and optimized for Search Engines!"
+msgid "Your SEO Title is a good length, and optimized for search engines!"
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:14
