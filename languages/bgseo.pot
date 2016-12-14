@@ -949,7 +949,7 @@ msgid "SEO Title"
 msgstr ""
 
 #: includes/configs/meta-box.config.php:54
-msgid "This is very important for search engines.  The SEO Title is what usually shows as the link to your page in a Search Engine Results Page."
+msgid "This is very important for search engines.  The SEO Title is what usually shows as the link to your page in a Search Engine Results Page (SERP)."
 msgstr ""
 
 #: includes/configs/meta-box.config.php:65

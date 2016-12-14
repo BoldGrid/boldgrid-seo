@@ -51,7 +51,7 @@ return array(
 				'class' => 'widefat',
 			),
 			'label'       => __( 'SEO Title', 'bgseo' ),
-			'description' => __( 'This is very important for search engines.  The SEO Title is what usually shows as the link to your page in a Search Engine Results Page.', 'bgseo' ),
+			'description' => __( 'This is very important for search engines.  The SEO Title is what usually shows as the link to your page in a Search Engine Results Page (SERP).', 'bgseo' ),
 		),
 		'bgseo_description' => array(
 			'type'        => 'textarea',
