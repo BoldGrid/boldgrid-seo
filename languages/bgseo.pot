@@ -161,7 +161,7 @@ msgid "The text here is very hard to read, and is best understood by university 
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:4
-msgid "Your custom SEO Description is empty!  Try adding a description with your focus keyword in it."
+msgid "Your custom SEO Description is empty!  Try adding a description with your focus keyword."
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:5
