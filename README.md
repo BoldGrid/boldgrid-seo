@@ -20,6 +20,9 @@ BoldGrid SEO provides website search engine optimization.
 
 ## Changelog ##
 
+### 1.3.2 ###
+* Update:       Misc changes.
+
 ### 1.3.1 ###
 * Update:       Added SEO Analysis, and new features.
 * Update:       Upgrade class has been added to handle upgrades from older version to newer ones.
