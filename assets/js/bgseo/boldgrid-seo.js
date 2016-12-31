@@ -5,7 +5,6 @@ BOLDGRID.SEO = {
 	// Add the analysis report to the BOLDGRID.SEO object.
 	report : {
 		bgseo_visibility : {},
-		bgseo_dashboard : {},
 		bgseo_keywords : {},
 		bgseo_meta : {},
 		rawstatistics : {},

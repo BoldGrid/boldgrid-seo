@@ -82,8 +82,6 @@
 					});
 				}
 
-
-
 				// Listen for event changes being triggered.
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
@@ -142,21 +140,6 @@
 
 						// Set the default report items.
 						_( report ).extend({
-
-							bgseo_dashboard : {
-								sectionScore : {},
-								sectionStatus : {},
-								image : {
-									length : report.rawstatistics.imageCount,
-									lengthScore : api.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
-								},
-								headings : headingCount,
-								wordCount : {
-									length : self.getWordCount(),
-									lengthScore : api.ContentAnalysis.seoContentLengthScore( self.getWordCount() ),
-								}
-							},
-
 							bgseo_meta : {
 								title : {
 									length : titleLength,
@@ -202,6 +185,15 @@
 									length : api.Headings.keywords( headingCount ),
 									lengthScore : api.Keywords.headingScore( api.Headings.keywords( headingCount ) ),
 								},
+								image : {
+									length : report.rawstatistics.imageCount,
+									lengthScore : api.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
+								},
+								headings : headingCount,
+								wordCount : {
+									length : self.getWordCount(),
+									lengthScore : api.ContentAnalysis.seoContentLengthScore( self.getWordCount() ),
+								},
 								sectionScore: {},
 								sectionStatus: {},
 							},
@@ -213,8 +205,6 @@
 							},
 
 						});
-						// Removing readability score for now. _( report.bgseo_dashboard ).extend({ gradeLevel  : api.Readability.gradeLevel( content ), });
-
 					}
 
 					// Listen to changes to the SEO Title and update report.

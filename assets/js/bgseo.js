@@ -5,7 +5,6 @@ BOLDGRID.SEO = {
 	// Add the analysis report to the BOLDGRID.SEO object.
 	report : {
 		bgseo_visibility : {},
-		bgseo_dashboard : {},
 		bgseo_keywords : {},
 		bgseo_meta : {},
 		rawstatistics : {},
@@ -92,15 +91,15 @@ BOLDGRID.SEO = {
 			});
 
 			// Add the overview score to report.
-			_( report.bgseo_dashboard ).extend({
+			_( report.bgseo_keywords ).extend({
 				overview : {
 					score : BOLDGRID.SEO.Dashboard.overviewScore( report ),
 				},
 			});
 
 			// Get the status based on the overview score, and add to report.
-			_( report.bgseo_dashboard.overview ).extend({
-				status : BOLDGRID.SEO.Dashboard.overviewStatus( report.bgseo_dashboard.overview.score ),
+			_( report.bgseo_keywords.overview ).extend({
+				status : BOLDGRID.SEO.Dashboard.overviewStatus( report.bgseo_keywords.overview.score ),
 			});
 
 			// Set the nav highlight indicator for each section's tab.
@@ -2193,8 +2192,6 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					});
 				}
 
-
-
 				// Listen for event changes being triggered.
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
@@ -2253,21 +2250,6 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 						// Set the default report items.
 						_( report ).extend({
-
-							bgseo_dashboard : {
-								sectionScore : {},
-								sectionStatus : {},
-								image : {
-									length : report.rawstatistics.imageCount,
-									lengthScore : api.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
-								},
-								headings : headingCount,
-								wordCount : {
-									length : self.getWordCount(),
-									lengthScore : api.ContentAnalysis.seoContentLengthScore( self.getWordCount() ),
-								}
-							},
-
 							bgseo_meta : {
 								title : {
 									length : titleLength,
@@ -2313,6 +2295,15 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 									length : api.Headings.keywords( headingCount ),
 									lengthScore : api.Keywords.headingScore( api.Headings.keywords( headingCount ) ),
 								},
+								image : {
+									length : report.rawstatistics.imageCount,
+									lengthScore : api.ContentAnalysis.seoImageLengthScore( report.rawstatistics.imageCount ),
+								},
+								headings : headingCount,
+								wordCount : {
+									length : self.getWordCount(),
+									lengthScore : api.ContentAnalysis.seoContentLengthScore( self.getWordCount() ),
+								},
 								sectionScore: {},
 								sectionStatus: {},
 							},
@@ -2324,8 +2315,6 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 							},
 
 						});
-						// Removing readability score for now. _( report.bgseo_dashboard ).extend({ gradeLevel  : api.Readability.gradeLevel( content ), });
-
 					}
 
 					// Listen to changes to the SEO Title and update report.
@@ -2660,7 +2649,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		overviewStatus : function( report ) {
 			var selector = $( "#butterbean-ui-boldgrid_seo.postbox > h2 > span:contains('BoldGrid SEO')" );
 			self.removeStatus( selector );
-			selector.addClass( 'overview-status ' + report.bgseo_dashboard.overview.status );
+			selector.addClass( 'overview-status ' + report.bgseo_keywords.overview.status );
 		}
 	};
 

@@ -15,9 +15,9 @@ return array(
 			'priority'  => 'high',
 	),
 	'section' => array(
-		'bgseo_dashboard' => array(
-			'label' => __( 'SEO Dashboard', 'bgseo' ),
-			'icon'  => 'dashicons-chart-area',
+		'bgseo_keywords' => array(
+			'label' => __( 'Keywords', 'bgseo' ),
+			'icon'  => 'dashicons-search',
 		),
 		'bgseo_meta' => array(
 			'label' => __( 'Title & Description', 'bgseo' ),
@@ -27,16 +27,8 @@ return array(
 			'label' => __( 'Search Visibility', 'bgseo' ),
 			'icon'  => 'dashicons-visibility',
 		),
-		'bgseo_keywords' => array(
-			'label' => __( 'Keywords', 'bgseo' ),
-			'icon'  => 'dashicons-search',
-		),
 	),
 	'control' => array(
-		'bgseo_dash_html' => array(
-			'type'        => 'dashboard',
-			'section'     => 'bgseo_dashboard',
-		),
 		'bgseo_meta_analaysis' => array(
 			'type'        => 'dashboard',
 			'section'     => 'bgseo_meta',
@@ -102,10 +94,6 @@ return array(
 			'type'        => 'keywords',
 			'section'     => 'bgseo_keywords',
 		),
-		'bgseo_keyword_analaysis' => array(
-			'type'        => 'dashboard',
-			'section'     => 'bgseo_keywords',
-		),
 		'bgseo_custom_keyword' => array(
 			'type'        => 'text',
 			'section'     => 'bgseo_keywords',
@@ -116,6 +104,10 @@ return array(
 			),
 			'label'       => __( 'Target Keyword or Phrase', 'bgseo' ),
 			'description' => __( 'This should be what the main focus of this page or post is about.', 'bgseo' ),
+		),
+		'bgseo_keyword_analaysis' => array(
+			'type'        => 'dashboard',
+			'section'     => 'bgseo_keywords',
 		),
 	),
 );

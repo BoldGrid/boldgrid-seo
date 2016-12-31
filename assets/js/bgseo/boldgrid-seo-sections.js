@@ -101,7 +101,7 @@
 		overviewStatus : function( report ) {
 			var selector = $( "#butterbean-ui-boldgrid_seo.postbox > h2 > span:contains('BoldGrid SEO')" );
 			self.removeStatus( selector );
-			selector.addClass( 'overview-status ' + report.bgseo_dashboard.overview.status );
+			selector.addClass( 'overview-status ' + report.bgseo_keywords.overview.status );
 		}
 	};
 

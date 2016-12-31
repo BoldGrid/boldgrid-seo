@@ -77,15 +77,15 @@
 			});
 
 			// Add the overview score to report.
-			_( report.bgseo_dashboard ).extend({
+			_( report.bgseo_keywords ).extend({
 				overview : {
 					score : BOLDGRID.SEO.Dashboard.overviewScore( report ),
 				},
 			});
 
 			// Get the status based on the overview score, and add to report.
-			_( report.bgseo_dashboard.overview ).extend({
-				status : BOLDGRID.SEO.Dashboard.overviewStatus( report.bgseo_dashboard.overview.score ),
+			_( report.bgseo_keywords.overview ).extend({
+				status : BOLDGRID.SEO.Dashboard.overviewStatus( report.bgseo_keywords.overview.score ),
 			});
 
 			// Set the nav highlight indicator for each section's tab.

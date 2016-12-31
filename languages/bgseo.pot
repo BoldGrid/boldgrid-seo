@@ -325,602 +325,606 @@ msgid "by"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:28
-msgid "can't"
+msgid "can"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:29
-msgid "cannot"
+msgid "can't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:30
-msgid "could"
+msgid "cannot"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:31
-msgid "couldn't"
+msgid "could"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:32
-msgid "did"
+msgid "couldn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:33
-msgid "didn't"
+msgid "did"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:34
-msgid "do"
+msgid "didn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:35
-msgid "does"
+msgid "do"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:36
-msgid "doesn't"
+msgid "does"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:37
-msgid "doing"
+msgid "doesn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:38
-msgid "don't"
+msgid "doing"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:39
-msgid "down"
+msgid "don't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:40
-msgid "during"
+msgid "down"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:41
-msgid "each"
+msgid "during"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:42
-msgid "every"
+msgid "each"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:43
-msgid "few"
+msgid "every"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:44
-msgid "for"
+msgid "few"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:45
-msgid "from"
+msgid "for"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:46
-msgid "further"
+msgid "from"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:47
-msgid "had"
+msgid "further"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:48
-msgid "hadn't"
+msgid "had"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:49
-msgid "has"
+msgid "hadn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:50
-msgid "hasn't"
+msgid "has"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:51
-msgid "have"
+msgid "hasn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:52
-msgid "haven't"
+msgid "have"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:53
-msgid "having"
+msgid "haven't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:54
-msgid "he"
+msgid "having"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:55
-msgid "he'd"
+msgid "he"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:56
-msgid "he'll"
+msgid "he'd"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:57
-msgid "he's"
+msgid "he'll"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:58
-msgid "her"
+msgid "he's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:59
-msgid "here"
+msgid "her"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:60
-msgid "here's"
+msgid "here"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:61
-msgid "hers"
+msgid "here's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:62
-msgid "herself"
+msgid "hers"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:63
-msgid "him"
+msgid "herself"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:64
-msgid "himself"
+msgid "him"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:65
-msgid "his"
+msgid "himself"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:66
-msgid "how"
+msgid "his"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:67
-msgid "how's"
+msgid "how"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:68
-msgid "i"
+msgid "how's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:69
-msgid "i'd"
+msgid "i"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:70
-msgid "i'll"
+msgid "i'd"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:71
-msgid "i'm"
+msgid "i'll"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:72
-msgid "i've"
+msgid "i'm"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:73
-msgid "if"
+msgid "i've"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:74
-msgid "in"
+msgid "if"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:75
-msgid "into"
+msgid "in"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:76
-msgid "is"
+msgid "into"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:77
-msgid "isn't"
+msgid "is"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:78
-msgid "it"
+msgid "isn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:79
-msgid "it's"
+msgid "it"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:80
-msgid "its"
+msgid "it's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:81
-msgid "itself"
+msgid "its"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:82
-msgid "let's"
+msgid "itself"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:83
-msgid "me"
+msgid "let's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:84
-msgid "more"
+msgid "me"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:85
-msgid "most"
+msgid "more"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:86
-msgid "mustn't"
+msgid "most"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:87
-msgid "my"
+msgid "mustn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:88
-msgid "myself"
+msgid "my"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:89
-msgid "no"
+msgid "myself"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:90
-msgid "nor"
+msgid "no"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:91
-msgid "not"
+msgid "nor"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:92
-msgid "of"
+msgid "not"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:93
-msgid "off"
+msgid "of"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:94
-msgid "on"
+msgid "off"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:95
-msgid "once"
+msgid "on"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:96
-msgid "only"
+msgid "once"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:97
-msgid "or"
+msgid "only"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:98
-msgid "other"
+msgid "or"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:99
-msgid "ought"
+msgid "other"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:100
-msgid "our"
+msgid "ought"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:101
-msgid "ours"
+msgid "our"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:102
-msgid "ourselves"
+msgid "ours"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:103
-msgid "out"
+msgid "ourselves"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:104
-msgid "over"
+msgid "out"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:105
-msgid "own"
+msgid "over"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:106
-msgid "same"
+msgid "own"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:107
-msgid "shan't"
+msgid "same"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:108
-msgid "she"
+msgid "shan't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:109
-msgid "she'd"
+msgid "she"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:110
-msgid "she'll"
+msgid "she'd"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:111
-msgid "she's"
+msgid "she'll"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:112
-msgid "should"
+msgid "she's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:113
-msgid "shouldn't"
+msgid "should"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:114
-msgid "so"
+msgid "shouldn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:115
-msgid "some"
+msgid "so"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:116
-msgid "such"
+msgid "some"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:117
-msgid "than"
+msgid "such"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:118
-msgid "that"
+msgid "than"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:119
-msgid "that's"
+msgid "that"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:120
-msgid "the"
+msgid "that's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:121
-msgid "their"
+msgid "the"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:122
-msgid "theirs"
+msgid "their"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:123
-msgid "them"
+msgid "theirs"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:124
-msgid "themselves"
+msgid "them"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:125
-msgid "then"
+msgid "themselves"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:126
-msgid "there"
+msgid "then"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:127
-msgid "there's"
+msgid "there"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:128
-msgid "these"
+msgid "there's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:129
-msgid "they"
+msgid "these"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:130
-msgid "they'd"
+msgid "they"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:131
-msgid "they'll"
+msgid "they'd"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:132
-msgid "they're"
+msgid "they'll"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:133
-msgid "they've"
+msgid "they're"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:134
-msgid "this"
+msgid "they've"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:135
-msgid "those"
+msgid "this"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:136
-msgid "through"
+msgid "those"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:137
-msgid "to"
+msgid "through"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:138
-msgid "too"
+msgid "to"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:139
-msgid "under"
+msgid "too"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:140
-msgid "until"
+msgid "under"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:141
-msgid "up"
+msgid "until"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:142
-msgid "very"
+msgid "up"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:143
-msgid "was"
+msgid "very"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:144
-msgid "wasn't"
+msgid "was"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:145
-msgid "we"
+msgid "wasn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:146
-msgid "we'd"
+msgid "we"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:147
-msgid "we'll"
+msgid "we'd"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:148
-msgid "we're"
+msgid "we'll"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:149
-msgid "we've"
+msgid "we're"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:150
-msgid "were"
+msgid "we've"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:151
-msgid "weren't"
+msgid "were"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:152
-msgid "what"
+msgid "weren't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:153
-msgid "what's"
+msgid "what"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:154
-msgid "when"
+msgid "what's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:155
-msgid "when's"
+msgid "when"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:156
-msgid "where"
+msgid "when's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:157
-msgid "where's"
+msgid "where"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:158
-msgid "which"
+msgid "where's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:159
-msgid "while"
+msgid "which"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:160
-msgid "who"
+msgid "while"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:161
-msgid "who's"
+msgid "who"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:162
-msgid "whom"
+msgid "who's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:163
-msgid "why"
+msgid "whom"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:164
-msgid "why's"
+msgid "why"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:165
-msgid "with"
+msgid "why's"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:166
-msgid "won't"
+msgid "with"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:167
-msgid "would"
+msgid "won't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:168
-msgid "wouldn't"
+msgid "would"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:169
-msgid "you"
+msgid "wouldn't"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:170
-msgid "you'd"
+msgid "you"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:171
-msgid "you'll"
+msgid "you'd"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:172
-msgid "you're"
+msgid "you'll"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:173
-msgid "you've"
+msgid "you're"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:174
-msgid "your"
+msgid "you've"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:175
-msgid "yours"
+msgid "your"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:176
-msgid "yourself"
+msgid "yours"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:177
+msgid "yourself"
+msgstr ""
+
+#: includes/configs/i18n/stopWords.config.php:178
 msgid "yourselves"
 msgstr ""
 
@@ -929,7 +933,7 @@ msgid "BoldGrid SEO"
 msgstr ""
 
 #: includes/configs/meta-box.config.php:19
-msgid "SEO Dashboard"
+msgid "Keywords"
 msgstr ""
 
 #: includes/configs/meta-box.config.php:23
@@ -940,54 +944,50 @@ msgstr ""
 msgid "Search Visibility"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:31
-msgid "Keywords"
-msgstr ""
-
-#: includes/configs/meta-box.config.php:53
+#: includes/configs/meta-box.config.php:45
 msgid "SEO Title"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:54
+#: includes/configs/meta-box.config.php:46
 msgid "This is very important for search engines.  The SEO Title is what usually shows as the link to your page in a Search Engine Results Page (SERP)."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:65
+#: includes/configs/meta-box.config.php:57
 msgid "SEO Description"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:66
+#: includes/configs/meta-box.config.php:58
 msgid "Typically what will show in a Search Engine Results Page (SERP).  This is important, but secondary to your SEO Title."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:75
+#: includes/configs/meta-box.config.php:67
 msgid "Meta Robots Index"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:80
+#: includes/configs/meta-box.config.php:72
 msgid "Setting this to index means that search engines are encouraged to show your website in their search results."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:85
+#: includes/configs/meta-box.config.php:77
 msgid "Meta Robots Follow"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:90
+#: includes/configs/meta-box.config.php:82
 msgid "Having this set to follow means that search engines are able to count and follow where your links go to."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:98
+#: includes/configs/meta-box.config.php:90
 msgid "Canonical Link"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:99
+#: includes/configs/meta-box.config.php:91
 msgid "The canonical URL that this page should point to, leave it empty to default to the permalink."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:117
+#: includes/configs/meta-box.config.php:105
 msgid "Target Keyword or Phrase"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:118
+#: includes/configs/meta-box.config.php:106
 msgid "This should be what the main focus of this page or post is about."
 msgstr ""
