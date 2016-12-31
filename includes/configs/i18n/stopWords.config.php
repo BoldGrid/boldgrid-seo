@@ -25,6 +25,7 @@ return array(
 	__( "both" , 'bgseo' ),
 	__( "but" , 'bgseo' ),
 	__( "by" , 'bgseo' ),
+	__( "can" , 'bgseo' ),
 	__( "can't" , 'bgseo' ),
 	__( "cannot" , 'bgseo' ),
 	__( "could" , 'bgseo' ),
