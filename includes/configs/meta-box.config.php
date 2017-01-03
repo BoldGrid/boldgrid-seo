@@ -64,20 +64,20 @@ return array(
 		'bgseo_robots_index' => array(
 			'type'        => 'radio',
 			'section'     => 'bgseo_visibility',
-			'label'       => __( 'Meta Robots Index', 'bgseo' ),
+			'label'       => __( 'Tell search engines to read and index this page', 'bgseo' ),
 			'choices'     => array(
-				'index' => 'index',
-				'noindex' => 'noindex',
+				'index' => __( 'Yes ( index )', 'bgseo' ),
+				'noindex' => __( 'No ( noindex )', 'bgseo' ),
 			),
 			'description' => __( 'Setting this to index means that search engines are encouraged to show your website in their search results.', 'bgseo' ),
 		),
 		'bgseo_robots_follow' => array(
 			'type'        => 'radio',
 			'section'     => 'bgseo_visibility',
-			'label'       => __( 'Meta Robots Follow', 'bgseo' ),
+			'label'       => __( 'Tell search engines to follow links in this page', 'bgseo' ),
 			'choices'     => array(
-				'follow' => 'follow',
-				'nofollow' => 'nofollow',
+				'follow' => __( 'Yes ( follow )', 'bgseo' ),
+				'nofollow' => __( 'No ( nofollow )', 'bgseo' ),
 			),
 			'description' => __( 'Having this set to follow means that search engines are able to count and follow where your links go to.', 'bgseo' ),
 		),
@@ -87,8 +87,8 @@ return array(
 			'attr'        => array(
 				'class' => 'widefat',
 			),
-			'label'       => __( 'Canonical Link', 'bgseo' ),
-			'description' => __( 'The canonical URL that this page should point to, leave it empty to default to the permalink.', 'bgseo' ),
+			'label'       => __( 'Tell search engines that another page should be read/indexed in place of this page', 'bgseo' ),
+			'description' => __( 'This is called the canonical URL. We recommend that you leave this field empty, so it will use the default permalink.', 'bgseo' ),
 		),
 		'bgseo_keywords_html' => array(
 			'type'        => 'keywords',

@@ -1,4 +1,4 @@
-# Copyright (C) 2016 bgseo
+# Copyright (C) 2017 bgseo
 # This file is distributed under the same license as the bgseo package.
 msgid ""
 msgstr ""
@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Language-Team: The BoldGrid Team <support@boldgrid.com>\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -961,7 +961,15 @@ msgid "Typically what will show in a Search Engine Results Page (SERP).  This is
 msgstr ""
 
 #: includes/configs/meta-box.config.php:67
-msgid "Meta Robots Index"
+msgid "Tell search engines to read and index this page"
+msgstr ""
+
+#: includes/configs/meta-box.config.php:69
+msgid "Yes ( index )"
+msgstr ""
+
+#: includes/configs/meta-box.config.php:70
+msgid "No ( noindex )"
 msgstr ""
 
 #: includes/configs/meta-box.config.php:72
@@ -969,7 +977,15 @@ msgid "Setting this to index means that search engines are encouraged to show yo
 msgstr ""
 
 #: includes/configs/meta-box.config.php:77
-msgid "Meta Robots Follow"
+msgid "Tell search engines to follow links in this page"
+msgstr ""
+
+#: includes/configs/meta-box.config.php:79
+msgid "Yes ( follow )"
+msgstr ""
+
+#: includes/configs/meta-box.config.php:80
+msgid "No ( nofollow )"
 msgstr ""
 
 #: includes/configs/meta-box.config.php:82
@@ -977,11 +993,11 @@ msgid "Having this set to follow means that search engines are able to count and
 msgstr ""
 
 #: includes/configs/meta-box.config.php:90
-msgid "Canonical Link"
+msgid "Tell search engines that another page should be read/indexed in place of this page"
 msgstr ""
 
 #: includes/configs/meta-box.config.php:91
-msgid "The canonical URL that this page should point to, leave it empty to default to the permalink."
+msgid "This is called the canonical URL. We recommend that you leave this field empty, so it will use the default permalink."
 msgstr ""
 
 #: includes/configs/meta-box.config.php:105
