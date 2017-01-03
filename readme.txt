@@ -22,6 +22,7 @@ BoldGrid SEO provides website search engine optimization.
 
 = 1.3.3 =
 * Update:       Removing SEO Dashboard from metabox and moving controls to keywords section.
+* Update:       Adding more context to index/follow and canonical controls.
 
 = 1.3.2 =
 * Update:       Updated status message verbiage for analysis reports.
