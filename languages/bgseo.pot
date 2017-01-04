@@ -28,47 +28,47 @@ msgstr ""
 msgid "Word Count: %s."
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:6
-msgid "You haven't entered any content yet!  As you start writing your content, we'll make recommendations for better SEO!"
-msgstr ""
-
 #: includes/configs/i18n/content.config.php:7
-msgid "The content should be longer, try writing more about the focus keyword of this page."
+msgid "You haven't entered any %1$scontent%2$s yet!  As you start writing your content, we'll make recommendations for better SEO!"
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:10
-msgid "We recommend a minimum of 300 words for the best SEO results."
+#: includes/configs/i18n/content.config.php:12
+msgid "The content should be longer, we recommend %1$sat least 300 words%2$s. Try writing more about the focus keyword of this page."
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:13
-msgid "Your content is over the recommended minimum of 300 words, good job!"
+#: includes/configs/i18n/content.config.php:17
+msgid "We recommend a %1$sminimum of 300 words%2$s for the best SEO results."
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:18
+#: includes/configs/i18n/content.config.php:22
+msgid "Your content is over the recommended %1$sminimum of 300 words%2$s, good job!"
+msgstr ""
+
+#: includes/configs/i18n/content.config.php:34
 msgid "You haven't used your %1$skeyword in your content%2$s at all.  Try adding it naturally by talking about the subject more."
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:23
+#: includes/configs/i18n/content.config.php:39
 msgid "Your %1$skeyword is being used in your content%2$s, but we recommend using it at least 1 time."
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:29
+#: includes/configs/i18n/content.config.php:45
 msgid "Your %1$skeyword is being used in your content%2$s, but we recommend using it at least %%s times."
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:35
+#: includes/configs/i18n/content.config.php:51
 msgid "Your %1$skeyword appears excessively in your content%2$s.  Try to only use it 1 time and use other words and variations that are related to it."
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:40
+#: includes/configs/i18n/content.config.php:56
 msgid "Your %1$skeyword appears excessively in your content%2$s.  Try to only use it %%s times and use other words and variations that are related to it."
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:45
+#: includes/configs/i18n/content.config.php:61
 msgid "Great, you have included the %1$skeyword in your content%2$s at least 1 time. This helps get you a better SEO score!"
 msgstr ""
 
-#: includes/configs/i18n/content.config.php:50
+#: includes/configs/i18n/content.config.php:66
 msgid "Great, you have included the %1$skeyword in your content%2$s at least %%s times. This helps get you a better SEO score!"
 msgstr ""
 
