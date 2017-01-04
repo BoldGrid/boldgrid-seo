@@ -112,12 +112,12 @@ msgstr ""
 msgid "Set a new target keyword below, and the dashboard will be updated with new stats!"
 msgstr ""
 
-#: includes/configs/i18n/noFollow.config.php:3
-msgid "Great, your links are set to follow for search engines!"
+#: includes/configs/i18n/noFollow.config.php:4
+msgid "Great, your links are set to %1$sfollow%2$s for search engines!"
 msgstr ""
 
-#: includes/configs/i18n/noFollow.config.php:4
-msgid "Your links are set to nofollow for search engines!"
+#: includes/configs/i18n/noFollow.config.php:9
+msgid "Your links are set to %1$snofollow%2$s for search engines!"
 msgstr ""
 
 #: includes/configs/i18n/noIndex.config.php:4
