@@ -96,12 +96,12 @@ msgstr ""
 msgid "The keyword appears too much in your H1 and H2 tags."
 msgstr ""
 
-#: includes/configs/i18n/image.config.php:4
-msgid "Your article contains at least one image, which is great for SEO, awesome!"
+#: includes/configs/i18n/image.config.php:5
+msgid "Your article %1$scontains at least one image%2$s, which is great for SEO, awesome!"
 msgstr ""
 
-#: includes/configs/i18n/image.config.php:5
-msgid "Try adding at least one image that's relevant to your content's topic to further optimize your page."
+#: includes/configs/i18n/image.config.php:10
+msgid "Try adding %1$sat least one image%2$s that's relevant to your content's topic to further optimize your page."
 msgstr ""
 
 #: includes/configs/i18n/keywords.config.php:5
