@@ -1,19 +1,47 @@
 <?php
 return array(
 	'length' => array(
-		'badEmpty'  => __( 'Your custom SEO Description is empty!  Try adding a description with your focus keyword.', 'bgseo' ),
-		'badLong'  => __( 'Your custom SEO Description is over the 156 character recommended length, you should consider making it shorter.', 'bgseo' ),
-		'ok'   => __( 'You should make your SEO description longer!  We recommend 125-156 characters for the best results.', 'bgseo' ),
+		/* translators: 1: opening <a> tag 2: closing </a> tag */
+		'badEmpty'  => sprintf( __( 'Your custom %1$sSEO Description%2$s is empty!  Try adding a description with your focus keyword.', 'bgseo' ),
+			'<a href="https://www.boldgrid.com/support/seo/title-and-description#description" target="_blank">',
+			'</a>'
+		),
+		/* translators: 1: opening <a> tag 2: closing </a> tag */
+		'badLong'  => sprintf( __( 'Your custom %1$sSEO Description%2$s is over the 156 character recommended length, you should consider making it shorter.', 'bgseo' ),
+			'<a href="https://www.boldgrid.com/support/seo/title-and-description#description" target="_blank">',
+			'</a>'
+		),
+		/* translators: 1: opening <a> tag 2: closing </a> tag */
+		'ok'   => sprintf( __( 'You should make your %1$sSEO Description%2$s longer!  We recommend 125-156 characters for the best results.', 'bgseo' ),
+			'<a href="https://www.boldgrid.com/support/seo/title-and-description#description" target="_blank">',
+			'</a>'
+		),
+		/* translators: 1: opening <a> tag 2: closing </a> tag */
+		'good' => sprintf( __( 'Your %1$sSEO Description%2$s looks great, and is optimized for search engines!', 'bgseo' ),
+			'<a href="https://www.boldgrid.com/support/seo/title-and-description#description" target="_blank">',
+			'</a>'
+		),
 		// Max value.
 		'okScore' => 125,
-		'good' => __( 'Your SEO Description looks great, and is optimized for search engines!', 'bgseo' ),
 		// Max value.
 		'goodScore' => 156,
 	),
 	'keywordUsage' => array(
-		'bad'  => __( 'Try incorporating your focus keyword to your custom SEO Description for better optimization!', 'bgseo' ),
-		'ok'   => __( 'Your focus keyword is used too frequently in your SEO Description.  You should try removing some of the references.', 'bgseo' ),
-		'good' => __( 'The custom SEO Description is properly optimized by using your focus keyword!  Good job!', 'bgseo' ),
+		/* translators: 1: opening <a> tag 2: closing </a> tag */
+		'bad'  => sprintf( __( 'Try incorporating your focus keyword to your custom %1$sSEO Description%2$s for better optimization!', 'bgseo' ),
+			'<a href="https://www.boldgrid.com/support/seo/keywords#description" target="_blank">',
+			'</a>'
+		),
+		/* translators: 1: opening <a> tag 2: closing </a> tag */
+		'ok'   => sprintf( __( 'Your focus keyword is used too frequently in your %1$sSEO Description%2$s.  You should try removing some of the references.', 'bgseo' ),
+			'<a href="https://www.boldgrid.com/support/seo/keywords#description" target="_blank">',
+			'</a>'
+		),
+		/* translators: 1: opening <a> tag 2: closing </a> tag */
+		'good' => sprintf( __( 'The %1$sSEO Description%2$s is properly optimized by using your focus keyword!  Good job!', 'bgseo' ),
+			'<a href="https://www.boldgrid.com/support/seo/keywords#description" target="_blank">',
+			'</a>'
+		),
 	),
 	'stopWords' => array(
 		'ok' => __( 'Your title makes use of a stop word.  We don\'t recommend using these as they can negatively imapct your SEO efforts', 'bgseo' ),
