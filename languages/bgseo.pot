@@ -120,12 +120,12 @@ msgstr ""
 msgid "Your links are set to nofollow for search engines!"
 msgstr ""
 
-#: includes/configs/i18n/noIndex.config.php:3
-msgid "This article is being indexed by search engines!"
+#: includes/configs/i18n/noIndex.config.php:4
+msgid "This article is set to %1$sindex%2$s, so it is being indexed by search engines!"
 msgstr ""
 
-#: includes/configs/i18n/noIndex.config.php:4
-msgid "Your page is being blocked from search engine indexing!"
+#: includes/configs/i18n/noIndex.config.php:9
+msgid "This page is set to %1$snoindex%2$s, so it is being blocked from search engine indexing!"
 msgstr ""
 
 #: includes/configs/i18n/readingEase.config.php:3
