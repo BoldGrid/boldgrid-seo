@@ -20,10 +20,8 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
-= 1.3.4 In progress =
-* Testing:		JIRA WPB-2744	Tested on WordPress 4.7.
-
 = 1.3.3 =
+* Testing:		JIRA WPB-2744	Tested on WordPress 4.7.
 * Update:       Removing SEO Dashboard from metabox and moving controls to keywords section.
 * Update:       Adding more context to index/follow and canonical controls.
 * Update:       Status messages now include links to help sections on boldgrid.com/support.
