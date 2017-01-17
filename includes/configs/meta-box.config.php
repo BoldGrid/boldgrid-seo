@@ -16,7 +16,7 @@ return array(
 	),
 	'section' => array(
 		'bgseo_keywords' => array(
-			'label' => __( 'Keywords', 'bgseo' ),
+			'label' => __( 'Keyword Phrase', 'bgseo' ),
 			'icon'  => 'dashicons-search',
 		),
 		'bgseo_meta' => array(

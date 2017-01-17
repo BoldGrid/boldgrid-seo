@@ -1637,6 +1637,19 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		},
 
 		/**
+		 * Trims values of whitespace.
+		 *
+		 * @since 1.3.2
+		 *
+		 * @param {string} str Word to trim.
+		 *
+		 * @returns {string} Trimmed word.
+		 */
+		trim: function( str ) {
+			return str.trim();
+		},
+
+		/**
 		 * Gets the recommended keywords from content.
 		 *
 		 * This is what gets suggested to a user that their content is about this
@@ -1650,13 +1663,19 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {Array} result An array of n* most frequent keywords.
 		 */
 		recommendedKeywords: function( words, n ) {
-			var positions = {},
+			var stopWords = _bgseoContentAnalysis.stopWords,
+			    positions = {},
 			    wordCounts = [],
 			    result;
 
+			// Abort if no words are passed in.
 			if ( _.isEmpty( words ) ) return;
 
-			var stopWords = _bgseoContentAnalysis.stopWords.map( self.normalizeWords );
+			// Create array from string passed, and trim array values.
+			stopWords = stopWords.split( ',' ).map( self.trim );
+
+			// Normalize the stopWords to watch WordPress words.
+			stopWords = stopWords.map( self.normalizeWords );
 
 			for ( var i = 0; i < words.length; i++ ) {
 				var word = $.trim( words[i] ).toLowerCase();
