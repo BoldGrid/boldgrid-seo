@@ -545,7 +545,7 @@
 			// Keyword not used in title.
 			if ( 0 === count ) {
 				msg = {
-					status: 'yellow',
+					status: 'red',
 					msg : _bgseoContentAnalysis.keywords.keywordPhrase.bad,
 				};
 			}

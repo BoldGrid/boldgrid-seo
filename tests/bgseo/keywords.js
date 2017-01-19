@@ -82,10 +82,10 @@
 	});
 
 	describe( 'Keyword Phrase Status Indicator.', function() {
-		it( 'Shows yellow status indicator for no keywords entered..', function() {
+		it( 'Shows red status indicator for no keywords entered.', function() {
 			var msg;
 			msg = BOLDGRID.SEO.Keywords.keywordPhraseScore( 0 );
-			expect( msg.status ).toBe( 'yellow' );
+			expect( msg.status ).toBe( 'red' );
 		});
 		it( 'Shows yellow status indicator for only single word entered.', function() {
 			var msg;
