@@ -30,4 +30,78 @@
 
 	});
 
+	describe( 'Keyword Phrase Word Count', function() {
+		it( 'Returns 0 for no phrase entered', function() {
+			var phraseLength, phrase;
+			phrase = '';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 0 );
+		});
+		it( 'Detects a single word', function() {
+			var phraseLength, phrase;
+			phrase = 'words';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 1 );
+		});
+		it( 'Detects multiple words', function() {
+			var phraseLength, phrase;
+			phrase = 'multiple words';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 2 );
+			phrase = 'multiple words test';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 3 );
+			phrase = 'another longer test for the multiple words test';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 8 );
+		});
+		it( 'Doesn\'t trip up on multiple spaces between words.', function() {
+			var phraseLength, phrase;
+			phrase = 'two         words';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 2 );
+		});
+		it( 'Ignores trailing white space.', function() {
+			var phraseLength, phrase;
+			phrase = 'two words   ';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 2 );
+		});
+		it( 'Ignores leading white space.', function() {
+			var phraseLength, phrase;
+			phrase = '   two words';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 2 );
+		});
+		it( 'Ignores new lines.', function() {
+			var phraseLength, phrase;
+			phrase = '\n two words';
+			phraseLength = BOLDGRID.SEO.Keywords.phraseLength( phrase );
+			expect( phraseLength ).toBe( 2 );
+		});
+	});
+
+	describe( 'Keyword Phrase Status Indicator.', function() {
+		it( 'Shows yellow status indicator for no keywords entered..', function() {
+			var msg;
+			msg = BOLDGRID.SEO.Keywords.keywordPhraseScore( 0 );
+			expect( msg.status ).toBe( 'yellow' );
+		});
+		it( 'Shows yellow status indicator for only single word entered.', function() {
+			var msg;
+			msg = BOLDGRID.SEO.Keywords.keywordPhraseScore( 1 );
+			expect( msg.status ).toBe( 'yellow' );
+		});
+		it( 'Shows green status indicator if 2 or more words are entered.', function() {
+			var msg;
+			msg = BOLDGRID.SEO.Keywords.keywordPhraseScore( 2 );
+			expect( msg.status ).toBe( 'green' );
+			msg = BOLDGRID.SEO.Keywords.keywordPhraseScore( 3 );
+			expect( msg.status ).toBe( 'green' );
+			msg = BOLDGRID.SEO.Keywords.keywordPhraseScore( 8 );
+			expect( msg.status ).toBe( 'green' );
+		});
+	});
+
+
 })( jQuery );
