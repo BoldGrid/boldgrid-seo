@@ -112,6 +112,18 @@ msgstr ""
 msgid "Set a new target keyword below, and the dashboard will be updated with new stats!"
 msgstr ""
 
+#: includes/configs/i18n/keywords.config.php:14
+msgid "Great, you've entered a keyword phrase for the focus of your content!"
+msgstr ""
+
+#: includes/configs/i18n/keywords.config.php:15
+msgid "It looks like you have entered a single word for the keyword.  We recommend adding a keyword phrase instead of a single word for better results."
+msgstr ""
+
+#: includes/configs/i18n/keywords.config.php:16
+msgid "You haven't entered a keyword or keyword phrase for the focus of this content.  This helps guide you in writing better optimized content!"
+msgstr ""
+
 #: includes/configs/i18n/noFollow.config.php:4
 msgid "Great, your links are set to %1$sfollow%2$s for search engines!"
 msgstr ""

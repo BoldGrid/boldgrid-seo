@@ -102,6 +102,34 @@
 		},
 
 		/**
+		 * Gets the count of words in the keyword phrase section.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {string} keywordPhrase The content to count words in.
+		 *
+		 * @returns {Number} Number of words in keywordPhrase.
+		 */
+		phraseLength: function( keywordPhrase ) {
+
+			// Check for empty strings.
+			if ( keywordPhrase.length === 0 ) {
+				return 0;
+			}
+
+			// Excludes start and end white-space.
+			keywordPhrase = keywordPhrase.replace( /(^\s*)|(\s*$)/gi, '' );
+
+			// 2 or more space to 1.
+			keywordPhrase = keywordPhrase.replace( /[ ]{2,}/gi, ' ' );
+
+			// Exclude newline with a start spacing.
+			keywordPhrase = keywordPhrase.replace( /\n /, '\n' );
+
+			return keywordPhrase.split( ' ' ).length;
+		},
+
+		/**
 		 * Calculates keyword density for content and keyword passed in.
 		 *
 		 * @since 1.3.1
@@ -480,6 +508,45 @@
 				msg = {
 					status: 'yellow',
 					msg : _bgseoContentAnalysis.headings.keywordUsage.ok,
+				};
+			}
+
+			return msg;
+		},
+
+		/**
+		 * Used to get the scoring description for the keyword phrase.
+		 *
+		 * Returns the status message based on how many words are in the phrase.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param {Number} count WordCount for phrase.
+		 *
+		 * @returns {Object} msg Contains the status indicator color and message for report.
+		 */
+		keywordPhraseScore : function( count ) {
+			var msg;
+
+			// Default status and message.
+			msg = {
+				status: 'green',
+				msg : _bgseoContentAnalysis.keywords.keywordPhrase.good,
+			};
+
+			// Keyword used in title at least once.
+			if ( 1 === count ) {
+				msg = {
+					status: 'yellow',
+					msg : _bgseoContentAnalysis.keywords.keywordPhrase.ok,
+				};
+			}
+
+			// Keyword not used in title.
+			if ( 0 === count ) {
+				msg = {
+					status: 'yellow',
+					msg : _bgseoContentAnalysis.keywords.keywordPhrase.bad,
 				};
 			}
 

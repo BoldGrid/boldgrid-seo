@@ -105,6 +105,10 @@
 
 					if ( eventInfo.keywords ) {
 						_( report.bgseo_keywords ).extend({
+							keywordPhrase: {
+								length : api.Keywords.phraseLength( api.Keywords.settings.keyword.val() ),
+								lengthScore : api.Keywords.keywordPhraseScore( api.Keywords.phraseLength( api.Keywords.settings.keyword.val() ) ),
+							},
 							keywordTitle : {
 								lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
 							},
@@ -172,6 +176,11 @@
 							},
 
 							bgseo_keywords : {
+
+								keywordPhrase: {
+									length : api.Keywords.phraseLength( api.Keywords.settings.keyword.val() ),
+									lengthScore : api.Keywords.keywordPhraseScore( api.Keywords.phraseLength( api.Keywords.settings.keyword.val() ) ),
+								},
 								keywordTitle : {
 									lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
 								},
