@@ -20,6 +20,9 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
+= 1.3.5 In Progress =
+* Update:       Added support links for the keyword phrase length status messages.
+
 = 1.3.4 =
 * Update:       Converted SEO stop words to single string for translators.
 * New Feature:  Added Keyword Phrase length status indicator and messages.
