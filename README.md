@@ -22,6 +22,7 @@ BoldGrid SEO provides website search engine optimization.
 
 ### 1.3.5 In Progress ###
 * Update:       Added support links for the keyword phrase length status messages.
+* Bug fix:      Keyword detection was finding single characters and combining it with next word.
 
 ### 1.3.4 ###
 * Update:       Converted SEO stop words to single string for translators.
