@@ -428,8 +428,8 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				']'
 			].join( '' ), 'g' ),
 			astralRegExp: /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
-			// regex tested : https://regex101.com/r/vHAwas/1
-			wordsRegExp: /.+?\S\s+/g,
+			// regex tested : https://regex101.com/r/vHAwas/2
+			wordsRegExp: /.+?\s+/g,
 			characters_excluding_spacesRegExp: /\S/g,
 			characters_including_spacesRegExp: /[^\f\n\r\t\v\u00AD\u2028\u2029]/g,
 			l10n: window.wordCountL10n || {}
