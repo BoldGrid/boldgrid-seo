@@ -54,7 +54,7 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 		self::assign_configs();
 		self::assign_configs( 'i18n' );
 		$configs = $this->configs;
-		$local = BOLDGRID_SEO_PATH . '/includes/configs/config.local.php';
+		$local = BOLDGRID_SEO_PATH . '/includes/config/config.local.php';
 		if ( file_exists( $local ) ) {
 			$file = include $local;
 			$configs = array_replace_recursive( $configs, $file );
