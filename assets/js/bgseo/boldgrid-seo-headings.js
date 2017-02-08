@@ -31,6 +31,14 @@
 				};
 			}
 
+			// If we have more than one H1 tag rendered.
+			if ( count > 1 && $( '[name="boldgrid-display-post-title"]' ).last().is( ':checked' ) ) {
+				msg = {
+					status : 'red',
+					msg : _bgseoContentAnalysis.headings.h1.badBoldgridTheme,
+				};
+			}
+
 			// If no H1 tag is present.
 			if ( 0 === count ) {
 				msg = {

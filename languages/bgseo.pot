@@ -81,7 +81,7 @@ msgid "This post has %1$smore than one H1 tag%2$s which can negatively impact yo
 msgstr ""
 
 #: includes/configs/i18n/headings.config.php:14
-msgid "This post has %1$smore than one H1 tag%2$s.  %3$sUnchecking the \"Display page title\" box%4$s at the top of this page will remove an H1 from your page."
+msgid "This post has %1$smore than one H1 tag%2$s.  Unchecking the %3$s\"Display page title\" box%4$s at the top of this page will remove an H1 from your page."
 msgstr ""
 
 #: includes/configs/i18n/headings.config.php:21
