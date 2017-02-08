@@ -108,9 +108,6 @@ class Boldgrid_Seo {
 	 * Prepare for the update class.
 	 *
 	 * @since 1.3.6
-	 *
-	 * @see self::wpcron()
-	 * @see self::load_update()
 	 */
 	public function prepare_plugin_update() {
 		$is_cron = ( defined( 'DOING_CRON' ) && DOING_CRON );
