@@ -7,7 +7,58 @@
 	api = BOLDGRID.SEO;
 	report = api.report;
 
+	/**
+	 * BoldGrid SEO Headings.
+	 *
+	 * This is responsible for the SEO Headings Grading.
+	 *
+	 * @since 1.3.1
+	 */
 	api.Headings = {
+
+		/**
+		 * Initialize SEO Headings Analysis.
+		 *
+		 * @since 1.3.1
+		 */
+		init : function () {
+			$( document ).ready( self.onReady );
+		},
+
+		/**
+		 * Sets up event listeners and selector cache in settings on document ready.
+		 *
+		 * @since 1.3.1
+		 */
+		onReady : function() {
+			self.getSettings();
+			self._checkbox();
+		},
+
+		/**
+		 * Cache selectors
+		 *
+		 * @since 1.3.1
+		 */
+		getSettings : function() {
+			self.settings = {
+				displayTitle : $( '[name="boldgrid-display-post-title"]' ).last(),
+			};
+		},
+
+		/**
+		 * Sets up event listener for Display page title checkbox.
+		 *
+		 * Listens for checkbox changes and updates the status message.
+		 *
+		 * @since 1.3.1
+		 */
+		_checkbox : function() {
+			// Listen for changes to input value.
+			self.settings.displayTitle.on( 'change', _.debounce( function() {
+				$( this ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+			}, 1000 ) );
+		},
 
 		/**
 		 * Initialize BoldGrid SEO Headings Analysis.
@@ -32,7 +83,7 @@
 			}
 
 			// If we have more than one H1 tag rendered.
-			if ( count > 1 && $( '[name="boldgrid-display-post-title"]' ).last().is( ':checked' ) ) {
+			if ( count > 1 && self.settings.displayTitle.is( ':checked' ) ) {
 				msg = {
 					status : 'red',
 					msg : _bgseoContentAnalysis.headings.h1.badBoldgridTheme,
