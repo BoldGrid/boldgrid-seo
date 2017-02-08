@@ -173,7 +173,7 @@ msgid "The text here is very hard to read, and is best understood by university 
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:5
-msgid "Your custom %1$sSEO Description%2$s is empty!  Try adding a description with your focus keyword."
+msgid "Your custom %1$sSEO Description%2$s is empty!  Try adding a description with your focus keyword phrase."
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:10
@@ -189,15 +189,15 @@ msgid "Your %1$sSEO Description%2$s looks great, and is optimized for search eng
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:31
-msgid "Try incorporating your focus keyword to your custom %1$sSEO Description%2$s for better optimization!"
+msgid "Try incorporating your focus keyword phrase to your custom %1$sSEO Description%2$s for better optimization!"
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:36
-msgid "Your focus keyword is used too frequently in your %1$sSEO Description%2$s.  You should try removing some of the references."
+msgid "Your focus keyword phrase is used too frequently in your %1$sSEO Description%2$s.  You should try removing some of the references."
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:41
-msgid "The %1$sSEO Description%2$s is properly optimized by using your focus keyword!  Good job!"
+msgid "The %1$sSEO Description%2$s is properly optimized by using your focus keyword phrase!  Good job!"
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:47, includes/configs/i18n/seoTitle.config.php:47
@@ -225,15 +225,15 @@ msgid "Your %1$sSEO Title%2$s is a good length, and optimized for search engines
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:31
-msgid "You should try to use your focus keyword at least one time in your %1$sSEO Title%2$s."
+msgid "You should try to use your focus keyword phrase at least one time in your %1$sSEO Title%2$s."
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:36
-msgid "It’s great you’ve used the focus keyword in your %1$sSEO Title%2$s, but you should try to only use that one time."
+msgid "It’s great you’ve used the focus keyword phrase in your %1$sSEO Title%2$s, but you should try to only use that one time."
 msgstr ""
 
 #: includes/configs/i18n/seoTitle.config.php:41
-msgid "Your %1$sSEO Title%2$s is optimized by using your focus keyword!"
+msgid "Your %1$sSEO Title%2$s is optimized by using your focus keyword phrase!"
 msgstr ""
 
 #: includes/configs/i18n/stopWords.config.php:2

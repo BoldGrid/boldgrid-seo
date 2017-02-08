@@ -28,17 +28,17 @@ return array(
 	),
 	'keywordUsage' => array(
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'bad'  => sprintf( __( 'You should try to use your focus keyword at least one time in your %1$sSEO Title%2$s.', 'bgseo' ),
+		'bad'  => sprintf( __( 'You should try to use your focus keyword phrase at least one time in your %1$sSEO Title%2$s.', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/keywords#title" target="_blank">',
 			'</a>'
 		),
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'ok'   => sprintf( __( 'It’s great you’ve used the focus keyword in your %1$sSEO Title%2$s, but you should try to only use that one time.', 'bgseo' ),
+		'ok'   => sprintf( __( 'It’s great you’ve used the focus keyword phrase in your %1$sSEO Title%2$s, but you should try to only use that one time.', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/keywords#title" target="_blank">',
 			'</a>'
 		),
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'good' => sprintf( __( 'Your %1$sSEO Title%2$s is optimized by using your focus keyword!', 'bgseo' ),
+		'good' => sprintf( __( 'Your %1$sSEO Title%2$s is optimized by using your focus keyword phrase!', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/keywords#title" target="_blank">',
 			'</a>'
 		),

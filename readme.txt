@@ -21,10 +21,12 @@ BoldGrid SEO provides website search engine optimization.
 == Changelog ==
 
 = 1.3.6 In progress =
-* Bug fix:		JIRA WPB-2892	Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
+* Bug fix:      JIRA WPB-2892 Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
+* Update:       Updating keyword to keyword phrase in verbiage.
+
 
 = 1.3.5 =
-* Bug fix:		JIRA WPB-2821	Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
+* Bug fix:      JIRA WPB-2821 Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
 * Update:       Added support links for the keyword phrase length status messages.
 * Bug fix:      Keyword detection was finding single characters and combining it with next word.
 

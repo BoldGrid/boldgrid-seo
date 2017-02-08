@@ -2,7 +2,7 @@
 return array(
 	'length' => array(
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'badEmpty'  => sprintf( __( 'Your custom %1$sSEO Description%2$s is empty!  Try adding a description with your focus keyword.', 'bgseo' ),
+		'badEmpty'  => sprintf( __( 'Your custom %1$sSEO Description%2$s is empty!  Try adding a description with your focus keyword phrase.', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/title-and-description#description" target="_blank">',
 			'</a>'
 		),
@@ -28,17 +28,17 @@ return array(
 	),
 	'keywordUsage' => array(
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'bad'  => sprintf( __( 'Try incorporating your focus keyword to your custom %1$sSEO Description%2$s for better optimization!', 'bgseo' ),
+		'bad'  => sprintf( __( 'Try incorporating your focus keyword phrase to your custom %1$sSEO Description%2$s for better optimization!', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/keywords#description" target="_blank">',
 			'</a>'
 		),
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'ok'   => sprintf( __( 'Your focus keyword is used too frequently in your %1$sSEO Description%2$s.  You should try removing some of the references.', 'bgseo' ),
+		'ok'   => sprintf( __( 'Your focus keyword phrase is used too frequently in your %1$sSEO Description%2$s.  You should try removing some of the references.', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/keywords#description" target="_blank">',
 			'</a>'
 		),
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'good' => sprintf( __( 'The %1$sSEO Description%2$s is properly optimized by using your focus keyword!  Good job!', 'bgseo' ),
+		'good' => sprintf( __( 'The %1$sSEO Description%2$s is properly optimized by using your focus keyword phrase!  Good job!', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/keywords#description" target="_blank">',
 			'</a>'
 		),
