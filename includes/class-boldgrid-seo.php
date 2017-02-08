@@ -65,7 +65,7 @@ class Boldgrid_Seo {
 		$this->boldgrid_seo_config();
 		$this->upgrade();
 		$this->boldgrid_seo_admin();
-		$this->prepare_update();
+		$this->prepare_plugin_update();
 		$this->load_butterbean();
 		$this->enqueue_scripts();
 	}
@@ -107,67 +107,25 @@ class Boldgrid_Seo {
 	/**
 	 * Prepare for the update class.
 	 *
-	 * @since 1.3.5
+	 * @since 1.3.6
 	 *
 	 * @see self::wpcron()
 	 * @see self::load_update()
 	 */
-	public function prepare_update() {
+	public function prepare_plugin_update() {
 		$is_cron = ( defined( 'DOING_CRON' ) && DOING_CRON );
 		$is_wpcli = ( defined( 'WP_CLI' ) && WP_CLI );
 
-		// Add an action to load this plugin on init, only in the dashboard.
 		if ( $is_cron || $is_wpcli || is_admin() ) {
+			require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-update.php';
+
+			$plugin_update = new Boldgrid_Seo_Update( $this->configs );
+
 			add_action( 'init', array (
-				$this,
-				'load_update'
+				$plugin_update,
+				'add_hooks'
 			) );
 		}
-
-		// If DOING_CRON, then check if this plugin should be auto-updated.
-		if ( $is_cron ){
-			$this->wpcron();
-		}
-	}
-
-	/**
-	 * WP-CRON init.
-	 *
-	 * @since 1.3.1
-	 */
-	public function wpcron() {
-		// Ensure required definitions for pluggable.
-		if ( ! defined( 'AUTH_COOKIE' ) ) {
-			define( 'AUTH_COOKIE', null );
-		}
-
-		if ( ! defined( 'LOGGED_IN_COOKIE' ) ) {
-			define( 'LOGGED_IN_COOKIE', null );
-		}
-
-		// Load the pluggable class, if needed.
-		require_once ABSPATH . 'wp-includes/pluggable.php';
-	}
-
-	/**
-	 * Load update class.
-	 *
-	 * @since 1.3.5
-	 */
-	public function load_update() {
-		// Load and check for plugin updates.
-		require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-update.php';
-
-		$plugin_data = array(
-			'plugin_key_code' => 'seo',
-			'slug' => 'boldgrid-seo',
-			'main_file_path' => BOLDGRID_SEO_PATH . '/boldgrid-seo.php',
-			'configs' => $this->configs,
-			'version_data' => get_site_transient( 'boldgrid_seo_version_data' ),
-			'transient' => 'boldgrid_seo_version_data',
-		);
-
-		$plugin_update = new Boldgrid_Seo_Update( $plugin_data );
 	}
 
 	/**
