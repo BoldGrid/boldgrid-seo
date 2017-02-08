@@ -7,8 +7,14 @@ return array(
 			'</a>'
 		),
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'badMultiple'  => sprintf( __ ( 'This post has %1$smore than one H1 tag%2$s which can negatively impact your SEO.  You should try to only have one H1 on your page.', 'bgseo' ),
+		'badMultiple' => sprintf( __ ( 'This post has %1$smore than one H1 tag%2$s which can negatively impact your SEO.  You should try to only have one H1 on your page.', 'bgseo' ),
 			'<a href="https://boldgrid.com/support/seo/keywords#h1-usage" target="_blank">',
+			'</a>'
+		),
+		'badBoldgridTheme' => sprintf( __ ( 'This post has %1$smore than one H1 tag%2$s.  %3$sUnchecking the "Display page title" box%4$s at the top of this page will remove an H1 from your page.', 'bgseo' ),
+			'<a href="https://boldgrid.com/support/seo/keywords#h1-usage" target="_blank">',
+			'</a>',
+			'<a href="https://boldgrid.com/support/seo/keywords#hide-page-title" target="_blank">',
 			'</a>'
 		),
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
