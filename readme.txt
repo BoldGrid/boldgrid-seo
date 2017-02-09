@@ -20,7 +20,7 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
-= 1.3.6 In progress =
+= 1.3.6 =
 * Bug fix:      JIRA WPB-2892 Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
 * Update:       Updating keyword to keyword phrase in verbiage.
 * Update:       Detect if BoldGrid theme has page title hidden.
