@@ -20,6 +20,9 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
+= 1.3.7 In progress =
+* Bug fix:		JIRA WPB-2912	Fixed issue when installing plugins from the Tools Import page.
+
 = 1.3.6 =
 * Bug fix:      JIRA WPB-2892 Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
 * Update:       Updating keyword to keyword phrase in verbiage.

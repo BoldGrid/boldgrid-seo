@@ -221,8 +221,7 @@ class Boldgrid_Seo_Update {
 			$transient->version = $version_data->result->data->version;
 			$transient->new_version = $version_data->result->data->version;
 			// $transient->active_installs = true;
-		} else {
-			// For plugins.php and update-core.php pages, and WP-CLI.
+		} elseif ( ! in_array( $pagenow, array( 'plugin-install.php', 'admin-ajax.php' ), true ) ) {
 			$obj = new stdClass();
 			$obj->slug = $this->configs['plugin_name'];
 			$obj->plugin = $this->configs['plugin_name'] . '/' .
