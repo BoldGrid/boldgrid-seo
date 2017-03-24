@@ -26,7 +26,9 @@ class Boldgrid_Seo_Scripts {
 			editor.on( 'keyup propertychange paste', function ( e ) {
 				clearTimeout( timer );
 				timer = setTimeout( function() {
-					BOLDGRID.SEO.TinyMCE.tmceChange( e );
+					if ( typeof BOLDGRID !== 'undefined' && typeof BOLDGRID.SEO !== 'undefined' ) {
+						BOLDGRID.SEO.TinyMCE.tmceChange( e );
+					}
 				}, 2000 );
 			} );
 		}";
