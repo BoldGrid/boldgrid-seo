@@ -20,8 +20,11 @@ BoldGrid SEO provides website search engine optimization.
 
 ## Changelog ##
 
+### 1.4.1 in progress ###
+* Bug fix:      Fixed undefined BOLDGRID console errors on custom post types.
+
 ### 1.4 ###
-* Bug fix:		JIRA WPB-2912	Fixed issue when installing plugins from the Tools Import page.
+* Bug fix:      JIRA WPB-2912 Fixed issue when installing plugins from the Tools Import page.
 
 ### 1.3.6 ###
 * Bug fix:      JIRA WPB-2892 Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
@@ -38,7 +41,7 @@ BoldGrid SEO provides website search engine optimization.
 * New Feature:  Added Keyword Phrase length status indicator and messages.
 
 ### 1.3.3 ###
-* Testing:		JIRA WPB-2744	Tested on WordPress 4.7.
+* Testing:      JIRA WPB-2744 Tested on WordPress 4.7.
 * Update:       Removing SEO Dashboard from metabox and moving controls to keywords section.
 * Update:       Adding more context to index/follow and canonical controls.
 * Update:       Status messages now include links to help sections on boldgrid.com/support.
