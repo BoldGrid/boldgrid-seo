@@ -7,17 +7,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link http://www.boldgrid.com
- * @since 1.0.0
- * @package Boldgrid_Seo
+ * @link        https://www.boldgrid.com
+ * @since       1.0.0
+ * @package     Boldgrid_Seo
  *
  * Plugin Name: BoldGrid SEO
- * Plugin URI: http://www.boldgrid.com
+ * Plugin URI:  https://www.boldgrid.com
  * Description: Manage your BoldGrid website's SEO.
- * Version: 1.4
- * Author: BoldGrid.com <wpb@boldgrid.com>
- * Author URI: http://www.boldgrid.com
- * License: GPL-2.0+
+ * Version:     1.4
+ * Author:      BoldGrid <support@boldgrid.com>
+ * Author URI:  https://www.boldgrid.com
+ * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: bgseo
  * Domain Path: /languages
