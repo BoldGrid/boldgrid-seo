@@ -21,7 +21,6 @@ BoldGrid SEO provides website search engine optimization.
 == Changelog ==
 
 = 1.4.1 in progress =
-* Rework:		JIRA WPB-3096	Updated plugin header.
 * Bug fix:      Fixed undefined BOLDGRID console errors on custom post types.
 
 = 1.4 =
