@@ -20,7 +20,7 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
-= 1.4.1 in progress =
+= 1.4.1 =
 * Bug fix:      Fixed undefined BOLDGRID console errors on custom post types.
 
 = 1.4 =
