@@ -20,6 +20,9 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
+= 1.4.4 In progress =
+* Update:		JIRA WPB-3292	Updated plugin URI.
+
 = 1.4.3 =
 * Bug fix:		JIRA WPB-3161	Fixed auto plugin update.
 
