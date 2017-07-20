@@ -12,7 +12,7 @@
  * @package Boldgrid_Seo
  *
  * Plugin Name: BoldGrid SEO
- * Plugin URI: https://www.boldgrid.com/wordpress-seo-plugin/
+ * Plugin URI: https://www.boldgrid.com/boldgrid-seo/
  * Description: Manage your BoldGrid website's SEO.
  * Version: 1.4.4
  * Author: BoldGrid.com <wpb@boldgrid.com>
