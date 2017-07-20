@@ -1,8 +1,8 @@
 # BoldGrid SEO #
 **Contributors:** imh_brad, joemoto, rramo012, timph
-**Tags:** inspiration,customization,build,create,design,seo,search engine optimization
+**Tags:** seo, search engine optimization
 **Requires at least:** 4.3
-**Tested up to:** 4.7.4
+**Tested up to:** 4.8
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ BoldGrid SEO provides website search engine optimization.
 
 ## Changelog ##
 
-### 1.4.8 In progress ###
+### 1.4.4 ###
 * Update:		JIRA WPB-3292	Updated plugin URI.
 
 ### 1.4.3 ###
