@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The core plugin class.
  *
@@ -14,6 +13,24 @@
  * @subpackage Boldgrid_Seo/includes
  * @author BoldGrid <support@boldgrid.com>
  * @link https://boldgrid.com
+ *
+ * BoldGrid SEO is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * BoldGrid SEO is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with BoldGrid SEO. If not, see https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html.
+ *
+ * This plugin also utilizes the following libraries:
+ *
+ * ButterBean[https://github.com/justintadlock/butterbean], licensed under GNU General Public License v2.0
+ * TextStatistics.js[https://github.com/cgiffard/TextStatistics.js], licensed under MIT License.
  */
 
 // If this file is called directly, abort.

@@ -2,7 +2,7 @@
 **Contributors:** imh_brad, joemoto, rramo012, timph
 **Tags:** seo, search engine optimization
 **Requires at least:** 4.4
-**Tested up to:** 4.8.1
+**Tested up to:** 4.8.2
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,5 +113,3 @@ BoldGrid SEO provides website search engine optimization.
 
 ### 1.0 ###
 * Initial public release.
-
-## Upgrade Notice ##
