@@ -65,7 +65,6 @@ class Boldgrid_Seo {
 		$this->boldgrid_seo_config();
 		$this->upgrade();
 		$this->boldgrid_seo_admin();
-		$this->prepare_plugin_update();
 		$this->load_butterbean();
 		$this->enqueue_scripts();
 	}
@@ -102,27 +101,6 @@ class Boldgrid_Seo {
 		$this->loader->add_action( 'butterbean_register', $butterbean, 'register', 10, 2 );
 		// Add our custom template checks.
 		$this->loader->add_filter( 'butterbean_control_template', $butterbean, 'get_html_template', 10, 2 );
-	}
-
-	/**
-	 * Prepare for the update class.
-	 *
-	 * @since 1.3.6
-	 */
-	public function prepare_plugin_update() {
-		$is_cron = ( defined( 'DOING_CRON' ) && DOING_CRON );
-		$is_wpcli = ( defined( 'WP_CLI' ) && WP_CLI );
-
-		if ( $is_cron || $is_wpcli || is_admin() ) {
-			require_once BOLDGRID_SEO_PATH . '/includes/class-boldgrid-seo-update.php';
-
-			$plugin_update = new Boldgrid_Seo_Update( $this->configs );
-
-			add_action( 'init', array (
-				$plugin_update,
-				'add_hooks'
-			) );
-		}
 	}
 
 	/**
