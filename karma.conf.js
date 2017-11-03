@@ -20,8 +20,8 @@ module.exports = function( config ) {
 			'tests/bgseo/*.js'
 		],
 		preprocessors: {
-			'tests/*.js': [ 'coverage' ],
-			'tests/**/*.js': [ 'coverage' ]
+			'assets/js/bgseo/*.js': [ 'coverage' ],
+			'assets/js/control/*.js': [ 'coverage' ]
 		},
 		coverageReporter: {
 			type: 'html',
