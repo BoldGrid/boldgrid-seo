@@ -1,0 +1,95 @@
+== Changelog ==
+
+= 1.5 =
+* Update:						Bump version for release.
+
+= 1.4.4 =
+* Update:		JIRA WPB-3292	Updated plugin URI.
+
+= 1.4.3 =
+* Bug fix:		JIRA WPB-3161	Fixed auto plugin update.
+
+= 1.4.2 =
+* Bug fix:		JIRA WPB-3151	Added check and load before using get_plugin_data() for updates.
+
+= 1.4.1 =
+* Bug fix:      Fixed undefined BOLDGRID console errors on custom post types.
+
+= 1.4 =
+* Bug fix:      JIRA WPB-2912 Fixed issue when installing plugins from the Tools Import page.
+
+= 1.3.6 =
+* Bug fix:      JIRA WPB-2892 Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
+* Update:       Updating keyword to keyword phrase in verbiage.
+* Update:       Detect if BoldGrid theme has page title hidden.
+
+= 1.3.5 =
+* Bug fix:      JIRA WPB-2821 Fixed plugin update checks for some scenarios (WP-CLI, Plesk, etc).
+* Update:       Added support links for the keyword phrase length status messages.
+* Bug fix:      Keyword detection was finding single characters and combining it with next word.
+
+= 1.3.4 =
+* Update:       Converted SEO stop words to single string for translators.
+* New Feature:  Added Keyword Phrase length status indicator and messages.
+
+= 1.3.3 =
+* Testing:      JIRA WPB-2744 Tested on WordPress 4.7.
+* Update:       Removing SEO Dashboard from metabox and moving controls to keywords section.
+* Update:       Adding more context to index/follow and canonical controls.
+* Update:       Status messages now include links to help sections on boldgrid.com/support.
+
+= 1.3.2 =
+* Update:       Updated status message verbiage for analysis reports.
+
+= 1.3.1 =
+* Update:       Added SEO Analysis, and new features.
+* Update:       Upgrade class has been added to handle upgrades from older version to newer ones.
+
+= 1.3 =
+* Misc:			JIRA WPB-2420	Added EOF line breaks.
+
+= 1.2.1 =
+* Misc:			JIRA WPB-2344	Updated readme.txt for Tested up to 4.6.1.
+* Bug fix:		JIRA WPB-2336	Load BoldGrid settings from the correct WP option (site/blog).
+* Update:		JIRA WPB-2368	Setting version constant from plugin file.
+
+= 1.2 =
+* Misc:			JIRA WPB-2256	Updated readme.txt for Tested up to: 4.6.
+* Rework:		JIRA WPB-1825	Formatting.
+* Bug Fix:		Fixing issue where HTML prints inside of title tags.
+
+= 1.1.1 =
+* New feature:	JIRA WPB-2037	Added capability for auto-updates by BoldGrid API response.
+* Testing:		JIRA WPB-2046	Tested on WordPress 4.5.3.
+
+= 1.1.0.1 =
+* Bug fix:		JIRA WPB-1816	Fixed update class interference with the Add Plugins page.
+
+= 1.1 =
+* Bug fix:		JIRA WPB-1809	Fixed undefined index "action" for some scenarios.  Optimized update class and addressed CodeSniffer items.
+* Bug fix: 						Fixing undefined index error.
+* Bug fix: 						Fixing extraneous markup printing to author pages.
+
+= 1.0.6 =
+* Misc:							Update JS to pass JSHint.
+* Misc:			JIRA WPB-1361	Added license file.
+
+= 1.0.5 =
+* Bug fix:      JIRA WPB-1692   Update nonce verification.
+
+= 1.0.4 =
+* Rework:		JIRA WPB-1619	Updated require and include statements for standards.
+* Bug fix:		JIRA WPB-1638   Fixing updated filter from WordPress Update.
+
+= 1.0.3 =
+* Bug fix:		JIRA WPB-1553	Changed __DIR__ to dirname( __FILE__ ) for PHP <=5.2.
+* Misc			JIRA WPB-1468	Updated readme.txt for Tested up to: 4.4.1
+
+= 1.0.2 =
+* New feature:	JIRA WPB-1363	Updated readme.txt for WordPress standards.
+
+= 1.0.1 =
+* Bug fix:						Updated plugin author from BoldGrid to BoldGrid.com
+
+= 1.0 =
+* Initial public release.
