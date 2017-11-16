@@ -16,12 +16,12 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: boldgrid-seo.php:55
-msgid "BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+"
+#: easy-seo.php:76
+msgid "Easy SEO Error: Easy SEO Supports WordPress version 4.0+, and PHP version 5.3+"
 msgstr ""
 
-#: boldgrid-seo.php:62
-msgid "BoldGrid Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin."
+#: easy-seo.php:83
+msgid "Easy SEO Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin."
 msgstr ""
 
 #: includes/configs/i18n/content.config.php:5
@@ -245,7 +245,7 @@ msgid "a,about,above,after,again,against,all,am,an,and,any,are,aren't,as,at,be,b
 msgstr ""
 
 #: includes/configs/meta-box.config.php:12
-msgid "BoldGrid SEO"
+msgid "Easy SEO"
 msgstr ""
 
 #: includes/configs/meta-box.config.php:19

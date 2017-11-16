@@ -9,7 +9,7 @@ return array(
 		'name'       => 'boldgrid-seo_nonce',
 	),
 	'manager' => array(
-			'label'     => __( 'BoldGrid SEO', 'bgseo' ),
+			'label'     => __( 'Easy SEO', 'bgseo' ),
 			'post_type' => array( 'post', 'page' ),
 			'context'   => 'normal',
 			'priority'  => 'high',

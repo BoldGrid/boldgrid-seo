@@ -1,7 +1,7 @@
 {
-  "name": "boldgrid-seo",
+  "name": "easy-seo",
   "version": "1.0.6",
-  "description": "BoldGrid SEO provides website search engine optimization.",
+  "description": "Easy SEO provides website search engine optimization.",
   "main": "gulpfile.js",
   "scripts": {
     "postinstall": "gulp",

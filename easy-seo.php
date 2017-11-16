@@ -11,16 +11,37 @@
  * @since 1.0.0
  * @package Boldgrid_Seo
  *
- * Plugin Name: BoldGrid SEO
+ * Plugin Name: Easy SEO
  * Plugin URI: https://www.boldgrid.com/boldgrid-seo/
  * Description: Manage your BoldGrid website's SEO.
- * Version: 1.5
+ * Version: 1.5.1
  * Author: BoldGrid.com <wpb@boldgrid.com>
  * Author URI: https://www.boldgrid.com/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: bgseo
  * Domain Path: /languages
+ *
+ * BoldGrid SEO is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * BoldGrid SEO is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with BoldGrid SEO. If not, see https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html.
+ *
+ * This plugin is also inspired by and/or uses code from the following plugins/libraries:
+ *
+ * ButterBean[https://github.com/justintadlock/butterbean], licensed under GNU General Public License v2.0.
+ * TextStatistics.js[https://github.com/cgiffard/TextStatistics.js], licensed under MIT License.
+ * WordPress Plugin Boilerplate[https://github.com/DevinVinson/WordPress-Plugin-Boilerplate], licensed under GNU General Public License v2.0.
+ * Sewn In Simple SEO[https://github.com/jupitercow/sewn-in-simple-seo], licensed under GNU General Public License v3.0.
+ * All In One SEO Pack[https://github.com/semperfiwebdesign/all-in-one-seo-pack], licensed under GNU General Public License v2.0.
  */
 
 // If this file is called directly, abort.
@@ -46,25 +67,25 @@ defined( 'BOLDGRID_SEO_PATH' ) || define( 'BOLDGRID_SEO_PATH', dirname( __FILE__
  *
  * @since 1.0.0
  */
-$boldgrid_seo_php_version = version_compare( phpversion(), '5.3.0', '>=' );
-$boldgrid_seo_wp_version = version_compare( get_bloginfo( 'version' ), '4.0', '>=' );
+$easy_seo_php_version = version_compare( phpversion(), '5.3.0', '>=' );
+$easy_seo_wp_version = version_compare( get_bloginfo( 'version' ), '4.0', '>=' );
 
-if ( ! $boldgrid_seo_php_version or ! $boldgrid_seo_wp_version ) :
-	function boldgrid_php_error() {
+if ( ! $easy_seo_php_version or ! $easy_seo_wp_version ) :
+	function easy_seo_php_error() {
 		printf( '<div class="error"><p>%s</p></div>',
-			esc_html__( 'BoldGrid Error: BoldGrid SEO Supports WordPress version 4.0+, and PHP version 5.3+', 'bgseo' )
+			esc_html__( 'Easy SEO Error: Easy SEO Supports WordPress version 4.0+, and PHP version 5.3+', 'bgseo' )
 		);
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 	}
 
 	if ( defined( 'WP_CLI' ) ) :
 		deactivate_plugins( plugin_basename( __FILE__ ) );
-		WP_CLI::warning( __( 'BoldGrid Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin.', 'bgseo' ) );
+		WP_CLI::warning( __( 'Easy SEO Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin.', 'bgseo' ) );
 	else :
-		add_action( 'admin_notices', 'boldgrid_php_error' );
+		add_action( 'admin_notices', 'easy_seo_php_error' );
 	endif;
 else : // Load the rest of the plugin that contains code suited for passing the version check.
-	function activate_boldgrid_seo() {
+	function activate_easy_seo() {
 		require_once wp_normalize_path( plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-activator.php' );
 		Boldgrid_Seo_Activator::activate();
 	}
@@ -73,13 +94,13 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 	 * The code that runs during plugin deactivation.
 	 * This action is documented in includes/class-boldgrid-seo-deactivator.php
 	 */
-	function deactivate_boldgrid_seo() {
+	function deactivate_easy_seo() {
 		require_once wp_normalize_path( plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-deactivator.php' );
 		Boldgrid_Seo_Deactivator::deactivate();
 	}
 
-	register_activation_hook( __FILE__, 'activate_boldgrid_seo' );
-	register_deactivation_hook( __FILE__, 'deactivate_boldgrid_seo' );
+	register_activation_hook( __FILE__, 'activate_easy_seo' );
+	register_deactivation_hook( __FILE__, 'deactivate_easy_seo' );
 
 	/**
 	 * Begins execution of the plugin.
@@ -90,9 +111,9 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 	 *
 	 * @since 1.0.0
 	 */
-	function run_boldgrid_seo() {
+	function run_easy_seo() {
 		$plugin = new Boldgrid_Seo();
 		$plugin->run();
 	}
-	run_boldgrid_seo();
+	run_easy_seo();
 endif;
