@@ -11,7 +11,7 @@
  * @since 1.0.0
  * @package Boldgrid_Seo
  *
- * Plugin Name: Easy SEO
+ * Plugin Name: BoldGrid Easy SEO
  * Plugin URI: https://www.boldgrid.com/boldgrid-seo/
  * Description: Easily manage your website's search engine optimization with Easy SEO by BoldGrid!
  * Version: 1.5.1

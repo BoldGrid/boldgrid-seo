@@ -1,4 +1,4 @@
-# Easy SEO #
+# BoldGrid Easy SEO #
 **Contributors:** boldgrid, timph, rramo012, imh_brad, joemoto
 **Tags:** seo, search engine optimization
 **Requires at least:** 4.4
