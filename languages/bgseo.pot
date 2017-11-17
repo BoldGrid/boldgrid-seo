@@ -16,11 +16,11 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: easy-seo.php:76
+#: boldgrid-easy-seo.php:76
 msgid "Easy SEO Error: Easy SEO Supports WordPress version 4.0+, and PHP version 5.3+"
 msgstr ""
 
-#: easy-seo.php:83
+#: boldgrid-easy-seo.php:83
 msgid "Easy SEO Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin."
 msgstr ""
 

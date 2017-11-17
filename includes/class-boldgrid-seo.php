@@ -57,7 +57,7 @@ class Boldgrid_Seo {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->plugin_name = 'easy-seo';
+		$this->plugin_name = 'boldgrid-easy-seo';
 		$this->prefix = 'boldgrid-seo';
 		$this->load_dependencies();
 		$this->set_locale();
