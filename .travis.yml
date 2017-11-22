@@ -2,4 +2,16 @@ language: node_js
 node_js:
   - "8"
 script:
-    - npm run coverage
+    - yarn coverage
+deploy:
+  - provider: script
+    script: chmod +x ./node_modules/@boldgrid/wordpress-tag-sync/release.sh && ./node_modules/@boldgrid/wordpress-tag-sync/release.sh
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: releases
+    api_key: "${GITHUB_TOKEN}"
+    file: "boldgrid-easy-seo.zip"
+    skip_cleanup: true
+    on:
+      tags: true

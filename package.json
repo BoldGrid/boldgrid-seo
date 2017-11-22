@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/BoldGrid/boldgrid-seo#readme",
   "devDependencies": {
+    "@boldgrid/wordpress-tag-sync": "^1.1.1",
     "coveralls": "^3.0.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
