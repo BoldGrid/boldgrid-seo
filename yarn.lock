@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@boldgrid/wordpress-tag-sync@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@boldgrid/wordpress-tag-sync/-/wordpress-tag-sync-1.1.1.tgz#7ebb4c02a0ac486fdbaa8227fd78c3ae48f18a50"
+"@boldgrid/wordpress-tag-sync@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@boldgrid/wordpress-tag-sync/-/wordpress-tag-sync-1.1.2.tgz#287940332ad21edc7e08b91b58b8a8ad8c4c689e"
 
 abbrev@1:
   version "1.1.1"
