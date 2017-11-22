@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
 	del = require('del'),
-	bower = require('gulp-bower'),
 	rename = require('gulp-rename'),
 	sort = require('gulp-sort'),
 	uglify = require('gulp-uglify'),
