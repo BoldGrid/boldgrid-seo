@@ -1,4 +1,6 @@
 # BoldGrid SEO #
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/BoldGrid/boldgrid-seo.svg)](https://greenkeeper.io/)
 **Contributors:** imh_brad, joemoto, rramo012, timph
 **Tags:** seo, search engine optimization
 **Requires at least:** 4.4
