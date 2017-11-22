@@ -50,5 +50,9 @@
     "karma-spec-reporter": "0.0.26",
     "pump": "^1.0.1",
     "run-sequence": "^1.2.2"
+  },
+  "dependencies": {
+    "butterbean": "https://github.com/justintadlock/butterbean.git#c64587395071742f99352d5ead03dc0050de8c78",
+    "text-statistics": "^0.1.1"
   }
 }
