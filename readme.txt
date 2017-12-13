@@ -2,7 +2,7 @@
 Contributors: imh_brad, joemoto, rramo012, timph
 Tags: seo, search engine optimization
 Requires at least: 4.4
-Tested up to: 4.8.1
+Tested up to: 4.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,17 +20,20 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
+= 1.5.0.1 In progress =
+* New feature:  JIRA WPB-3644   Updating to the WordPress.org version.
+
 = 1.5 =
-* Update:						Bump version.
+* Update:                       Bump version.
 
 = 1.4.4 =
-* Update:		JIRA WPB-3292	Updated plugin URI.
+* Update:       JIRA WPB-3292   Updated plugin URI.
 
 = 1.4.3 =
-* Bug fix:		JIRA WPB-3161	Fixed auto plugin update.
+* Bug fix:      JIRA WPB-3161   Fixed auto plugin update.
 
 = 1.4.2 =
-* Bug fix:		JIRA WPB-3151	Added check and load before using get_plugin_data() for updates.
+* Bug fix:      JIRA WPB-3151   Added check and load before using get_plugin_data() for updates.
 
 = 1.4.1 =
 * Bug fix:      Fixed undefined BOLDGRID console errors on custom post types.

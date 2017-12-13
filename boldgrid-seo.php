@@ -14,7 +14,7 @@
  * Plugin Name: BoldGrid SEO
  * Plugin URI: https://www.boldgrid.com/boldgrid-seo/
  * Description: Manage your BoldGrid website's SEO.
- * Version: 1.5
+ * Version: 1.5.0.1
  * Author: BoldGrid.com <wpb@boldgrid.com>
  * Author URI: https://www.boldgrid.com/
  * License: GPL-2.0+
@@ -94,5 +94,20 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 		$plugin = new Boldgrid_Seo();
 		$plugin->run();
 	}
-	run_boldgrid_seo();
+
+	// Upgrade to the WordPress.org version of this plugin.
+	$wporg_upgrade_funcname = dirname( __FILE__ ) . '_wporg_update';
+	$$wporg_upgrade_funcname = function() {
+		$wporg_package_url = 'https://downloads.wordpress.org/plugin/boldgrid-easy-seo.zip';
+		$plugin_path = __FILE__;
+		$bg_upgrade = require plugin_dir_path( __FILE__ ) .
+			'includes/boldgrid-upgrade-to-wporg.php';
+		$bg_upgrade( $plugin_path, $wporg_package_url );
+	};
+	add_action( 'admin_init', $$wporg_upgrade_funcname );
+
+	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
+		run_boldgrid_seo();
+	}
+
 endif;
