@@ -20,7 +20,7 @@ BoldGrid SEO provides website search engine optimization.
 
 == Changelog ==
 
-= 1.5.0.1 In progress =
+= 1.5.0.1 =
 * New feature:  JIRA WPB-3644   Updating to the WordPress.org version.
 
 = 1.5 =
