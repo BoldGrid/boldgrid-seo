@@ -52,7 +52,7 @@ return function ( $plugin_path, $wporg_package_url ) {
 		/**
 		 * Class to override WP_Upgrader_Skin::feedback, to prevent output.
 		 */
-		class BoldGrid_Temp_Skin extends WP_Upgrader_Skin {
+		class BoldGrid_Seo_Temp_Skin extends WP_Upgrader_Skin {
 			/**
 			 * Null feedback.
 			 *
@@ -66,7 +66,7 @@ return function ( $plugin_path, $wporg_package_url ) {
 			}
 		}
 
-		$upgrader = new Plugin_Upgrader( new BoldGrid_Temp_Skin() );
+		$upgrader = new Plugin_Upgrader( new BoldGrid_Seo_Temp_Skin() );
 		$upgrader->install( $wporg_package_url );
 
 		if ( is_object( $upgrader->skin->result ) &&
