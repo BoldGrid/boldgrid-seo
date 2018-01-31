@@ -20,6 +20,9 @@ BoldGrid SEO provides website search engine optimization.
 
 ## Changelog ##
 
+### 1.5.0.2 ###
+* Bug fix:      JIRA WPB-3710   Changed function to anonymous, due to conflict in the global space.
+
 ### 1.5.0.1 ###
 * New feature:  JIRA WPB-3644   Updating to the WordPress.org version.
 
