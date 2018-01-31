@@ -14,7 +14,7 @@
  * Plugin Name: BoldGrid SEO
  * Plugin URI: https://www.boldgrid.com/boldgrid-seo/
  * Description: Manage your BoldGrid website's SEO.
- * Version: 1.5.0.1
+ * Version: 1.5.0.2
  * Author: BoldGrid.com <wpb@boldgrid.com>
  * Author URI: https://www.boldgrid.com/
  * License: GPL-2.0+
