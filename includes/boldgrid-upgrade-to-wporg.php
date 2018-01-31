@@ -75,7 +75,7 @@ return function ( $plugin_path, $wporg_package_url ) {
 				return;
 		}
 
-		$wporg_plugin_basename = get_plugin_basename( $wporg_plugin_slug );
+		$wporg_plugin_basename = $get_plugin_basename( $wporg_plugin_slug );
 	}
 
 	// If the wporg plugin is installed, then ensure it is activated.

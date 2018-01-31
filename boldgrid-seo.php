@@ -106,6 +106,8 @@ else : // Load the rest of the plugin that contains code suited for passing the 
 	};
 	add_action( 'admin_init', $$wporg_upgrade_funcname );
 
+	require_once ABSPATH . '/wp-admin/includes/plugin.php';
+
 	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
 		run_boldgrid_seo();
 	}
