@@ -67,11 +67,15 @@ class Boldgrid_Seo_Butterbean {
 		/* === Register Settings === */
 		$manager->register_setting(
 			'bgseo_title',
-			array( 'sanitize_callback' => 'wp_filter_nohtml_kses' )
+			array( 'sanitize_callback' => function( $setting ) {
+				return wp_specialchars_decode( wp_filter_nohtml_kses ( $setting ) );
+			} )
 		);
 		$manager->register_setting(
 			'bgseo_description',
-			array( 'sanitize_callback' => 'wp_kses_post' )
+			array( 'sanitize_callback' => function( $setting ) {
+				return wp_specialchars_decode( wp_kses_post( $setting ) );
+			} )
 		);
 		$manager->register_setting(
 			'bgseo_canonical',
@@ -93,7 +97,9 @@ class Boldgrid_Seo_Butterbean {
 		);
 		$manager->register_setting(
 			'bgseo_custom_keyword',
-			array( 'sanitize_callback' => 'wp_filter_nohtml_kses' )
+			array( 'sanitize_callback' => function( $setting ) {
+				return wp_specialchars_decode( wp_filter_nohtml_kses ( $setting ) );
+			} )
 		);
 
 	}

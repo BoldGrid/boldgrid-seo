@@ -83,6 +83,9 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 ## Changelog ##
 
+### 1.5.2 in progress ###
+* Bug Fix: Save special chars for meta fields.
+
 ### 1.5.1 ###
 
 Release Date: November 14th, 2017
