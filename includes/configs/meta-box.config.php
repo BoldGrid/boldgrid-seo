@@ -51,7 +51,7 @@ return array(
 			'attr'        => array(
 				'id' => 'boldgrid-seo-field-meta_description',
 				'placeholder' => $this->util->meta_description(),
-				'maxlength' => '156',
+				'maxlength' => '300',
 				'class' => 'widefat',
 			),
 			'label'       => __( 'SEO Description', 'bgseo' ),

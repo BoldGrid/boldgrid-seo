@@ -7,12 +7,12 @@ return array(
 			'</a>'
 		),
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'badLong'  => sprintf( __( 'Your custom %1$sSEO Description%2$s is over the 156 character recommended length, you should consider making it shorter.', 'bgseo' ),
+		'badLong'  => sprintf( __( 'Your custom %1$sSEO Description%2$s is over the 300 character recommended length, you should consider making it shorter.', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/title-and-description#description" target="_blank">',
 			'</a>'
 		),
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
-		'ok'   => sprintf( __( 'You should make your %1$sSEO Description%2$s longer!  We recommend 125-156 characters for the best results.', 'bgseo' ),
+		'ok'   => sprintf( __( 'You should make your %1$sSEO Description%2$s longer!  We recommend 125-300 characters for the best results.', 'bgseo' ),
 			'<a href="https://www.boldgrid.com/support/seo/title-and-description#description" target="_blank">',
 			'</a>'
 		),
@@ -24,7 +24,7 @@ return array(
 		// Max value.
 		'okScore' => 125,
 		// Max value.
-		'goodScore' => 156,
+		'goodScore' => 300,
 	),
 	'keywordUsage' => array(
 		/* translators: 1: opening <a> tag 2: closing </a> tag */
