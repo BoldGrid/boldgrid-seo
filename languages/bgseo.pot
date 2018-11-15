@@ -181,11 +181,11 @@ msgid "Your custom %1$sSEO Description%2$s is empty!  Try adding a description w
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:10
-msgid "Your custom %1$sSEO Description%2$s is over the 156 character recommended length, you should consider making it shorter."
+msgid "Your custom %1$sSEO Description%2$s is over the 300 character recommended length, you should consider making it shorter."
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:15
-msgid "You should make your %1$sSEO Description%2$s longer!  We recommend 125-156 characters for the best results."
+msgid "You should make your %1$sSEO Description%2$s longer!  We recommend 125-300 characters for the best results."
 msgstr ""
 
 #: includes/configs/i18n/seoDescription.config.php:20

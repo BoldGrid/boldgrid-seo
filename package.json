@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "postinstall": "gulp",
+    "build": "gulp",
     "test": "karma start karma.conf.js --single-run",
     "coverage": "cat coverage/report-lcovonly.txt | coveralls"
   },
