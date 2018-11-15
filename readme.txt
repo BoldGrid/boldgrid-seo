@@ -2,9 +2,9 @@
 Contributors: boldgrid, timph, rramo012, imh_brad, joemoto
 Tags: seo, search engine optimization, content analysis, readability, boldgrid
 Requires at least: 4.4
-Tested up to: 4.9.1
+Tested up to: 5.0
 Requires PHP: 5.3
-Stable tag: 1.5.1
+Stable tag: 1.6.0-rc.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,7 +77,11 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 == Changelog ==
 
-= 1.5.2 in progress =
+= 1.6.0  =
+
+Release Date: TBD
+
+* Update: Max length for meta descriptions was updated to 300.
 * Bug Fix: Save special chars for meta fields.
 
 = 1.5.1 =
