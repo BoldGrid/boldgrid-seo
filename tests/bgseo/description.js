@@ -101,25 +101,25 @@
 			expect( msg.status ).toBe( 'red' );
 		});
 
-		it( 'Returns red status for descriptions over 156 characters', function() {
+		it( 'Returns red status for descriptions over 300 characters', function() {
 			var description, descriptionLength, msg;
 
-			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 157 ) );
+			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 301 ) );
 			descriptionLength = BOLDGRID.SEO.Description.getDescription().val().length;
 			msg = BOLDGRID.SEO.Description.descriptionScore( descriptionLength );
 
-			expect( descriptionLength ).toBe( 157 );
+			expect( descriptionLength ).toBe( 301 );
 			expect( msg.status ).toBe( 'red' );
 
-			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 156 ) );
+			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 300 ) );
 			descriptionLength = BOLDGRID.SEO.Description.getDescription().val().length;
 			msg = BOLDGRID.SEO.Description.descriptionScore( descriptionLength );
 
-			expect( descriptionLength ).toBe( 156 );
+			expect( descriptionLength ).toBe( 300 );
 			expect( msg.status ).not.toBe( 'red' );
 		});
 
-		it( 'Returns green status for descriptions that are 125-156 characters', function() {
+		it( 'Returns green status for descriptions that are 125-300 characters', function() {
 			var description, descriptionLength, msg;
 
 			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 125 ) );
@@ -136,18 +136,18 @@
 			expect( descriptionLength ).toBe( 124 );
 			expect( msg.status ).not.toBe( 'green' );
 
-			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 156 ) );
+			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 300 ) );
 			descriptionLength = BOLDGRID.SEO.Description.getDescription().val().length;
 			msg = BOLDGRID.SEO.Description.descriptionScore( descriptionLength );
 
-			expect( descriptionLength ).toBe( 156 );
+			expect( descriptionLength ).toBe( 300 );
 			expect( msg.status ).toBe( 'green' );
 
-			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 157 ) );
+			description = BOLDGRID.SEO.Description.getDescription().val( makeStr( 301 ) );
 			descriptionLength = BOLDGRID.SEO.Description.getDescription().val().length;
 			msg = BOLDGRID.SEO.Description.descriptionScore( descriptionLength );
 
-			expect( descriptionLength ).toBe( 157 );
+			expect( descriptionLength ).toBe( 301 );
 			expect( msg.status ).not.toBe( 'green' );
 		});
 
