@@ -56,7 +56,7 @@
 		_checkbox : function() {
 			// Listen for changes to input value.
 			self.settings.displayTitle.on( 'change', _.debounce( function() {
-				$( this ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+				$( this ).trigger( 'bgseo-analysis', [ api.Editor.ui.getContent() ] );
 			}, 1000 ) );
 		},
 
@@ -228,10 +228,11 @@
 				},
 			};
 
-			content = api.TinyMCE.getContent();
+			content = api.Editor.ui.getContent();
+			content = $( '<div>' + content.raw + '</div>' );
 
-			h1s = $( content.raw ).find( 'h1' );
-			h2s = $( content.raw ).find( 'h2' );
+			h1s = content.find( 'h1' );
+			h2s = content.find( 'h2' );
 
 			// If no h1s or h2s are found return the defaults.
 			if ( ! h1s.length && ! h2s.length ) return headings;

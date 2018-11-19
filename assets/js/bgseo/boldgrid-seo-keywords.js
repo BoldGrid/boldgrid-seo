@@ -43,7 +43,7 @@
 		getSettings : function() {
 			self.settings = {
 				keyword : $( '#bgseo-custom-keyword' ),
-				content : $( '#content' ),
+				content : api.Editor.element,
 			};
 		},
 
@@ -150,7 +150,7 @@
 			keyword = keyword.toLowerCase();
 
 			keywordCount = self.keywordCount( content, keyword );
-			wordCount = api.Report.getWordCount();
+			wordCount = api.Wordcount.count;
 			// Get the density.
 			result = ( ( keywordCount / wordCount ) * 100 );
 			// Round it off.
@@ -268,7 +268,7 @@
 		 */
 		getKeyword : function() {
 			var customKeyword,
-			    content = api.TinyMCE.getContent();
+			    content = api.Editor.ui.getRawText();
 
 			if ( self.getCustomKeyword().length ) {
 				customKeyword = self.getCustomKeyword();
@@ -300,9 +300,7 @@
 			var count;
 
 			if ( _.isUndefined( markup ) ) {
-				markup = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ?
-					api.Words.words( self.settings.content.val() ) :
-					api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+				markup = api.Words.words( api.Editor.ui.getRawText() );
 			}
 
 			count = _.modifyObject( _bgseoContentAnalysis.keywords.recommendedCount, function( item ) {

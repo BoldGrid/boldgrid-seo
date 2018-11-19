@@ -8,7 +8,7 @@
 	report = api.report;
 
 	/**
-	 * BoldGrid TinyMCE Analysis.
+	 * BoldGrid Editor Content Analysis.
 	 *
 	 * This is responsible for generating the actual reports
 	 * displayed within the BoldGrid SEO Dashboard when the user
@@ -19,7 +19,7 @@
 	api.Report = {
 
 		/**
-		 * Initialize TinyMCE Content.
+		 * Initialize Content.
 		 *
 		 * @since 1.3.1
 		 */
@@ -45,14 +45,8 @@
 		getSettings : function() {
 			self.settings = {
 				title : $( '#boldgrid-seo-field-meta_title' ),
-				description : $( '#boldgrid-seo-field-meta_description' ),
-				wordCounter : $( '#wp-word-count .word-count' ),
-				content : $( '#content' ),
+				description : $( '#boldgrid-seo-field-meta_description' )
 			};
-		},
-
-		getWordCount : function() {
-			return Number( self.settings.wordCounter.text() );
 		},
 
 		/**
@@ -86,10 +80,10 @@
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
-						var raws = eventInfo.raw;
+						var $raws = $( '<div>' + eventInfo.raw + '</div>' );
 
-						var h1 = $( raws ).find( 'h1' ),
-						    h2 = $( raws ).find( 'h2' ),
+						var h1 = $raws.find( 'h1' ),
+						    h2 = $raws.find( 'h2' ),
 						    headings = {};
 
 						headings = {
@@ -97,7 +91,7 @@
 							h1text : api.Headings.getHeadingText( h1 ),
 							h2Count : h2.length,
 							h2text : api.Headings.getHeadingText( h2 ),
-							imageCount: $( raws ).find( 'img' ).length,
+							imageCount: $raws.find( 'img' ).length,
 						};
 						// Set the heading counts and image count found in new content update.
 						_( report.rawstatistics ).extend( headings );
@@ -116,7 +110,7 @@
 								lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 							},
 							keywordContent : {
-								lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.TinyMCE.getContent().text ) ),
+								lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.Editor.ui.getContent().text ) ),
 							},
 							keywordHeadings : {
 								length : api.Headings.keywords( api.Headings.getRealHeadingCount() ),
@@ -130,7 +124,7 @@
 					if ( eventInfo.text ) {
 						var kw, headingCount = api.Headings.getRealHeadingCount(),
 							content = eventInfo.text,
-							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( self.settings.content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+							raw = api.Editor.ui.getRawText();
 
 							// Get length of title field.
 							titleLength = self.settings.title.val().length;
@@ -188,7 +182,7 @@
 									lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 								},
 								keywordContent : {
-									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.TinyMCE.getContent().text ) ),
+									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.Editor.ui.getContent().text ) ),
 								},
 								keywordHeadings : {
 									length : api.Headings.keywords( headingCount ),
@@ -200,8 +194,8 @@
 								},
 								headings : headingCount,
 								wordCount : {
-									length : self.getWordCount(),
-									lengthScore : api.ContentAnalysis.seoContentLengthScore( self.getWordCount() ),
+									length : api.Wordcount.count,
+									lengthScore : api.ContentAnalysis.seoContentLengthScore( api.Wordcount.count ),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -230,7 +224,7 @@
 						_( report.bgseo_keywords.keywordTitle ).extend({
 							lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
 						});
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						api.Editor.triggerAnalysis();
 					}
 
 					// Listen to changes to the SEO Description and update report.
@@ -248,7 +242,7 @@
 						_( report.bgseo_keywords.keywordDescription ).extend({
 							lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 						});
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						api.Editor.triggerAnalysis();
 					}
 
 					// Listen for changes to noindex/index and update report.
@@ -256,7 +250,7 @@
 						_( report.bgseo_visibility.robotIndex ).extend({
 							lengthScore : eventInfo.robotIndex,
 						});
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						api.Editor.triggerAnalysis();
 					}
 
 					// Listen for changes to nofollow/follow and update report.
@@ -264,12 +258,12 @@
 						_( report.bgseo_visibility.robotFollow ).extend({
 							lengthScore : eventInfo.robotFollow,
 						});
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						api.Editor.triggerAnalysis();
 					}
 				}
 
 				// Send the final analysis to display the report.
-				self.settings.content.trigger( 'bgseo-report', [ report ] );
+				api.Editor.element.trigger( 'bgseo-report', [ report ] );
 			});
 		},
 

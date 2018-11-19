@@ -481,48 +481,69 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 ( function( $, counter ) {
 
-	$( function() {
+	'use strict';
 
-		var $content = $( '#content' ),
-			$count = $( '#wp-word-count' ).find( '.word-count' ),
-			prevCount = 0,
-			contentEditor,
-			words;
+	var self, api;
 
-		function update() {
-			var text, count;
+	api = BOLDGRID.SEO;
 
-			if ( ! contentEditor || contentEditor.isHidden() ) {
-				text = $content.val();
-			} else {
-				text = contentEditor.getContent( { format: 'raw' } );
-			}
+	/**
+	 * Handle tracking of wordcount.
+	 *
+	 * @since 1.6.0
+	 */
+	api.Wordcount = {
+
+		/**
+		 * Number of words in the content.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {Number}
+		 */
+		count: 0,
+
+		/**
+		 * List of words on the page.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {array}
+		 */
+		words: [],
+
+		/**
+		 * When the page loads, run the update methods.
+		 *
+		 * @since 1.6.0
+		 */
+		init : function () {
+			$( self.update );
+		},
+
+		/**
+		 * Update this classes word count metrics.
+		 *
+		 * @since 1.6.0
+		 */
+		update : function () {
+			var count,
+				words,
+				text = api.Editor.ui.getRawText();
 
 			count = counter.count( text );
 			words = BOLDGRID.SEO.Words.words( text );
 
-			if ( count !== prevCount ) {
-				$content.trigger( 'bgseo-analysis', [{ words : words, count : count }] );
+			if ( count !== self.count ) {
+				api.Editor.element.trigger( 'bgseo-analysis', [{ words : words, count : count }] );
 			}
 
-			prevCount = count;
+			self.words = words;
+			self.count = count;
 		}
+	};
 
-		$( document ).on( 'tinymce-editor-init', function( event, editor ) {
-			if ( editor.id !== 'content' ) {
-				return;
-			}
-
-			contentEditor = editor;
-
-			editor.on( 'nodechange keyup', _.debounce( update, 1000 ) );
-		} );
-
-		$content.on( 'input keyup', _.debounce( update, 1000 ) );
-
-		update();
-
-	} );
+	self = api.Wordcount;
 
 } )( jQuery, new wp.utils.WordCounter() );
 
@@ -643,10 +664,9 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 	'use strict';
 
-	var self, report, api;
+	var self, api;
 
 	api = BOLDGRID.SEO;
-	report = api.report;
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -660,42 +680,32 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 	api.TinyMCE = {
 
 		/**
+		 * Selector to find editor id.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {String}
+		 */
+		selector : '#content',
+
+		/**
+		 * Selector to find preview button.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {String}
+		 */
+		previewSelector : '#preview-action > .preview.button',
+
+		/**
 		 * Initialize TinyMCE Content.
 		 *
 		 * @since 1.3.1
 		 */
-		init : function () {
-			self.onloadContent();
+		setup : function () {
 			$( document ).ready( function() {
+				self._setupWordCount();
 				self.editorChange();
-			});
-		},
-
-		/**
-		 * Runs actions on window load to prepare for analysis.
-		 *
-		 * This method gets the current editor in use by the user on the
-		 * initial page load ( text editor or visual editor ), and also
-		 * is responsible for creating the iframe preview of the page/post
-		 * so we can get the raw html in use by the template/theme the user
-		 * has activated.
-		 *
-		 * @since 1.3.1
-		 */
-		onloadContent: function() {
-			var text,
-				editor = $( '#content.wp-editor-area[aria-hidden=false]' );
-
-			$( window ).on( 'load bgseo-media-inserted', function() {
-				var content = self.getContent();
-
-				// Get rendered page content from frontend site.
-				self.getRenderedContent();
-
-				// Trigger the content analysis for the tinyMCE content.
-				_.defer( function() {
-					$( '#content' ).trigger( 'bgseo-analysis', [content] );
-				});
 			});
 		},
 
@@ -708,11 +718,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 */
 		getContent : function() {
 			var content;
-			// Get the content of the visual editor or text editor that's present.
+
 			if ( tinymce.ActiveEditor ) {
 				content = tinyMCE.get( wpActiveEditor ).getContent();
 			} else {
-				content = $( '#content' ).val();
+				content = api.Editor.element.val();
 				// Remove newlines and carriage returns.
 				content = content.replace( /\r?\n|\r/g, '' );
 			}
@@ -722,64 +732,33 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			// Stores raw and stripped down versions of the content for analysis.
 			content = {
 				'raw': rawContent,
-				'text': self.stripper( content.toLowerCase() ),
+				'text': api.Editor.stripper( content.toLowerCase() ),
 			};
 
 			return content;
 		},
 
+
 		/**
-		 * Only ajax for preview if permalink is available. This only
-		 * impacts "New" page and posts.  To counter
-		 * this we will disable the checks made until the content has had
-		 * a chance to be updated. We will store the found headings minus
-		 * the initial found headings in the content, so we know what the
-		 * template has in use on the actual rendered page.
+		 * Get the raw text from the editor.
 		 *
-		 * @since 1.3.1
+		 * @since 1.6.0
 		 *
-		 * @returns null No return.
+		 * @return {string} Editor content.
 		 */
-		getRenderedContent : function() {
-			var renderedContent, preview;
+		getRawText: function() {
+			var text,
+				contentEditor = tinyMCE.get( wpActiveEditor );
 
-			// Get the preview url from WordPress.
-			preview = $( '#preview-action > .preview.button' ).attr( 'href' );
-
-			if ( $( '#sample-permalink' ).length ) {
-				// Only run this once after the initial iframe has loaded to get current template stats.
-				$.get( preview, function( renderedTemplate ) {
-					var headings, h1, h2, $rendered;
-
-					// The rendered page content.
-					$rendered = $( renderedTemplate );
-
-					// H1's that appear in rendered content.
-					h1 = $rendered.find( 'h1' );
-					// HS's that appear in rendered content.
-					h2 = $rendered.find( 'h2' );
-
-					// The rendered content stats.
-					renderedContent = {
-						h1Count : h1.length - report.rawstatistics.h1Count,
-						h1text : _.filter( api.Headings.getHeadingText( h1 ), function( obj ){
-							return ! _.findWhere( report.rawstatistics.h1text, obj );
-						}),
-						h2Count : h2.length - report.rawstatistics.h2Count,
-						h2text : _.filter( api.Headings.getHeadingText( h2 ), function( obj ){
-							return ! _.findWhere( report.rawstatistics.h2text, obj );
-						}),
-					};
-
-					// Add the rendered stats to our report for use later.
-					_.extend( report, { rendered : renderedContent } );
-
-					// Trigger the SEO report to rebuild in the template after initial stats are created.
-					$( '#content' ).trigger( 'bgseo-analysis', [ self.getContent() ] );
-
-				}, 'html' );
+			if ( ! contentEditor || contentEditor.isHidden() ) {
+				text =  api.Editor.element.val();
+			} else {
+				text = contentEditor.getContent( { format: 'raw' } );
 			}
+
+			return text;
 		},
+
 		/**
 		 * Listens for changes made in the text editor mode.
 		 *
@@ -814,6 +793,17 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		},
 
 		/**
+		 * Is this a new Post?
+		 *
+		 * @since 1.6.0
+		 *
+		 * @return {boolean} Is this post-new.php?
+		 */
+		isNewPost : function () {
+			return ! $( '#sample-permalink' ).length;
+		},
+
+		/**
 		 * Checks which editor is the active editor.
 		 *
 		 * After checking the editor, it will obtain the content and trigger
@@ -833,7 +823,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 						text = tinyMCE.get( wpActiveEditor ).getContent();
 					break;
 				case 'content' :
-					text = $( '#content' ).val();
+					text = api.Editor.element.val();
 					text = text.replace( /\r?\n|\r/g, '' );
 					break;
 			}
@@ -843,32 +833,32 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 			text = {
 				'raw': rawText,
-				'text': self.stripper( text.toLowerCase() ),
+				'text': api.Editor.stripper( text.toLowerCase() ),
 			};
 
 			// Trigger the text analysis for report.
-			$( '#content' ).trigger( 'bgseo-analysis', [text] );
+			api.Editor.element.trigger( 'bgseo-analysis', [text] );
 		},
 
 		/**
-		 * Strips out unwanted html.
+		 * Bind events to the editor input and update the wordcount class.
 		 *
-		 * This is helpful in removing the  remaining traces of HTML
-		 * that is sometimes leftover to form our clean text output and
-		 * run our text analysis on.
-		 *
-		 * @since 1.3.1
-		 *
-		 * @returns {string} The content with any remaining html removed.
+		 * @since 1.6.0
 		 */
-		stripper: function( html ) {
-			var tmp;
+		_setupWordCount : function() {
+			var debouncedCb = _.debounce( api.Wordcount.update, 1000 );
 
-			tmp = document.implementation.createHTMLDocument( 'New' ).body;
-			tmp.innerHTML = html;
+			$( document ).on( 'tinymce-editor-init', function( event, editor ) {
+				if ( editor.id !== 'content' ) {
+					return;
+				}
 
-			return tmp.textContent || tmp.innerText || " ";
-		},
+				editor.on( 'AddUndo keyup', debouncedCb );
+			} );
+
+			api.Editor.element.on( 'input keyup', debouncedCb );
+		}
+
 	};
 
 	self = api.TinyMCE;
@@ -1293,6 +1283,287 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 
 	'use strict';
 
+	var self, api, report;
+
+	api = BOLDGRID.SEO;
+	report = api.report;
+
+	/**
+	 * BoldGrid Editor Interface.
+	 *
+	 * This class allows us to control which editor interface functions will run.
+	 * On first load the it runs the setup method of whichever ui is currently loaded.
+	 * It then assigns that ui to this classes ui variable for cross api use.
+	 *
+	 * @since 1.6.0
+	 */
+	api.Editor = {
+
+		/**
+		 * Interface loaded.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {object} seo.tinymce or seo-Gutenberg
+		 */
+		ui: null,
+
+		/**
+		 * WP Element to use to trigger events.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {$} Editor jQuery Element.
+		 */
+		element: null,
+
+		/**
+		 * Setup the correct editor interface.
+		 *
+		 * @since 1.3.1
+		 */
+		init : function () {
+			self.ui = wp.data ? api.Gutenberg : api.TinyMCE;
+			self.element = $( self.ui.selector );
+			self.ui.setup();
+			self.onloadContent();
+		},
+
+		/**
+		 * Runs actions on window load to prepare for analysis.
+		 *
+		 * This method gets the current editor in use by the user on the
+		 * initial page load ( text editor or visual editor ), and also
+		 * is responsible for creating the iframe preview of the page/post
+		 * so we can get the raw html in use by the template/theme the user
+		 * has activated.
+		 *
+		 * @since 1.3.1
+		 */
+		onloadContent : function() {
+			var text,
+				editor = $( '#content.wp-editor-area[aria-hidden=false]' );
+
+			$( window ).on( 'load bgseo-media-inserted', function() {
+				var content = self.ui.getContent();
+
+				// Get rendered page content from frontend site.
+				self.getRenderedContent();
+
+				// Trigger the content analysis for the content.
+				_.defer( function() {
+					self.element.trigger( 'bgseo-analysis', [content] );
+				} );
+			} );
+		},
+
+		/**
+		 * Only ajax for preview if permalink is available. This only
+		 * impacts "New" page and posts.  To counter
+		 * this we will disable the checks made until the content has had
+		 * a chance to be updated. We will store the found headings minus
+		 * the initial found headings in the content, so we know what the
+		 * template has in use on the actual rendered page.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns null No return.
+		 */
+		getRenderedContent : function() {
+			var renderedContent, preview;
+
+			// Get the preview url from WordPress.
+			preview = $( api.Editor.ui.previewSelector ).attr( 'href' );
+
+			if ( ! api.Editor.ui.isNewPost() ) {
+				// Only run this once after the initial iframe has loaded to get current template stats.
+				$.get( preview, function( renderedTemplate ) {
+					var headings, h1, h2, $rendered;
+
+					// The rendered page content.
+					$rendered = $( renderedTemplate );
+
+					// H1's that appear in rendered content.
+					h1 = $rendered.find( 'h1' );
+					// HS's that appear in rendered content.
+					h2 = $rendered.find( 'h2' );
+
+					// The rendered content stats.
+					renderedContent = {
+						h1Count : h1.length - report.rawstatistics.h1Count,
+						h1text : _.filter( api.Headings.getHeadingText( h1 ), function( obj ){
+							return ! _.findWhere( report.rawstatistics.h1text, obj );
+						}),
+						h2Count : h2.length - report.rawstatistics.h2Count,
+						h2text : _.filter( api.Headings.getHeadingText( h2 ), function( obj ){
+							return ! _.findWhere( report.rawstatistics.h2text, obj );
+						}),
+					};
+
+					// Add the rendered stats to our report for use later.
+					_.extend( report, { rendered : renderedContent } );
+
+					// Trigger the SEO report to rebuild in the template after initial stats are created.
+					self.triggerAnalysis();
+
+				}, 'html' );
+			}
+		},
+
+		/**
+		 * Strips out unwanted html.
+		 *
+		 * This is helpful in removing the  remaining traces of HTML
+		 * that is sometimes leftover to form our clean text output and
+		 * run our text analysis on.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @returns {string} The content with any remaining html removed.
+		 */
+		stripper : function( html ) {
+			var tmp;
+
+			tmp = document.implementation.createHTMLDocument( 'New' ).body;
+			tmp.innerHTML = html;
+
+			return tmp.textContent || tmp.innerText || " ";
+		},
+
+		/**
+		 * Fire an event that will force, analysis to run.
+		 *
+		 * @since 1.6.0
+		 */
+		triggerAnalysis: function() {
+			self.element.trigger( 'bgseo-analysis', [ self.ui.getContent() ] );
+		}
+	};
+
+	self = api.Editor;
+
+})( jQuery );
+
+( function ( $ ) {
+
+	'use strict';
+
+	var self, api;
+
+	api = BOLDGRID.SEO;
+
+	/**
+	 * BoldGrid Gutenberg Analysis.
+	 *
+	 * This is responsible for generating the actual reports
+	 * displayed within the BoldGrid SEO Dashboard when the user
+	 * is on a page or a post.
+	 *
+	 * @since 1.3.1
+	 */
+	api.Gutenberg = {
+
+		/**
+		 * Selector to find editor id.
+		 *
+		 * This is only used to trigger events. No dom content queries in Gutenberg context.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {String}
+		 */
+		selector : '#editor',
+
+		/**
+		 * Selector to find preview button.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {String}
+		 */
+		previewSelector : '.editor-post-preview',
+
+		/**
+		 * Initialize Content.
+		 *
+		 * @since 1.6.0
+		 */
+		setup : function () {
+			$( api.Editor.triggerAnalysis );
+			self._setupEditorChange();
+		},
+
+		/**
+		 * Are we currently on a new post?
+		 *
+		 * @since 1.6.0
+		 *
+		 * @return {boolean} Is this a post-new.php?
+		 */
+		isNewPost : function() {
+			return wp.data.select( 'core/editor' ).isCleanNewPost();
+		},
+
+		/**
+		 * Gets the content from the editor for analysis.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @returns {Object} content Contains content in raw and text formats.
+		 */
+		getContent : function() {
+			var content = self.getRawText();
+
+			// Stores raw and stripped down versions of the content for analysis.
+			content = {
+				'raw': content,
+				'text': api.Editor.stripper( content.toLowerCase() ),
+			};
+
+			return content;
+		},
+
+		/**
+		 * Get the raw text from the editor.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @return {string} Editor content.
+		 */
+		getRawText : function () {
+			return wp.data.select( 'core/editor' ).getEditedPostAttribute( 'content' );
+		},
+
+		/**
+		 * Listens for changes made in the text editor mode.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @returns {string} text The new content to perform analysis on.
+		 */
+		_setupEditorChange: function() {
+			var latestContent = '';
+
+			wp.data.subscribe( _.debounce( function () {
+
+				// Make sure content is different before running analysis.
+				if ( wp.data.select( 'core/editor' ).getEditedPostAttribute( 'content' ) !== latestContent ) {
+					api.Wordcount.update();
+					api.Editor.triggerAnalysis();
+					latestContent = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'content' );
+				}
+			}, 1000 ) );
+		}
+	};
+
+	self = api.Gutenberg;
+
+})( jQuery );
+
+( function ( $ ) {
+
+	'use strict';
+
 	var self, report, api;
 
 	api = BOLDGRID.SEO;
@@ -1347,7 +1618,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		_checkbox : function() {
 			// Listen for changes to input value.
 			self.settings.displayTitle.on( 'change', _.debounce( function() {
-				$( this ).trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+				$( this ).trigger( 'bgseo-analysis', [ api.Editor.ui.getContent() ] );
 			}, 1000 ) );
 		},
 
@@ -1519,10 +1790,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				},
 			};
 
-			content = api.TinyMCE.getContent();
+			content = api.Editor.ui.getContent();
+			content = $( '<div>' + content.raw + '</div>' );
 
-			h1s = $( content.raw ).find( 'h1' );
-			h2s = $( content.raw ).find( 'h2' );
+			h1s = content.find( 'h1' );
+			h2s = content.find( 'h2' );
 
 			// If no h1s or h2s are found return the defaults.
 			if ( ! h1s.length && ! h2s.length ) return headings;
@@ -1593,7 +1865,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		getSettings : function() {
 			self.settings = {
 				keyword : $( '#bgseo-custom-keyword' ),
-				content : $( '#content' ),
+				content : api.Editor.element,
 			};
 		},
 
@@ -1700,7 +1972,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			keyword = keyword.toLowerCase();
 
 			keywordCount = self.keywordCount( content, keyword );
-			wordCount = api.Report.getWordCount();
+			wordCount = api.Wordcount.count;
 			// Get the density.
 			result = ( ( keywordCount / wordCount ) * 100 );
 			// Round it off.
@@ -1818,7 +2090,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 */
 		getKeyword : function() {
 			var customKeyword,
-			    content = api.TinyMCE.getContent();
+			    content = api.Editor.ui.getRawText();
 
 			if ( self.getCustomKeyword().length ) {
 				customKeyword = self.getCustomKeyword();
@@ -1850,9 +2122,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			var count;
 
 			if ( _.isUndefined( markup ) ) {
-				markup = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ?
-					api.Words.words( self.settings.content.val() ) :
-					api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+				markup = api.Words.words( api.Editor.ui.getRawText() );
 			}
 
 			count = _.modifyObject( _bgseoContentAnalysis.keywords.recommendedCount, function( item ) {
@@ -2263,7 +2533,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 	report = api.report;
 
 	/**
-	 * BoldGrid TinyMCE Analysis.
+	 * BoldGrid Editor Content Analysis.
 	 *
 	 * This is responsible for generating the actual reports
 	 * displayed within the BoldGrid SEO Dashboard when the user
@@ -2274,7 +2544,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 	api.Report = {
 
 		/**
-		 * Initialize TinyMCE Content.
+		 * Initialize Content.
 		 *
 		 * @since 1.3.1
 		 */
@@ -2300,14 +2570,8 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		getSettings : function() {
 			self.settings = {
 				title : $( '#boldgrid-seo-field-meta_title' ),
-				description : $( '#boldgrid-seo-field-meta_description' ),
-				wordCounter : $( '#wp-word-count .word-count' ),
-				content : $( '#content' ),
+				description : $( '#boldgrid-seo-field-meta_description' )
 			};
-		},
-
-		getWordCount : function() {
-			return Number( self.settings.wordCounter.text() );
 		},
 
 		/**
@@ -2341,10 +2605,10 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
-						var raws = eventInfo.raw;
+						var $raws = $( '<div>' + eventInfo.raw + '</div>' );
 
-						var h1 = $( raws ).find( 'h1' ),
-						    h2 = $( raws ).find( 'h2' ),
+						var h1 = $raws.find( 'h1' ),
+						    h2 = $raws.find( 'h2' ),
 						    headings = {};
 
 						headings = {
@@ -2352,7 +2616,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 							h1text : api.Headings.getHeadingText( h1 ),
 							h2Count : h2.length,
 							h2text : api.Headings.getHeadingText( h2 ),
-							imageCount: $( raws ).find( 'img' ).length,
+							imageCount: $raws.find( 'img' ).length,
 						};
 						// Set the heading counts and image count found in new content update.
 						_( report.rawstatistics ).extend( headings );
@@ -2371,7 +2635,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 								lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 							},
 							keywordContent : {
-								lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.TinyMCE.getContent().text ) ),
+								lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.Editor.ui.getContent().text ) ),
 							},
 							keywordHeadings : {
 								length : api.Headings.keywords( api.Headings.getRealHeadingCount() ),
@@ -2385,7 +2649,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 					if ( eventInfo.text ) {
 						var kw, headingCount = api.Headings.getRealHeadingCount(),
 							content = eventInfo.text,
-							raw = ! tinyMCE.activeEditor || tinyMCE.activeEditor.hidden ? api.Words.words( self.settings.content.val() ) : api.Words.words( tinyMCE.activeEditor.getContent({ format : 'raw' }) );
+							raw = api.Editor.ui.getRawText();
 
 							// Get length of title field.
 							titleLength = self.settings.title.val().length;
@@ -2443,7 +2707,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 									lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 								},
 								keywordContent : {
-									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.TinyMCE.getContent().text ) ),
+									lengthScore : api.Keywords.contentScore( api.ContentAnalysis.keywords( api.Editor.ui.getContent().text ) ),
 								},
 								keywordHeadings : {
 									length : api.Headings.keywords( headingCount ),
@@ -2455,8 +2719,8 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 								},
 								headings : headingCount,
 								wordCount : {
-									length : self.getWordCount(),
-									lengthScore : api.ContentAnalysis.seoContentLengthScore( self.getWordCount() ),
+									length : api.Wordcount.count,
+									lengthScore : api.ContentAnalysis.seoContentLengthScore( api.Wordcount.count ),
 								},
 								sectionScore: {},
 								sectionStatus: {},
@@ -2485,7 +2749,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 						_( report.bgseo_keywords.keywordTitle ).extend({
 							lengthScore : api.Keywords.titleScore( api.Title.keywords() ),
 						});
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						api.Editor.triggerAnalysis();
 					}
 
 					// Listen to changes to the SEO Description and update report.
@@ -2503,7 +2767,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 						_( report.bgseo_keywords.keywordDescription ).extend({
 							lengthScore : api.Keywords.descriptionScore( api.Description.keywords() ),
 						});
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						api.Editor.triggerAnalysis();
 					}
 
 					// Listen for changes to noindex/index and update report.
@@ -2511,7 +2775,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 						_( report.bgseo_visibility.robotIndex ).extend({
 							lengthScore : eventInfo.robotIndex,
 						});
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						api.Editor.triggerAnalysis();
 					}
 
 					// Listen for changes to nofollow/follow and update report.
@@ -2519,12 +2783,12 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 						_( report.bgseo_visibility.robotFollow ).extend({
 							lengthScore : eventInfo.robotFollow,
 						});
-						self.settings.content.trigger( 'bgseo-analysis', [ api.TinyMCE.getContent() ] );
+						api.Editor.triggerAnalysis();
 					}
 				}
 
 				// Send the final analysis to display the report.
-				self.settings.content.trigger( 'bgseo-report', [ report ] );
+				api.Editor.element.trigger( 'bgseo-report', [ report ] );
 			});
 		},
 

@@ -1,46 +1,67 @@
 ( function( $, counter ) {
 
-	$( function() {
+	'use strict';
 
-		var $content = $( '#content' ),
-			$count = $( '#wp-word-count' ).find( '.word-count' ),
-			prevCount = 0,
-			contentEditor,
-			words;
+	var self, api;
 
-		function update() {
-			var text, count;
+	api = BOLDGRID.SEO;
 
-			if ( ! contentEditor || contentEditor.isHidden() ) {
-				text = $content.val();
-			} else {
-				text = contentEditor.getContent( { format: 'raw' } );
-			}
+	/**
+	 * Handle tracking of wordcount.
+	 *
+	 * @since 1.6.0
+	 */
+	api.Wordcount = {
+
+		/**
+		 * Number of words in the content.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {Number}
+		 */
+		count: 0,
+
+		/**
+		 * List of words on the page.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {array}
+		 */
+		words: [],
+
+		/**
+		 * When the page loads, run the update methods.
+		 *
+		 * @since 1.6.0
+		 */
+		init : function () {
+			$( self.update );
+		},
+
+		/**
+		 * Update this classes word count metrics.
+		 *
+		 * @since 1.6.0
+		 */
+		update : function () {
+			var count,
+				words,
+				text = api.Editor.ui.getRawText();
 
 			count = counter.count( text );
 			words = BOLDGRID.SEO.Words.words( text );
 
-			if ( count !== prevCount ) {
-				$content.trigger( 'bgseo-analysis', [{ words : words, count : count }] );
+			if ( count !== self.count ) {
+				api.Editor.element.trigger( 'bgseo-analysis', [{ words : words, count : count }] );
 			}
 
-			prevCount = count;
+			self.words = words;
+			self.count = count;
 		}
+	};
 
-		$( document ).on( 'tinymce-editor-init', function( event, editor ) {
-			if ( editor.id !== 'content' ) {
-				return;
-			}
-
-			contentEditor = editor;
-
-			editor.on( 'nodechange keyup', _.debounce( update, 1000 ) );
-		} );
-
-		$content.on( 'input keyup', _.debounce( update, 1000 ) );
-
-		update();
-
-	} );
+	self = api.Wordcount;
 
 } )( jQuery, new wp.utils.WordCounter() );

@@ -2,10 +2,9 @@
 
 	'use strict';
 
-	var self, report, api;
+	var self, api;
 
 	api = BOLDGRID.SEO;
-	report = api.report;
 
 	/**
 	 * BoldGrid TinyMCE Analysis.
@@ -19,42 +18,32 @@
 	api.TinyMCE = {
 
 		/**
+		 * Selector to find editor id.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {String}
+		 */
+		selector : '#content',
+
+		/**
+		 * Selector to find preview button.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @type {String}
+		 */
+		previewSelector : '#preview-action > .preview.button',
+
+		/**
 		 * Initialize TinyMCE Content.
 		 *
 		 * @since 1.3.1
 		 */
-		init : function () {
-			self.onloadContent();
+		setup : function () {
 			$( document ).ready( function() {
+				self._setupWordCount();
 				self.editorChange();
-			});
-		},
-
-		/**
-		 * Runs actions on window load to prepare for analysis.
-		 *
-		 * This method gets the current editor in use by the user on the
-		 * initial page load ( text editor or visual editor ), and also
-		 * is responsible for creating the iframe preview of the page/post
-		 * so we can get the raw html in use by the template/theme the user
-		 * has activated.
-		 *
-		 * @since 1.3.1
-		 */
-		onloadContent: function() {
-			var text,
-				editor = $( '#content.wp-editor-area[aria-hidden=false]' );
-
-			$( window ).on( 'load bgseo-media-inserted', function() {
-				var content = self.getContent();
-
-				// Get rendered page content from frontend site.
-				self.getRenderedContent();
-
-				// Trigger the content analysis for the tinyMCE content.
-				_.defer( function() {
-					$( '#content' ).trigger( 'bgseo-analysis', [content] );
-				});
 			});
 		},
 
@@ -67,11 +56,11 @@
 		 */
 		getContent : function() {
 			var content;
-			// Get the content of the visual editor or text editor that's present.
+
 			if ( tinymce.ActiveEditor ) {
 				content = tinyMCE.get( wpActiveEditor ).getContent();
 			} else {
-				content = $( '#content' ).val();
+				content = api.Editor.element.val();
 				// Remove newlines and carriage returns.
 				content = content.replace( /\r?\n|\r/g, '' );
 			}
@@ -81,64 +70,33 @@
 			// Stores raw and stripped down versions of the content for analysis.
 			content = {
 				'raw': rawContent,
-				'text': self.stripper( content.toLowerCase() ),
+				'text': api.Editor.stripper( content.toLowerCase() ),
 			};
 
 			return content;
 		},
 
+
 		/**
-		 * Only ajax for preview if permalink is available. This only
-		 * impacts "New" page and posts.  To counter
-		 * this we will disable the checks made until the content has had
-		 * a chance to be updated. We will store the found headings minus
-		 * the initial found headings in the content, so we know what the
-		 * template has in use on the actual rendered page.
+		 * Get the raw text from the editor.
 		 *
-		 * @since 1.3.1
+		 * @since 1.6.0
 		 *
-		 * @returns null No return.
+		 * @return {string} Editor content.
 		 */
-		getRenderedContent : function() {
-			var renderedContent, preview;
+		getRawText: function() {
+			var text,
+				contentEditor = tinyMCE.get( wpActiveEditor );
 
-			// Get the preview url from WordPress.
-			preview = $( '#preview-action > .preview.button' ).attr( 'href' );
-
-			if ( $( '#sample-permalink' ).length ) {
-				// Only run this once after the initial iframe has loaded to get current template stats.
-				$.get( preview, function( renderedTemplate ) {
-					var headings, h1, h2, $rendered;
-
-					// The rendered page content.
-					$rendered = $( renderedTemplate );
-
-					// H1's that appear in rendered content.
-					h1 = $rendered.find( 'h1' );
-					// HS's that appear in rendered content.
-					h2 = $rendered.find( 'h2' );
-
-					// The rendered content stats.
-					renderedContent = {
-						h1Count : h1.length - report.rawstatistics.h1Count,
-						h1text : _.filter( api.Headings.getHeadingText( h1 ), function( obj ){
-							return ! _.findWhere( report.rawstatistics.h1text, obj );
-						}),
-						h2Count : h2.length - report.rawstatistics.h2Count,
-						h2text : _.filter( api.Headings.getHeadingText( h2 ), function( obj ){
-							return ! _.findWhere( report.rawstatistics.h2text, obj );
-						}),
-					};
-
-					// Add the rendered stats to our report for use later.
-					_.extend( report, { rendered : renderedContent } );
-
-					// Trigger the SEO report to rebuild in the template after initial stats are created.
-					$( '#content' ).trigger( 'bgseo-analysis', [ self.getContent() ] );
-
-				}, 'html' );
+			if ( ! contentEditor || contentEditor.isHidden() ) {
+				text =  api.Editor.element.val();
+			} else {
+				text = contentEditor.getContent( { format: 'raw' } );
 			}
+
+			return text;
 		},
+
 		/**
 		 * Listens for changes made in the text editor mode.
 		 *
@@ -173,6 +131,17 @@
 		},
 
 		/**
+		 * Is this a new Post?
+		 *
+		 * @since 1.6.0
+		 *
+		 * @return {boolean} Is this post-new.php?
+		 */
+		isNewPost : function () {
+			return ! $( '#sample-permalink' ).length;
+		},
+
+		/**
 		 * Checks which editor is the active editor.
 		 *
 		 * After checking the editor, it will obtain the content and trigger
@@ -192,7 +161,7 @@
 						text = tinyMCE.get( wpActiveEditor ).getContent();
 					break;
 				case 'content' :
-					text = $( '#content' ).val();
+					text = api.Editor.element.val();
 					text = text.replace( /\r?\n|\r/g, '' );
 					break;
 			}
@@ -202,32 +171,32 @@
 
 			text = {
 				'raw': rawText,
-				'text': self.stripper( text.toLowerCase() ),
+				'text': api.Editor.stripper( text.toLowerCase() ),
 			};
 
 			// Trigger the text analysis for report.
-			$( '#content' ).trigger( 'bgseo-analysis', [text] );
+			api.Editor.element.trigger( 'bgseo-analysis', [text] );
 		},
 
 		/**
-		 * Strips out unwanted html.
+		 * Bind events to the editor input and update the wordcount class.
 		 *
-		 * This is helpful in removing the  remaining traces of HTML
-		 * that is sometimes leftover to form our clean text output and
-		 * run our text analysis on.
-		 *
-		 * @since 1.3.1
-		 *
-		 * @returns {string} The content with any remaining html removed.
+		 * @since 1.6.0
 		 */
-		stripper: function( html ) {
-			var tmp;
+		_setupWordCount : function() {
+			var debouncedCb = _.debounce( api.Wordcount.update, 1000 );
 
-			tmp = document.implementation.createHTMLDocument( 'New' ).body;
-			tmp.innerHTML = html;
+			$( document ).on( 'tinymce-editor-init', function( event, editor ) {
+				if ( editor.id !== 'content' ) {
+					return;
+				}
 
-			return tmp.textContent || tmp.innerText || " ";
-		},
+				editor.on( 'AddUndo keyup', debouncedCb );
+			} );
+
+			api.Editor.element.on( 'input keyup', debouncedCb );
+		}
+
 	};
 
 	self = api.TinyMCE;
