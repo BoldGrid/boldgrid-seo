@@ -101,10 +101,10 @@
 			wp.data.subscribe( _.debounce( function () {
 
 				// Make sure content is different before running analysis.
-				if ( wp.data.select( 'core/editor' ).getEditedPostAttribute( 'content' ) !== latestContent ) {
+				if ( self.getRawText() !== latestContent ) {
 					api.Wordcount.update();
 					api.Editor.triggerAnalysis();
-					latestContent = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'content' );
+					latestContent = self.getRawText();
 				}
 			}, 1000 ) );
 		}
