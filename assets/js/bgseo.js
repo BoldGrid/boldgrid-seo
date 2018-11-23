@@ -717,10 +717,11 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @returns {Object} content Contains content in raw and text formats.
 		 */
 		getContent : function() {
-			var content;
+			var content,
+				tinymce = self.getTinymce();
 
-			if ( tinymce.ActiveEditor ) {
-				content = tinyMCE.get( wpActiveEditor ).getContent();
+			if ( tinymce ) {
+				content = tinymce.getContent();
 			} else {
 				content = api.Editor.element.val();
 				// Remove newlines and carriage returns.
@@ -748,7 +749,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 */
 		getRawText: function() {
 			var text,
-				contentEditor = tinyMCE.get( wpActiveEditor );
+				contentEditor = self.getTinymce();
 
 			if ( ! contentEditor || contentEditor.isHidden() ) {
 				text =  api.Editor.element.val();
@@ -757,6 +758,17 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			}
 
 			return text;
+		},
+
+		/**
+		 * Get Tinymce instance.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @return {object} Active wp editor tinymce.
+		 */
+		getTinymce: function() {
+			return 'undefined' !== typeof tinyMCE ? tinyMCE.get( wpActiveEditor ) : null;
 		},
 
 		/**
@@ -818,9 +830,9 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 				// Grab text from TinyMCE Editor.
 				case 'tinymce' :
 					// Only do this if page/post editor has TinyMCE as active editor.
-					if ( tinymce.activeEditor )
+					if ( self.getTinymce() )
 						// Define text as the content of the current TinyMCE instance.
-						text = tinyMCE.get( wpActiveEditor ).getContent();
+						text = self.getTinymce().getContent();
 					break;
 				case 'content' :
 					text = api.Editor.element.val();
