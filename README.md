@@ -85,7 +85,7 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 ### 1.6.0  ###
 
-Release Date: November 26th, 2018
+Release Date: December 4th, 2018
 
 * New Feature: Added Gutenberg and WordPress 5 compatibility.
 * Update: Max length for meta descriptions was updated to 300.
