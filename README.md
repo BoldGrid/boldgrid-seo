@@ -2,9 +2,9 @@
 **Contributors:** boldgrid, timph, rramo012, imh_brad, joemoto
 **Tags:** seo, search engine optimization, content analysis, readability, boldgrid
 **Requires at least:** 4.4
-**Tested up to:** 5.0
+**Tested up to:** 5.0.3
 **Requires PHP:** 5.3
-**Stable tag:** 1.6.0
+**Stable tag:** 1.6.1
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,9 +83,15 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 ## Changelog ##
 
+### 1.6.1 ###
+
+Release Date: January 29th, 2019
+
+* Bug fix: Post image count not correct.
+
 ### 1.6.0  ###
 
-Release Date: November 26th, 2018
+Release Date: December 4th, 2018
 
 * New Feature: Added Gutenberg and WordPress 5 compatibility.
 * Update: Max length for meta descriptions was updated to 300.

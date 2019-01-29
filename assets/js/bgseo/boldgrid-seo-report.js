@@ -80,11 +80,11 @@
 				if ( eventInfo ) {
 					// Listen for changes to raw HTML in editor.
 					if ( eventInfo.raw ) {
-						var $raws = $( '<div>' + eventInfo.raw + '</div>' );
-
-						var h1 = $raws.find( 'h1' ),
-						    h2 = $raws.find( 'h2' ),
-						    headings = {};
+						// Prepend eventInfo.raw to an empty div so that the find commands work correctly.
+						var $raws = $( '<div></div>' ).prepend( eventInfo.raw ),
+							h1 = $raws.find( 'h1' ),
+							h2 = $raws.find( 'h2' ),
+							headings = {};
 
 						headings = {
 							h1Count : h1.length,
