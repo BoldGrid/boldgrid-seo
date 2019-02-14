@@ -1335,7 +1335,7 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 		 * @since 1.3.1
 		 */
 		init : function () {
-			self.ui = wp.data ? api.Gutenberg : api.TinyMCE;
+			self.ui = wp.data && wp.blocks ? api.Gutenberg : api.TinyMCE;
 			self.element = $( self.ui.selector );
 			self.ui.setup();
 			self.onloadContent();
