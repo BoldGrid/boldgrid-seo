@@ -2,7 +2,7 @@
 Contributors: boldgrid, timph, rramo012, imh_brad, joemoto
 Tags: seo, search engine optimization, content analysis, readability, boldgrid
 Requires at least: 4.4
-Tested up to: 5.0.3
+Tested up to: 5.1
 Requires PHP: 5.3
 Stable tag: 1.6.2
 License: GPLv2 or later
@@ -42,7 +42,8 @@ Avoid duplicate content penalties by indicating a canonical URL where applicable
 == Frequently Asked Questions ==
 
 = Where can I find more help? =
-For information on using the BoldGrid Easy SEO or other BoldGrid plugins, please visit our [Support Center](https://www.boldgrid.com/support/).
+If you have any questions on getting started with BoldGrid Easy SEO, please visit our [Getting Started Guide](https://www.boldgrid.com/support/boldgrid-easy-seo/).
+We also suggest joining our [Team Orange User Group community](https://www.facebook.com/groups/BGTeamOrange) for free support, tips and tricks.
 
 For general questions check out our [Frequently Asked Questions](https://www.boldgrid.com/faqs/) page.
 
