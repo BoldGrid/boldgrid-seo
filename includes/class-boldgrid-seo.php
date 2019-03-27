@@ -151,7 +151,7 @@ class Boldgrid_Seo {
 		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
 		$this->loader->add_action( "{$this->prefix}/seo/robots", $admin, 'robots' );
 		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'canonical_url' );
-		$this->loader->add_action( "{$this->prefix}/seo/canonical", $admin, 'meta_og_locale' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:locale", $admin, 'meta_og_locale' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:title", $admin, 'meta_og_title' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:site_name", $admin, 'meta_og_site_name' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
