@@ -146,7 +146,9 @@ class Boldgrid_Seo {
 	 * @access private
 	 */
 	private function boldgrid_seo_admin() {
-		$admin = new Boldgrid_Seo_Admin( $this->configs );
+		$admin   = new Boldgrid_Seo_Admin( $this->configs );
+		$helptab = new Boldgrid_Seo_Helptab();
+
 		$this->loader->add_action( 'wp_head', $admin, 'wp_head', 1 );
 		$this->loader->add_action( "{$this->prefix}/seo/description", $admin, 'meta_description' );
 		$this->loader->add_action( "{$this->prefix}/seo/robots", $admin, 'robots' );
@@ -157,6 +159,9 @@ class Boldgrid_Seo {
 		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:url", $admin, 'meta_og_url' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:description", $admin, 'meta_og_description' );
+
+		$this->loader->add_action( 'load-post.php', $helptab, 'add' );
+		$this->loader->add_action( 'load-post-new.php', $helptab, 'add' );
 
 		// Check version for updated filters
 		$wp_version = version_compare( get_bloginfo( 'version' ), '4.4', '>=' );
