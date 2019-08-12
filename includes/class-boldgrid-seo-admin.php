@@ -159,6 +159,7 @@ class Boldgrid_Seo_Admin {
 	public function canonical_url(  ) {
 		global $wp_query, $posts;
 		$content = $this->util->get_url( $wp_query );
+		remove_action( 'wp_head', 'rel_canonical' );
 		if ( ! empty( $GLOBALS['post']->ID ) && $canonical = get_post_meta( $GLOBALS['post']->ID, 'bgseo_canonical', true ) ) {
 			// Look for a custom canonical url to override the default permalink.
 			$content = $canonical;
