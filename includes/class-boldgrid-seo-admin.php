@@ -162,6 +162,9 @@ class Boldgrid_Seo_Admin {
 		if ( ! empty( $GLOBALS['post']->ID ) && $canonical = get_post_meta( $GLOBALS['post']->ID, 'bgseo_canonical', true ) ) {
 			// Look for a custom canonical url to override the default permalink.
 			$content = $canonical;
+			remove_action('wp_head', 'rel_canonical');
+		} else {
+			return;
 		}
 
 		if ( ! empty( $content ) ) : printf( $this->settings['meta_fields']['canonical'] . "\n", esc_url( $content ) ); endif;
