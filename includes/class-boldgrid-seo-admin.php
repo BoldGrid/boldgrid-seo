@@ -152,20 +152,40 @@ class Boldgrid_Seo_Admin {
 		if ( $content ) {
 			$title = $content;
 		}
+
 		$title = trim( str_replace( ',', ' |', wp_strip_all_tags( $title ) ) );
+
 		return $title;
 	}
 
-	public function canonical_url(  ) {
+	/**
+	 * Ouput Canonical URL markup.
+	 *
+	 * Markup is stored in the admin configs of this plugin: `$configs['admin']['meta_fields']['canonical']`.
+	 *
+	 * @since	1.0.0
+	 * @return	void
+	 */
+	public function canonical_url() {
 		global $wp_query, $posts;
+
+		// Get custom canonical URL defaults.
 		$content = $this->util->get_url( $wp_query );
-		remove_action( 'wp_head', 'rel_canonical' );
-		if ( ! empty( $GLOBALS['post']->ID ) && $canonical = get_post_meta( $GLOBALS['post']->ID, 'bgseo_canonical', true ) ) {
+
+		if ( ! empty( $GLOBALS['post']->ID ) ) {
+			$canonical = get_post_meta( $GLOBALS['post']->ID, 'bgseo_canonical', true );
+
 			// Look for a custom canonical url to override the default permalink.
-			$content = $canonical;
+			if ( ! empty( $canonical ) ) {
+				$content = $canonical;
+			}
 		}
 
-		if ( ! empty( $content ) ) : printf( $this->settings['meta_fields']['canonical'] . "\n", esc_url( $content ) ); endif;
+		// Ouput markup.
+		if ( ! empty( $content ) ) {
+			remove_action( 'wp_head', 'rel_canonical' ); // @since 1.6.3 - Remove core provided canonical markup.
+			printf( $this->settings['meta_fields']['canonical'] . "\n", esc_url( $content ) );
+		}
 	}
 
 	/**
