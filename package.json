@@ -25,6 +25,9 @@
     "url": "https://github.com/BoldGrid/boldgrid-seo/issues"
   },
   "homepage": "https://github.com/BoldGrid/boldgrid-seo#readme",
+  "resolutions": {
+    "natives": "1.1.6"
+  },
   "devDependencies": {
     "@boldgrid/wordpress-tag-sync": "^1.1.2",
     "coveralls": "^3.0.0",
