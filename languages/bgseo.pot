@@ -24,6 +24,10 @@ msgstr ""
 msgid "Easy SEO Error: You must have PHP 5.3 or higher and WordPress 4.0 or higher to use this plugin."
 msgstr ""
 
+#: includes/configs/admin.config.php:20
+msgid "Page"
+msgstr ""
+
 #: includes/configs/i18n/content.config.php:5
 msgid "Word Count: %s."
 msgstr ""

@@ -83,6 +83,9 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 Release Date: August 14, 2019
 
 * Bug fix: Fixed situations where markup for canonical URLs can be ouput multiple times. [#9](https://github.com/BoldGrid/boldgrid-seo/issues/9). Props [@jessecowens](https://profiles.wordpress.org/jessecowens/)
+* Bug fix: Titles with markup should now be properly parsed. [#8](https://github.com/BoldGrid/boldgrid-seo/issues/8)
+* Bug fix: Titles with commas had the commas turned into pipe seperators. [#7](https://github.com/BoldGrid/boldgrid-seo/issues/7)
+* Update: Added missing translation string for archives with paginated pages. [#12](https://github.com/BoldGrid/boldgrid-seo/issues/12)
 
 = 1.6.2 =
 
