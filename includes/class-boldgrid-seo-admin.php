@@ -261,7 +261,7 @@ class Boldgrid_Seo_Admin {
 				$content .= "$sep Page " . max( $GLOBALS['paged'], $GLOBALS['page'] );
 		}
 
-		return $content;
+		return wp_strip_all_tags( $content );
 	}
 
 	public function simplify_archive_title( $title ) {
@@ -355,7 +355,7 @@ class Boldgrid_Seo_Admin {
 	 * @since	1.0.0
 	 * @return	void
 	 */
-	public function meta_og_title(  ) {
+	public function meta_og_title() {
 		$content = $this->seo_title( ',' );
 		if ( is_author() ) {
 			$content = str_replace( ',', ' |', wp_strip_all_tags( $content ) );
