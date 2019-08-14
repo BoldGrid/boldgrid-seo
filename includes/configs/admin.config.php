@@ -16,4 +16,7 @@ return array(
 		'og_site_name'     => '<meta property="og:site_name" content="%s" />',
 		'canonical'        => '<link rel="canonical" href="%s" />',
 	),
+	'i18n' => array(
+		'page' => esc_attr__( 'Page', 'bgseo' ),
+	),
 );

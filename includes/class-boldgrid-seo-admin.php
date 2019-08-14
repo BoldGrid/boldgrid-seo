@@ -140,7 +140,9 @@ class Boldgrid_Seo_Admin {
 			$sep = "|";
 		}
 
-		$title = "$title $sep " . get_bloginfo( 'blogname' );
+		$site_title = esc_attr( get_bloginfo( 'blogname' ) ); // Not esc_html - used for meta tag attributes output.
+
+		$title = "$title $sep $site_title";
 
 		if ( is_feed() ) {
 			return $title;
@@ -153,7 +155,22 @@ class Boldgrid_Seo_Admin {
 			$title = $content;
 		}
 
-		$title = trim( str_replace( ',', ' |', wp_strip_all_tags( $title ) ) );
+		// Validate seo_title format returned and fix any uncaught
+		$correct_format = "$sep $site_title";
+
+		$title_length = strlen( $title );
+		$correct_format_length = strlen( $correct_format );
+
+		if ( $title_length < $correct_format_length ) {
+			if ( substr_compare( $title, $correct_format, $title_length - $correct_format_length, $correct_format_length ) === 0 ) {
+				$match = ", $site_title";
+				$match_pos = strrpos( $title, $match );
+
+				if ( $match_pos !== false ) {
+					$title = substr_replace( $title, " $sep $site_title", $match_pos, strlen( $match ) );
+				}
+			}
+		}
 
 		return $title;
 	}
