@@ -271,11 +271,16 @@ class Boldgrid_Seo_Admin {
 				}
 			}
 		}
+
 		// Add pagination
-		if ( $content
-			&& ( 1 < $GLOBALS['paged']
-			||   1 < $GLOBALS['page'] ) ) {
-				$content .= "$sep Page " . max( $GLOBALS['paged'], $GLOBALS['page'] );
+		if ( $content && ( 1 < $GLOBALS['paged'] || 1 < $GLOBALS['page'] ) ) {
+			$paginated_title_format = array(
+				$sep,
+				$this->settings['i18n']['page'],
+				max( $GLOBALS['paged'], $GLOBALS['page'] ),
+			);
+
+			$content .= implode( ' ', $paginated_title_format );
 		}
 
 		return wp_strip_all_tags( $content );
