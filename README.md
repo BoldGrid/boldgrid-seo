@@ -86,7 +86,7 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 ### 1.6.3 ###
 
-Release Date: August 14, 2019
+Release Date: August 20, 2019
 
 * Bug fix: Fixed situations where markup for canonical URLs can be ouput multiple times. [#9](https://github.com/BoldGrid/boldgrid-seo/issues/9). Props [@jessecowens](https://profiles.wordpress.org/jessecowens/)
 * Bug fix: Titles with markup should now be properly parsed. [#8](https://github.com/BoldGrid/boldgrid-seo/issues/8)
