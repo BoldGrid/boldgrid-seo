@@ -202,34 +202,85 @@ class Boldgrid_Seo_Util {
 			if ( false === $author ) {
 				return false;
 			}
-			$link = get_author_posts_url( $author->ID, $author->user_nicename );
+			if ( ! $query->is_paged ) {
+				$link = get_author_posts_url( $author->ID, $author->user_nicename );
+			} else {
+				$link = trailingslashit( get_author_posts_url( $author->ID, $author->user_nicename ) .
+					trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
+					get_query_var( 'paged' ) );
+			}
 		} elseif ( $query->is_category && $haspost ) {
-			$link = get_category_link( get_query_var( 'cat' ) );
+			if ( ! $query->is_paged ) {
+				$link = get_category_link( get_query_var( 'cat' ) );
+			} else {
+				$link = trailingslashit( get_category_link( get_query_var( 'cat' ) ) .
+					trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
+					get_query_var( 'paged' ) );
+			}
 		} elseif ( $query->is_tag && $haspost ) {
 			$tag = get_term_by( 'slug', get_query_var( 'tag' ), 'post_tag' );
 			if ( ! empty( $tag->term_id ) ) {
-				$link = get_tag_link( $tag->term_id );
+				if ( ! $query->is_paged ) {
+					$link = get_tag_link( $tag->term_id );
+				} else {
+					$link = trailingslashit( get_tag_link( $tag->term_id ) .
+						trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
+						get_query_var( 'paged' ) );
+				}
 			}
 		} elseif ( $query->is_day && $haspost ) {
-			$link = get_day_link( get_query_var( 'year' ),
-				get_query_var( 'monthnum' ),
-				get_query_var( 'day' ) );
+			if ( ! $query->is_paged ){
+				$link = get_day_link( get_query_var( 'year' ),
+					get_query_var( 'monthnum' ),
+					get_query_var( 'day' ) );
+			} else {
+				$link = trailingslashit( get_day_link( get_query_var( 'year' ),
+					get_query_var( 'monthnum' ),
+					get_query_var( 'day' ) ) .
+					trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
+					get_query_var( 'paged' ) );
+			}
 		} elseif ( $query->is_month && $haspost ) {
-			$link = get_month_link( get_query_var( 'year' ),
-				get_query_var( 'monthnum' ) );
+			if ( ! $query->is_paged ){
+				$link = get_month_link( get_query_var( 'year' ),
+					get_query_var( 'monthnum' ) );
+			} else {
+				$link = trailingslashit( trailingslashit( get_month_link( get_query_var( 'year' ),
+					get_query_var( 'monthnum' ) ) ) .
+					trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
+					get_query_var( 'paged' ) );
+			}
 		} elseif ( $query->is_year && $haspost ) {
-			$link = get_year_link( get_query_var( 'year' ) );
+			if ( ! $query->is_paged ){
+				$link = get_year_link( get_query_var( 'year' ) );
+			} else {
+				$link = trailingslashit( trailingslashit( get_query_var( 'year') ) .
+					trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
+					get_query_var( 'paged' ) );
+			}
 		} elseif ( $query->is_tax && $haspost ) {
 			$taxonomy = get_query_var( 'taxonomy' );
 			$term     = get_query_var( 'term' );
 			if ( ! empty( $term ) ) {
-				$link = get_term_link( $term, $taxonomy );
+				if ( ! $query->is_paged ) {
+					$link = get_term_link( $term, $taxonomy );
+				} else {
+					$link = trailingslashit( trailingslashit( get_term_link( $term, $taxonomy ) ) .
+						trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
+						get_query_var( 'paged' ) );
+				}
 			}
 		} elseif ( $query->is_archive && function_exists( 'get_post_type_archive_link' ) && ( $post_type = get_query_var( 'post_type' ) ) ) {
 			if ( is_array( $post_type ) ) {
 				$post_type = reset( $post_type );
 			}
-			$link = get_post_type_archive_link( $post_type );
+			if ( ! $query->is_paged ) {
+				$link = get_post_type_archive_link( $post_type );
+			} else {
+				$link = trailingslashit( get_post_type_archive_link( $post_type ) .
+					trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
+					get_query_var( 'paged' ) );
+			}
 		} elseif ( $query->is_search ) {
 			$search_query = get_search_query();
 			// Regex catches case when /search/page/N without search term is itself mistaken for search term. R.
