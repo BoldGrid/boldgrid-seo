@@ -234,7 +234,7 @@ class Boldgrid_Seo_Util {
 					get_query_var( 'monthnum' ),
 					get_query_var( 'day' ) );
 			} else {
-				$link = trailingslashit( get_day_link( get_query_var( 'year' ),
+				$link = trailingslashit( trailingslashit( get_day_link( get_query_var( 'year' ),
 					get_query_var( 'monthnum' ),
 					get_query_var( 'day' ) ) .
 					trailingslashit( $GLOBALS['wp_rewrite']->pagination_base ) .
