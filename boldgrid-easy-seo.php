@@ -14,7 +14,7 @@
  * Plugin Name: BoldGrid Easy SEO
  * Plugin URI: https://www.boldgrid.com/boldgrid-seo/
  * Description: Easily manage your website's search engine optimization with Easy SEO by BoldGrid!
- * Version: 1.6.3
+ * Version: 1.6.4
  * Author: BoldGrid <support@boldgrid.com>
  * Author URI: https://www.boldgrid.com/
  * License: GPL-2.0+
@@ -45,10 +45,12 @@
  */
 
 // If this file is called directly, abort.
-defined( 'WPINC' ) ?  : die();
+if ( ! defined( 'WPINC' ) ) {
+	die();
+}
 
-// Include the autoloader
-include_once wp_normalize_path( plugin_dir_path( __FILE__ ) . '/autoload.php' );
+// Include the autoloader.
+require_once wp_normalize_path( plugin_dir_path( __FILE__ ) . '/autoload.php' );
 
 // Define version.
 defined( 'BOLDGRID_SEO_VERSION' ) || define( 'BOLDGRID_SEO_VERSION', implode( get_file_data( __FILE__, array( 'Version' ), 'plugin' ) ) );
@@ -68,9 +70,12 @@ defined( 'BOLDGRID_SEO_PATH' ) || define( 'BOLDGRID_SEO_PATH', dirname( __FILE__
  * @since 1.0.0
  */
 $easy_seo_php_version = version_compare( phpversion(), '5.3.0', '>=' );
-$easy_seo_wp_version = version_compare( get_bloginfo( 'version' ), '4.0', '>=' );
+$easy_seo_wp_version  = version_compare( get_bloginfo( 'version' ), '4.0', '>=' );
 
-if ( ! $easy_seo_php_version or ! $easy_seo_wp_version ) :
+if ( ! $easy_seo_php_version || ! $easy_seo_wp_version ) :
+	/**
+	 * Display error and deactivate.
+	 */
 	function easy_seo_php_error() {
 		printf( '<div class="error"><p>%s</p></div>',
 			esc_html__( 'Easy SEO Error: Easy SEO Supports WordPress version 4.0+, and PHP version 5.3+', 'bgseo' )
@@ -85,6 +90,9 @@ if ( ! $easy_seo_php_version or ! $easy_seo_wp_version ) :
 		add_action( 'admin_notices', 'easy_seo_php_error' );
 	endif;
 else : // Load the rest of the plugin that contains code suited for passing the version check.
+	/**
+	 * Activate.
+	 */
 	function activate_easy_seo() {
 		require_once wp_normalize_path( plugin_dir_path( __FILE__ ) . 'includes/class-boldgrid-seo-activator.php' );
 		Boldgrid_Seo_Activator::activate();

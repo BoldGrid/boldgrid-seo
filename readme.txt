@@ -2,9 +2,9 @@
 Contributors: boldgrid, timph, rramo012, imh_brad, joemoto
 Tags: seo, search engine optimization, content analysis, readability, boldgrid
 Requires at least: 4.4
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.3
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
