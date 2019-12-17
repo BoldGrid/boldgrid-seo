@@ -423,6 +423,19 @@ class Boldgrid_Seo_Admin {
 	 * @return	void
 	 */
 	public function robots() {
+		/*
+		 * Allow other plugins to handle the robots meta data.
+		 *
+		 * @since 1.6.4
+		 *
+		 * @param bool $run Whether or not to add meta robots.
+		 */
+		$run = true;
+		$run = apply_filters( $this->prefix . '/seo/robots/run', $run );
+		if ( ! $run ) {
+			return;
+		}
+
 		$follow = 'follow';
 		$index  = 'index';
 		if ( is_404() || is_search() ) {
