@@ -428,10 +428,16 @@ class Boldgrid_Seo_Admin {
 		if ( is_404() || is_search() ) {
 			$index = 'noindex';
 		}
+
+		// By default, we set follow and index. If a post is overriding that, make those changes now.
 		if ( ! empty( $GLOBALS['post']->ID ) ) {
-			$follow = get_post_meta( $GLOBALS['post']->ID, 'bgseo_robots_follow', true );
-			$index = get_post_meta( $GLOBALS['post']->ID, 'bgseo_robots_index', true );
+			$post_follow = get_post_meta( $GLOBALS['post']->ID, 'bgseo_robots_follow', true );
+			$follow      = ! empty( $post_follow ) ? $post_follow : $follow;
+
+			$post_index  = get_post_meta( $GLOBALS['post']->ID, 'bgseo_robots_index', true );
+			$index       = ! empty( $post_index ) ? $post_index : $index;
 		}
+
 		printf( $this->settings['meta_fields']['robots'] . "\n", esc_attr( $index ), esc_attr( $follow ) );
 	}
 

@@ -78,6 +78,12 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 == Changelog ==
 
+= 1.6.4 =
+
+Release Date: December 17th, 2019
+
+* Bug fix: Fixed empty robots tag.
+
 = 1.6.3 =
 
 Release Date: August 20, 2019
