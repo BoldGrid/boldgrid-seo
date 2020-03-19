@@ -66,6 +66,7 @@ class Boldgrid_Seo {
 		$this->boldgrid_seo_admin();
 		$this->load_butterbean();
 		$this->enqueue_scripts();
+		$this->register_meta();
 	}
 	/**
 	 * Load the BoldGrid SEO JS and CSS Files.
@@ -100,6 +101,18 @@ class Boldgrid_Seo {
 		$this->loader->add_action( 'butterbean_register', $butterbean, 'register', 10, 2 );
 		// Add our custom template checks.
 		$this->loader->add_filter( 'butterbean_control_template', $butterbean, 'get_html_template', 10, 2 );
+	}
+
+	/**
+	 * Register meta values so they can show up in the REST API.
+	 *
+	 * @since 1.6.5
+	 *
+	 * @return void
+	 */
+	public function register_meta() {
+		$meta = new Boldgrid_Seo_Meta( $this->configs );
+		$this->loader->add_filter( 'init', $meta, 'register' );
 	}
 
 	/**

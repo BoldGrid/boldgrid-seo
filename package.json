@@ -1,6 +1,6 @@
 {
   "name": "easy-seo",
-  "version": "1.6.3",
+  "version": "1.6.5",
   "description": "Easy SEO provides website search engine optimization.",
   "main": "gulpfile.js",
   "engines": {

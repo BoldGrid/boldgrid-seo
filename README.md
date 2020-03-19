@@ -2,9 +2,9 @@
 **Contributors:** boldgrid, timph, rramo012, imh_brad, joemoto
 **Tags:** seo, search engine optimization, content analysis, readability, boldgrid
 **Requires at least:** 4.4
-**Tested up to:** 5.2
+**Tested up to:** 5.3
 **Requires PHP:** 5.3
-**Stable tag:** 1.6.3
+**Stable tag:** 1.6.5
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,19 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 
 ## Changelog ##
+
+### 1.6.5 ###
+
+Release Date: March 19th, 2020
+
+* Update: Register meta values.
+
+### 1.6.4 ###
+
+Release Date: December 17th, 2019
+
+* Bug fix: Fixed empty robots tag.
+* Update: Added filter to allow meta robots to be skipped and controlled via filter.
 
 ### 1.6.3 ###
 
