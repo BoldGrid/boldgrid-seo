@@ -99,7 +99,7 @@ class Boldgrid_Seo_Util {
 			// Check out a single sentence returned.
 			case 1 :
 				// Create string with our setence.
-				$sentences = implode( $sentences, '' ) . '.';
+				$sentences = implode( '', $sentences ) . '.';
 				// If it's a longer sentence it should have ellipses.
 				strlen( $sentences ) < 130 ? : $sentences = $sentences . '..';
 				break;
@@ -108,14 +108,14 @@ class Boldgrid_Seo_Util {
 				// Remove the partial sentences from the end.
 				array_pop( $sentences );
 				// Create single sentence with period at the end.
-				$sentences = implode( $sentences, '' ) . '.';
+				$sentences = implode( '', $sentences ) . '.';
 				break;
 			// Multiple sentences are the most likely scenario.
 			default :
 				// Remove last sentence since it's likely a partial.
 				array_pop( $sentences );
 				// Create string with whole sentences and puncuation.
-				$sentences = implode( $sentences, '. ' );
+				$sentences = implode( '. ', $sentences );
 				// Remove any whitespace for output.
 				$sentences = trim( $sentences );
 		}

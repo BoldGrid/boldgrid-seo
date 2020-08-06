@@ -2,9 +2,9 @@
 Contributors: boldgrid, timph, rramo012, imh_brad, joemoto
 Tags: seo, search engine optimization, content analysis, readability, boldgrid
 Requires at least: 4.4
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.3
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,12 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 3. Search Visibility.
 
 == Changelog ==
+
+= 1.6.6 =
+
+Release Date: August 6th, 2020
+
+* Bug fix: Fixed PHP 7.4 Deprecated implode calls.
 
 = 1.6.5 =
 
