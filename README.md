@@ -4,7 +4,7 @@
 **Requires at least:** 4.4
 **Tested up to:** 5.5
 **Requires PHP:** 5.3
-**Stable tag:** 1.6.6
+**Stable tag:** 1.6.7
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,10 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 
 ## Changelog ##
+
+### 1.6.7 ###
+Release Date: August 10th, 2020
+* Bug fix: Yoast Conflict: JavaScript Error Prevents PPB Blocks and Interface from Loading [#29] (https://github.com/BoldGrid/boldgrid-seo/issues/29)
 
 ### 1.6.6 ###
 

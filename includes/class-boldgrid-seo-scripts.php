@@ -72,7 +72,7 @@ class Boldgrid_Seo_Scripts {
 		wp_register_script(
 			"{$this->configs['plugin_name']}-bgseo",
 			"{$this->configs['plugin_url']}/assets/js/bgseo{$min}.js",
-			array ( 'jquery', 'backbone', 'underscore', 'wp-util', 'word-count', 'butterbean' ),
+			array ( 'jquery', 'backbone', 'underscore', 'wp-util', 'word-count', 'butterbean', 'wp-data', 'wp-editor' ),
 			$this->configs['version'],
 			true
 		);
