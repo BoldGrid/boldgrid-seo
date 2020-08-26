@@ -42,7 +42,15 @@
 		 * @since 1.3.1
 		 */
 		init : function () {
-			self.ui = wp.data && wp.blocks ? api.Gutenberg : api.TinyMCE;
+			/*
+			 * Determine if we're in Gutenberg or TinyMCE.
+			 *
+			 * The .block-editor-page class logic comes from a Gutenberg GitHub issue.
+			 *
+			 * @link https://github.com/WordPress/gutenberg/issues/12200
+			 */
+			self.ui = document.body.classList.contains( 'block-editor-page' ) ? api.Gutenberg : api.TinyMCE;
+
 			self.element = $( self.ui.selector );
 			self.ui.setup();
 			self.onloadContent();
