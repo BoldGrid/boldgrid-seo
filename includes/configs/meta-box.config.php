@@ -39,7 +39,7 @@ return array(
 			'attr'        => array(
 				'id' => 'boldgrid-seo-field-meta_title',
 				'placeholder' => $this->util->meta_title(),
-				'maxlength' => '70',
+				'maxlength' => '60',
 				'class' => 'widefat',
 			),
 			'label'       => __( 'SEO Title', 'bgseo' ),
@@ -51,7 +51,7 @@ return array(
 			'attr'        => array(
 				'id' => 'boldgrid-seo-field-meta_description',
 				'placeholder' => $this->util->meta_description(),
-				'maxlength' => '300',
+				'maxlength' => '160',
 				'class' => 'widefat',
 			),
 			'label'       => __( 'SEO Description', 'bgseo' ),
