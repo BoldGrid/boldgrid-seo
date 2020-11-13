@@ -188,6 +188,10 @@ class Boldgrid_Seo_Util {
 			}
 		} elseif ( $query->is_home && ( get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) {
 			$link = get_permalink( $pageid );
+			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 0;
+			if ( $paged ) {
+				$link = $this->get_paged_link( $link, $paged );
+			}
 		} elseif ( is_front_page() || ( $query->is_home && ( get_option( 'show_on_front' ) != 'page' || ! get_option( 'page_for_posts' ) ) ) ) {
 			if ( function_exists( 'icl_get_home_url' ) ) {
 				$link = icl_get_home_url();
