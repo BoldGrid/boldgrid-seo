@@ -194,6 +194,10 @@ class Boldgrid_Seo_Util {
 			} else {
 				$link = trailingslashit( home_url() );
 			}
+			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 0;
+			if ( $paged ) {
+				$link = $this->get_paged_link( $link, $paged );
+			}
 		} elseif ( ( $query->is_single || $query->is_page ) && $haspost ) {
 			$post = $query->posts[0];
 			$link = get_permalink( $post->ID );
