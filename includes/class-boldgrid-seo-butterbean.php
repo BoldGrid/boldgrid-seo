@@ -32,7 +32,7 @@ class Boldgrid_Seo_Butterbean {
 	}
 
 	public function register( $butterbean, $post_type ) {
-		if ( 'page' !== $post_type && 'post' !== $post_type )
+		if ( array_search($post_type, $this->configs['meta-box']['post_types'] ) === false )
 			return;
 		/* === Register Managers === */
 		$butterbean->register_manager( 'boldgrid_seo', $this->configs['meta-box']['manager'] );
