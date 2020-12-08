@@ -261,7 +261,7 @@ class Boldgrid_Seo_Util {
 	/**
 	 * Gets category link with pages
 	 *
-	 * @since SINCEVERSION
+	 * @since 1.6.9
 	 *
 	 * @param string $link The category link.
 	 * @param int    $pagenum The page number.
