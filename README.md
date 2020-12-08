@@ -88,8 +88,9 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 Release Date: December 7th, 2020
 
-* Bug fix: JS Console error in WordPress 5.6 [#37] (https://github.com/BoldGrid/boldgrid-seo/issues/37)
-
+* Bug fix: JQuery migrate compatibility updates for WordPress 5.6 [#37] (https://github.com/BoldGrid/boldgrid-seo/issues/37)
+* Bug fix: added pagination to category canonical links [#34] (https://github.com/BoldGrid/boldgrid-seo/issues/34)
+* Bug fix: Use config value instead of hard-coded post types [#36] (https://github.com/BoldGrid/boldgrid-seo/pull/36)
 
 ### 1.6.8 ###
 
