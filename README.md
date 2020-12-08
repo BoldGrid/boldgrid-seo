@@ -2,7 +2,7 @@
 **Contributors:** boldgrid, timph, rramo012, imh_brad, joemoto
 **Tags:** seo, search engine optimization, content analysis, readability, boldgrid
 **Requires at least:** 4.4
-**Tested up to:** 5.5
+**Tested up to:** 5.6
 **Requires PHP:** 5.3
 **Stable tag:** 1.6.8
 **License:** GPLv2 or later
@@ -83,6 +83,13 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 
 ## Changelog ##
+
+### 1.6.9 ###
+
+Release Date: December 7th, 2020
+
+* Bug fix: JS Console error in WordPress 5.6 [#37] (https://github.com/BoldGrid/boldgrid-seo/issues/37)
+
 
 ### 1.6.8 ###
 

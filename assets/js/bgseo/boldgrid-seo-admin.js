@@ -70,7 +70,7 @@
 
 			$counter.html( limit - chars );
 
-			if ( $target.context.id === 'boldgrid-seo-field-meta_description' ) {
+			if ( $target.attr( 'id' ) === 'boldgrid-seo-field-meta_description' ) {
 				if ( chars > limit ) {
 					$counter.css( { 'color' : '#EA4335' } );
 				} else if ( chars.isBetween( 0, _bgseoContentAnalysis.seoDescription.length.okScore ) ) {
