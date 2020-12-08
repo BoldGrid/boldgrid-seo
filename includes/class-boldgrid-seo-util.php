@@ -266,28 +266,30 @@ class Boldgrid_Seo_Util {
 	 * @param string $link The category link.
 	 * @param int    $pagenum The page number.
 	 *
+	 * @global $wp_rewrite.
+	 *
 	 * @return string The link.
 	 */
-	public function get_paged_link($link, $pagenum) {
+	public function get_paged_link( $link, $pagenum ) {
 		global $wp_rewrite;
 
-		if ($wp_rewrite->using_permalinks() || $wp_rewrite->using_index_permalinks())
+		if ( $wp_rewrite->using_permalinks() || $wp_rewrite->using_index_permalinks() )
 		{
-			$link = sprintf
-			(
+			$link = sprintf(
 				'%s/%s/%d/',
-				rtrim($link, '/'),
+				rtrim( $link, '/' ),
 				$wp_rewrite->pagination_base,
 				$pagenum
 			);
 		}
 		else
 		{
-			if (false === strpos($link, '?'))
+			if ( false === strpos( $link, '?' ) ) {
 				$link .= '?';
-			else
+			} else {
 				$link .= '&';
-			$link .= sprintf('paged=%d', $pagenum);
+			}
+			$link .= sprintf( 'paged=%d', $pagenum );
 		}
 
 		return $link;
