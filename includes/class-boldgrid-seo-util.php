@@ -188,11 +188,19 @@ class Boldgrid_Seo_Util {
 			}
 		} elseif ( $query->is_home && ( get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) {
 			$link = get_permalink( $pageid );
+			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 0;
+			if ( $paged ) {
+				$link = $this->get_paged_link( $link, $paged );
+			}
 		} elseif ( is_front_page() || ( $query->is_home && ( get_option( 'show_on_front' ) != 'page' || ! get_option( 'page_for_posts' ) ) ) ) {
 			if ( function_exists( 'icl_get_home_url' ) ) {
 				$link = icl_get_home_url();
 			} else {
 				$link = trailingslashit( home_url() );
+			}
+			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 0;
+			if ( $paged ) {
+				$link = $this->get_paged_link( $link, $paged );
 			}
 		} elseif ( ( $query->is_single || $query->is_page ) && $haspost ) {
 			$post = $query->posts[0];
@@ -205,6 +213,10 @@ class Boldgrid_Seo_Util {
 			$link = get_author_posts_url( $author->ID, $author->user_nicename );
 		} elseif ( $query->is_category && $haspost ) {
 			$link = get_category_link( get_query_var( 'cat' ) );
+			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 0;
+			if ( $paged ) {
+				$link = $this->get_paged_link( $link, $paged );
+			}
 		} elseif ( $query->is_tag && $haspost ) {
 			$tag = get_term_by( 'slug', get_query_var( 'tag' ), 'post_tag' );
 			if ( ! empty( $tag->term_id ) ) {
@@ -241,6 +253,43 @@ class Boldgrid_Seo_Util {
 		}
 		if ( empty( $link ) || ! is_string( $link ) ) {
 			return false;
+		}
+
+		return $link;
+	}
+
+	/**
+	 * Gets category link with pages
+	 *
+	 * @since SINCEVERSION
+	 *
+	 * @param string $link The category link.
+	 * @param int    $pagenum The page number.
+	 *
+	 * @global $wp_rewrite.
+	 *
+	 * @return string The link.
+	 */
+	public function get_paged_link( $link, $pagenum ) {
+		global $wp_rewrite;
+
+		if ( $wp_rewrite->using_permalinks() || $wp_rewrite->using_index_permalinks() )
+		{
+			$link = sprintf(
+				'%s/%s/%d/',
+				rtrim( $link, '/' ),
+				$wp_rewrite->pagination_base,
+				$pagenum
+			);
+		}
+		else
+		{
+			if ( false === strpos( $link, '?' ) ) {
+				$link .= '?';
+			} else {
+				$link .= '&';
+			}
+			$link .= sprintf( 'paged=%d', $pagenum );
 		}
 
 		return $link;
