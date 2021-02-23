@@ -861,6 +861,8 @@ BOLDGRID.SEO = BOLDGRID.SEO || {};
 			var debouncedCb = _.debounce( api.Wordcount.update, 1000 );
 
 			$( document ).on( 'tinymce-editor-init', function( event, editor ) {
+				api.Wordcount.update();
+				api.Editor.triggerAnalysis();
 				if ( editor.id !== 'content' ) {
 					return;
 				}
