@@ -170,6 +170,7 @@ class Boldgrid_Seo {
 		$this->loader->add_action( "{$this->prefix}/seo/og:type", $admin, 'meta_og_type' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:url", $admin, 'meta_og_url' );
 		$this->loader->add_action( "{$this->prefix}/seo/og:description", $admin, 'meta_og_description' );
+		$this->loader->add_action( "{$this->prefix}/seo/og:image", $admin, 'meta_og_image' );
 
 		// Check version for updated filters
 		$wp_version = version_compare( get_bloginfo( 'version' ), '4.4', '>=' );
