@@ -1,5 +1,5 @@
 === BoldGrid Easy SEO - Simple and Effective SEO ===
-Contributors: boldgrid, timph, rramo012, imh_brad, joemoto
+Contributors: boldgrid, timph, rramo012, imh_brad, joemoto, jamesros161
 Tags: seo, search engine optimization, content analysis, readability, boldgrid
 Requires at least: 4.4
 Tested up to: 5.6
@@ -77,6 +77,12 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 3. Search Visibility.
 
 == Changelog ==
+
+= 1.6.10 =
+
+Release Date: February 24, 2021
+
+* Bug Fix: Use Post Thumbnail for og:image tag [#41] (https://github.com/BoldGrid/boldgrid-seo/issues/41)
 
 = 1.6.9 =
 
