@@ -166,7 +166,7 @@ class Boldgrid_Seo_Util {
 	 * @return $link A link for the current page in query.
 	 */
 	public function get_url( $query, $show_page = true ) {
-		if ( $query->is_404 ) {
+		if ( ( $query->is_404 || empty( $query->posts ) ) {
 			return false;
 		}
 		$link    = '';
