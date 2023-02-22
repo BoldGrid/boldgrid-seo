@@ -6,9 +6,11 @@
 .analysis-suggestion::before {
 	display: inline-block;
 	float: left;
-	margin: 3px 10px 3px -22px;
-	width: 13px;
-	height: 13px;
+	margin: 0px 10px 0px -26px;
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	font-family: dashicons;
 	content: '';
 	vertical-align: middle;
 	border-radius: 100%;
@@ -42,15 +44,18 @@
 /** Status Indicator Colors **/
 .overview-status.red::before,
 .analysis-suggestion.red::before {
-	background: #EA4335;
+	color: #EA4335;
+	content: "\f153";
 }
 .overview-status.green::before,
 .analysis-suggestion.green::before {
-	background: #34A853;
+	color: #34A853;
+	content: "\f12a";
 }
 .overview-status.yellow::before,
 .analysis-suggestion.yellow::before {
-	background: #FBBC05;
+	color: #FBBC05;
+	content: "\f534";
 }
 
 /** Nofollow/Noindex styles **/
