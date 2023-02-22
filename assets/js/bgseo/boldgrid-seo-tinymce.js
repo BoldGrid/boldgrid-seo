@@ -90,9 +90,12 @@
 				contentEditor = self.getTinymce();
 
 			if ( ! contentEditor || contentEditor.isHidden() ) {
-				text =  api.Editor.element.val();
+				text = api.Editor.element.val();
 			} else {
 				text = contentEditor.getContent( { format: 'raw' } );
+				
+				// Sometimes, on initial page load, the 'getContent' method doesn't return anything.
+				text = text ? text : api.Editor.element.val();
 			}
 
 			return text;
