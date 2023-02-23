@@ -4,7 +4,7 @@
 **Requires at least:** 4.4
 **Tested up to:** 5.6
 **Requires PHP:** 5.3
-**Stable tag:** 1.6.10
+**Stable tag:** 1.6.11
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,9 +85,12 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 ## Changelog ##
 
 ### 1.6.11 ###
-Release Date: November 30, 2022
 
-* Bug Fix: Content Word Count is not Updated [#42] (https://github.com/BoldGrid/boldgrid-seo/issues/42)
+Release Date: February, 23, 2023
+
+* Bug Fix: Content Word Count is not Updated [#42](https://github.com/BoldGrid/boldgrid-seo/issues/42)
+* Bug Fix: Fatal Error $query->posts is not countable [#45](https://github.com/BoldGrid/boldgrid-seo/issues/45)
+* Improvement: Update indicators to use icons as well as colors to improve accessibility [#44](https://github.com/BoldGrid/boldgrid-seo/issues/44)
 
 ### 1.6.10 ###
 
