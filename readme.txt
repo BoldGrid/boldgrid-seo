@@ -2,7 +2,7 @@
 Contributors: boldgrid, timph, rramo012, imh_brad, joemoto, jamesros161
 Tags: seo, search engine optimization, content analysis, readability, boldgrid
 Requires at least: 4.4
-Tested up to: 5.6
+Tested up to: 6.2
 Requires PHP: 5.3
 Stable tag: 1.6.11
 License: GPLv2 or later
