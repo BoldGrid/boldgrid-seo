@@ -14,7 +14,7 @@
  * Plugin Name: BoldGrid Easy SEO
  * Plugin URI: https://www.boldgrid.com/boldgrid-seo/
  * Description: Easily manage your website's search engine optimization with Easy SEO by BoldGrid!
- * Version: 1.6.11-rc1
+ * Version: 1.6.11
  * Author: BoldGrid <support@boldgrid.com>
  * Author URI: https://www.boldgrid.com/
  * License: GPL-2.0+
