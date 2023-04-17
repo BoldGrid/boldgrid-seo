@@ -96,6 +96,18 @@
 	margin-bottom: 1px;
 }
 
+.butterbean-manager-default .butterbean-nav li a > span.label {
+	padding: 0.2em 0.6em 0.3em;
+    font-size: 13px;
+    line-height: 20px;
+    color: #2271b1;
+}
+
+.butterbean-manager-default .butterbean-nav li[aria-selected="true"] a > span.label {
+    color: #555;
+}
+
+.butterbean-manager-default .butterbean-nav li a > span.label
 /** Nav in metabox sidebar **/
 #side-sortables .butterbean-manager-default .butterbean-nav li.green a {
 	border-right: none;
