@@ -168,3 +168,24 @@
 		width: calc( 100% - 48px );
 	}
 }
+
+.butterbean-control {
+	box-sizing: content-box;
+	vertical-align: baseline;
+}
+
+.butterbean-control label {
+	padding: 0;
+}
+
+.butterbean-control input.widefat {
+	width: 100%;
+}
+
+.butterbean-control label > * {
+	line-height: 1.4;
+}
+
+.butterbean-control textarea {
+	padding: 2px 6px;
+}
