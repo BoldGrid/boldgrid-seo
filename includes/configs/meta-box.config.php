@@ -2,7 +2,8 @@
 return array(
 	'post_types' => array(
 		'post',
-		'page'
+		'page',
+		'product',
 	),
 	'nonce'      => array(
 		'action'     => 'boldgrid-seo',
@@ -10,7 +11,7 @@ return array(
 	),
 	'manager' => array(
 			'label'     => __( 'Easy SEO', 'bgseo' ),
-			'post_type' => array( 'post', 'page' ),
+			'post_type' => array( 'post', 'page', 'product' ),
 			'context'   => 'normal',
 			'priority'  => 'high',
 	),

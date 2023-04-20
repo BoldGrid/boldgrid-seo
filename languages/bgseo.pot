@@ -248,82 +248,82 @@ msgstr ""
 msgid "a,about,above,after,again,against,all,am,an,and,any,are,aren't,as,at,be,because,been,before,being,below,between,both,but,by,can,can't,cannot,could,couldn't,did,didn't,do,does,doesn't,doing,don't,down,during,each,every,few,for,from,further,had,hadn't,has,hasn't,have,haven't,having,he,he'd,he'll,he's,her,here,here's,hers,herself,him,himself,his,how,how's,i,i'd,i'll,i'm,i've,if,in,into,is,isn't,it,it's,its,itself,let's,me,more,most,mustn't,my,myself,no,nor,not,of,off,on,once,only,or,other,ought,our,ours,ourselves,out,over,own,same,shan't,she,she'd,she'll,she's,should,shouldn't,so,some,such,than,that,that's,the,their,theirs,them,themselves,then,there,there's,these,they,they'd,they'll,they're,they've,this,those,through,to,too,under,until,up,very,was,wasn't,we,we'd,we'll,we're,we've,were,weren't,what,what's,when,when's,where,where's,which,while,who,who's,whom,why,why's,with,won't,would,wouldn't,you,you'd,you'll,you're,you've,your,yours,yourself,yourselves"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:12
+#: includes/configs/meta-box.config.php:13
 msgid "Easy SEO"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:19
+#: includes/configs/meta-box.config.php:20
 msgid "Keyword Phrase"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:23
+#: includes/configs/meta-box.config.php:24
 msgid "Title & Description"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:27
+#: includes/configs/meta-box.config.php:28
 msgid "Search Visibility"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:45
+#: includes/configs/meta-box.config.php:46
 msgid "SEO Title"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:46
+#: includes/configs/meta-box.config.php:47
 msgid "This is very important for search engines.  The SEO Title is what usually shows as the link to your page in a Search Engine Results Page (SERP)."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:57
+#: includes/configs/meta-box.config.php:58
 msgid "SEO Description"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:58
+#: includes/configs/meta-box.config.php:59
 msgid "Typically what will show in a Search Engine Results Page (SERP).  This is important, but secondary to your SEO Title."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:67
+#: includes/configs/meta-box.config.php:68
 msgid "Tell search engines to read and index this page"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:69
+#: includes/configs/meta-box.config.php:70
 msgid "Yes ( index )"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:70
+#: includes/configs/meta-box.config.php:71
 msgid "No ( noindex )"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:72
+#: includes/configs/meta-box.config.php:73
 msgid "Setting this to index means that search engines are encouraged to show your website in their search results."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:77
+#: includes/configs/meta-box.config.php:78
 msgid "Tell search engines to follow links in this page"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:79
+#: includes/configs/meta-box.config.php:80
 msgid "Yes ( follow )"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:80
+#: includes/configs/meta-box.config.php:81
 msgid "No ( nofollow )"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:82
+#: includes/configs/meta-box.config.php:83
 msgid "Having this set to follow means that search engines are able to count and follow where your links go to."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:90
+#: includes/configs/meta-box.config.php:91
 msgid "Tell search engines that another page should be read/indexed in place of this page"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:91
+#: includes/configs/meta-box.config.php:92
 msgid "This is called the canonical URL. We recommend that you leave this field empty, so it will use the default permalink."
 msgstr ""
 
-#: includes/configs/meta-box.config.php:105
+#: includes/configs/meta-box.config.php:106
 msgid "Target Keyword or Phrase"
 msgstr ""
 
-#: includes/configs/meta-box.config.php:106
+#: includes/configs/meta-box.config.php:107
 msgid "This should be what the main focus of this page or post is about."
 msgstr ""
