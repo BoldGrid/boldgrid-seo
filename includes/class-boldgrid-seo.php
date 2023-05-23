@@ -39,6 +39,15 @@ class Boldgrid_Seo {
 	protected $plugin_name;
 
 	/**
+	 * Plugin Prefix
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string $prefix Plugin prefix string
+	 */
+	protected $prefix;
+
+	/**
 	 * The plugins configs.
 	 *
 	 * @since 1.0.0
