@@ -103,6 +103,15 @@ if ( ! class_exists( 'ButterBean' ) ) {
 		public $is_new_post = false;
 
 		/**
+		 * Post Id.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string $post_id Post Id.
+		 */
+		public $post_id;
+
+		/**
 		 * Returns the instance.
 		 *
 		 * @since  1.0.0

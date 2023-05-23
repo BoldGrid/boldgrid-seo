@@ -45,6 +45,14 @@ class Boldgrid_Seo_Admin {
 	protected $configs;
 
 	/**
+	 * An instance of the Boldgrid_Seo_Util class
+	 *
+	 * @since 1.2.1
+	 * @var Boldgrid_Seo_Util
+	 */
+	public $util;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * @since    1.0.0

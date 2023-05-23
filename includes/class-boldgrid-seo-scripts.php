@@ -15,6 +15,15 @@ class Boldgrid_Seo_Scripts {
 
 	protected $configs;
 
+	/**
+	 * An instance of the Boldgrid_Seo_Admin class
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var Boldgrid_Seo_Admin
+	 */
+	public $admin;
+
 	public function __construct( $configs ) {
 		$this->configs = $configs;
 		$this->admin = new Boldgrid_Seo_Admin( $this->configs );

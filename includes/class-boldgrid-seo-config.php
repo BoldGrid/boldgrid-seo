@@ -28,6 +28,14 @@ class Boldgrid_Seo_Config implements Boldgrid_Seo_Config_Interface {
 	protected $configs;
 
 	/**
+	 * An instance of the Boldgrid_Seo_Util class
+	 *
+	 * @since 1.2.1
+	 * @var Boldgrid_Seo_Util
+	 */
+	public $util;
+
+	/**
 	 * Get configs.
 	 */
 	public function get_configs() {

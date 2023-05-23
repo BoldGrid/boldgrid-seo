@@ -1,5 +1,23 @@
 <?php
 class Boldgrid_Seo_Butterbean {
+	/**
+	 * The unique identifier of this plugin.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array $configs Configs array.
+	 */
+	public $configs;
+
+	/**
+	 * An instance of the Boldgrid_Seo_Util class
+	 *
+	 * @since 1.2.1
+	 *
+	 * @var Boldgrid_Seo_Util
+	 */
+	public $util;
+
 	public function __construct( $configs ) {
 		$this->configs = $configs;
 		$this->util = new Boldgrid_Seo_Util();
