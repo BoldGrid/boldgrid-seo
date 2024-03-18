@@ -209,7 +209,10 @@ class Boldgrid_Seo_Admin {
 		// Ouput markup.
 		if ( ! empty( $content ) ) {
 			remove_action( 'wp_head', 'rel_canonical' ); // @since 1.6.3 - Remove core provided canonical markup.
-			printf( $this->settings['meta_fields']['canonical'] . "\n", esc_url( $content ) );
+			printf(
+				'<link rel="canonical" href="%s" />' . "\n",
+				esc_url( $content )
+			);
 		}
 	}
 
@@ -315,7 +318,7 @@ class Boldgrid_Seo_Admin {
 
 		if ( is_archive() ) {
 			$content = apply_filters( "{$this->prefix}/seo/archive_description",
-				strip_tags(
+				wp_strip_all_tags(
 					str_replace(
 						array ( "\r","\n" ),
 						'',
@@ -360,12 +363,22 @@ class Boldgrid_Seo_Admin {
 
 	public function meta_description() {
 		$content = $this->get_meta_description();
-		if ( $content ) : printf( $this->settings['meta_fields']['description'] . "\n", $content ); endif;
+		if ( $content ) :
+			printf(
+				'<meta name="description" content="%s" />' . "\n",
+				esc_attr( $content )
+			);
+		endif;
 	}
 
 	public function meta_og_description() {
 		$content = $this->get_meta_description();
-		if ( $content ) : printf( $this->settings['meta_fields']['og_description'] . "\n", $content ); endif;
+		if ( $content ) :
+			printf(
+				'<meta property="og:description" content="%s" />' . "\n",
+				esc_attr( $content )
+			);
+		endif;
 	}
 
 	/**
@@ -374,9 +387,14 @@ class Boldgrid_Seo_Admin {
 	 * @since	1.0.0
 	 * @return	void
 	 */
-	public function meta_site_name(  ) {
+	public function meta_site_name() {
 		$site_name = get_option( 'blogname' );
-		if ( $site_name ) : printf( $this->settings['meta_fields']['site_name'] . "\n", $site_name ); endif;
+		if ( $site_name ) :
+			printf(
+				'<meta property="og:site_name" name="copyright" content="%s" />' . "\n",
+				esc_attr( $site_name )
+			);
+		endif;
 	}
 
 	/**
@@ -391,7 +409,10 @@ class Boldgrid_Seo_Admin {
 			$content = str_replace( ',', ' |', $content );
 		}
 		if ( $content ) {
-			printf( $this->settings['meta_fields']['title'] . "\n", $content );
+			printf(
+				'<meta property="og:title" content="%s" />' . "\n",
+				esc_attr( $content )
+			);
 		}
 	}
 
@@ -402,7 +423,12 @@ class Boldgrid_Seo_Admin {
 			// Look for a custom canonical url to override the default permalink.
 			$content = $canonical;
 		}
-		if ( ! empty( $content ) ) : printf( $this->settings['meta_fields']['og_url'] . "\n", esc_url( $content ) ); endif;
+		if ( ! empty( $content ) ) :
+			printf(
+				'<meta property="og:url" content="%s" />' . "\n",
+				esc_url( $content )
+			);
+		endif;
 	}
 
 	/**
@@ -411,7 +437,7 @@ class Boldgrid_Seo_Admin {
 	 * @since	1.0.0
 	 * @return	void
 	 */
-	public function meta_og_image(  ) {
+	public function meta_og_image() {
 		$content = '';
 		// Check for feature image and use this as the open graph image.
 		if ( ! empty( $GLOBALS['post']->ID )
@@ -421,7 +447,12 @@ class Boldgrid_Seo_Admin {
 				}
 		}
 
-		if ( $content ) : printf( $this->settings['meta_fields']['image'] . "\n", $content ); endif;
+		if ( $content ) :
+			printf(
+				'<meta property="og:image" content="%s" />' . "\n",
+				esc_url( $content )
+			);
+		endif;
 	}
 
 	/**
@@ -459,7 +490,11 @@ class Boldgrid_Seo_Admin {
 			$index       = ! empty( $post_index ) ? $post_index : $index;
 		}
 
-		printf( $this->settings['meta_fields']['robots'] . "\n", esc_attr( $index ), esc_attr( $follow ) );
+		printf(
+			'<meta name="robots" content="%s,%s" />' . "\n",
+			esc_attr( $index ),
+			esc_attr( $follow )
+		);
 	}
 
 	/**
@@ -469,7 +504,10 @@ class Boldgrid_Seo_Admin {
 	 */
 	public function meta_og_locale() {
 		$locale = get_locale();
-		printf( $this->settings['meta_fields']['locale'] . "\n", $locale );
+		printf(
+			'<meta property="og:locale" content="%s" />' . "\n",
+			esc_attr( $locale )
+		);
 	}
 	/**
 	 * Open graph type.
@@ -485,11 +523,17 @@ class Boldgrid_Seo_Admin {
 			$type = 'website';
 		}
 
-		printf( $this->settings['meta_fields']['og_type'] . "\n", $type );
+		printf(
+			'<meta property="og:type" content="%s" />' . "\n",
+			esc_attr( $type )
+		);
 	}
 
 	public function meta_og_site_name() {
 		$name = get_bloginfo( 'name' );
-		printf( $this->settings['meta_fields']['og_site_name'] . "\n", $name );
+		printf(
+			'<meta property="og:site_name" name="copyright" content="%s" />' . "\n",
+			esc_attr( $name )
+		);
 	}
 }

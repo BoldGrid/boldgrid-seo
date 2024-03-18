@@ -146,9 +146,13 @@ class ButterBean_Setting {
 	 * @return mixed
 	 */
 	public function get_posted_value() {
-
 		$value = '';
 
+		/*
+		 * Note: The nonce for this is verified earlier during the initial
+		 * post_save action here:
+		 * includes/lib/butterbean/inc/class-manager.php#L491
+		 */
 		if ( isset( $_POST[ $this->get_field_name() ] ) )
 			$value = $_POST[ $this->get_field_name() ];
 
