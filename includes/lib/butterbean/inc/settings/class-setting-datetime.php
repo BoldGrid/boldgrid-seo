@@ -39,6 +39,12 @@ class ButterBean_Setting_Datetime extends ButterBean_Setting {
 
 		$field_name = $this->get_field_name();
 
+		/*
+		 * Note: The nonce for this is verified earlier during the initial
+		 * post_save action here:
+		 * includes/lib/butterbean/inc/class-manager.php#L491
+		 */
+
 		// Get the posted date.
 		$year  = ! empty( $_POST[ "{$field_name}_year" ] )  ? zeroise( absint( $_POST[ "{$field_name}_year" ] ),  4 ) : '';
 		$month = ! empty( $_POST[ "{$field_name}_month" ] ) ? zeroise( absint( $_POST[ "{$field_name}_month" ] ), 2 ) : '';
