@@ -316,6 +316,15 @@ class Boldgrid_Seo_Admin {
 	public function get_meta_description() {
 		$content = '';
 
+		/*
+		 * We don't want to include the meta description on password
+		 * protected posts as this would expose some contents of
+		 * the posts without the password
+		 */
+		if ( post_password_required() ) {
+			return $content;
+		}
+
 		if ( is_archive() ) {
 			$content = apply_filters( "{$this->prefix}/seo/archive_description",
 				wp_strip_all_tags(

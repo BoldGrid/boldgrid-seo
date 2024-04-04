@@ -4,7 +4,7 @@
 **Requires at least:** 4.4
 **Tested up to:** 6.5
 **Requires PHP:** 5.3
-**Stable tag:** 1.6.14
+**Stable tag:** 1.6.15
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,12 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 
 ## Changelog ##
+
+### 1.6.15 ###
+
+Release date: April 3rd, 2024
+
+* Bug Fix: Fix reported security vulnerability with password protected posts.
 
 ### 1.6.14 ###
 
