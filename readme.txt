@@ -2,9 +2,9 @@
 Contributors: boldgrid, timph, rramo012, imh_brad, joemoto, jamesros161
 Tags: seo, search engine optimization, content analysis, readability, boldgrid
 Requires at least: 4.4
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 5.3
-Stable tag: 1.6.16
+Stable tag: 1.6.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,12 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 == Changelog ==
 
+= 1.16.17 =
+
+Release Date: TBD
+
+* Bug Fix: WP 6.8 = Function _load_textdomain_just_in_time was called incorrectly [#64](https://github.com/BoldGrid/boldgrid-seo/issues/64)
+
 = 1.6.16 =
 
 Release Date: November 7, 2024
@@ -107,7 +113,7 @@ Release date: May 23rd, 2023
 Release Date: April, 20, 2023
 
 * Bug Fix: Panel links not visible with Crio [#26](https://github.com/BoldGrid/boldgrid-seo/issues/26)
-* Improvement: Add BoldGrid SEO to WooCommerce single product pages [#54](https://github.com/BoldGrid/boldgrid-seo/issues/54) 
+* Improvement: Add BoldGrid SEO to WooCommerce single product pages [#54](https://github.com/BoldGrid/boldgrid-seo/issues/54)
 
 = 1.6.11 =
 

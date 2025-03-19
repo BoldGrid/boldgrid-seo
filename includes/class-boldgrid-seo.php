@@ -67,7 +67,8 @@ class Boldgrid_Seo {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'boldgrid-easy-seo';
-		$this->prefix = 'boldgrid-seo';
+		$this->prefix      = 'boldgrid-seo';
+		$this->disable_jit_notices();
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->boldgrid_seo_config();
@@ -77,6 +78,27 @@ class Boldgrid_Seo {
 		$this->enqueue_scripts();
 		$this->register_meta();
 	}
+
+	/**
+	 * Disable JIT Notices
+	 *
+	 * @since 1.6.17
+	 */
+	public function disable_jit_notices() {
+		add_filter(
+			'doing_it_wrong_trigger_error',
+			function ( $doing_it_wrong, $function_name, $message ) {
+				// if the function is _load_textdomain_just_in_time, return false to prevent the error.
+				if ( '_load_textdomain_just_in_time' === $function_name && false !== strpos( $message, 'bgseo' ) ) {
+					return false;
+				}
+				return $doing_it_wrong;
+			},
+			10,
+			4
+		);
+	}
+
 	/**
 	 * Load the BoldGrid SEO JS and CSS Files.
 	 */
