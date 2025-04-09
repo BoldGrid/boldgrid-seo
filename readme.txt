@@ -80,7 +80,7 @@ The BoldGrid Easy SEO plugin is open source software. Join in on our [GitHub rep
 
 = 1.16.17 =
 
-Release Date: TBD
+Release Date: April 14, 2025
 
 * Bug Fix: WP 6.8 = Function _load_textdomain_just_in_time was called incorrectly [#64](https://github.com/BoldGrid/boldgrid-seo/issues/64)
 
